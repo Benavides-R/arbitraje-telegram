@@ -1,116 +1,109 @@
 # Arbitraje de Ofertas — Republicador Automático de Telegram
 
-Revisa canales públicos de ofertas cada 20 minutos, reescribe el contenido y
-lo republica en tu propio canal (VIP primero, gratis con retraso) y en
-Facebook — sin intervención manual, y sin costo de hosting.
+Revisa canales públicos de ofertas cada 20 minutos, reescribe el contenido
+con IA, y (si activaste revisión manual) te la manda a aprobar antes de
+publicarla en tu canal (VIP primero, gratis con retraso) y en Facebook.
 
 ## Costo: $0
 - GitHub Actions en repo público: minutos gratis en la práctica
-- Telethon (librería) y tu cuenta de Telegram: gratis
-- LLM: la misma API que ya usas
+- Telethon + tu cuenta de Telegram: gratis
+- Groq (LLM gratis, modelo open-source `gpt-oss`) para reescribir el texto
 
-**Nota sobre el diseño**: en vez de un proceso "escuchando" 24/7 (que hoy
-requiere hosting pagado — Render, Railway y Fly.io ya no ofrecen eso gratis
-en 2026), este proyecto revisa los canales por lotes cada 20 minutos usando
-GitHub Actions, igual que el otro proyecto de alertas. La diferencia práctica
-es la inmediatez: en vez de segundos, una oferta tarda hasta 20 min en
-detectarse. A cambio, es completamente gratis y no depende de ningún
-proveedor de hosting.
+## ⚠️ Antes de empezar
 
-## ⚠️ Antes de empezar — puntos importantes
-
-1. **Esto usa tu cuenta personal de Telegram** (no un bot) para poder leer
-   canales que no son tuyos. Únete gradualmente a los canales que sigues, no
-   a muchos de golpe con una cuenta nueva.
-2. **No copies el link de afiliado ajeno.** Si el mensaje original ya trae un
-   link de afiliado de otra persona, este sistema NO lo reutiliza — solo lo
-   publica tal cual mientras tú no tengas afiliado activo en esa tienda (ver
-   `config.py`). Usar el link de otro para quedarte con su comisión es
-   apropiarte de un ingreso ajeno, y varios programas de afiliados lo prohíben.
-3. **El texto se reescribe siempre**, nunca se republica copia idéntica.
+1. **Esto usa tu cuenta personal de Telegram** (no un bot) para leer canales
+   que no son tuyos. Únete gradualmente, no a muchos de golpe.
+2. **No se reutiliza el link de afiliado de nadie más.** Mientras no tengas
+   afiliado activo en una tienda, el link se publica tal cual, sin comisión.
+3. **El texto siempre se reescribe**, nunca se republica copia idéntica.
+4. Un bot puede publicar en **canales o grupos** por igual — en canales debe
+   ser administrador; en grupos normales basta con que sea miembro.
 
 ## Pasos de configuración
 
-### 1. Credenciales de API de Telegram (2 min)
-1. Ve a https://my.telegram.org, inicia sesión con tu número
+### 1. Credenciales de API de Telegram
+1. https://my.telegram.org → inicia sesión con tu número
 2. "API development tools" → crea una app (cualquier nombre)
 3. Te da `API_ID` y `API_HASH` — guárdalos
 
-### 2. Genera tu session string (una sola vez, en TU computador)
+### 2. Session string (una sola vez, en TU computador)
 ```
 pip install telethon
 python generar_sesion.py
 ```
-Pide el API_ID, API_HASH, tu número y el código que llega por Telegram.
-Al final imprime un texto largo — ese es tu `TELEGRAM_SESSION`.
-⚠️ Es sensible, equivale a la clave de tu cuenta: no lo subas a GitHub ni lo
-compartas. Solo va como Secret en el paso 6.
+Al final imprime un texto largo — es tu `TELEGRAM_SESSION`. Sensible, no lo
+subas a GitHub, va solo como Secret (paso 8).
 
-### 3. Completa `config.py`
-- `CANALES_ORIGEN`: los `@username` de los canales públicos que quieres seguir
-- `CANAL_DESTINO_GRATIS` / `CANAL_DESTINO_VIP`: el chat_id de tus propios
-  canales (agrega tu bot como **administrador** del canal, manda un mensaje
-  de prueba, y saca el chat_id visitando
-  `https://api.telegram.org/bot<TU_TOKEN>/getUpdates`)
+### 3. Tu bot de Telegram
+En Telegram, busca **@BotFather** → `/newbot` → ponle nombre → te da el
+**`TELEGRAM_BOT_TOKEN`**. Si ya tienes uno de este proyecto, reutilízalo.
 
-### 4. Sube tu logo
-Coloca un archivo `logo.png` (fondo transparente recomendado) en la misma
-carpeta antes de subir a GitHub. Se superpone automáticamente sobre la foto
-del producto extraída de la tienda.
+### 4. Chat_id de tus canales de destino
+Agrega el bot como **administrador** en tu canal gratis y tu canal VIP.
+Manda un mensaje de prueba en cada uno, luego visita:
+`https://api.telegram.org/bot<TU_TOKEN>/getUpdates`
+Busca `"chat":{"id": -100...}` — ese número (con el `-100`) es el chat_id.
 
-### 5. Configura Facebook (opcional)
-1. https://developers.facebook.com → crea una app tipo "Business"
-2. "Graph API Explorer" → selecciona tu página → pide permisos
-   `pages_manage_posts` y `pages_read_engagement`
-3. Genera un token de página y conviértelo a uno de **larga duración**
-   (el corto expira en 1-2 horas)
-4. Guarda el Page ID y el token — van como Secrets en el paso 6, no en
-   `config.py` directamente
+### 5. Tu chat_id personal (para recibir las ofertas a revisar)
+Abre un chat privado con tu bot, mándale `/start`. Vuelve a visitar la
+misma URL de `getUpdates` — ahí vas a ver otro `"chat":{"id": ...}`, esta
+vez un número normal (sin `-100`, puede que sin signo negativo). Ese es tu
+`ADMIN_CHAT_ID`.
 
-Si no configuras esto, el sistema simplemente no publica en Facebook y sigue
-funcionando normal en Telegram.
+### 6. Completa `config.py`
+- `CANALES_ORIGEN`: los `@username` de los canales públicos que sigues
+  (puedes poner tantos como quieras)
+- `CANAL_DESTINO_GRATIS` / `CANAL_DESTINO_VIP`: chat_id del paso 4
+- `ADMIN_CHAT_ID`: tu chat_id del paso 5
+- `MODO_REVISION`: déjalo en `True` para revisar cada oferta antes de que
+  llegue a tus 70 usuarios; cámbialo a `False` el día que confíes en el
+  sistema y quieras que publique directo
+- `TIENDAS["amazon."]["id_afiliado"]`: tu tracking ID de Amazon Associates
+  en cuanto te registres (puedes ponerlo desde el día 1, no hay que esperar
+  las ventas) y `afiliado_activo` en `True`
 
-### 6. Sube el proyecto a GitHub y configura los Secrets
-1. Crea un repo (puede ser público, igual que el otro proyecto, para
-   aprovechar los minutos gratis de Actions)
-2. Sube todo el contenido de esta carpeta
-3. `Settings > Secrets and variables > Actions > New repository secret`,
-   agrega:
-   - `TELEGRAM_API_ID`
-   - `TELEGRAM_API_HASH`
-   - `TELEGRAM_SESSION`
-   - `TELEGRAM_BOT_TOKEN`
-   - `ANTHROPIC_API_KEY`
-   - `FACEBOOK_PAGE_ID` / `FACEBOOK_PAGE_ACCESS_TOKEN` (si aplica)
+### 7. Tu logo y Facebook (igual que antes)
+`logo.png` en la carpeta del proyecto. Facebook es opcional -- ver sección
+más abajo si quieres activarlo.
 
-### 7. Probar
-Pestaña **Actions > Revisar Canales de Ofertas > Run workflow** — así lo
-corres sin esperar el cron, para confirmar que todo funciona. Revisa los
-logs: `[OFERTA] ... -> publicando en VIP` confirma que detectó y publicó algo;
-`[INFO] canal: sin mensajes nuevos` es normal si no hubo ofertas en esa
-ventana de tiempo.
+### 8. Sube el proyecto a GitHub y configura los Secrets
+`Settings > Secrets and variables > Actions > New repository secret`:
+- `TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_SESSION`, `TELEGRAM_BOT_TOKEN`
+- `GROQ_API_KEY` (ve a https://console.groq.com, crea cuenta gratis, sección
+  "API Keys" → "Create API Key")
+- `FACEBOOK_PAGE_ID` / `FACEBOOK_PAGE_ACCESS_TOKEN` (si aplica)
 
-### 8. Activar comisión cuando te aprueben un afiliado
-Edita `config.py`: cambia `afiliado_activo` a `True` para la tienda
-aprobada y agrega tu ID de afiliado. En `revisar_canales.py`, función
-`generar_link_afiliado()`, conectamos la transformación específica de esa
-tienda cuando llegues a este punto.
+### 9. Probar
+**Actions > Revisar Canales de Ofertas > Run workflow**. Con `MODO_REVISION`
+en `True`, si hay una oferta nueva, te debería llegar un mensaje al chat
+privado con el bot, con foto, texto y dos botones: "✅ Publicar" /
+"❌ Descartar". Al tocar uno, se procesa en la **siguiente** ejecución del
+cron (máximo 20 min después) — no es instantáneo, pero sí automático.
+
+## Configura Facebook (opcional)
+1. https://developers.facebook.com → app tipo "Business"
+2. "Graph API Explorer" → tu página → permisos `pages_manage_posts` y
+   `pages_read_engagement`
+3. Token de página → conviértelo a uno de **larga duración**
+4. Guarda Page ID y token como Secrets (paso 8)
+
+## Cómo funciona la revisión manual, explicado
+1. El cron detecta una oferta candidata, la reescribe, resuelve la imagen
+2. En vez de publicarla, te la manda a TU chat con el bot + 2 botones
+3. Tú tocas "Publicar" o "Descartar" cuando quieras
+4. En la siguiente ejecución del cron (cada 20 min), el sistema revisa si
+   respondiste, y si dijiste que sí, ahí sí publica en tus canales y Facebook
+5. Si nunca respondes, la oferta simplemente queda pendiente sin publicarse
+   — no hay problema, no vence ni genera error
 
 ## Sobre los links "en cascada" (Facebook, sitios propios)
-El sistema intenta resolver el link final en dos pasos: redirect HTTP simple
-primero, y si no llega a una tienda conocida, navegador headless para
-redirects hechos con JavaScript.
+Redirect HTTP simple primero; si no llega a una tienda conocida, navegador
+headless para redirects con JavaScript. **Los links que pasan por Facebook
+son los menos confiables** — Facebook bloquea navegación automatizada
+agresivamente.
 
-**Los links que pasan por Facebook son los menos confiables de resolver** —
-Facebook bloquea navegación automatizada agresivamente. Si notas que un canal
-casi nunca se resuelve, probablemente use Facebook como intermediario;
-prioriza canales que enlazan directo a un sitio propio o a la tienda.
-
-## Limitaciones conocidas
-- El retraso del canal gratis se logra guardando la oferta como "pendiente"
-  y publicándola en una ejecución posterior del cron una vez pasa el tiempo
-  de espera — no es un temporizador exacto al segundo, pero cumple el
-  propósito (VIP siempre primero).
-- Si en algún momento migras a un proceso 24/7 de verdad (por ejemplo si más
-  adelante decides pagar un hosting), este mismo código sirve de base, solo
-  habría que volver al modelo de "escuchar" en vez de "revisar por lotes".
+## Sobre el LLM (Groq)
+Se usa el modelo gratuito `openai/gpt-oss-120b` en Groq por defecto (variable
+`MODELO_GROQ` en `config.py`, por si quieres cambiarlo). Si no configuras
+`GROQ_API_KEY`, el sistema intenta con `ANTHROPIC_API_KEY` como respaldo; si
+ninguna está disponible, publica un texto simple sin reescritura.

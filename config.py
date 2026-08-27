@@ -6,21 +6,39 @@ import os
 
 # Canales PÚBLICOS de los que vas a leer ofertas (usa el @username, sin arroba)
 CANALES_ORIGEN = [
-    "nombre_canal_1",   # reemplaza con los @username reales de los canales que sigues
-    "nombre_canal_2",
+    "Gio_Makers",
+    "Clubgratis",
+    "DescuentosTech",
+    "ElPromoHunter",
 ]
 
 # Tu propio canal de Telegram donde se publica ya reescrito (el bot debe ser admin ahí)
 # Usa el chat_id (número, con el signo -) igual que en el otro proyecto
-CANAL_DESTINO_GRATIS = None  # ej: -1001234567890
-CANAL_DESTINO_VIP = None
+CANAL_DESTINO_GRATIS = -1002533761428  # tu canal actual (70 usuarios)
+CANAL_DESTINO_VIP = None  # aún no tienes uno -- se deja así hasta que crees el canal VIP
+
+# --- Revisión manual antes de publicar ---
+# Si MODO_REVISION es True, cada oferta candidata se te manda primero a TU
+# chat privado con el bot (con botones "Publicar" / "Descartar"), y solo se
+# publica en tus canales si le das "Publicar". Si es False, se publica directo.
+MODO_REVISION = True
+
+# Tu chat_id personal (no el del canal) -- para que el bot te mande las
+# ofertas a revisar. Sácalo así: mándale /start a tu bot en un chat privado,
+# luego visita https://api.telegram.org/bot<TU_TOKEN>/getUpdates y busca
+# "chat":{"id": ...} -- va a ser un número normal, sin el -100 al inicio.
+ADMIN_CHAT_ID = 6100796756
 
 # Dominios de tiendas que reconocemos, y si ya tienes afiliado activo en cada una.
 # Mientras "afiliado_activo" sea False, el link se publica tal cual (sin comisión),
 # apenas te aprueben cambias esto a True y agregas tu ID de afiliado.
 TIENDAS = {
     "aliexpress.com": {"afiliado_activo": False, "id_afiliado": None},
-    "amazon.": {"afiliado_activo": False, "id_afiliado": None},        # cubre amazon.com, amazon.es, etc.
+    # Cuando te registres de nuevo en Amazon Associates, te dan tu "tracking
+    # ID" (algo como "tuusuario-20") de inmediato -- ponlo aquí ya mismo,
+    # no necesitas esperar a las 3 ventas para EMPEZAR a usarlo, solo para
+    # que la cuenta se mantenga activa después de 180 días.
+    "amazon.": {"afiliado_activo": True, "id_afiliado": "benatechs00-20"},
     "temu.com": {"afiliado_activo": False, "id_afiliado": None},
     "shein.com": {"afiliado_activo": False, "id_afiliado": None},
     "mercadolibre.com": {"afiliado_activo": False, "id_afiliado": None},
@@ -42,3 +60,9 @@ FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
 # Dominios que consideramos "destino final válido" al resolver redirects.
 # Si tras seguir todos los saltos no llegamos a uno de estos, se descarta la oferta.
 DOMINIOS_TIENDA_FINAL = list(TIENDAS.keys())
+
+# LLM para reescribir el texto de las ofertas.
+# Usa Groq (gratis) con un modelo open-source si GROQ_API_KEY está configurado.
+# Si prefieres usar la API de Anthropic en su lugar, deja GROQ_API_KEY vacío
+# y configura ANTHROPIC_API_KEY -- el sistema usa el que encuentre disponible.
+MODELO_GROQ = "openai/gpt-oss-120b"
