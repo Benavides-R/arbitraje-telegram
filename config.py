@@ -6,13 +6,13 @@ import os
 
 # Canales PÚBLICOS de los que vas a leer ofertas (usa el @username, sin arroba)
 CANALES_ORIGEN = [
-    "nombre_canal_1",   # reemplaza con los @username reales de los canales que sigues
-    "nombre_canal_2",
+    "DescuentosTech",   # reemplaza con los @username reales de los canales que sigues
+    "Clubgratis",
 ]
 
 # Tu propio canal de Telegram donde se publica ya reescrito (el bot debe ser admin ahí)
 # Usa el chat_id (número, con el signo -) igual que en el otro proyecto
-CANAL_DESTINO_GRATIS = None  # ej: -1001234567890
+CANAL_DESTINO_GRATIS = -1002533761428  # ej: -1001234567890
 CANAL_DESTINO_VIP = None
 
 # Dominios de tiendas que reconocemos, y si ya tienes afiliado activo en cada una.
