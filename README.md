@@ -1,31 +1,37 @@
 # Arbitraje de Ofertas — Republicador Automático de Telegram
 
-Escucha canales públicos de ofertas, reescribe el contenido y lo republica en
-tu propio canal (VIP primero, gratis con retraso), 24/7, sin intervención manual.
+Revisa canales públicos de ofertas cada 20 minutos, reescribe el contenido y
+lo republica en tu propio canal (VIP primero, gratis con retraso) y en
+Facebook — sin intervención manual, y sin costo de hosting.
 
-## Costo: $0 para arrancar
+## Costo: $0
+- GitHub Actions en repo público: minutos gratis en la práctica
 - Telethon (librería) y tu cuenta de Telegram: gratis
-- Hosting 24/7: Render.com plan free (background worker) o Railway free tier
 - LLM: la misma API que ya usas
+
+**Nota sobre el diseño**: en vez de un proceso "escuchando" 24/7 (que hoy
+requiere hosting pagado — Render, Railway y Fly.io ya no ofrecen eso gratis
+en 2026), este proyecto revisa los canales por lotes cada 20 minutos usando
+GitHub Actions, igual que el otro proyecto de alertas. La diferencia práctica
+es la inmediatez: en vez de segundos, una oferta tarda hasta 20 min en
+detectarse. A cambio, es completamente gratis y no depende de ningún
+proveedor de hosting.
 
 ## ⚠️ Antes de empezar — puntos importantes
 
-1. **Esto usa tu cuenta personal de Telegram** (no un bot) para poder "escuchar"
-   canales que no son tuyos. Úsalo con criterio: unirte a decenas de canales de
-   golpe con una cuenta nueva puede verse sospechoso para Telegram. Ve
-   uniéndote gradualmente a los canales que ya sigues.
+1. **Esto usa tu cuenta personal de Telegram** (no un bot) para poder leer
+   canales que no son tuyos. Únete gradualmente a los canales que sigues, no
+   a muchos de golpe con una cuenta nueva.
 2. **No copies el link de afiliado ajeno.** Si el mensaje original ya trae un
    link de afiliado de otra persona, este sistema NO lo reutiliza — solo lo
    publica tal cual mientras tú no tengas afiliado activo en esa tienda (ver
-   `config.py`). Usar el link de otro para quedarte con SU comisión es
-   apropiarte de un ingreso ajeno, y varios programas de afiliados lo prohíben
-   explícitamente.
-3. **El texto se reescribe siempre**, nunca se republica copia idéntica del
-   canal original.
+   `config.py`). Usar el link de otro para quedarte con su comisión es
+   apropiarte de un ingreso ajeno, y varios programas de afiliados lo prohíben.
+3. **El texto se reescribe siempre**, nunca se republica copia idéntica.
 
 ## Pasos de configuración
 
-### 1. Obtén tus credenciales de API de Telegram (2 min)
+### 1. Credenciales de API de Telegram (2 min)
 1. Ve a https://my.telegram.org, inicia sesión con tu número
 2. "API development tools" → crea una app (cualquier nombre)
 3. Te da `API_ID` y `API_HASH` — guárdalos
@@ -35,75 +41,76 @@ tu propio canal (VIP primero, gratis con retraso), 24/7, sin intervención manua
 pip install telethon
 python generar_sesion.py
 ```
-Te pide el API_ID, API_HASH, tu número y el código que llega por Telegram.
-Al final imprime un texto largo — ese es tu `TELEGRAM_SESSION`. Guárdalo,
-es sensible (no lo subas a GitHub, no lo compartas).
+Pide el API_ID, API_HASH, tu número y el código que llega por Telegram.
+Al final imprime un texto largo — ese es tu `TELEGRAM_SESSION`.
+⚠️ Es sensible, equivale a la clave de tu cuenta: no lo subas a GitHub ni lo
+compartas. Solo va como Secret en el paso 6.
 
 ### 3. Completa `config.py`
 - `CANALES_ORIGEN`: los `@username` de los canales públicos que quieres seguir
 - `CANAL_DESTINO_GRATIS` / `CANAL_DESTINO_VIP`: el chat_id de tus propios
-  canales (mismo proceso que en el proyecto anterior: agrega tu bot como
-  admin y saca el chat_id con `getUpdates`)
+  canales (agrega tu bot como **administrador** del canal, manda un mensaje
+  de prueba, y saca el chat_id visitando
+  `https://api.telegram.org/bot<TU_TOKEN>/getUpdates`)
 
-### 5. Sube tu logo
+### 4. Sube tu logo
 Coloca un archivo `logo.png` (fondo transparente recomendado) en la misma
-carpeta del proyecto antes de subir a GitHub. Se superpone automáticamente
-sobre la foto del producto extraída de la tienda.
+carpeta antes de subir a GitHub. Se superpone automáticamente sobre la foto
+del producto extraída de la tienda.
 
-### 6. Configura Facebook (opcional)
-1. Ve a https://developers.facebook.com → crea una app tipo "Business"
-2. En "Graph API Explorer", selecciona tu página de Facebook y pide los
-   permisos `pages_manage_posts` y `pages_read_engagement`
-3. Genera un token de acceso de página, y conviértelo a uno de **larga
-   duración** (el corto expira en 1-2 horas) usando el endpoint de Meta para
-   extender tokens -- si te trabas en este paso, dime y lo resolvemos juntos
-4. Guarda el `Page ID` y el token como `FACEBOOK_PAGE_ID` y
-   `FACEBOOK_PAGE_ACCESS_TOKEN` en `config.py` (o mejor, como variables de
-   entorno en Render, igual que los demás secrets)
+### 5. Configura Facebook (opcional)
+1. https://developers.facebook.com → crea una app tipo "Business"
+2. "Graph API Explorer" → selecciona tu página → pide permisos
+   `pages_manage_posts` y `pages_read_engagement`
+3. Genera un token de página y conviértelo a uno de **larga duración**
+   (el corto expira en 1-2 horas)
+4. Guarda el Page ID y el token — van como Secrets en el paso 6, no en
+   `config.py` directamente
 
 Si no configuras esto, el sistema simplemente no publica en Facebook y sigue
 funcionando normal en Telegram.
 
-### 7. Despliega en Render (gratis, corre 24/7)
-1. Crea cuenta en render.com, conecta tu repo de GitHub con esta carpeta
-2. "New > Background Worker" (no "Web Service" — esto no expone un puerto web)
-3. Build command: `pip install -r requirements.txt && playwright install --with-deps chromium`
-4. Start command: `python listener.py`
-5. En "Environment", agrega estas variables:
+### 6. Sube el proyecto a GitHub y configura los Secrets
+1. Crea un repo (puede ser público, igual que el otro proyecto, para
+   aprovechar los minutos gratis de Actions)
+2. Sube todo el contenido de esta carpeta
+3. `Settings > Secrets and variables > Actions > New repository secret`,
+   agrega:
    - `TELEGRAM_API_ID`
    - `TELEGRAM_API_HASH`
    - `TELEGRAM_SESSION`
-   - `TELEGRAM_BOT_TOKEN` (el mismo bot de BotFather del otro proyecto)
+   - `TELEGRAM_BOT_TOKEN`
    - `ANTHROPIC_API_KEY`
-   - `FACEBOOK_PAGE_ID` / `FACEBOOK_PAGE_ACCESS_TOKEN` (si configuraste Facebook)
+   - `FACEBOOK_PAGE_ID` / `FACEBOOK_PAGE_ACCESS_TOKEN` (si aplica)
 
-El plan free de Render puede "dormir" procesos web por inactividad, pero un
-**Background Worker no recibe tráfico web**, así que no aplica ese sueño de
-la misma forma — igual revisa los límites de horas gratis del plan al
-momento de desplegar, porque cambian con el tiempo.
+### 7. Probar
+Pestaña **Actions > Revisar Canales de Ofertas > Run workflow** — así lo
+corres sin esperar el cron, para confirmar que todo funciona. Revisa los
+logs: `[OFERTA] ... -> publicando en VIP` confirma que detectó y publicó algo;
+`[INFO] canal: sin mensajes nuevos` es normal si no hubo ofertas en esa
+ventana de tiempo.
 
-### 5. Activar comisión cuando te aprueben un afiliado
-Edita `config.py`: cambia `afiliado_activo` a `True` para la tienda que te
-aprobó y agrega tu ID de afiliado. Luego, en `listener.py`, función
-`generar_link_afiliado()`, agregamos la transformación específica de esa
-tienda (cada una tiene su propio formato de link de afiliado).
-
-## Limitación conocida
-El deduplicado de mensajes ya vistos vive en memoria — si el proceso se
-reinicia, técnicamente podría reprocesar el último mensaje si llega justo en
-ese momento. Para un proyecto en marcha y con volumen real, esto se puede
-mejorar guardando el estado en un archivo o base de datos ligera — lo
-dejamos así para no complicar el arranque.
+### 8. Activar comisión cuando te aprueben un afiliado
+Edita `config.py`: cambia `afiliado_activo` a `True` para la tienda
+aprobada y agrega tu ID de afiliado. En `revisar_canales.py`, función
+`generar_link_afiliado()`, conectamos la transformación específica de esa
+tienda cuando llegues a este punto.
 
 ## Sobre los links "en cascada" (Facebook, sitios propios)
-El sistema intenta resolver el link final en dos pasos: primero un redirect
-HTTP simple (rápido, cubre sitios propios con redirect de servidor), y si
-eso no llega a una tienda conocida, abre la página con navegador headless
-para manejar redirects hechos con JavaScript.
+El sistema intenta resolver el link final en dos pasos: redirect HTTP simple
+primero, y si no llega a una tienda conocida, navegador headless para
+redirects hechos con JavaScript.
 
-**Los links que pasan por Facebook son los menos confiables de resolver**:
-Facebook bloquea navegación automatizada de forma agresiva y muchas veces
-exige inicio de sesión para ver el contenido. Si notas que las ofertas de un
-canal en particular casi nunca se resuelven, probablemente sea uno que usa
-Facebook como intermediario -- vale la pena priorizar canales que enlazan
-directo a un sitio propio o directo a la tienda.
+**Los links que pasan por Facebook son los menos confiables de resolver** —
+Facebook bloquea navegación automatizada agresivamente. Si notas que un canal
+casi nunca se resuelve, probablemente use Facebook como intermediario;
+prioriza canales que enlazan directo a un sitio propio o a la tienda.
+
+## Limitaciones conocidas
+- El retraso del canal gratis se logra guardando la oferta como "pendiente"
+  y publicándola en una ejecución posterior del cron una vez pasa el tiempo
+  de espera — no es un temporizador exacto al segundo, pero cumple el
+  propósito (VIP siempre primero).
+- Si en algún momento migras a un proceso 24/7 de verdad (por ejemplo si más
+  adelante decides pagar un hosting), este mismo código sirve de base, solo
+  habría que volver al modelo de "escuchar" en vez de "revisar por lotes".
