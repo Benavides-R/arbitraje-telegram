@@ -2,7 +2,7 @@ name: Revisar Canales de Ofertas
 
 on:
   schedule:
-    - cron: "*/20 * * * *"   # cada 20 minutos
+   - cron: "*/15 * * * *"   # cada 15 minutos
   workflow_dispatch:          # permite ejecutarlo manualmente desde GitHub
 
 jobs:
