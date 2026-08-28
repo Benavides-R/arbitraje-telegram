@@ -6,8 +6,8 @@ import os
 
 # Canales PÚBLICOS de los que vas a leer ofertas (usa el @username, sin arroba)
 CANALES_ORIGEN = [
-    "Clubgratis",
     "ElPromoHunter",
+    "Clubgratis",
     "cajitatech",       # a prueba
     "ReviuDescuentos",  # a prueba
     # "Gio_Makers" -- quitado: falló en las 2 corridas (antes y después del
