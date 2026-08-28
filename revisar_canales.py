@@ -36,7 +36,7 @@ from config import (
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
-from aprobaciones import enviar_para_revision, revisar_respuestas
+from aprobaciones import enviar_para_revision, revisar_actividad_admin
 
 API_ID = os.environ["TELEGRAM_API_ID"]
 API_HASH = os.environ["TELEGRAM_API_HASH"]
@@ -235,22 +235,27 @@ def reescribir_texto(texto_original, link):
 def publicar(chat_id, texto, imagen_bytes=None):
     if not chat_id:
         return
-    if imagen_bytes:
-        imagen_bytes.seek(0)
-        url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
-        files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
-        data = {"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"}
-        requests.post(url, data=data, files=files, timeout=30)
-    else:
-        url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-        requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+    try:
+        if imagen_bytes:
+            imagen_bytes.seek(0)
+            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
+            files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
+            data = {"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"}
+            requests.post(url, data=data, files=files, timeout=30)
+        else:
+            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+            requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+    except Exception as e:
+        print(f"[WARN] No se pudo publicar en Telegram (chat {chat_id}): {e}")
 
 
-def publicar_oferta_completa(texto_nuevo, url_imagen):
-    """Publica de verdad: prepara la imagen con logo, publica VIP+Facebook ya,
-    y programa el canal gratis con retraso. Usada tanto en modo directo como
+def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None):
+    """Publica de verdad: prepara la imagen con logo (o usa la que ya viene
+    lista, ej. una foto que subiste tú a mano), publica VIP+Facebook ya, y
+    programa el canal gratis con retraso. Usada tanto en modo directo como
     después de una aprobación manual."""
-    imagen_bytes = preparar_imagen_con_logo(url_imagen) if url_imagen else None
+    if imagen_bytes is None and url_imagen:
+        imagen_bytes = preparar_imagen_con_logo(url_imagen)
 
     publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
     publicar_facebook(texto_nuevo, imagen_bytes)
@@ -323,8 +328,8 @@ def procesar_mensaje(oferta_id, texto):
 
 
 def main():
-    # 1. Revisa si el admin aprobó/descartó ofertas pendientes de antes
-    revisar_respuestas(publicar_oferta_completa)
+    # 1. Revisa si el admin aprobó/descartó ofertas, o mandó una foto propia
+    revisar_actividad_admin(publicar_oferta_completa)
 
     # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
     estado = cargar_estado()
