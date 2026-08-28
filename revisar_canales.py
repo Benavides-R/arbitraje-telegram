@@ -24,6 +24,7 @@ import re
 import json
 import time
 import html
+from datetime import datetime, timezone, timedelta
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 import requests
 from pathlib import Path
@@ -32,11 +33,11 @@ from telethon.sessions import StringSession
 
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
-    MODO_REVISION, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
+    MODO_REVISION, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA, MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
-from aprobaciones import enviar_para_revision, revisar_respuestas
+from aprobaciones import enviar_para_revision, revisar_actividad_admin
 
 API_ID = os.environ["TELEGRAM_API_ID"]
 API_HASH = os.environ["TELEGRAM_API_HASH"]
@@ -182,26 +183,48 @@ def extraer_cupon(texto_original):
     return candidato
 
 
-def _parsear_titulo_descripcion(resultado, link):
-    m_titulo = re.search(r"TITULO:\s*(.+)", resultado)
-    m_desc = re.search(r"DESCRIPCION:\s*(.+)", resultado, re.DOTALL)
-    titulo = m_titulo.group(1).strip() if m_titulo else None
-    descripcion = m_desc.group(1).strip() if m_desc else resultado.strip()
-    return titulo, descripcion
+def extraer_precio(texto_original, link):
+    """
+    Busca el primer valor de precio ($XX.XX o similar) en el mensaje original,
+    y le agrega la etiqueta de moneda según el dominio de la tienda (no se
+    adivina por formato del número, que es ambiguo entre USD y COP).
+    """
+    match = re.search(r"\$\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
+    if not match:
+        return None
+
+    precio = match.group(0).strip()
+    netloc = urlsplit(link).netloc
+
+    if netloc.endswith("amazon.com"):
+        return f"{precio} USD"
+    if netloc.endswith("amazon.com.mx"):
+        return f"{precio} MXN"
+    if netloc.endswith("amazon.co.jp"):
+        return f"{precio} JPY"
+    # Otros dominios (o cuando el canal ya vende en pesos colombianos):
+    # se deja el símbolo tal cual, sin adivinar la moneda.
+    return precio
 
 
-def reescribir_texto(texto_original, link):
-    """
-    Genera el contenido final de la oferta: título corto + descripción
-    (vía IA), más el cupón (extraído directo del texto original, sin IA,
-    para que sea confiable) y el link -- todo en un formato fijo.
-    """
+def extraer_calificacion(texto_original):
+    """Busca un patrón tipo '4.5 (3.962)' -- calificación + número de reseñas."""
+    match = re.search(r"(\d(?:[.,]\d)?)\s*\(([\d.,]+)\)", texto_original)
+    if match:
+        return f"{match.group(1)} ({match.group(2)})"
+    return None
+
+
+def _extraer_titulo(texto_original):
+    """Le pide a la IA SOLO el nombre corto del producto (más liviano y
+    rápido que pedir una descripción completa, y menos propenso al límite
+    de peticiones de Groq)."""
     prompt = (
-        "A partir de este mensaje de oferta de Telegram, responde EXACTAMENTE "
-        "en este formato, sin nada más antes ni después:\n"
-        "TITULO: <nombre corto del producto, máximo 8 palabras>\n"
-        "DESCRIPCION: <1-2 líneas atractivas en español describiendo la oferta, "
-        "con tus propias palabras, sin copiar frases textuales del original>\n\n"
+        "Extrae el nombre del producto de este mensaje de oferta de Telegram, "
+        "en español, máximo 14 palabras. Incluye marca, modelo y la "
+        "característica principal si el mensaje la menciona (ej. capacidad, "
+        "tamaño, color) -- sin comillas ni texto adicional, responde "
+        "ÚNICAMENTE con el nombre del producto.\n\n"
         f"Mensaje original:\n{texto_original}"
     )
     resultado = None
@@ -210,47 +233,62 @@ def reescribir_texto(texto_original, link):
         time.sleep(2)  # respiro entre llamadas para no pegarle al límite por minuto
     if not resultado and ANTHROPIC_API_KEY:
         resultado = _llamar_anthropic(prompt)
+    if resultado:
+        resultado = resultado.strip().strip('"').strip("'").split("\n")[0]
+    return resultado
 
+
+def reescribir_texto(texto_original, link):
+    """
+    Arma el mensaje final con campos fijos: producto, calificación (si se
+    detecta), precio (si se detecta), cupón (o "no necesita"), link, y aviso
+    de vigencia -- igual al formato que usan varios canales de ofertas.
+    Calificación y precio se extraen del texto original con reglas simples
+    (no con IA), para no inventar datos que no estaban ahí.
+    """
+    titulo = _extraer_titulo(texto_original)
+    precio = extraer_precio(texto_original, link)
+    calificacion = extraer_calificacion(texto_original)
     cupon = extraer_cupon(texto_original)
 
-    if resultado:
-        titulo, descripcion = _parsear_titulo_descripcion(resultado, link)
-    else:
-        titulo, descripcion = None, "Nueva oferta encontrada"
+    lineas = [f"📦 <b>Producto:</b> {html.escape(titulo) if titulo else 'Oferta encontrada'}", ""]
+    if calificacion:
+        lineas.append(f"⭐️ Calificación: {html.escape(calificacion)}")
+    if precio:
+        lineas.append(f"💸 Precio: {html.escape(precio)}")
+    lineas.append(f"🏷️ Cupón: {html.escape(cupon) if cupon else '¡No necesita!'}")
+    lineas.append(f"🔗 Ir a la tienda: {link}")
+    lineas.append("")
+    lineas.append("⚠️ La oferta puede expirar en cualquier momento.")
+    lineas.append("#ad")
 
-    titulo_seguro = html.escape(titulo) if titulo else None
-    descripcion_segura = html.escape(descripcion)
-
-    partes = []
-    if titulo_seguro:
-        partes.append(f"🔥 <b>{titulo_seguro}</b>")
-    partes.append(descripcion_segura)
-    if cupon:
-        partes.append(f"🏷️ <b>Cupón:</b> <code>{html.escape(cupon)}</code>")
-    partes.append(f"🔗 {link}")
-
-    return "\n\n".join(partes)
+    return "\n".join(lineas)
 
 
 def publicar(chat_id, texto, imagen_bytes=None):
     if not chat_id:
         return
-    if imagen_bytes:
-        imagen_bytes.seek(0)
-        url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
-        files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
-        data = {"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"}
-        requests.post(url, data=data, files=files, timeout=30)
-    else:
-        url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-        requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+    try:
+        if imagen_bytes:
+            imagen_bytes.seek(0)
+            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
+            files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
+            data = {"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"}
+            requests.post(url, data=data, files=files, timeout=30)
+        else:
+            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+            requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+    except Exception as e:
+        print(f"[WARN] No se pudo publicar en Telegram (chat {chat_id}): {e}")
 
 
-def publicar_oferta_completa(texto_nuevo, url_imagen):
-    """Publica de verdad: prepara la imagen con logo, publica VIP+Facebook ya,
-    y programa el canal gratis con retraso. Usada tanto en modo directo como
+def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None):
+    """Publica de verdad: prepara la imagen con logo (o usa la que ya viene
+    lista, ej. una foto que subiste tú a mano), publica VIP+Facebook ya, y
+    programa el canal gratis con retraso. Usada tanto en modo directo como
     después de una aprobación manual."""
-    imagen_bytes = preparar_imagen_con_logo(url_imagen) if url_imagen else None
+    if imagen_bytes is None and url_imagen:
+        imagen_bytes = preparar_imagen_con_logo(url_imagen)
 
     publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
     publicar_facebook(texto_nuevo, imagen_bytes)
@@ -323,12 +361,17 @@ def procesar_mensaje(oferta_id, texto):
 
 
 def main():
-    # 1. Revisa si el admin aprobó/descartó ofertas pendientes de antes
-    revisar_respuestas(publicar_oferta_completa)
+    # 1. Revisa si el admin aprobó/descartó ofertas, o mandó una foto propia
+    revisar_actividad_admin(publicar_oferta_completa)
 
     # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
+    # Se reparte el tope EN PARTES IGUALES entre canales (en vez de dejar que
+    # el primer canal con mensajes se coma todo el cupo) -- así ningún canal
+    # acapara la corrida y todos avanzan cada vez, aunque uno publique mucho
+    # más seguido que los otros.
     estado = cargar_estado()
     ofertas_procesadas = 0
+    tope_por_canal = max(1, MAX_OFERTAS_POR_CORRIDA // len(CANALES_ORIGEN))
 
     with TelegramClient(StringSession(SESSION), API_ID, API_HASH) as client:
         for canal in CANALES_ORIGEN:
@@ -344,14 +387,27 @@ def main():
                 print(f"[INFO] {canal}: sin mensajes nuevos")
                 continue
 
+            ofertas_de_este_canal = 0
             ultimo_evaluado = ultimo_id
             for msg in reversed(mensajes_nuevos):  # orden cronológico
                 if ofertas_procesadas >= MAX_OFERTAS_POR_CORRIDA:
                     break
+                if ofertas_de_este_canal >= tope_por_canal:
+                    print(f"[INFO] {canal}: alcanzó su cuota de esta corrida "
+                          f"({tope_por_canal}), sigue en la próxima")
+                    break
+                antiguedad = datetime.now(timezone.utc) - msg.date
+                if antiguedad > timedelta(hours=MAX_ANTIGUEDAD_OFERTA_HORAS):
+                    print(f"[SKIP] Mensaje {canal}:{msg.id} tiene "
+                          f"{antiguedad.total_seconds() / 3600:.1f}h, "
+                          f"posible oferta ya expirada, se descarta")
+                    ultimo_evaluado = msg.id
+                    continue
                 if msg.raw_text:
                     oferta_id = f"{canal}:{msg.id}"
                     if procesar_mensaje(oferta_id, msg.raw_text):
                         ofertas_procesadas += 1
+                        ofertas_de_este_canal += 1
                 ultimo_evaluado = msg.id
 
             estado[canal] = ultimo_evaluado

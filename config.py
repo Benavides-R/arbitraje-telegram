@@ -6,10 +6,10 @@ import os
 
 # Canales PÚBLICOS de los que vas a leer ofertas (usa el @username, sin arroba)
 CANALES_ORIGEN = [
-    "Clubgratis",
-    "ElPromoHunter",
-    "cajitatech",       # a prueba
-    "ReviuDescuentos",  # a prueba
+    "cajitatech",
+    "ReviuDescuentos",
+    "ElPromoHunter",       # a prueba
+    "Clubgratis",  # a prueba
     # "Gio_Makers" -- quitado: falló en las 2 corridas (antes y después del
     # arreglo de Playwright), sus links de btz.es no se resuelven bien.
     # "DescuentosTech" -- quitado: usa Facebook como intermediario, 0 éxitos.
@@ -68,10 +68,16 @@ DOMINIOS_TIENDA_FINAL = list(TIENDAS.keys())
 # Usa Groq (gratis) con un modelo open-source si GROQ_API_KEY está configurado.
 # Si prefieres usar la API de Anthropic en su lugar, deja GROQ_API_KEY vacío
 # y configura ANTHROPIC_API_KEY -- el sistema usa el que encuentre disponible.
-MODELO_GROQ = "openai/gpt-oss-120b"
+MODELO_GROQ = "openai/gpt-oss-20b"
 
 # Tope de ofertas procesadas por corrida del cron, para no saturarte el chat
 # de revisión de golpe (por ejemplo, la primera vez que arranca, o si un
 # canal publica muchísimo de una sola vez). Lo que no alcanza a procesar en
 # una corrida, se retoma automáticamente en la siguiente -- no se pierde.
 MAX_OFERTAS_POR_CORRIDA = 12
+
+# Si un mensaje del canal origen ya es más viejo que esto, se descarta sin
+# procesar -- evita mandar a revisión (o publicar) ofertas relámpago que ya
+# expiraron, por ejemplo si el bot se atrasó y apenas ahora le toca revisar
+# mensajes de hace rato.
+MAX_ANTIGUEDAD_OFERTA_HORAS = 6

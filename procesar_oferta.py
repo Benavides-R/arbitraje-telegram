@@ -127,29 +127,39 @@ def extraer_imagen_producto(url_tienda):
         return None
 
 
-def preparar_imagen_con_logo(url_imagen_producto):
+def aplicar_logo_a_bytes(imagen_bytes_original):
     """
-    Descarga la imagen del producto, le superpone tu logo en la esquina
-    inferior derecha, y devuelve los bytes de la imagen final en memoria
-    (no se guarda en disco, para no acumular archivos en el hosting).
+    Toma los bytes de una imagen (ya descargada, ej. la que tú subes a mano)
+    y le superpone tu logo en la esquina inferior derecha.
     """
     try:
-        img_resp = requests.get(url_imagen_producto, headers=HEADERS, timeout=15)
-        producto = Image.open(io.BytesIO(img_resp.content)).convert("RGBA")
+        producto = Image.open(io.BytesIO(imagen_bytes_original)).convert("RGBA")
 
         logo = Image.open(LOGO_PATH).convert("RGBA")
-        # Redimensiona el logo a ~15% del ancho de la imagen del producto
         ancho_logo = int(producto.width * 0.15)
         alto_logo = int(logo.height * (ancho_logo / logo.width))
         logo = logo.resize((ancho_logo, alto_logo))
 
         posicion = (producto.width - ancho_logo - 15, producto.height - alto_logo - 15)
-        producto.paste(logo, posicion, logo)  # usa el canal alfa del logo como máscara
+        producto.paste(logo, posicion, logo)
 
         buffer = io.BytesIO()
         producto.convert("RGB").save(buffer, format="JPEG", quality=90)
         buffer.seek(0)
         return buffer
     except Exception as e:
-        print(f"[WARN] No se pudo preparar imagen con logo: {e}")
+        print(f"[WARN] No se pudo aplicar el logo a la imagen: {e}")
+        return None
+
+
+def preparar_imagen_con_logo(url_imagen_producto):
+    """
+    Descarga la imagen del producto desde una URL y le superpone tu logo
+    (versión automática, para las imágenes que el sistema extrae solo).
+    """
+    try:
+        img_resp = requests.get(url_imagen_producto, headers=HEADERS, timeout=15)
+        return aplicar_logo_a_bytes(img_resp.content)
+    except Exception as e:
+        print(f"[WARN] No se pudo descargar la imagen del producto: {e}")
         return None
