@@ -13,6 +13,7 @@ import requests
 from pathlib import Path
 
 from config import ADMIN_CHAT_ID
+from procesar_oferta import preparar_imagen_con_logo
 
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
@@ -61,19 +62,23 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
         ]]
     }
 
-    encabezado = "🕵️ Oferta pendiente de revisión:\n\n"
-    if url_imagen:
+    encabezado = "🕵️ <b>Oferta pendiente de revisión</b>\n\n"
+    imagen_bytes = preparar_imagen_con_logo(url_imagen) if url_imagen else None
+
+    if imagen_bytes:
+        imagen_bytes.seek(0)
         requests.post(f"{API}/sendPhoto", data={
             "chat_id": ADMIN_CHAT_ID,
-            "photo": url_imagen,
             "caption": encabezado + texto,
             "reply_markup": json.dumps(teclado),
-        }, timeout=20)
+            "parse_mode": "HTML",
+        }, files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=30)
     else:
         requests.post(f"{API}/sendMessage", data={
             "chat_id": ADMIN_CHAT_ID,
             "text": encabezado + texto,
             "reply_markup": json.dumps(teclado),
+            "parse_mode": "HTML",
         }, timeout=20)
 
 

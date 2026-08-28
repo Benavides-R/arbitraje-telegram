@@ -72,10 +72,15 @@ def resolver_link_final(url):
 
 def extraer_imagen_producto(url_tienda):
     """
-    Extrae la URL de la foto oficial del producto (meta tag og:image).
+    Extrae la URL de la foto oficial del producto (meta tag og:image, o
+    directamente la imagen principal del producto si el meta tag no está).
     Primero intenta con un request simple (rápido). Amazon en particular
     suele bloquear ese request simple (lo detecta como bot) -- en ese caso
-    reintenta con navegador headless, que simula mejor a un usuario real.
+    reintenta con navegador headless con más señales de "navegador real".
+    Nota: Amazon bloquea agresivamente los IPs de servidores en la nube
+    (incluido GitHub Actions), así que esto puede seguir fallando para
+    varios productos incluso con este intento -- es una limitación conocida
+    del scraping gratuito, no un bug puntual.
     """
     try:
         resp = requests.get(url_tienda, headers=HEADERS, timeout=15)
@@ -89,13 +94,31 @@ def extraer_imagen_producto(url_tienda):
         from playwright.sync_api import sync_playwright
 
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page(extra_http_headers=HEADERS)
-            page.goto(url_tienda, timeout=30000, wait_until="domcontentloaded")
-            page.wait_for_timeout(1500)
+            browser = p.chromium.launch(
+                headless=True,
+                args=["--disable-blink-features=AutomationControlled"],
+            )
+            page = browser.new_page(
+                extra_http_headers=HEADERS,
+                viewport={"width": 1366, "height": 900},
+                locale="es-US",
+            )
+            page.goto(url_tienda, timeout=30000, wait_until="load")
+            page.wait_for_timeout(2500)
 
+            contenido = None
             elemento = page.query_selector('meta[property="og:image"]')
-            contenido = elemento.get_attribute("content") if elemento else None
+            if elemento:
+                contenido = elemento.get_attribute("content")
+
+            if not contenido:
+                # Respaldo: la imagen principal del producto en la página de Amazon
+                for selector in ["#landingImage", "#imgBlkFront", ".a-dynamic-image"]:
+                    img = page.query_selector(selector)
+                    if img:
+                        contenido = img.get_attribute("src")
+                        if contenido:
+                            break
 
             browser.close()
             return contenido

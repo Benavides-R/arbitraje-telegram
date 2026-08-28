@@ -6,12 +6,13 @@ import os
 
 # Canales PÚBLICOS de los que vas a leer ofertas (usa el @username, sin arroba)
 CANALES_ORIGEN = [
-    "Gio_Makers",
     "Clubgratis",
     "ElPromoHunter",
-    # "DescuentosTech" -- quitado: en la primera corrida no resolvió ninguna
-    # oferta (usa Facebook como intermediario, el caso menos confiable). Si
-    # quieres reactivarlo, descomenta esta línea.
+    "cajitatech",       # a prueba
+    "ReviuDescuentos",  # a prueba
+    # "Gio_Makers" -- quitado: falló en las 2 corridas (antes y después del
+    # arreglo de Playwright), sus links de btz.es no se resuelven bien.
+    # "DescuentosTech" -- quitado: usa Facebook como intermediario, 0 éxitos.
 ]
 
 # Tu propio canal de Telegram donde se publica ya reescrito (el bot debe ser admin ahí)

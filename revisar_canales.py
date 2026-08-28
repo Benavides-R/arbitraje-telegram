@@ -23,6 +23,7 @@ import os
 import re
 import json
 import time
+import html
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 import requests
 from pathlib import Path
@@ -59,6 +60,29 @@ def guardar_estado(estado):
     ESTADO_FILE.write_text(json.dumps(estado, indent=2, ensure_ascii=False))
 
 
+def limpiar_link_tienda(link, dominio):
+    """
+    Quita todo el 'ruido' de tracking que traía el link original (del canal
+    de origen) y deja solo lo esencial: dominio + identificador de producto.
+    Devuelve None si el link no es un producto válido (ej. página de error).
+    """
+    if dominio == "amazon.":
+        if "/errors/" in link or "/error/" in link:
+            return None  # el canal original ya traía un link roto
+
+        match = re.search(r"/(?:dp|gp/product)/([A-Z0-9]{10})", link, re.IGNORECASE)
+        if not match:
+            return None  # no se encontró un código de producto (ASIN) válido
+
+        asin = match.group(1).upper()
+        netloc = urlsplit(link).netloc
+        return f"https://{netloc}/dp/{asin}"
+
+    # Otras tiendas: por ahora se dejan tal cual (se puede limpiar cada una
+    # cuando conectemos su afiliado específico).
+    return link
+
+
 def detectar_dominio_tienda(link):
     for dominio in TIENDAS:
         if dominio in link:
@@ -90,7 +114,7 @@ def generar_link_afiliado(link, dominio):
     return link
 
 
-def _llamar_groq(prompt, reintentos=1):
+def _llamar_groq(prompt, reintentos=2):
     try:
         response = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",
@@ -103,8 +127,8 @@ def _llamar_groq(prompt, reintentos=1):
             timeout=30,
         )
         if response.status_code == 429 and reintentos > 0:
-            # Límite de peticiones por minuto de Groq -- espera y reintenta una vez
-            espera = int(response.headers.get("retry-after", 8))
+            # Límite de peticiones por minuto de Groq -- espera y reintenta
+            espera = max(int(response.headers.get("retry-after", 12)), 12)
             print(f"[INFO] Groq con rate limit, esperando {espera}s antes de reintentar")
             time.sleep(espera)
             return _llamar_groq(prompt, reintentos=reintentos - 1)
@@ -194,12 +218,15 @@ def reescribir_texto(texto_original, link):
     else:
         titulo, descripcion = None, "Nueva oferta encontrada"
 
+    titulo_seguro = html.escape(titulo) if titulo else None
+    descripcion_segura = html.escape(descripcion)
+
     partes = []
-    if titulo:
-        partes.append(f"🔥 {titulo}")
-    partes.append(descripcion)
+    if titulo_seguro:
+        partes.append(f"🔥 <b>{titulo_seguro}</b>")
+    partes.append(descripcion_segura)
     if cupon:
-        partes.append(f"🏷️ Cupón: {cupon}")
+        partes.append(f"🏷️ <b>Cupón:</b> <code>{html.escape(cupon)}</code>")
     partes.append(f"🔗 {link}")
 
     return "\n\n".join(partes)
@@ -212,11 +239,11 @@ def publicar(chat_id, texto, imagen_bytes=None):
         imagen_bytes.seek(0)
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
         files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
-        data = {"chat_id": chat_id, "caption": texto}
+        data = {"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"}
         requests.post(url, data=data, files=files, timeout=30)
     else:
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-        requests.post(url, json={"chat_id": chat_id, "text": texto}, timeout=15)
+        requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
 
 
 def publicar_oferta_completa(texto_nuevo, url_imagen):
@@ -277,7 +304,12 @@ def procesar_mensaje(oferta_id, texto):
         print("[SKIP] No se pudo resolver un link de tienda válido")
         return
 
-    link_con_afiliado = generar_link_afiliado(link_final, dominio)
+    link_limpio = limpiar_link_tienda(link_final, dominio)
+    if not link_limpio:
+        print(f"[SKIP] Link de {dominio} inválido o roto, se descarta")
+        return
+
+    link_con_afiliado = generar_link_afiliado(link_limpio, dominio)
     texto_nuevo = reescribir_texto(texto, link_con_afiliado)
     url_imagen = extraer_imagen_producto(link_con_afiliado)
 
