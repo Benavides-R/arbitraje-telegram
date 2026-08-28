@@ -183,28 +183,10 @@ def extraer_cupon(texto_original):
     return candidato
 
 
-def extraer_precio(texto_original, link):
-    """
-    Busca el primer valor de precio ($XX.XX o similar) en el mensaje original,
-    y le agrega la etiqueta de moneda según el dominio de la tienda (no se
-    adivina por formato del número, que es ambiguo entre USD y COP).
-    """
+def extraer_precio(texto_original):
+    """Busca el primer valor de precio ($XX.XX o similar) en el mensaje original."""
     match = re.search(r"\$\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
-    if not match:
-        return None
-
-    precio = match.group(0).strip()
-    netloc = urlsplit(link).netloc
-
-    if netloc.endswith("amazon.com"):
-        return f"{precio} USD"
-    if netloc.endswith("amazon.com.mx"):
-        return f"{precio} MXN"
-    if netloc.endswith("amazon.co.jp"):
-        return f"{precio} JPY"
-    # Otros dominios (o cuando el canal ya vende en pesos colombianos):
-    # se deja el símbolo tal cual, sin adivinar la moneda.
-    return precio
+    return match.group(0).strip() if match else None
 
 
 def extraer_calificacion(texto_original):
@@ -247,7 +229,7 @@ def reescribir_texto(texto_original, link):
     (no con IA), para no inventar datos que no estaban ahí.
     """
     titulo = _extraer_titulo(texto_original)
-    precio = extraer_precio(texto_original, link)
+    precio = extraer_precio(texto_original)
     calificacion = extraer_calificacion(texto_original)
     cupon = extraer_cupon(texto_original)
 
