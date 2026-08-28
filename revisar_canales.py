@@ -344,8 +344,13 @@ def main():
     revisar_actividad_admin(publicar_oferta_completa)
 
     # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
+    # Se reparte el tope EN PARTES IGUALES entre canales (en vez de dejar que
+    # el primer canal con mensajes se coma todo el cupo) -- así ningún canal
+    # acapara la corrida y todos avanzan cada vez, aunque uno publique mucho
+    # más seguido que los otros.
     estado = cargar_estado()
     ofertas_procesadas = 0
+    tope_por_canal = max(1, MAX_OFERTAS_POR_CORRIDA // len(CANALES_ORIGEN))
 
     with TelegramClient(StringSession(SESSION), API_ID, API_HASH) as client:
         for canal in CANALES_ORIGEN:
@@ -361,14 +366,20 @@ def main():
                 print(f"[INFO] {canal}: sin mensajes nuevos")
                 continue
 
+            ofertas_de_este_canal = 0
             ultimo_evaluado = ultimo_id
             for msg in reversed(mensajes_nuevos):  # orden cronológico
                 if ofertas_procesadas >= MAX_OFERTAS_POR_CORRIDA:
+                    break
+                if ofertas_de_este_canal >= tope_por_canal:
+                    print(f"[INFO] {canal}: alcanzó su cuota de esta corrida "
+                          f"({tope_por_canal}), sigue en la próxima")
                     break
                 if msg.raw_text:
                     oferta_id = f"{canal}:{msg.id}"
                     if procesar_mensaje(oferta_id, msg.raw_text):
                         ofertas_procesadas += 1
+                        ofertas_de_este_canal += 1
                 ultimo_evaluado = msg.id
 
             estado[canal] = ultimo_evaluado
