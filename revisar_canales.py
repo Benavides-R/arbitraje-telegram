@@ -182,26 +182,28 @@ def extraer_cupon(texto_original):
     return candidato
 
 
-def _parsear_titulo_descripcion(resultado, link):
-    m_titulo = re.search(r"TITULO:\s*(.+)", resultado)
-    m_desc = re.search(r"DESCRIPCION:\s*(.+)", resultado, re.DOTALL)
-    titulo = m_titulo.group(1).strip() if m_titulo else None
-    descripcion = m_desc.group(1).strip() if m_desc else resultado.strip()
-    return titulo, descripcion
+def extraer_precio(texto_original):
+    """Busca el primer valor de precio ($XX.XX o similar) en el mensaje original."""
+    match = re.search(r"\$\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
+    return match.group(0).strip() if match else None
 
 
-def reescribir_texto(texto_original, link):
-    """
-    Genera el contenido final de la oferta: título corto + descripción
-    (vía IA), más el cupón (extraído directo del texto original, sin IA,
-    para que sea confiable) y el link -- todo en un formato fijo.
-    """
+def extraer_calificacion(texto_original):
+    """Busca un patrón tipo '4.5 (3.962)' -- calificación + número de reseñas."""
+    match = re.search(r"(\d(?:[.,]\d)?)\s*\(([\d.,]+)\)", texto_original)
+    if match:
+        return f"{match.group(1)} ({match.group(2)})"
+    return None
+
+
+def _extraer_titulo(texto_original):
+    """Le pide a la IA SOLO el nombre corto del producto (más liviano y
+    rápido que pedir una descripción completa, y menos propenso al límite
+    de peticiones de Groq)."""
     prompt = (
-        "A partir de este mensaje de oferta de Telegram, responde EXACTAMENTE "
-        "en este formato, sin nada más antes ni después:\n"
-        "TITULO: <nombre corto del producto, máximo 8 palabras>\n"
-        "DESCRIPCION: <1-2 líneas atractivas en español describiendo la oferta, "
-        "con tus propias palabras, sin copiar frases textuales del original>\n\n"
+        "Extrae SOLO el nombre corto del producto de este mensaje de oferta "
+        "de Telegram, máximo 8 palabras, en español, sin comillas ni texto "
+        "adicional -- responde ÚNICAMENTE con el nombre del producto.\n\n"
         f"Mensaje original:\n{texto_original}"
     )
     resultado = None
@@ -210,26 +212,36 @@ def reescribir_texto(texto_original, link):
         time.sleep(2)  # respiro entre llamadas para no pegarle al límite por minuto
     if not resultado and ANTHROPIC_API_KEY:
         resultado = _llamar_anthropic(prompt)
+    if resultado:
+        resultado = resultado.strip().strip('"').strip("'").split("\n")[0]
+    return resultado
 
+
+def reescribir_texto(texto_original, link):
+    """
+    Arma el mensaje final con campos fijos: producto, calificación (si se
+    detecta), precio (si se detecta), cupón (o "no necesita"), link, y aviso
+    de vigencia -- igual al formato que usan varios canales de ofertas.
+    Calificación y precio se extraen del texto original con reglas simples
+    (no con IA), para no inventar datos que no estaban ahí.
+    """
+    titulo = _extraer_titulo(texto_original)
+    precio = extraer_precio(texto_original)
+    calificacion = extraer_calificacion(texto_original)
     cupon = extraer_cupon(texto_original)
 
-    if resultado:
-        titulo, descripcion = _parsear_titulo_descripcion(resultado, link)
-    else:
-        titulo, descripcion = None, "Nueva oferta encontrada"
+    lineas = [f"📦 <b>Producto:</b> {html.escape(titulo) if titulo else 'Oferta encontrada'}", ""]
+    if calificacion:
+        lineas.append(f"⭐️ Calificación: {html.escape(calificacion)}")
+    if precio:
+        lineas.append(f"💸 Precio: {html.escape(precio)}")
+    lineas.append(f"🏷️ Cupón: {html.escape(cupon) if cupon else '¡No necesita!'}")
+    lineas.append(f"🔗 Ir a la tienda: {link}")
+    lineas.append("")
+    lineas.append("⚠️ La oferta puede expirar en cualquier momento.")
+    lineas.append("#ad")
 
-    titulo_seguro = html.escape(titulo) if titulo else None
-    descripcion_segura = html.escape(descripcion)
-
-    partes = []
-    if titulo_seguro:
-        partes.append(f"🔥 <b>{titulo_seguro}</b>")
-    partes.append(descripcion_segura)
-    if cupon:
-        partes.append(f"🏷️ <b>Cupón:</b> <code>{html.escape(cupon)}</code>")
-    partes.append(f"🔗 {link}")
-
-    return "\n\n".join(partes)
+    return "\n".join(lineas)
 
 
 def publicar(chat_id, texto, imagen_bytes=None):
