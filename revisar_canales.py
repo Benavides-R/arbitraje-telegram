@@ -24,6 +24,7 @@ import re
 import json
 import time
 import html
+from datetime import datetime, timezone, timedelta
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 import requests
 from pathlib import Path
@@ -32,7 +33,7 @@ from telethon.sessions import StringSession
 
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
-    MODO_REVISION, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
+    MODO_REVISION, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA, MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
@@ -201,9 +202,11 @@ def _extraer_titulo(texto_original):
     rápido que pedir una descripción completa, y menos propenso al límite
     de peticiones de Groq)."""
     prompt = (
-        "Extrae SOLO el nombre corto del producto de este mensaje de oferta "
-        "de Telegram, máximo 8 palabras, en español, sin comillas ni texto "
-        "adicional -- responde ÚNICAMENTE con el nombre del producto.\n\n"
+        "Extrae el nombre del producto de este mensaje de oferta de Telegram, "
+        "en español, máximo 14 palabras. Incluye marca, modelo y la "
+        "característica principal si el mensaje la menciona (ej. capacidad, "
+        "tamaño, color) -- sin comillas ni texto adicional, responde "
+        "ÚNICAMENTE con el nombre del producto.\n\n"
         f"Mensaje original:\n{texto_original}"
     )
     resultado = None
@@ -375,6 +378,13 @@ def main():
                     print(f"[INFO] {canal}: alcanzó su cuota de esta corrida "
                           f"({tope_por_canal}), sigue en la próxima")
                     break
+                antiguedad = datetime.now(timezone.utc) - msg.date
+                if antiguedad > timedelta(hours=MAX_ANTIGUEDAD_OFERTA_HORAS):
+                    print(f"[SKIP] Mensaje {canal}:{msg.id} tiene "
+                          f"{antiguedad.total_seconds() / 3600:.1f}h, "
+                          f"posible oferta ya expirada, se descarta")
+                    ultimo_evaluado = msg.id
+                    continue
                 if msg.raw_text:
                     oferta_id = f"{canal}:{msg.id}"
                     if procesar_mensaje(oferta_id, msg.raw_text):

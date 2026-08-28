@@ -75,3 +75,9 @@ MODELO_GROQ = "openai/gpt-oss-20b"
 # canal publica muchísimo de una sola vez). Lo que no alcanza a procesar en
 # una corrida, se retoma automáticamente en la siguiente -- no se pierde.
 MAX_OFERTAS_POR_CORRIDA = 12
+
+# Si un mensaje del canal origen ya es más viejo que esto, se descarta sin
+# procesar -- evita mandar a revisión (o publicar) ofertas relámpago que ya
+# expiraron, por ejemplo si el bot se atrasó y apenas ahora le toca revisar
+# mensajes de hace rato.
+MAX_ANTIGUEDAD_OFERTA_HORAS = 6
