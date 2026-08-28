@@ -6,10 +6,10 @@ import os
 
 # Canales PÚBLICOS de los que vas a leer ofertas (usa el @username, sin arroba)
 CANALES_ORIGEN = [
-    "ElPromoHunter",
-    "Clubgratis",
-    "cajitatech",       # a prueba
-    "ReviuDescuentos",  # a prueba
+    "cajitatech",
+    "ReviuDescuentos",
+    "ElPromoHunter",       # a prueba
+    "Clubgratis",  # a prueba
     # "Gio_Makers" -- quitado: falló en las 2 corridas (antes y después del
     # arreglo de Playwright), sus links de btz.es no se resuelven bien.
     # "DescuentosTech" -- quitado: usa Facebook como intermediario, 0 éxitos.
