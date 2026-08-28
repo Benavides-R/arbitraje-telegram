@@ -68,7 +68,7 @@ DOMINIOS_TIENDA_FINAL = list(TIENDAS.keys())
 # Usa Groq (gratis) con un modelo open-source si GROQ_API_KEY está configurado.
 # Si prefieres usar la API de Anthropic en su lugar, deja GROQ_API_KEY vacío
 # y configura ANTHROPIC_API_KEY -- el sistema usa el que encuentre disponible.
-MODELO_GROQ = "llama-3.1-8b-instant"
+MODELO_GROQ = "openai/gpt-oss-20b"
 
 # Tope de ofertas procesadas por corrida del cron, para no saturarte el chat
 # de revisión de golpe (por ejemplo, la primera vez que arranca, o si un
