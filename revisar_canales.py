@@ -31,7 +31,7 @@ from telethon.sessions import StringSession
 
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
-    MODO_REVISION, MODELO_GROQ,
+    MODO_REVISION, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
@@ -90,7 +90,7 @@ def generar_link_afiliado(link, dominio):
     return link
 
 
-def _llamar_groq(prompt):
+def _llamar_groq(prompt, reintentos=1):
     try:
         response = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",
@@ -102,6 +102,12 @@ def _llamar_groq(prompt):
             },
             timeout=30,
         )
+        if response.status_code == 429 and reintentos > 0:
+            # Límite de peticiones por minuto de Groq -- espera y reintenta una vez
+            espera = int(response.headers.get("retry-after", 8))
+            print(f"[INFO] Groq con rate limit, esperando {espera}s antes de reintentar")
+            time.sleep(espera)
+            return _llamar_groq(prompt, reintentos=reintentos - 1)
         response.raise_for_status()
         return response.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
@@ -132,21 +138,71 @@ def _llamar_anthropic(prompt):
         return None
 
 
+def extraer_cupon(texto_original):
+    """
+    Busca un cupón/código de descuento en el mensaje original con patrones
+    comunes (CODE:, Cupón:, Código:). Filtra los casos donde el canal dice
+    explícitamente que no hace falta cupón.
+    """
+    match = re.search(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]{2,25})", texto_original, re.IGNORECASE)
+    if not match:
+        return None
+
+    candidato = match.group(1).strip()
+    candidato = re.sub(r"[^\w\s-]", "", candidato).strip()  # quita emojis/puntuación
+
+    negativos = {"no necesita", "ninguno", "no aplica", "sin cupon", "no requiere", "no aplica ninguno"}
+    if not candidato or candidato.lower() in negativos or len(candidato.split()) > 3:
+        return None
+
+    return candidato
+
+
+def _parsear_titulo_descripcion(resultado, link):
+    m_titulo = re.search(r"TITULO:\s*(.+)", resultado)
+    m_desc = re.search(r"DESCRIPCION:\s*(.+)", resultado, re.DOTALL)
+    titulo = m_titulo.group(1).strip() if m_titulo else None
+    descripcion = m_desc.group(1).strip() if m_desc else resultado.strip()
+    return titulo, descripcion
+
+
 def reescribir_texto(texto_original, link):
+    """
+    Genera el contenido final de la oferta: título corto + descripción
+    (vía IA), más el cupón (extraído directo del texto original, sin IA,
+    para que sea confiable) y el link -- todo en un formato fijo.
+    """
     prompt = (
-        "Reescribe este mensaje de oferta de Telegram con tus propias palabras, "
-        "en español, tono directo, máximo 3 líneas, sin copiar frases textuales "
-        "del original. Termina con el link. No agregues comillas ni encabezados.\n\n"
-        f"Mensaje original:\n{texto_original}\n\nLink: {link}"
+        "A partir de este mensaje de oferta de Telegram, responde EXACTAMENTE "
+        "en este formato, sin nada más antes ni después:\n"
+        "TITULO: <nombre corto del producto, máximo 8 palabras>\n"
+        "DESCRIPCION: <1-2 líneas atractivas en español describiendo la oferta, "
+        "con tus propias palabras, sin copiar frases textuales del original>\n\n"
+        f"Mensaje original:\n{texto_original}"
     )
     resultado = None
     if GROQ_API_KEY:
         resultado = _llamar_groq(prompt)
+        time.sleep(2)  # respiro entre llamadas para no pegarle al límite por minuto
     if not resultado and ANTHROPIC_API_KEY:
         resultado = _llamar_anthropic(prompt)
-    if not resultado:
-        resultado = f"Nueva oferta encontrada:\n{link}"
-    return resultado
+
+    cupon = extraer_cupon(texto_original)
+
+    if resultado:
+        titulo, descripcion = _parsear_titulo_descripcion(resultado, link)
+    else:
+        titulo, descripcion = None, "Nueva oferta encontrada"
+
+    partes = []
+    if titulo:
+        partes.append(f"🔥 {titulo}")
+    partes.append(descripcion)
+    if cupon:
+        partes.append(f"🏷️ Cupón: {cupon}")
+    partes.append(f"🔗 {link}")
+
+    return "\n\n".join(partes)
 
 
 def publicar(chat_id, texto, imagen_bytes=None):
@@ -169,8 +225,8 @@ def publicar_oferta_completa(texto_nuevo, url_imagen):
     después de una aprobación manual."""
     imagen_bytes = preparar_imagen_con_logo(url_imagen) if url_imagen else None
 
-    publicar(CANAL_DESTINO_VIP, f"🔥 {texto_nuevo}", imagen_bytes)
-    publicar_facebook(f"🔥 {texto_nuevo}", imagen_bytes)
+    publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
+    publicar_facebook(texto_nuevo, imagen_bytes)
 
     if not CANAL_DESTINO_VIP:
         # No hay canal VIP todavía -- no tiene sentido hacer esperar al
@@ -231,16 +287,24 @@ def procesar_mensaje(oferta_id, texto):
     else:
         print(f"[OFERTA] {dominio} -> publicando directo")
         publicar_oferta_completa(texto_nuevo, url_imagen)
+    return True  # sí contó como oferta procesada, para el tope por corrida
 
 
 def main():
     # 1. Revisa si el admin aprobó/descartó ofertas pendientes de antes
     revisar_respuestas(publicar_oferta_completa)
 
-    # 2. Revisa canales por mensajes nuevos
+    # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
     estado = cargar_estado()
+    ofertas_procesadas = 0
+
     with TelegramClient(StringSession(SESSION), API_ID, API_HASH) as client:
         for canal in CANALES_ORIGEN:
+            if ofertas_procesadas >= MAX_OFERTAS_POR_CORRIDA:
+                print(f"[INFO] Tope de {MAX_OFERTAS_POR_CORRIDA} alcanzado, "
+                      f"{canal} se revisa en la próxima corrida")
+                break
+
             ultimo_id = estado.get(canal, 0)
             mensajes_nuevos = list(client.iter_messages(canal, min_id=ultimo_id, limit=50))
 
@@ -248,12 +312,17 @@ def main():
                 print(f"[INFO] {canal}: sin mensajes nuevos")
                 continue
 
+            ultimo_evaluado = ultimo_id
             for msg in reversed(mensajes_nuevos):  # orden cronológico
+                if ofertas_procesadas >= MAX_OFERTAS_POR_CORRIDA:
+                    break
                 if msg.raw_text:
                     oferta_id = f"{canal}:{msg.id}"
-                    procesar_mensaje(oferta_id, msg.raw_text)
+                    if procesar_mensaje(oferta_id, msg.raw_text):
+                        ofertas_procesadas += 1
+                ultimo_evaluado = msg.id
 
-            estado[canal] = mensajes_nuevos[0].id
+            estado[canal] = ultimo_evaluado
             guardar_estado(estado)
 
     # 3. Publica lo que ya cumplió el tiempo de espera para el canal gratis

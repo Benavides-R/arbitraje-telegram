@@ -8,8 +8,10 @@ import os
 CANALES_ORIGEN = [
     "Gio_Makers",
     "Clubgratis",
-    "DescuentosTech",
     "ElPromoHunter",
+    # "DescuentosTech" -- quitado: en la primera corrida no resolvió ninguna
+    # oferta (usa Facebook como intermediario, el caso menos confiable). Si
+    # quieres reactivarlo, descomenta esta línea.
 ]
 
 # Tu propio canal de Telegram donde se publica ya reescrito (el bot debe ser admin ahí)
@@ -66,3 +68,9 @@ DOMINIOS_TIENDA_FINAL = list(TIENDAS.keys())
 # Si prefieres usar la API de Anthropic en su lugar, deja GROQ_API_KEY vacío
 # y configura ANTHROPIC_API_KEY -- el sistema usa el que encuentre disponible.
 MODELO_GROQ = "openai/gpt-oss-120b"
+
+# Tope de ofertas procesadas por corrida del cron, para no saturarte el chat
+# de revisión de golpe (por ejemplo, la primera vez que arranca, o si un
+# canal publica muchísimo de una sola vez). Lo que no alcanza a procesar en
+# una corrida, se retoma automáticamente en la siguiente -- no se pierde.
+MAX_OFERTAS_POR_CORRIDA = 12

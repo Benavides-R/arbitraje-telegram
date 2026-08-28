@@ -48,7 +48,7 @@ def resolver_link_final(url):
 
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
-            page = browser.new_page(headers=HEADERS)
+            page = browser.new_page(extra_http_headers=HEADERS)
             page.goto(url, timeout=30000, wait_until="networkidle")
             page.wait_for_timeout(2000)
 
@@ -71,15 +71,37 @@ def resolver_link_final(url):
 
 
 def extraer_imagen_producto(url_tienda):
-    """Extrae la URL de la foto oficial del producto (meta tag og:image)."""
+    """
+    Extrae la URL de la foto oficial del producto (meta tag og:image).
+    Primero intenta con un request simple (rápido). Amazon en particular
+    suele bloquear ese request simple (lo detecta como bot) -- en ese caso
+    reintenta con navegador headless, que simula mejor a un usuario real.
+    """
     try:
         resp = requests.get(url_tienda, headers=HEADERS, timeout=15)
         match = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', resp.text)
         if match:
             return match.group(1)
     except Exception as e:
-        print(f"[WARN] No se pudo extraer imagen de {url_tienda}: {e}")
-    return None
+        print(f"[WARN] Request simple para imagen falló ({url_tienda}): {e}")
+
+    try:
+        from playwright.sync_api import sync_playwright
+
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(extra_http_headers=HEADERS)
+            page.goto(url_tienda, timeout=30000, wait_until="domcontentloaded")
+            page.wait_for_timeout(1500)
+
+            elemento = page.query_selector('meta[property="og:image"]')
+            contenido = elemento.get_attribute("content") if elemento else None
+
+            browser.close()
+            return contenido
+    except Exception as e:
+        print(f"[WARN] No se pudo extraer imagen con navegador ({url_tienda}): {e}")
+        return None
 
 
 def preparar_imagen_con_logo(url_imagen_producto):

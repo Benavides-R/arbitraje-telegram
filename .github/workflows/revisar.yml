@@ -8,6 +8,8 @@ on:
 jobs:
   revisar:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Clonar repo
         uses: actions/checkout@v4
