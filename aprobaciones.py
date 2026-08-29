@@ -13,6 +13,7 @@ import os
 import io
 import json
 import base64
+import time
 import requests
 from pathlib import Path
 
@@ -58,7 +59,7 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
         return
 
     pendientes = _cargar_pendientes()
-    pendientes[oferta_id] = {"texto": texto, "url_imagen": url_imagen}
+    pendientes[oferta_id] = {"texto": texto, "url_imagen": url_imagen, "creado": time.time()}
     _guardar_pendientes(pendientes)
 
     teclado = {
@@ -67,6 +68,7 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
             {"text": "❌ Descartar", "callback_data": f"rechazar:{oferta_id}"},
         ]]
     }
+    pie = "\n\n💬 <i>O responde a este mensaje con \"si\" para publicar, o \"no\" para descartar.</i>"
 
     encabezado = "🕵️ <b>Oferta pendiente de revisión</b>\n\n"
     imagen_bytes = preparar_imagen_con_logo(url_imagen) if url_imagen else None
@@ -77,7 +79,7 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
             imagen_bytes.seek(0)
             respuesta = requests.post(f"{API}/sendPhoto", data={
                 "chat_id": ADMIN_CHAT_ID,
-                "caption": encabezado + texto,
+                "caption": encabezado + texto + pie,
                 "reply_markup": json.dumps(teclado),
                 "parse_mode": "HTML",
             }, files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=30)
@@ -85,7 +87,7 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
             respuesta = requests.post(f"{API}/sendMessage", data={
                 "chat_id": ADMIN_CHAT_ID,
                 "text": encabezado + texto + "\n\n📸 <i>Sin imagen -- puedes responder a "
-                        "este mensaje con una foto tuya para usarla en su lugar.</i>",
+                        "este mensaje con una foto tuya para usarla en su lugar.</i>" + pie,
                 "reply_markup": json.dumps(teclado),
                 "parse_mode": "HTML",
             }, timeout=20)
@@ -126,6 +128,20 @@ def revisar_actividad_admin(publicar_func):
         data = resp.json()
     except Exception as e:
         print(f"[WARN] No se pudo consultar getUpdates: {e}")
+        return
+
+    if not data.get("ok"):
+        # Causa típica: hay un webhook configurado en el bot, lo cual bloquea
+        # getUpdates por completo. Se revisa y se limpia automáticamente.
+        print(f"[WARN] getUpdates devolvió error: {data.get('description')}")
+        try:
+            info = requests.get(f"{API}/getWebhookInfo", timeout=15).json()
+            url_webhook = info.get("result", {}).get("url")
+            if url_webhook:
+                print(f"[WARN] Hay un webhook configurado ({url_webhook}) -- eso bloquea getUpdates. Se elimina.")
+                requests.get(f"{API}/deleteWebhook", timeout=15)
+        except Exception as e:
+            print(f"[WARN] No se pudo revisar/limpiar el webhook: {e}")
         return
 
     pendientes = _cargar_pendientes()
@@ -188,6 +204,54 @@ def revisar_actividad_admin(publicar_func):
                     }, timeout=15)
             except Exception as e:
                 print(f"[WARN] No se pudo procesar la foto manual: {e}")
+            continue
+
+        # Caso 3: respondiste con una PALABRA (alternativa a los botones, por
+        # si el botón falla) -- "si"/"publicar"/"aprobar" para publicar,
+        # "no"/"descartar"/"rechazar" para descartar.
+        if msg and "text" in msg and "reply_to_message" in msg:
+            respondido_id = msg["reply_to_message"]["message_id"]
+            oferta_id_encontrada = next(
+                (oid for oid, datos in pendientes.items() if datos.get("message_id") == respondido_id),
+                None,
+            )
+            if not oferta_id_encontrada:
+                continue
+
+            palabra = msg["text"].strip().lower()
+            aprobar_palabras = {"si", "sí", "publicar", "aprobar", "publica", "aprueba"}
+            rechazar_palabras = {"no", "descartar", "rechazar", "descarta", "rechaza"}
+
+            if palabra in aprobar_palabras or palabra in rechazar_palabras:
+                oferta = pendientes.pop(oferta_id_encontrada, None)
+                hubo_cambios_pendientes = True
+                if not oferta:
+                    continue
+                if palabra in aprobar_palabras:
+                    print(f"[REVISION] Aprobada por texto: {oferta_id_encontrada}")
+                    imagen_bytes = None
+                    if oferta.get("imagen_base64"):
+                        imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
+                    publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes)
+                else:
+                    print(f"[REVISION] Descartada por texto: {oferta_id_encontrada}")
+                try:
+                    requests.post(f"{API}/sendMessage", data={
+                        "chat_id": ADMIN_CHAT_ID,
+                        "text": "Listo ✅" if palabra in aprobar_palabras else "Descartada ❌",
+                    }, timeout=15)
+                except Exception:
+                    pass
+
+    # Limpieza: descarta ofertas pendientes de más de 48h sin respuesta, para
+    # que no se acumulen para siempre si alguna vez quedaron huérfanas.
+    ahora = time.time()
+    vencidas = [oid for oid, datos in pendientes.items() if ahora - datos.get("creado", ahora) > 48 * 3600]
+    for oid in vencidas:
+        pendientes.pop(oid, None)
+        hubo_cambios_pendientes = True
+    if vencidas:
+        print(f"[INFO] Se descartaron {len(vencidas)} ofertas pendientes vencidas (+48h sin respuesta)")
 
     if hubo_cambios_pendientes:
         _guardar_pendientes(pendientes)
