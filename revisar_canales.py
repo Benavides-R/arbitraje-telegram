@@ -186,25 +186,45 @@ def extraer_cupon(texto_original):
 def extraer_precio(texto_original, link):
     """
     Busca el primer valor de precio ($XX.XX o similar) en el mensaje original,
-    y le agrega la etiqueta de moneda según el dominio de la tienda (no se
-    adivina por formato del número, que es ambiguo entre USD y COP).
+    evaluando primero si el texto declara explícitamente la moneda (COP, USD, etc.)
+    o si el formato numérico corresponde a pesos (ej. $180.000), antes de usar
+    el dominio como fallback.
     """
     match = re.search(r"\$\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
     if not match:
         return None
 
     precio = match.group(0).strip()
-    netloc = urlsplit(link).netloc
+    texto_upper = texto_original.upper()
+    netloc = urlsplit(link).netloc.lower()
 
-    if netloc.endswith("amazon.com"):
+    # 1. Prioridad: Presencia de palabras clave explícitas en el mensaje original
+    if "COP" in texto_upper or "PESOS" in texto_upper or "COLOMBIANOS" in texto_upper:
+        return f"{precio} COP"
+    if "USD" in texto_upper or "DÓLARES" in texto_upper or "DOLARES" in texto_upper:
         return f"{precio} USD"
+
+    # 2. Análisis por estructura de formato numérico (formato típico de COP/pesos)
+    # Ejemplo: "$180.000" o "$1.500.000" -> Separa por puntos o comas de miles
+    solo_numeros = re.sub(r"[^\d]", "", precio)
+    
+    # Si tiene 5 o más dígitos y NO termina en decimales de 2 cifras con punto (ej: .99)
+    # un precio como $180.000 (180000) o $1.200.000 (1200000) es evidentemente COP.
+    es_formato_decimal_usd = bool(re.search(r"\.\d{2}$", precio))
+    if len(solo_numeros) >= 5 and not es_formato_decimal_usd:
+        return f"{precio} COP"
+
+    # 3. Fallback por dominios específicos
     if netloc.endswith("amazon.com.mx"):
         return f"{precio} MXN"
     if netloc.endswith("amazon.co.jp"):
         return f"{precio} JPY"
-    # Otros dominios (o cuando el canal ya vende en pesos colombianos):
-    # se deja el símbolo tal cual, sin adivinar la moneda.
+    if netloc.endswith("amazon.com"):
+        return f"{precio} USD"
+
+    # Si no aplica ninguna regla previa, se retorna tal cual con el signo $
     return precio
+
 
 
 def extraer_calificacion(texto_original):
