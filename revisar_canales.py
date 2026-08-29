@@ -245,6 +245,10 @@ def reescribir_texto(texto_original, link):
     de vigencia -- igual al formato que usan varios canales de ofertas.
     Calificación y precio se extraen del texto original con reglas simples
     (no con IA), para no inventar datos que no estaban ahí.
+
+    Devuelve (mensaje, titulo, precio) -- titulo y precio se devuelven
+    aparte para que quien llama pueda decidir si la oferta cumple el
+    mínimo de campos requeridos antes de mandarla a revisión.
     """
     titulo = _extraer_titulo(texto_original)
     precio = extraer_precio(texto_original, link)
@@ -262,7 +266,7 @@ def reescribir_texto(texto_original, link):
     lineas.append("⚠️ La oferta puede expirar en cualquier momento.")
     lineas.append("#ad")
 
-    return "\n".join(lineas)
+    return "\n".join(lineas), titulo, precio
 
 
 def publicar(chat_id, texto, imagen_bytes=None):
@@ -348,7 +352,16 @@ def procesar_mensaje(oferta_id, texto):
         return
 
     link_con_afiliado = generar_link_afiliado(link_limpio, dominio)
-    texto_nuevo = reescribir_texto(texto, link_con_afiliado)
+    texto_nuevo, titulo, precio = reescribir_texto(texto, link_con_afiliado)
+
+    # Filtro de mínimos: si no se pudo sacar título o precio, no vale la
+    # pena mandarla a revisión -- el link (link_con_afiliado) ya está
+    # garantizado en este punto, siempre lo tiene toda oferta que llega aquí.
+    if not titulo or not precio:
+        faltante = "título" if not titulo else "precio"
+        print(f"[SKIP] {oferta_id}: sin {faltante}, no cumple el mínimo, se descarta")
+        return
+
     url_imagen = extraer_imagen_producto(link_con_afiliado)
 
     if MODO_REVISION:
