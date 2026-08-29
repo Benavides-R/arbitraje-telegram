@@ -983,11 +983,6 @@
     "url_imagen": null,
     "message_id": 355
   },
-  "ReviuDescuentos:88815": {
-    "texto": "📦 <b>Producto:</b> Garmin Vívoactive 5 GPS con 11 días de batería\n\n💸 Precio: $189.97 USD\n🏷️ Cupón: ¡No necesita!\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0CG6NR413?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
-    "url_imagen": null,
-    "message_id": 356
-  },
   "ReviuDescuentos:88816": {
     "texto": "📦 <b>Producto:</b> Amazon Altavoz Bluetooth 32h reproducción resistente\n\n💸 Precio: $144.05 USD\n🏷️ Cupón: ¡No necesita!\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0GXH3N61Z?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
     "url_imagen": null,
@@ -1097,5 +1092,23 @@
     "url_imagen": "https://m.media-amazon.com/images/I/51K1NaAza-L._AC_SY500_.jpg",
     "creado": 1788012137.2078695,
     "message_id": 398
+  },
+  "ReviuDescuentos:88846": {
+    "texto": "📦 <b>Producto:</b> M MAELREG Suéter de Golf con Cremallera\n\n💸 Precio: $18.78 USD\n🏷️ Cupón: FO3F7PU4\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0B93ZLW7J?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": "https://m.media-amazon.com/images/I/81VnomHoypL._AC_SX522_.jpg",
+    "creado": 1788012967.6417644,
+    "message_id": 403
+  },
+  "ReviuDescuentos:88847": {
+    "texto": "📦 <b>Producto:</b> Arach&amp;Cloz Chaleco suéter a rayas cuello en V\n\n💸 Precio: $17.98 USD\n🏷️ Cupón: I8UH24YI\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0GVGXGMC3?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": "https://m.media-amazon.com/images/I/91HQFo3qILL._AC_SX425_.jpg",
+    "creado": 1788012978.6531706,
+    "message_id": 404
+  },
+  "ReviuDescuentos:88848": {
+    "texto": "📦 <b>Producto:</b> Gydom Reloj inteligente AMOLED 1.85\n\n💸 Precio: $19.20 USD\n🏷️ Cupón: RAFFI2IX\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0GKM9W7JJ?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": "https://m.media-amazon.com/images/I/71NEJcr1kiL._AC_SX425_.jpg",
+    "creado": 1788012989.972358,
+    "message_id": 405
   }
 }
