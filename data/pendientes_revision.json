@@ -1171,23 +1171,11 @@
     "creado": 1788017466.6151626,
     "message_id": 424
   },
-  "ReviuDescuentos:88881": {
-    "texto": "📦 <b>Producto:</b> Ventilador portátil de escritorio CA\n\n💸 Precio: $15.01 USD\n🏷️ Cupón: 6T7EKRJ4\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0HDY3Y8F2?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
-    "url_imagen": "https://m.media-amazon.com/images/I/61PrmCtmkAL._AC_SX569_.jpg",
-    "creado": 1788017482.0657635,
-    "message_id": 425
-  },
   "ReviuDescuentos:88882": {
     "texto": "📦 <b>Producto:</b> M MAELREG Suéter corto con cierre para golf\n\n💸 Precio: $19.98 USD\n🏷️ Cupón: IGRWFAQP\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0FMR717YC?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
     "url_imagen": "https://m.media-amazon.com/images/I/61v6O59C-jL._AC_SX425_.jpg",
     "creado": 1788017492.138655,
     "message_id": 426
-  },
-  "ElPromoHunter:63119": {
-    "texto": "📦 <b>Producto:</b> Alfombrilla de ratón grande extendida antideslizante con diseño de olas marinas\n\n⭐️ Calificación: 4.9 (14)\n💸 Precio: $15.763 COP\n🏷️ Cupón: ¡No necesita!\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0FBRMWQVL?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
-    "url_imagen": "https://m.media-amazon.com/images/I/71i84+ecE2L._AC_SX425_.jpg",
-    "creado": 1788017501.9439034,
-    "message_id": 427
   },
   "ReviuDescuentos:88898": {
     "texto": "📦 <b>Producto:</b> YIQUN Bolso de mano y hombro negro\n\n💸 Precio: $18.49 USD\n🏷️ Cupón: 72Q5IU6L\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0GX1FXDTM?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
@@ -1207,10 +1195,22 @@
     "creado": 1788017945.1182685,
     "message_id": 430
   },
-  "ElPromoHunter:63120": {
-    "texto": "📦 <b>Producto:</b> Cooler Master M\n\n⭐️ Calificación: 4.6 (136)\n💸 Precio: $244.790 COP\n🏷️ Cupón: ¡No necesita!\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0D68TLYKR?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
-    "url_imagen": "https://m.media-amazon.com/images/I/81smNPwdpzL._AC_SX425_.jpg",
-    "creado": 1788017963.455772,
-    "message_id": 431
+  "ReviuDescuentos:88903": {
+    "texto": "📦 <b>Producto:</b> ANRABESS Women Fleece Lounge Two Piece Set\n\n💸 Precio: $16.99 USD\n🏷️ Cupón: V2OR3GGE\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0H1GVP499?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": "https://m.media-amazon.com/images/I/61iwVji6R-L._AC_SY500_.jpg",
+    "creado": 1788018363.3685484,
+    "message_id": 438
+  },
+  "ReviuDescuentos:88904": {
+    "texto": "📦 <b>Producto:</b> Mochila resistente al agua para laptop 15.6 pulgadas minimalista\n\n💸 Precio: $26.99 USD\n🏷️ Cupón: ¡No necesita!\n🔗 Ir a la tienda: https://www.amazon.com/dp/B09ZT6R28Z?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": "https://m.media-amazon.com/images/I/81gXhUCOF0L._AC_SX425_.jpg",
+    "creado": 1788018375.0522833,
+    "message_id": 439
+  },
+  "ReviuDescuentos:88906": {
+    "texto": "📦 <b>Producto:</b> Vaso de viaje Hydro Flask 40 oz\n\n💸 Precio: $18.04 USD\n🏷️ Cupón: ¡No necesita!\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0CFYVT6B5?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": "https://m.media-amazon.com/images/I/41TNZsM9DaL._AC_SX679_.jpg",
+    "creado": 1788018388.4116268,
+    "message_id": 440
   }
 }
