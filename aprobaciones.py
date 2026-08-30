@@ -20,6 +20,7 @@ from pathlib import Path
 
 from config import ADMIN_CHAT_ID
 from procesar_oferta import preparar_imagen_con_logo, aplicar_logo_a_bytes
+from estadisticas import registrar_publicacion
 
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
@@ -175,6 +176,7 @@ def revisar_actividad_admin(publicar_func):
                 if oferta.get("imagen_base64"):
                     imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
                 publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes)
+                registrar_publicacion(oferta_id.split(":", 1)[0])
             else:
                 print(f"[REVISION] Descartada por admin: {oferta_id}")
             continue
@@ -234,6 +236,7 @@ def revisar_actividad_admin(publicar_func):
                     if oferta.get("imagen_base64"):
                         imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
                     publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes)
+                    registrar_publicacion(oferta_id_encontrada.split(":", 1)[0])
                 else:
                     print(f"[REVISION] Descartada por texto: {oferta_id_encontrada}")
                 try:
@@ -257,6 +260,11 @@ def revisar_actividad_admin(publicar_func):
             elif texto_lower.startswith(("titulo:", "título:", "nombre:")):
                 nuevo_valor = texto_respuesta.split(":", 1)[-1].strip()
                 patron, reemplazo, etiqueta = r"📦 <b>Producto:</b> .*", f"📦 <b>Producto:</b> {nuevo_valor}", "Título"
+            elif texto_lower.startswith(("cupon:", "cupón:", "codigo:", "código:")):
+                nuevo_valor = texto_respuesta.split(":", 1)[-1].strip()
+                patron = r"🏷️ Cupón: .*"
+                reemplazo = f"🏷️ Cupón: <code>{nuevo_valor}</code>" if nuevo_valor.lower() not in {"no", "ninguno", "no necesita"} else "🏷️ Cupón: ¡No necesita!"
+                etiqueta = "Cupón"
             else:
                 nuevo_valor = texto_respuesta
                 patron, reemplazo, etiqueta = r"📦 <b>Producto:</b> .*", f"📦 <b>Producto:</b> {nuevo_valor}", "Título"

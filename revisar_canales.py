@@ -38,7 +38,8 @@ from config import (
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
-from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida
+from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
+from estadisticas import verificar_y_enviar_reporte
 
 API_ID = os.environ["TELEGRAM_API_ID"]
 API_HASH = os.environ["TELEGRAM_API_HASH"]
@@ -464,6 +465,7 @@ def main():
     # 3. Publica lo que ya cumplió el tiempo de espera para el canal gratis
     publicar_pendientes_gratis()
 
+    verificar_y_enviar_reporte(enviar_alerta)
     avisar_si_hubo_fallos()
 
 
