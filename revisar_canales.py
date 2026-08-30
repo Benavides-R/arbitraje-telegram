@@ -273,7 +273,7 @@ def reescribir_texto(texto_original, link):
     if precio:
         lineas.append(f"💸 Precio: {html.escape(precio)}")
     lineas.append(f"🏷️ Cupón: {html.escape(cupon) if cupon else '¡No necesita!'}")
-    lineas.append(f'🔗 <a href="{html.escape(link)}">Ir a la tienda</a>')
+    lineas.append(f"🔗 Ir a la tienda: {link}")
     lineas.append("")
     lineas.append("⚠️ La oferta puede expirar en cualquier momento.")
     lineas.append("#ad")
