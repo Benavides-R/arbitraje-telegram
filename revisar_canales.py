@@ -38,6 +38,7 @@ from config import (
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
+from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida
 
 API_ID = os.environ["TELEGRAM_API_ID"]
 API_HASH = os.environ["TELEGRAM_API_HASH"]
@@ -137,6 +138,7 @@ def _llamar_groq(prompt, reintentos=2):
         return response.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
         print(f"[WARN] Groq falló: {e}")
+        registrar_fallo("Groq")
         return None
 
 
@@ -302,12 +304,21 @@ def publicar(chat_id, texto, imagen_bytes=None):
             url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
             files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
             data = {"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"}
-            requests.post(url, data=data, files=files, timeout=30)
+            resp = requests.post(url, data=data, files=files, timeout=30)
         else:
             url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-            requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+            resp = requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+
+        # Antes esto no se revisaba: Telegram puede responder 200 o 4xx con
+        # {"ok": false, "description": "..."} (ej. el bot no es admin del
+        # canal) sin lanzar una excepción de red -- si no se chequea, el
+        # fallo queda invisible y parece que "no pasó nada".
+        if not resp.ok or not resp.json().get("ok", False):
+            print(f"[WARN] Telegram rechazó la publicación (chat {chat_id}): {resp.text}")
+            registrar_fallo("Publicar en Telegram")
     except Exception as e:
         print(f"[WARN] No se pudo publicar en Telegram (chat {chat_id}): {e}")
+        registrar_fallo("Publicar en Telegram")
 
 
 def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None):
@@ -453,6 +464,12 @@ def main():
     # 3. Publica lo que ya cumplió el tiempo de espera para el canal gratis
     publicar_pendientes_gratis()
 
+    avisar_si_hubo_fallos()
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        avisar_corrida_caida(e)
+        raise  # que GitHub Actions siga marcando la corrida como fallida

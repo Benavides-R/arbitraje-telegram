@@ -11,6 +11,7 @@ admin responde (no en tiempo real, igual que el resto del sistema).
 
 import os
 import io
+import re
 import json
 import base64
 import time
@@ -242,6 +243,44 @@ def revisar_actividad_admin(publicar_func):
                     }, timeout=15)
                 except Exception:
                     pass
+                continue
+
+            # Caso 4: cualquier otro texto de respuesta = corrección manual.
+            # "precio: $X" o "título: X" corrigen ese campo puntual; texto
+            # sin prefijo se toma como corrección del título (lo más común
+            # cuando la IA lo saca mal o muy corto).
+            texto_respuesta = msg["text"].strip()
+            texto_lower = texto_respuesta.lower()
+            if texto_lower.startswith(("precio:", "precio ")):
+                nuevo_valor = texto_respuesta.split(":", 1)[-1].strip() if ":" in texto_respuesta else texto_respuesta[7:].strip()
+                patron, reemplazo, etiqueta = r"💸 Precio: .*", f"💸 Precio: {nuevo_valor}", "Precio"
+            elif texto_lower.startswith(("titulo:", "título:", "nombre:")):
+                nuevo_valor = texto_respuesta.split(":", 1)[-1].strip()
+                patron, reemplazo, etiqueta = r"📦 <b>Producto:</b> .*", f"📦 <b>Producto:</b> {nuevo_valor}", "Título"
+            else:
+                nuevo_valor = texto_respuesta
+                patron, reemplazo, etiqueta = r"📦 <b>Producto:</b> .*", f"📦 <b>Producto:</b> {nuevo_valor}", "Título"
+
+            texto_actualizado, n = re.subn(patron, reemplazo, pendientes[oferta_id_encontrada]["texto"], count=1)
+            if n == 0:
+                # No había esa línea (ej. oferta sin precio detectado) -- se
+                # agrega después de la línea del producto en vez de perderla.
+                texto_actualizado = re.sub(
+                    r"(📦 <b>Producto:</b> .*)",
+                    r"\1\n" + reemplazo,
+                    pendientes[oferta_id_encontrada]["texto"],
+                    count=1,
+                )
+            pendientes[oferta_id_encontrada]["texto"] = texto_actualizado
+            hubo_cambios_pendientes = True
+            try:
+                requests.post(f"{API}/sendMessage", data={
+                    "chat_id": ADMIN_CHAT_ID,
+                    "text": f"✏️ {etiqueta} actualizado. Toca Publicar (o responde \"si\") cuando quieras.",
+                }, timeout=15)
+            except Exception:
+                pass
+            continue
 
     # Limpieza: descarta ofertas pendientes de más de 48h sin respuesta, para
     # que no se acumulen para siempre si alguna vez quedaron huérfanas.
