@@ -265,6 +265,37 @@ def _extraer_titulo(texto_original):
     return resultado
 
 
+CATEGORIAS_HASHTAGS = {
+    # categoría: (palabras clave a buscar, hashtags a usar)
+    "audio": (["audifono", "auricular", "bluetooth", "altavoz", "parlante", "speaker", "earbuds"],
+              ["#Audio", "#Tecnologia"]),
+    "gaming": (["gamer", "gaming", "consola", "playstation", "xbox", "nintendo", "mando", "teclado gamer"],
+               ["#Gaming", "#Videojuegos"]),
+    "hogar": (["cocina", "hogar", "electrodomestico", "aspiradora", "licuadora", "freidora", "olla"],
+              ["#Hogar", "#Ofertas"]),
+    "computo": (["laptop", "portatil", "monitor", "teclado", "mouse", "ram", "memoria", "ssd", "disco duro",
+                 "tarjeta grafica", "procesador"],
+                ["#Tecnologia", "#PCGamer"]),
+    "belleza": (["maquillaje", "skincare", "perfume", "crema facial", "secador"],
+                ["#Belleza", "#Cuidado"]),
+    "fitness": (["proteina", "gimnasio", "fitness", "banda elastica", "mancuerna"],
+                ["#Fitness", "#Salud"]),
+}
+
+
+def generar_hashtags(titulo, texto_original):
+    """
+    Revisa el título y el texto original buscando palabras clave de
+    categoría, y arma 2-3 hashtags relevantes -- si no matchea ninguna
+    categoría, usa unos genéricos para no dejar el post sin hashtags.
+    """
+    base = f"{titulo or ''} {texto_original}".lower()
+    for _categoria, (palabras, hashtags) in CATEGORIAS_HASHTAGS.items():
+        if any(palabra in base for palabra in palabras):
+            return hashtags
+    return ["#Ofertas", "#Descuentos"]
+
+
 def reescribir_texto(texto_original, link):
     """
     Arma el mensaje final con campos fijos: producto, calificación (si se
@@ -281,6 +312,7 @@ def reescribir_texto(texto_original, link):
     precio = extraer_precio(texto_original, link)
     calificacion = extraer_calificacion(texto_original)
     cupon = extraer_cupon(texto_original)
+    hashtags = generar_hashtags(titulo, texto_original)
 
     lineas = [f"📦 <b>Producto:</b> {html.escape(titulo) if titulo else 'Oferta encontrada'}", ""]
     if calificacion:
@@ -288,10 +320,10 @@ def reescribir_texto(texto_original, link):
     if precio:
         lineas.append(f"💸 Precio: {html.escape(precio)}")
     lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
-    lineas.append(f"🔗 Ir a la tienda: {link}")
+    lineas.append(f"⚡ Ver oferta: {link}")
     lineas.append("")
     lineas.append("⚠️ La oferta puede expirar en cualquier momento.")
-    lineas.append("#ad")
+    lineas.append("#ad " + " ".join(hashtags))
 
     return "\n".join(lineas), titulo, precio
 
