@@ -5,9 +5,14 @@ on:
     - cron: "*/15 * * * *"   # cada 15 minutos
   workflow_dispatch:          # permite ejecutarlo manualmente desde GitHub
 
+concurrency:
+  group: revisar-canales
+  cancel-in-progress: false
+
 jobs:
   revisar:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write
     steps:
