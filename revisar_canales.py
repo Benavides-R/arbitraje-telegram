@@ -167,7 +167,8 @@ def extraer_cupon(texto_original):
     """
     Busca un cupón/código de descuento en el mensaje original con patrones
     comunes (CODE:, Cupón:, Código:). Filtra los casos donde el canal dice
-    explícitamente que no hace falta cupón.
+    explícitamente que no hace falta cupón, y también frases descriptivas
+    que no son un código real (ej. "cupón seleccionable en la página").
     """
     match = re.search(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]{2,25})", texto_original, re.IGNORECASE)
     if not match:
@@ -177,7 +178,18 @@ def extraer_cupon(texto_original):
     candidato = re.sub(r"[^\w\s-]", "", candidato).strip()  # quita emojis/puntuación
 
     negativos = {"no necesita", "ninguno", "no aplica", "sin cupon", "no requiere", "no aplica ninguno"}
-    if not candidato or candidato.lower() in negativos or len(candidato.split()) > 3:
+    if not candidato or candidato.lower() in negativos:
+        return None
+
+    # Un código real no tiene espacios (es un token tipo "2TQYIBPW" o
+    # "AHORRA10") -- si trae espacios, es una frase descriptiva del canal
+    # origen ("cupón seleccionable", "aplica en el carrito", etc.), no un
+    # código utilizable, así que se descarta.
+    if " " in candidato:
+        return None
+
+    # Debe verse como un código: solo letras/números/guiones, largo razonable.
+    if not re.match(r"^[A-Za-z0-9-]{3,20}$", candidato):
         return None
 
     return candidato
@@ -272,7 +284,7 @@ def reescribir_texto(texto_original, link):
         lineas.append(f"⭐️ Calificación: {html.escape(calificacion)}")
     if precio:
         lineas.append(f"💸 Precio: {html.escape(precio)}")
-    lineas.append(f"🏷️ Cupón: {html.escape(cupon) if cupon else '¡No necesita!'}")
+    lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
     lineas.append(f"🔗 Ir a la tienda: {link}")
     lineas.append("")
     lineas.append("⚠️ La oferta puede expirar en cualquier momento.")
