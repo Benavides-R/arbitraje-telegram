@@ -13,6 +13,8 @@ Cómo conseguirlos (resumen -- el detalle completo está en el README):
    (sin esto, el token expira en ~1-2 horas)
 """
 
+import re
+import html
 import requests
 
 from config import FACEBOOK_PAGE_ID, FACEBOOK_PAGE_ACCESS_TOKEN
@@ -20,10 +22,29 @@ from config import FACEBOOK_PAGE_ID, FACEBOOK_PAGE_ACCESS_TOKEN
 GRAPH_API_BASE = "https://graph.facebook.com/v19.0"
 
 
+def _html_a_texto_plano(texto_html):
+    """
+    El texto que arma revisar_canales.py trae etiquetas HTML (<b>, <a href>)
+    pensadas para Telegram (parse_mode=HTML) -- Facebook no las interpreta,
+    las muestra literal. Aquí se limpian: los enlaces <a href="URL">texto</a>
+    se convierten en "texto: URL" (para no perder el link), y el resto de
+    etiquetas simplemente se quitan.
+    """
+    texto = re.sub(
+        r'<a\s+href="([^"]+)">(.*?)</a>',
+        lambda m: f"{m.group(2)}: {m.group(1)}",
+        texto_html,
+    )
+    texto = re.sub(r"<[^>]+>", "", texto)
+    return html.unescape(texto)
+
+
 def publicar_facebook(texto, imagen_bytes=None):
     if not FACEBOOK_PAGE_ID or not FACEBOOK_PAGE_ACCESS_TOKEN:
         print("[SKIP] Facebook no configurado todavía")
         return
+
+    texto = _html_a_texto_plano(texto)
 
     try:
         if imagen_bytes:
