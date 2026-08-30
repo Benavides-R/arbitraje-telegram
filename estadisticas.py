@@ -7,9 +7,14 @@ cron corre en domingo, gracias al chequeo de "ultimo_reporte").
 
 import json
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 ARCHIVO = Path(__file__).parent / "data" / "estadisticas.json"
+
+# El servidor de GitHub Actions corre en UTC, pero "domingo" debe decidirse
+# con la hora de Colombia (UTC-5, sin horario de verano) -- si no, el
+# reporte puede disparar de noche del sábado (cuando en UTC ya es domingo).
+ZONA_COLOMBIA = timezone(timedelta(hours=-5))
 
 
 def _cargar():
@@ -32,7 +37,7 @@ def registrar_publicacion(canal):
 def verificar_y_enviar_reporte(enviar_mensaje_func):
     """Si hoy es domingo y todavía no se mandó el reporte de esta semana,
     arma un resumen simple y lo envía -- luego resetea el conteo."""
-    ahora = datetime.now(timezone.utc)
+    ahora = datetime.now(ZONA_COLOMBIA)
     hoy = ahora.strftime("%Y-%m-%d")
     if ahora.weekday() != 6:  # 6 = domingo
         return
