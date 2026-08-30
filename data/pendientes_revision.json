@@ -2468,7 +2468,7 @@
     "message_id": 730
   },
   "ReviuDescuentos:89127": {
-    "texto": "📦 <b>Producto:</b> AOPREL Toalla con Capucha Refrescante Protección UV\n\n💸 Precio: $6.49 USD\n🏷️ Cupón: <code>H6SKUP4S</code>\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0F3WQQHXV?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "texto": "📦 <b>Producto:</b> AOPREL Toalla con Capucha Refrescante Protección UV\n\n💸 Precio: $1.00  USD\n🏷️ Cupón: <code>H6SKUP4S</code>\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0F3WQQHXV?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
     "url_imagen": null,
     "creado": 1788060654.1118913,
     "message_id": 731
@@ -2478,5 +2478,23 @@
     "url_imagen": null,
     "creado": 1788060660.3313117,
     "message_id": 732
+  },
+  "ReviuDescuentos:89129": {
+    "texto": "📦 <b>Producto:</b> GELLAKTIK Juego de 12 bolígrafos para uñas\n\n💸 Precio: $4.99 USD\n🏷️ Cupón: <code>WX38CQDT</code>\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0DXJY6D1D?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": "https://m.media-amazon.com/images/I/81Q7eG9ty-L._SX425_PIbundle-12,TopRight,0,0_AA425SH20_.jpg",
+    "creado": 1788061550.587205,
+    "message_id": 736
+  },
+  "ReviuDescuentos:89130": {
+    "texto": "📦 <b>Producto:</b> Tipdiy Aspiradora inalámbrica de palo 45 KPA ligera\n\n💸 Precio: $52.99 USD\n🏷️ Cupón: <code>Q6RT998O</code>\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0H5HNDP85?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": null,
+    "creado": 1788061559.8406634,
+    "message_id": 737
+  },
+  "ReviuDescuentos:89131": {
+    "texto": "📦 <b>Producto:</b> FAMIKYA Barra de cera antiencrespamiento para cabello\n\n💸 Precio: $5.79 USD\n🏷️ Cupón: <code>Y3QRZI2N</code>\n🔗 Ir a la tienda: https://www.amazon.com/dp/B0GGHMT6ZQ?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad",
+    "url_imagen": null,
+    "creado": 1788061567.279268,
+    "message_id": 738
   }
 }
