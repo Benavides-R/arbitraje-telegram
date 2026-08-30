@@ -40,6 +40,6 @@ jobs:
         run: |
           git config user.name "bot-arbitraje"
           git config user.email "bot@arbitraje.local"
-          git add data/ultimo_id.json data/pendientes_revision.json data/ultimo_update_id.txt
+          git add data/ultimo_id.json data/pendientes_revision.json data/ultimo_update_id.txt data/estadisticas.json
           git diff --quiet && git diff --staged --quiet || git commit -m "Actualiza estado"
           git push
