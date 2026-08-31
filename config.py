@@ -74,7 +74,7 @@ MODELO_GROQ = "openai/gpt-oss-20b"
 # de revisión de golpe (por ejemplo, la primera vez que arranca, o si un
 # canal publica muchísimo de una sola vez). Lo que no alcanza a procesar en
 # una corrida, se retoma automáticamente en la siguiente -- no se pierde.
-MAX_OFERTAS_POR_CORRIDA = 12
+MAX_OFERTAS_POR_CORRIDA = 30
 
 # Si un mensaje del canal origen ya es más viejo que esto, se descarta sin
 # procesar -- evita mandar a revisión (o publicar) ofertas relámpago que ya
