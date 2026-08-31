@@ -127,13 +127,33 @@ def extraer_imagen_producto(url_tienda):
         return None
 
 
+TAMANO_ESTANDAR = 1080  # cuadrado, el formato que mejor se ve en FB/Instagram
+
+
+def _recortar_cuadrado_centrado(imagen):
+    """
+    Recorta la imagen a un cuadrado centrado (mantiene el centro, corta los
+    bordes sobrantes del lado más largo) y la escala a un tamaño fijo -- así
+    todas las fotos del canal quedan con el mismo formato, sin importar la
+    proporción original de cada una.
+    """
+    ancho, alto = imagen.size
+    lado = min(ancho, alto)
+    izquierda = (ancho - lado) // 2
+    arriba = (alto - lado) // 2
+    imagen = imagen.crop((izquierda, arriba, izquierda + lado, arriba + lado))
+    return imagen.resize((TAMANO_ESTANDAR, TAMANO_ESTANDAR))
+
+
 def aplicar_logo_a_bytes(imagen_bytes_original):
     """
-    Toma los bytes de una imagen (ya descargada, ej. la que tú subes a mano)
-    y le superpone tu logo en la esquina inferior derecha.
+    Toma los bytes de una imagen (ya descargada, ej. la que tú subes a mano),
+    la recorta a un cuadrado centrado de tamaño estándar, y le superpone tu
+    logo en la esquina inferior derecha.
     """
     try:
         producto = Image.open(io.BytesIO(imagen_bytes_original)).convert("RGBA")
+        producto = _recortar_cuadrado_centrado(producto)
 
         logo = Image.open(LOGO_PATH).convert("RGBA")
         ancho_logo = int(producto.width * 0.15)

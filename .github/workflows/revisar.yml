@@ -1,13 +1,23 @@
 name: Revisar Canales de Ofertas
 
 on:
-  schedule:
-    - cron: "*/15 * * * *"   # cada 15 minutos
-  workflow_dispatch:          # permite ejecutarlo manualmente desde GitHub
+  # El disparador nativo de GitHub (schedule) se desactiva -- usamos
+  # únicamente el disparador externo (cron-job.org llamando a la API de
+  # workflow_dispatch) para evitar que ambos disparen casi al tiempo y las
+  # corridas se encimen. Si algún día quitas el externo, puedes reactivar
+  # esto quitando el "#" de la línea de abajo.
+  # schedule:
+  #   - cron: "*/15 * * * *"
+  workflow_dispatch:          # permite ejecutarlo manualmente o vía API externa
+
+concurrency:
+  group: revisar-canales
+  cancel-in-progress: false
 
 jobs:
   revisar:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write
     steps:
@@ -40,6 +50,6 @@ jobs:
         run: |
           git config user.name "bot-arbitraje"
           git config user.email "bot@arbitraje.local"
-          git add data/ultimo_id.json data/pendientes_revision.json data/ultimo_update_id.txt
+          git add data/ultimo_id.json data/pendientes_revision.json data/ultimo_update_id.txt data/estadisticas.json
           git diff --quiet && git diff --staged --quiet || git commit -m "Actualiza estado"
           git push

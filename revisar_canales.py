@@ -38,6 +38,8 @@ from config import (
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
+from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
+from estadisticas import verificar_y_enviar_reporte
 
 API_ID = os.environ["TELEGRAM_API_ID"]
 API_HASH = os.environ["TELEGRAM_API_HASH"]
@@ -137,6 +139,7 @@ def _llamar_groq(prompt, reintentos=2):
         return response.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
         print(f"[WARN] Groq falló: {e}")
+        registrar_fallo("Groq")
         return None
 
 
@@ -167,7 +170,8 @@ def extraer_cupon(texto_original):
     """
     Busca un cupón/código de descuento en el mensaje original con patrones
     comunes (CODE:, Cupón:, Código:). Filtra los casos donde el canal dice
-    explícitamente que no hace falta cupón.
+    explícitamente que no hace falta cupón, y también frases descriptivas
+    que no son un código real (ej. "cupón seleccionable en la página").
     """
     match = re.search(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]{2,25})", texto_original, re.IGNORECASE)
     if not match:
@@ -177,16 +181,57 @@ def extraer_cupon(texto_original):
     candidato = re.sub(r"[^\w\s-]", "", candidato).strip()  # quita emojis/puntuación
 
     negativos = {"no necesita", "ninguno", "no aplica", "sin cupon", "no requiere", "no aplica ninguno"}
-    if not candidato or candidato.lower() in negativos or len(candidato.split()) > 3:
+    if not candidato or candidato.lower() in negativos:
+        return None
+
+    # Un código real no tiene espacios (es un token tipo "2TQYIBPW" o
+    # "AHORRA10") -- si trae espacios, es una frase descriptiva del canal
+    # origen ("cupón seleccionable", "aplica en el carrito", etc.), no un
+    # código utilizable, así que se descarta.
+    if " " in candidato:
+        return None
+
+    # Debe verse como un código: solo letras/números/guiones, largo razonable.
+    if not re.match(r"^[A-Za-z0-9-]{3,20}$", candidato):
         return None
 
     return candidato
 
 
-def extraer_precio(texto_original):
-    """Busca el primer valor de precio ($XX.XX o similar) en el mensaje original."""
+def extraer_precio(texto_original, link):
+    """
+    Busca el primer valor de precio ($XX.XX o similar) en el mensaje original.
+    Prioridad para la moneda:
+      1. Si el propio mensaje ya trae la moneda escrita junto al precio
+         (ej. "$70.249 COP"), se respeta esa -- el canal origen ya la
+         convirtió y sabe mejor que nosotros qué moneda es.
+      2. Si no la trae, se adivina por el dominio de la tienda (con la
+         salvedad de que amazon.com siempre es USD salvo que el texto diga
+         lo contrario, como en el caso de arriba).
+    """
     match = re.search(r"\$\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
-    return match.group(0).strip() if match else None
+    if not match:
+        return None
+
+    precio = match.group(0).strip()
+
+    # ¿El texto ya trae la moneda pegada justo después del precio?
+    resto = texto_original[match.end():match.end() + 6]
+    moneda_explicita = re.match(r"\s*(COP|USD|MXN|JPY|PEN|ARS|CLP)\b", resto)
+    if moneda_explicita:
+        return f"{precio} {moneda_explicita.group(1)}"
+
+    netloc = urlsplit(link).netloc
+
+    if netloc.endswith("amazon.com"):
+        return f"{precio} USD"
+    if netloc.endswith("amazon.com.mx"):
+        return f"{precio} MXN"
+    if netloc.endswith("amazon.co.jp"):
+        return f"{precio} JPY"
+    # Otros dominios (o cuando el canal ya vende en pesos colombianos):
+    # se deja el símbolo tal cual, sin adivinar la moneda.
+    return precio
 
 
 def extraer_calificacion(texto_original):
@@ -220,6 +265,53 @@ def _extraer_titulo(texto_original):
     return resultado
 
 
+CATEGORIAS_HASHTAGS = {
+    # categoría: (palabras clave a buscar, hashtags a usar)
+    "audio": (["audifono", "auricular", "bluetooth", "altavoz", "parlante", "speaker", "earbuds"],
+              ["#Audio", "#Tecnologia"]),
+    "gaming": (["gamer", "gaming", "consola", "playstation", "xbox", "nintendo", "mando", "teclado gamer"],
+               ["#Gaming", "#Videojuegos"]),
+    "computo": (["laptop", "portatil", "monitor", "teclado", "mouse", "ram", "memoria", "ssd", "disco duro",
+                 "tarjeta grafica", "procesador"],
+                ["#Tecnologia", "#PCGamer"]),
+    "hogar": (["cocina", "hogar", "electrodomestico", "aspiradora", "licuadora", "freidora", "olla",
+               "organizador", "decoracion"],
+              ["#Hogar", "#Cocina"]),
+    "belleza": (["maquillaje", "skincare", "perfume", "crema facial", "secador", "cuidado personal"],
+                ["#Belleza", "#CuidadoPersonal"]),
+    "fitness": (["proteina", "gimnasio", "fitness", "banda elastica", "mancuerna", "ejercicio"],
+                ["#Fitness", "#Salud"]),
+    "moda": (["ropa", "zapato", "zapatilla", "camisa", "pantalon", "vestido", "accesorio moda", "reloj",
+              "bolso", "mochila"],
+             ["#Moda", "#Estilo"]),
+    "mascotas": (["mascota", "perro", "gato", "cachorro", "comedero", "correa"],
+                 ["#Mascotas", "#PetLovers"]),
+    "juguetes": (["juguete", "muñeca", "lego", "peluche", "juego de mesa"],
+                 ["#Juguetes", "#Niños"]),
+    "oficina": (["oficina", "papeleria", "escritorio", "silla oficina", "impresora"],
+                ["#Oficina", "#Productividad"]),
+    "herramientas": (["herramienta", "taladro", "destornillador", "llave", "kit herramientas"],
+                      ["#Herramientas", "#Hogar"]),
+    "automotriz": (["carro", "auto", "vehiculo", "accesorio carro", "cargador auto", "gps vehicular"],
+                    ["#Automotriz", "#Carros"]),
+    "bebes": (["bebe", "pañal", "coche bebe", "silla auto bebe", "biberon"],
+              ["#Bebes", "#Maternidad"]),
+}
+
+
+def generar_hashtags(titulo, texto_original):
+    """
+    Revisa el título y el texto original buscando palabras clave de
+    categoría, y arma 2-3 hashtags relevantes -- si no matchea ninguna
+    categoría, usa unos genéricos para no dejar el post sin hashtags.
+    """
+    base = f"{titulo or ''} {texto_original}".lower()
+    for _categoria, (palabras, hashtags) in CATEGORIAS_HASHTAGS.items():
+        if any(palabra in base for palabra in palabras):
+            return hashtags
+    return ["#Ofertas", "#Descuentos"]
+
+
 def reescribir_texto(texto_original, link):
     """
     Arma el mensaje final con campos fijos: producto, calificación (si se
@@ -227,24 +319,29 @@ def reescribir_texto(texto_original, link):
     de vigencia -- igual al formato que usan varios canales de ofertas.
     Calificación y precio se extraen del texto original con reglas simples
     (no con IA), para no inventar datos que no estaban ahí.
+
+    Devuelve (mensaje, titulo, precio) -- titulo y precio se devuelven
+    aparte para que quien llama pueda decidir si la oferta cumple el
+    mínimo de campos requeridos antes de mandarla a revisión.
     """
     titulo = _extraer_titulo(texto_original)
-    precio = extraer_precio(texto_original)
+    precio = extraer_precio(texto_original, link)
     calificacion = extraer_calificacion(texto_original)
     cupon = extraer_cupon(texto_original)
+    hashtags = generar_hashtags(titulo, texto_original)
 
     lineas = [f"📦 <b>Producto:</b> {html.escape(titulo) if titulo else 'Oferta encontrada'}", ""]
     if calificacion:
         lineas.append(f"⭐️ Calificación: {html.escape(calificacion)}")
     if precio:
         lineas.append(f"💸 Precio: {html.escape(precio)}")
-    lineas.append(f"🏷️ Cupón: {html.escape(cupon) if cupon else '¡No necesita!'}")
-    lineas.append(f"🔗 Ir a la tienda: {link}")
+    lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
+    lineas.append(f"⚡ Ver oferta: {link}")
     lineas.append("")
     lineas.append("⚠️ La oferta puede expirar en cualquier momento.")
-    lineas.append("#ad")
+    lineas.append("#ad " + " ".join(hashtags))
 
-    return "\n".join(lineas)
+    return "\n".join(lineas), titulo, precio
 
 
 def publicar(chat_id, texto, imagen_bytes=None):
@@ -256,12 +353,21 @@ def publicar(chat_id, texto, imagen_bytes=None):
             url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
             files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
             data = {"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"}
-            requests.post(url, data=data, files=files, timeout=30)
+            resp = requests.post(url, data=data, files=files, timeout=30)
         else:
             url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-            requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+            resp = requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+
+        # Antes esto no se revisaba: Telegram puede responder 200 o 4xx con
+        # {"ok": false, "description": "..."} (ej. el bot no es admin del
+        # canal) sin lanzar una excepción de red -- si no se chequea, el
+        # fallo queda invisible y parece que "no pasó nada".
+        if not resp.ok or not resp.json().get("ok", False):
+            print(f"[WARN] Telegram rechazó la publicación (chat {chat_id}): {resp.text}")
+            registrar_fallo("Publicar en Telegram")
     except Exception as e:
         print(f"[WARN] No se pudo publicar en Telegram (chat {chat_id}): {e}")
+        registrar_fallo("Publicar en Telegram")
 
 
 def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None):
@@ -330,7 +436,16 @@ def procesar_mensaje(oferta_id, texto):
         return
 
     link_con_afiliado = generar_link_afiliado(link_limpio, dominio)
-    texto_nuevo = reescribir_texto(texto, link_con_afiliado)
+    texto_nuevo, titulo, precio = reescribir_texto(texto, link_con_afiliado)
+
+    # Filtro de mínimos: si no se pudo sacar título o precio, no vale la
+    # pena mandarla a revisión -- el link (link_con_afiliado) ya está
+    # garantizado en este punto, siempre lo tiene toda oferta que llega aquí.
+    if not titulo or not precio:
+        faltante = "título" if not titulo else "precio"
+        print(f"[SKIP] {oferta_id}: sin {faltante}, no cumple el mínimo, se descarta")
+        return
+
     url_imagen = extraer_imagen_producto(link_con_afiliado)
 
     if MODO_REVISION:
@@ -355,7 +470,10 @@ def main():
     ofertas_procesadas = 0
     tope_por_canal = max(1, MAX_OFERTAS_POR_CORRIDA // len(CANALES_ORIGEN))
 
-    with TelegramClient(StringSession(SESSION), API_ID, API_HASH) as client:
+    with TelegramClient(
+        StringSession(SESSION), API_ID, API_HASH,
+        connection_retries=2, timeout=20, request_retries=2,
+    ) as client:
         for canal in CANALES_ORIGEN:
             if ofertas_procesadas >= MAX_OFERTAS_POR_CORRIDA:
                 print(f"[INFO] Tope de {MAX_OFERTAS_POR_CORRIDA} alcanzado, "
@@ -398,6 +516,13 @@ def main():
     # 3. Publica lo que ya cumplió el tiempo de espera para el canal gratis
     publicar_pendientes_gratis()
 
+    verificar_y_enviar_reporte(enviar_alerta)
+    avisar_si_hubo_fallos()
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        avisar_corrida_caida(e)
+        raise  # que GitHub Actions siga marcando la corrida como fallida
