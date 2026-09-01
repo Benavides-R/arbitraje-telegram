@@ -117,7 +117,7 @@ def generar_link_afiliado(link, dominio):
     return link
 
 
-def _llamar_groq(prompt, reintentos=2):
+def _llamar_groq(prompt, reintentos=3):
     try:
         response = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",
@@ -130,8 +130,11 @@ def _llamar_groq(prompt, reintentos=2):
             timeout=30,
         )
         if response.status_code == 429 and reintentos > 0:
-            # Límite de peticiones por minuto de Groq -- espera y reintenta
-            espera = max(int(response.headers.get("retry-after", 12)), 12)
+            # Límite de peticiones de Groq -- si la espera que pide es larga
+            # (típico de un límite diario, no por minuto), no vale la pena
+            # bloquear toda la corrida por eso: esperamos máximo 15s y si
+            # sigue sin dejar, se cae al fallback (Anthropic o texto plano).
+            espera = min(max(int(response.headers.get("retry-after", 12)), 12), 15)
             print(f"[INFO] Groq con rate limit, esperando {espera}s antes de reintentar")
             time.sleep(espera)
             return _llamar_groq(prompt, reintentos=reintentos - 1)
@@ -262,7 +265,24 @@ def _extraer_titulo(texto_original):
         resultado = _llamar_anthropic(prompt)
     if resultado:
         resultado = resultado.strip().strip('"').strip("'").split("\n")[0]
+    if not resultado:
+        # Las dos IAs fallaron (saturadas, sin conexión, etc.) -- en vez de
+        # descartar la oferta por completo, se arma un título básico del
+        # texto original sin IA, para no perder ofertas por un problema
+        # técnico puntual cuando el mensaje sí traía buena información.
+        resultado = _titulo_de_respaldo(texto_original)
     return resultado
+
+
+def _titulo_de_respaldo(texto_original):
+    """Título simple sin IA: primera línea con texto real del mensaje,
+    quitando links y emojis sueltos, recortado a un largo razonable."""
+    for linea in texto_original.splitlines():
+        limpia = re.sub(r"https?://\S+", "", linea).strip()
+        limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()-]", "", limpia).strip()
+        if len(limpia) >= 8:  # evita quedarse con una línea vacía o un emoji suelto
+            return limpia[:80].strip()
+    return None
 
 
 CATEGORIAS_HASHTAGS = {
@@ -472,7 +492,8 @@ def main():
 
     with TelegramClient(
         StringSession(SESSION), API_ID, API_HASH,
-        connection_retries=2, timeout=20, request_retries=2,
+        connection_retries=8, retry_delay=3, timeout=20, request_retries=5,
+        auto_reconnect=True,
     ) as client:
         for canal in CANALES_ORIGEN:
             if ofertas_procesadas >= MAX_OFERTAS_POR_CORRIDA:
