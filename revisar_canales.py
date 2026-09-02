@@ -33,7 +33,8 @@ from telethon.sessions import StringSession
 
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
-    MODO_REVISION, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA, MAX_ANTIGUEDAD_OFERTA_HORAS,
+    MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
+    MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
@@ -468,8 +469,14 @@ def procesar_mensaje(oferta_id, texto):
 
     url_imagen = extraer_imagen_producto(link_con_afiliado)
 
-    if MODO_REVISION:
-        print(f"[OFERTA] {dominio} -> enviada a revisión ({oferta_id})")
+    if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen:
+        # Título y precio ya están garantizados en este punto (si faltaba
+        # alguno, se descartó arriba) -- con imagen también presente, la
+        # oferta está completa y se publica sola, sin pasar por revisión.
+        print(f"[OFERTA] {dominio} -> completa (imagen+título+precio), publicando automático ({oferta_id})")
+        publicar_oferta_completa(texto_nuevo, url_imagen)
+    elif MODO_REVISION:
+        print(f"[OFERTA] {dominio} -> sin imagen, enviada a revisión manual ({oferta_id})")
         enviar_para_revision(oferta_id, texto_nuevo, url_imagen)
     else:
         print(f"[OFERTA] {dominio} -> publicando directo")

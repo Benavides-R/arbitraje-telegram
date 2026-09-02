@@ -25,6 +25,13 @@ CANAL_DESTINO_VIP = None  # aún no tienes uno -- se deja así hasta que crees e
 # publica en tus canales si le das "Publicar". Si es False, se publica directo.
 MODO_REVISION = True
 
+# Si AUTO_PUBLICAR_SI_COMPLETA es True, una oferta que SÍ tiene imagen,
+# título y precio se publica automáticamente (sin pasar por tu revisión
+# manual). Solo aplica cuando MODO_REVISION es True; si a la oferta le
+# falta la imagen, igual te la manda a revisar como siempre, para que la
+# completes a mano si quieres.
+AUTO_PUBLICAR_SI_COMPLETA = True
+
 # Tu chat_id personal (no el del canal) -- para que el bot te mande las
 # ofertas a revisar. Sácalo así: mándale /start a tu bot en un chat privado,
 # luego visita https://api.telegram.org/bot<TU_TOKEN>/getUpdates y busca
