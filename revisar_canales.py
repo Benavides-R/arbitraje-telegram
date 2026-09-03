@@ -38,6 +38,7 @@ from config import (
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
+from oferta_radar import enviar_a_oferta_radar
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
 from estadisticas import verificar_y_enviar_reporte
@@ -401,6 +402,13 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None):
 
     publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
     publicar_facebook(texto_nuevo, imagen_bytes)
+
+    try:
+        # Salida ADICIONAL, después de Facebook -- si esto falla, Facebook
+        # y Telegram ya se publicaron y no se ven afectados.
+        enviar_a_oferta_radar(texto_nuevo, url_imagen)
+    except Exception as e:
+        print(f"Oferta Radar: error al importar (fallo inesperado, sin detener el resto): {e}")
 
     if not CANAL_DESTINO_VIP:
         # No hay canal VIP todavía -- no tiene sentido hacer esperar al

@@ -66,6 +66,12 @@ LOGO_PATH = "logo.png"
 FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID")
 FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
 
+# Oferta Radar (tu página) -- opcional, salida ADICIONAL después de aprobar
+# una oferta. Si no están configurados los dos, simplemente no se envía
+# nada ahí (Telegram y Facebook siguen funcionando igual).
+OFERTA_RADAR_API_KEY = os.environ.get("OFERTA_RADAR_API_KEY")
+OFERTA_RADAR_URL = os.environ.get("OFERTA_RADAR_URL")
+
 # Dominios que consideramos "destino final válido" al resolver redirects.
 # Si tras seguir todos los saltos no llegamos a uno de estos, se descarta la oferta.
 DOMINIOS_TIENDA_FINAL = list(TIENDAS.keys())
