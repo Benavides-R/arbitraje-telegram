@@ -57,4 +57,18 @@ jobs:
           git config user.email "bot@arbitraje.local"
           git add data/ultimo_id.json data/pendientes_revision.json data/ultimo_update_id.txt data/estadisticas.json
           git diff --quiet && git diff --staged --quiet || git commit -m "Actualiza estado"
-          git push
+
+          # Si mientras corría el script alguien más subió cambios al repo
+          # (ej. editar un archivo a mano en GitHub), el push directo se
+          # rechaza -- se reintenta trayendo esos cambios primero, hasta
+          # 3 veces, en vez de perder el estado de esta corrida.
+          intento=0
+          while [ $intento -lt 3 ]; do
+            if git push; then
+              break
+            fi
+            intento=$((intento + 1))
+            echo "Push rechazado (cambios remotos nuevos) -- reintentando ($intento/3)..."
+            git pull --rebase origin main
+            sleep 3
+          done
