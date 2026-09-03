@@ -421,7 +421,9 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None):
     programa el canal gratis con retraso. Usada tanto en modo directo como
     después de una aprobación manual."""
     if imagen_bytes is None and url_imagen:
-        imagen_bytes = preparar_imagen_con_logo(url_imagen)
+        m = re.search(r"💸 Precio: (.+)", texto_nuevo)
+        precio_para_badge = m.group(1).strip() if m else None
+        imagen_bytes = preparar_imagen_con_logo(url_imagen, precio_texto=precio_para_badge)
 
     publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
     publicar_facebook(texto_nuevo, imagen_bytes)

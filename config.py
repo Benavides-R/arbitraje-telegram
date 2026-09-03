@@ -65,6 +65,11 @@ TIENDAS = {
 # imágenes de producto antes de publicarlas. Súbelo junto al proyecto.
 LOGO_PATH = "logo.png"
 
+# Texto de tus redes que se dibuja abajo a la izquierda de cada imagen
+# (una línea por elemento de la lista). Vacío = no se dibuja nada.
+# Ejemplo: ["fb.com/TuPagina", "t.me/TuCanal"]
+REDES_SOCIALES_LINEAS = ["fb.com/Benatechs.Descuentos", "t.me/Benatechs_Descuentos"]
+
 # Facebook (Meta Graph API) -- opcional, se lee de variables de entorno/Secrets.
 # Si prefieres, también puedes escribir los valores aquí directamente (menos
 # recomendado si el repo llegara a ser público).

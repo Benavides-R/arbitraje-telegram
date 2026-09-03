@@ -8,9 +8,9 @@ Funciones para:
 import re
 import io
 import requests
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
-from config import DOMINIOS_TIENDA_FINAL, LOGO_PATH
+from config import DOMINIOS_TIENDA_FINAL, LOGO_PATH, REDES_SOCIALES_LINEAS
 
 HEADERS = {
     "User-Agent": (
@@ -132,31 +132,97 @@ TAMANO_ESTANDAR = 1080  # cuadrado, el formato que mejor se ve en FB/Instagram
 
 def _recortar_cuadrado_centrado(imagen):
     """
-    Recorta la imagen a un cuadrado centrado (mantiene el centro, corta los
-    bordes sobrantes del lado más largo) y la escala a un tamaño fijo -- así
-    todas las fotos del canal quedan con el mismo formato, sin importar la
-    proporción original de cada una.
+    Encaja la imagen COMPLETA dentro de un cuadrado blanco (sin cortar
+    nada), centrada -- antes se recortaba a la fuerza y con fotos que no
+    eran cuadradas (ej. varios productos en fila) se perdían los bordes.
     """
-    ancho, alto = imagen.size
-    lado = min(ancho, alto)
-    izquierda = (ancho - lado) // 2
-    arriba = (alto - lado) // 2
-    imagen = imagen.crop((izquierda, arriba, izquierda + lado, arriba + lado))
-    return imagen.resize((TAMANO_ESTANDAR, TAMANO_ESTANDAR))
+    imagen = imagen.convert("RGBA")
+    imagen.thumbnail((TAMANO_ESTANDAR, TAMANO_ESTANDAR), Image.LANCZOS)
+
+    fondo = Image.new("RGBA", (TAMANO_ESTANDAR, TAMANO_ESTANDAR), (255, 255, 255, 255))
+    posicion = ((TAMANO_ESTANDAR - imagen.width) // 2, (TAMANO_ESTANDAR - imagen.height) // 2)
+    fondo.paste(imagen, posicion, imagen)
+    return fondo
 
 
-def aplicar_logo_a_bytes(imagen_bytes_original):
+def _cargar_fuente(tamano):
+    """Busca una fuente bold del sistema (los runners de GitHub Actions/
+    Ubuntu la traen preinstalada); si no la encuentra, usa la fuente por
+    defecto de Pillow (se ve peor, pero nunca revienta por esto)."""
+    rutas_posibles = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    ]
+    for ruta in rutas_posibles:
+        try:
+            return ImageFont.truetype(ruta, tamano)
+        except Exception:
+            continue
+    return ImageFont.load_default()
+
+
+def _dibujar_badge_precio(producto, precio_texto):
+    """Badge oscuro con el precio en grande, esquina superior izquierda --
+    genérico para cualquier tienda (sin ícono de marca)."""
+    if not precio_texto:
+        return
+    draw = ImageDraw.Draw(producto, "RGBA")
+    fuente = _cargar_fuente(int(producto.width * 0.06))
+
+    padding_x, padding_y = 24, 16
+    caja_texto = draw.textbbox((0, 0), precio_texto, font=fuente)
+    ancho_texto = caja_texto[2] - caja_texto[0]
+    alto_texto = caja_texto[3] - caja_texto[1]
+
+    margen = 24
+    x0, y0 = margen, margen
+    x1 = x0 + ancho_texto + padding_x * 2
+    y1 = y0 + alto_texto + padding_y * 2
+    radio = (y1 - y0) // 2
+
+    draw.rounded_rectangle((x0, y0, x1, y1), radius=radio, fill=(15, 15, 15, 235))
+    draw.rounded_rectangle((x0, y0, x1, y1), radius=radio, outline=(255, 176, 32, 255), width=3)
+    draw.text((x0 + padding_x, y0 + padding_y - caja_texto[1]), precio_texto, font=fuente, fill=(255, 255, 255, 255))
+
+
+def _dibujar_redes_sociales(producto):
+    """Tus redes sociales, abajo a la izquierda -- configurable en
+    config.py (REDES_SOCIALES_LINEAS); si está vacío, no dibuja nada."""
+    if not REDES_SOCIALES_LINEAS:
+        return
+    draw = ImageDraw.Draw(producto, "RGBA")
+    tamano_fuente = int(producto.width * 0.028)
+    fuente = _cargar_fuente(tamano_fuente)
+
+    margen = 20
+    interlineado = int(tamano_fuente * 1.35)
+    y = producto.height - margen - interlineado * len(REDES_SOCIALES_LINEAS)
+
+    for linea in REDES_SOCIALES_LINEAS:
+        # Contorno negro + relleno blanco -- se lee bien sobre cualquier
+        # fondo, claro u oscuro.
+        x = margen
+        for dx, dy in [(-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2), (-2, 2), (2, -2)]:
+            draw.text((x + dx, y + dy), linea, font=fuente, fill=(0, 0, 0, 255))
+        draw.text((x, y), linea, font=fuente, fill=(255, 255, 255, 255))
+        y += interlineado
+
+
+def aplicar_logo_a_bytes(imagen_bytes_original, precio_texto=None):
     """
     Toma los bytes de una imagen (ya descargada, ej. la que tú subes a mano),
-    la recorta a un cuadrado centrado de tamaño estándar, y le superpone tu
-    logo en la esquina inferior derecha.
+    la encaja en un cuadrado centrado de tamaño estándar, y le agrega el
+    badge de precio (si se pasa), tus redes sociales, y tu logo.
     """
     try:
         producto = Image.open(io.BytesIO(imagen_bytes_original)).convert("RGBA")
         producto = _recortar_cuadrado_centrado(producto)
 
+        _dibujar_badge_precio(producto, precio_texto)
+        _dibujar_redes_sociales(producto)
+
         logo = Image.open(LOGO_PATH).convert("RGBA")
-        ancho_logo = int(producto.width * 0.15)
+        ancho_logo = int(producto.width * 0.18)
         alto_logo = int(logo.height * (ancho_logo / logo.width))
         logo = logo.resize((ancho_logo, alto_logo))
 
@@ -172,14 +238,14 @@ def aplicar_logo_a_bytes(imagen_bytes_original):
         return None
 
 
-def preparar_imagen_con_logo(url_imagen_producto):
+def preparar_imagen_con_logo(url_imagen_producto, precio_texto=None):
     """
     Descarga la imagen del producto desde una URL y le superpone tu logo
     (versión automática, para las imágenes que el sistema extrae solo).
     """
     try:
         img_resp = requests.get(url_imagen_producto, headers=HEADERS, timeout=15)
-        return aplicar_logo_a_bytes(img_resp.content)
+        return aplicar_logo_a_bytes(img_resp.content, precio_texto=precio_texto)
     except Exception as e:
         print(f"[WARN] No se pudo descargar la imagen del producto: {e}")
         return None
