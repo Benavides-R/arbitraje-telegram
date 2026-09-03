@@ -26,8 +26,15 @@ CALIDAD_WEBP = 85
 
 def _optimizar_a_webp(imagen_bytes):
     """Toma los bytes YA procesados (con logo) y los convierte a WebP,
-    máximo 1000x1000 (mantiene proporción, no recorta de nuevo)."""
-    img = Image.open(io.BytesIO(imagen_bytes)).convert("RGB")
+    máximo 1000x1000 (mantiene proporción, no recorta de nuevo).
+    Acepta tanto bytes crudos como un io.BytesIO ya abierto (que es lo que
+    realmente le llega desde aplicar_logo_a_bytes/preparar_imagen_con_logo
+    -- volver a envolverlo en otro BytesIO() lanzaba TypeError)."""
+    if isinstance(imagen_bytes, io.BytesIO):
+        imagen_bytes.seek(0)
+        img = Image.open(imagen_bytes).convert("RGB")
+    else:
+        img = Image.open(io.BytesIO(imagen_bytes)).convert("RGB")
     img.thumbnail((MAX_LADO, MAX_LADO))
     buffer = io.BytesIO()
     img.save(buffer, format="WEBP", quality=CALIDAD_WEBP)
