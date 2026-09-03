@@ -72,6 +72,12 @@ FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
 OFERTA_RADAR_API_KEY = os.environ.get("OFERTA_RADAR_API_KEY")
 OFERTA_RADAR_URL = os.environ.get("OFERTA_RADAR_URL")
 
+# Supabase Storage (bucket "ofertas-images") -- opcional, así todas las
+# imágenes de las ofertas (manuales y automáticas) quedan también
+# guardadas en tu propio Storage, en vez de depender del CDN de Amazon.
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+
 # Dominios que consideramos "destino final válido" al resolver redirects.
 # Si tras seguir todos los saltos no llegamos a uno de estos, se descarta la oferta.
 DOMINIOS_TIENDA_FINAL = list(TIENDAS.keys())
