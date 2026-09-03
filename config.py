@@ -32,6 +32,11 @@ MODO_REVISION = True
 # completes a mano si quieres.
 AUTO_PUBLICAR_SI_COMPLETA = True
 
+# Tiendas que SIEMPRE van a revisión manual, aunque vengan completas
+# (imagen+título+precio) -- para estas normalmente el link necesita que tú
+# lo corrijas a mano antes de publicar (ej. sin afiliado activo todavía).
+TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
+
 # Tu chat_id personal (no el del canal) -- para que el bot te mande las
 # ofertas a revisar. Sácalo así: mándale /start a tu bot en un chat privado,
 # luego visita https://api.telegram.org/bot<TU_TOKEN>/getUpdates y busca

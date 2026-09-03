@@ -265,6 +265,9 @@ def revisar_actividad_admin(publicar_func):
                 patron = r"🏷️ Cupón: .*"
                 reemplazo = f"🏷️ Cupón: <code>{nuevo_valor}</code>" if nuevo_valor.lower() not in {"no", "ninguno", "no necesita"} else "🏷️ Cupón: ¡No necesita!"
                 etiqueta = "Cupón"
+            elif texto_lower.startswith(("link:", "url:", "enlace:")):
+                nuevo_valor = texto_respuesta.split(":", 1)[-1].strip()
+                patron, reemplazo, etiqueta = r"⚡ Ver oferta: .*", f"⚡ Ver oferta: {nuevo_valor}", "Link"
             else:
                 nuevo_valor = texto_respuesta
                 patron, reemplazo, etiqueta = r"📦 <b>Producto:</b> .*", f"📦 <b>Producto:</b> {nuevo_valor}", "Título"

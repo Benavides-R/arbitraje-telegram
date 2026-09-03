@@ -33,8 +33,8 @@ from telethon.sessions import StringSession
 
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
-    MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
-    MAX_ANTIGUEDAD_OFERTA_HORAS,
+    MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
+    MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA, MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
@@ -268,8 +268,14 @@ def _extraer_titulo(texto_original):
         resultado = _llamar_anthropic(prompt)
     if resultado:
         resultado = resultado.strip().strip('"').strip("'").split("\n")[0]
+    if resultado and _es_titulo_basura(resultado):
+        # La IA devolvió una etiqueta/badge de la oferta ("Oferta
+        # Relámpago", "Envío GRATIS"...) en vez del nombre real del
+        # producto -- se descarta y se cae al respaldo sin IA, que sí
+        # sabe saltarse esas mismas líneas.
+        resultado = None
     if not resultado:
-        # Las dos IAs fallaron (saturadas, sin conexión, etc.) -- en vez de
+        # Las dos IAs fallaron (o devolvieron basura) -- en vez de
         # descartar la oferta por completo, se arma un título básico del
         # texto original sin IA, para no perder ofertas por un problema
         # técnico puntual cuando el mensaje sí traía buena información.
@@ -277,13 +283,29 @@ def _extraer_titulo(texto_original):
     return resultado
 
 
+# Etiquetas/badges típicos de estos canales que NO son el nombre del
+# producto -- si el título extraído es solo esto (con o sin "AMAZON"
+# pegado al final, como suele venir), se descarta y se busca uno real.
+_RE_TITULO_BASURA = re.compile(
+    r"^(oferta\s*rel[aá]mpago|oferta\s*imperdible|env[ií]o\s*gratis|"
+    r"m[aá]s\s*vendido|oferta\s*flash|precio\s*m[ií]nimo\s*hist[oó]rico)"
+    r"s?\s*(amazon)?\s*$",
+    re.IGNORECASE,
+)
+
+
+def _es_titulo_basura(texto):
+    return bool(_RE_TITULO_BASURA.match(texto.strip()))
+
+
 def _titulo_de_respaldo(texto_original):
-    """Título simple sin IA: primera línea con texto real del mensaje,
-    quitando links y emojis sueltos, recortado a un largo razonable."""
+    """Título simple sin IA: primera línea con texto real del mensaje
+    (saltándose banners/badges tipo "Oferta Relámpago"), quitando links y
+    emojis sueltos, recortado a un largo razonable."""
     for linea in texto_original.splitlines():
         limpia = re.sub(r"https?://\S+", "", linea).strip()
         limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()-]", "", limpia).strip()
-        if len(limpia) >= 8:  # evita quedarse con una línea vacía o un emoji suelto
+        if len(limpia) >= 8 and not _es_titulo_basura(limpia):
             return limpia[:80].strip()
     return None
 
@@ -481,14 +503,15 @@ def procesar_mensaje(oferta_id, texto):
 
     url_imagen = extraer_imagen_producto(link_con_afiliado)
 
-    if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen:
+    if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL:
         # Título y precio ya están garantizados en este punto (si faltaba
         # alguno, se descartó arriba) -- con imagen también presente, la
         # oferta está completa y se publica sola, sin pasar por revisión.
         print(f"[OFERTA] {dominio} -> completa (imagen+título+precio), publicando automático ({oferta_id})")
         publicar_oferta_completa(texto_nuevo, url_imagen)
     elif MODO_REVISION:
-        print(f"[OFERTA] {dominio} -> sin imagen, enviada a revisión manual ({oferta_id})")
+        motivo = "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL else "sin imagen"
+        print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
         enviar_para_revision(oferta_id, texto_nuevo, url_imagen)
     else:
         print(f"[OFERTA] {dominio} -> publicando directo")
