@@ -46,6 +46,8 @@ jobs:
           FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
           OFERTA_RADAR_API_KEY: ${{ secrets.OFERTA_RADAR_API_KEY }}
           OFERTA_RADAR_URL: ${{ secrets.OFERTA_RADAR_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: python -u revisar_canales.py
 
       - name: Guardar estado actualizado
