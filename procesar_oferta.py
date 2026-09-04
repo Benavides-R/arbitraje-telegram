@@ -222,22 +222,44 @@ def extraer_imagen_producto(url_tienda):
 
 
 
-TAMANO_MAXIMO = 1200  # límite superior; nunca agranda imágenes más chicas que esto
+TAMANO_ESTANDAR = 1200  # lienzo cuadrado -- se ve bien y parejo en Telegram/Facebook
+RATIO_MAXIMO_PARA_RECORTE = 1.6  # más allá de esto, se considera "panorámica"
 
 
 def _normalizar_tamano(imagen):
     """
-    Limita el tamaño máximo a 1200x1200 manteniendo la proporción ORIGINAL
-    de la imagen -- no recorta, no deforma, no agranda imágenes pequeñas,
-    y ya NO fuerza un cuadrado (antes se rellenaba con fondo blanco; la
-    web de Oferta Radar ya respeta la proporción real, así que se manda
-    tal cual).
+    Encaja la imagen en un lienzo cuadrado de forma profesional, tipo
+    "ficha de producto" (como hacen otros canales de ofertas): la foto
+    llena el cuadro, recortando un poco de sobra en el lado más largo si
+    hace falta -- en vez de dejarla chiquita con espacio blanco alrededor.
+
+    Excepción: si la imagen es MUY panorámica (varios productos en fila,
+    ratio > 1.6), recortar perdería producto de los bordes -- en ese caso
+    se usa el modo "que quepa completa" con relleno blanco, para no cortar
+    nada importante.
     """
     imagen = imagen.convert("RGBA")
-    if imagen.width > TAMANO_MAXIMO or imagen.height > TAMANO_MAXIMO:
-        imagen = imagen.copy()
-        imagen.thumbnail((TAMANO_MAXIMO, TAMANO_MAXIMO), Image.LANCZOS)
-    return imagen
+    ancho, alto = imagen.size
+    ratio = max(ancho, alto) / max(1, min(ancho, alto))
+
+    if ratio > RATIO_MAXIMO_PARA_RECORTE:
+        # Panorámica: que quepa completa, sin recortar nada.
+        copia = imagen.copy()
+        copia.thumbnail((TAMANO_ESTANDAR, TAMANO_ESTANDAR), Image.LANCZOS)
+        lienzo = Image.new("RGBA", (TAMANO_ESTANDAR, TAMANO_ESTANDAR), (255, 255, 255, 255))
+        posicion = ((TAMANO_ESTANDAR - copia.width) // 2, (TAMANO_ESTANDAR - copia.height) // 2)
+        lienzo.paste(copia, posicion, copia)
+        return lienzo
+
+    # Proporción normal: llena el cuadro completo, recorta el sobrante del
+    # lado más largo (centrado -- el producto casi siempre está centrado
+    # en la foto original, así que no se pierde).
+    escala = max(TAMANO_ESTANDAR / ancho, TAMANO_ESTANDAR / alto)
+    nuevo_ancho, nuevo_alto = round(ancho * escala), round(alto * escala)
+    imagen = imagen.resize((nuevo_ancho, nuevo_alto), Image.LANCZOS)
+    izquierda = (nuevo_ancho - TAMANO_ESTANDAR) // 2
+    arriba = (nuevo_alto - TAMANO_ESTANDAR) // 2
+    return imagen.crop((izquierda, arriba, izquierda + TAMANO_ESTANDAR, arriba + TAMANO_ESTANDAR))
 
 
 def _cargar_fuente(tamano):
@@ -306,7 +328,7 @@ def _dibujar_redes_sociales(producto):
 def aplicar_logo_a_bytes(imagen_bytes_original, precio_texto=None):
     """
     Toma los bytes de una imagen (ya descargada, ej. la que tú subes a mano),
-    la normaliza a un tamaño máximo (sin deformar ni forzar cuadrado), y le agrega el
+    la encaja centrada en un lienzo cuadrado (sin recortar ni deformar), y le agrega el
     badge de precio (si se pasa), tus redes sociales, y tu logo.
     """
     try:

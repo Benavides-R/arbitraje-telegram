@@ -253,11 +253,17 @@ def _extraer_titulo(texto_original):
     rápido que pedir una descripción completa, y menos propenso al límite
     de peticiones de Groq)."""
     prompt = (
-        "Extrae el nombre del producto de este mensaje de oferta de Telegram, "
-        "en español, máximo 14 palabras. Incluye marca, modelo y la "
-        "característica principal si el mensaje la menciona (ej. capacidad, "
-        "tamaño, color) -- sin comillas ni texto adicional, responde "
-        "ÚNICAMENTE con el nombre del producto.\n\n"
+        "Extrae ÚNICAMENTE el nombre real del producto de este mensaje de "
+        "oferta de Telegram, en español, máximo 14 palabras. Incluye marca, "
+        "modelo y la característica principal si el mensaje la menciona "
+        "(ej. capacidad, tamaño, color).\n"
+        "NUNCA incluyas: el nombre de la tienda (Amazon, Temu, etc.), "
+        "textos promocionales o de badge (\"Oferta Relámpago\", \"Envío "
+        "GRATIS\", \"Elegible para...\", porcentajes de descuento, precios), "
+        "ni comillas. Si el mensaje no tiene un nombre de producto real "
+        "identificable, responde exactamente: NINGUNO\n"
+        "Responde ÚNICAMENTE con el nombre del producto (o NINGUNO), sin "
+        "texto adicional.\n\n"
         f"Mensaje original:\n{texto_original}"
     )
     resultado = None
@@ -268,11 +274,18 @@ def _extraer_titulo(texto_original):
         resultado = _llamar_anthropic(prompt)
     if resultado:
         resultado = resultado.strip().strip('"').strip("'").split("\n")[0]
+        if resultado.strip().upper() == "NINGUNO":
+            resultado = None
+    if resultado:
+        # La tienda nunca debe ir en el nombre del producto -- se quita si
+        # la IA la agregó pegada al inicio o al final (con o sin espacio).
+        resultado = re.sub(r"^\s*amazon\.?\s*", "", resultado, flags=re.IGNORECASE)
+        resultado = re.sub(r"\s*amazon\.?\s*$", "", resultado, flags=re.IGNORECASE).strip()
     if resultado and _es_titulo_basura(resultado):
         # La IA devolvió una etiqueta/badge de la oferta ("Oferta
-        # Relámpago", "Envío GRATIS"...) en vez del nombre real del
-        # producto -- se descarta y se cae al respaldo sin IA, que sí
-        # sabe saltarse esas mismas líneas.
+        # Relámpago", "60% Off... Elegible para ENVÍO GRATIS"...) en vez
+        # del nombre real del producto -- se descarta y se cae al
+        # respaldo sin IA, que sí sabe saltarse esas mismas líneas.
         resultado = None
     if not resultado:
         # Las dos IAs fallaron (o devolvieron basura) -- en vez de
@@ -283,19 +296,20 @@ def _extraer_titulo(texto_original):
     return resultado
 
 
-# Etiquetas/badges típicos de estos canales que NO son el nombre del
-# producto -- si el título extraído es solo esto (con o sin "AMAZON"
-# pegado al final, como suele venir), se descarta y se busca uno real.
+# Etiquetas/badges/texto promocional típico de estos canales que NO es el
+# nombre del producto -- se busca como fragmento en cualquier parte del
+# texto (no solo si es la cadena completa), porque suelen venir mezclados
+# con precios y porcentajes ("60% Off 11.98 Elegible para ENVÍO GRATIS").
 _RE_TITULO_BASURA = re.compile(
-    r"^(oferta\s*rel[aá]mpago|oferta\s*imperdible|env[ií]o\s*gratis|"
-    r"m[aá]s\s*vendido|oferta\s*flash|precio\s*m[ií]nimo\s*hist[oó]rico)"
-    r"s?\s*(amazon)?\s*$",
+    r"oferta\s*rel[aá]mpago|oferta\s*imperdible|env[ií]o\s*gratis|"
+    r"m[aá]s\s*vendido|oferta\s*flash|precio\s*m[ií]nimo\s*hist[oó]rico|"
+    r"elegible\s*para|\d+\s*%\s*off|off\s*\d|^\s*\d+\s*%",
     re.IGNORECASE,
 )
 
 
 def _es_titulo_basura(texto):
-    return bool(_RE_TITULO_BASURA.match(texto.strip()))
+    return bool(_RE_TITULO_BASURA.search(texto.strip()))
 
 
 def _titulo_de_respaldo(texto_original):
@@ -305,6 +319,7 @@ def _titulo_de_respaldo(texto_original):
     for linea in texto_original.splitlines():
         limpia = re.sub(r"https?://\S+", "", linea).strip()
         limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()-]", "", limpia).strip()
+        limpia = re.sub(r"^\s*amazon\.?\s*", "", limpia, flags=re.IGNORECASE).strip()
         if len(limpia) >= 8 and not _es_titulo_basura(limpia):
             return limpia[:80].strip()
     return None
