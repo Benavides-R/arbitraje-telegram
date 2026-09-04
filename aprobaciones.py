@@ -118,8 +118,10 @@ def revisar_actividad_admin(publicar_func):
     """
     Revisa en un solo paso: (1) si aprobaste/descartaste alguna oferta con
     los botones, y (2) si respondiste a alguna oferta con una foto propia.
-    `publicar_func(texto, url_imagen, imagen_bytes)` es la función real de
-    publicación -- se llama solo cuando apruebas.
+    `publicar_func(texto, url_imagen, imagen_bytes, imagen_original_bytes)` es
+    la función real de publicación -- se llama solo cuando apruebas.
+    `imagen_original_bytes` (sin logo) solo viene poblado cuando subiste la
+    foto a mano; se usa para Oferta Radar/Storage, nunca para Telegram/FB.
     """
     offset = _cargar_offset()
     try:
@@ -173,9 +175,12 @@ def revisar_actividad_admin(publicar_func):
             if accion == "aprobar":
                 print(f"[REVISION] Aprobada por admin: {oferta_id}")
                 imagen_bytes = None
+                imagen_original_bytes = None
                 if oferta.get("imagen_base64"):
                     imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
-                publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes)
+                if oferta.get("imagen_original_base64"):
+                    imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
+                publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes)
                 registrar_publicacion(oferta_id.split(":", 1)[0])
             else:
                 print(f"[REVISION] Descartada por admin: {oferta_id}")
@@ -201,6 +206,12 @@ def revisar_actividad_admin(publicar_func):
                 if imagen_con_logo:
                     pendientes[oferta_id_encontrada]["imagen_base64"] = base64.b64encode(
                         imagen_con_logo.getvalue()
+                    ).decode()
+                    # Versión LIMPIA (sin logo, tal cual llegó de Telegram) --
+                    # se guarda aparte para Oferta Radar/Supabase Storage;
+                    # Telegram/Facebook siguen usando la versión con logo.
+                    pendientes[oferta_id_encontrada]["imagen_original_base64"] = base64.b64encode(
+                        imagen_original
                     ).decode()
                     hubo_cambios_pendientes = True
                     requests.post(f"{API}/sendMessage", data={
@@ -235,9 +246,12 @@ def revisar_actividad_admin(publicar_func):
                 if palabra in aprobar_palabras:
                     print(f"[REVISION] Aprobada por texto: {oferta_id_encontrada}")
                     imagen_bytes = None
+                    imagen_original_bytes = None
                     if oferta.get("imagen_base64"):
                         imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
-                    publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes)
+                    if oferta.get("imagen_original_base64"):
+                        imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
+                    publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes)
                     registrar_publicacion(oferta_id_encontrada.split(":", 1)[0])
                 else:
                     print(f"[REVISION] Descartada por texto: {oferta_id_encontrada}")

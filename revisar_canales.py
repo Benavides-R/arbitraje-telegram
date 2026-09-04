@@ -415,11 +415,16 @@ def publicar(chat_id, texto, imagen_bytes=None):
         registrar_fallo("Publicar en Telegram")
 
 
-def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None):
+def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, imagen_original_bytes=None):
     """Publica de verdad: prepara la imagen con logo (o usa la que ya viene
     lista, ej. una foto que subiste tú a mano), publica VIP+Facebook ya, y
     programa el canal gratis con retraso. Usada tanto en modo directo como
-    después de una aprobación manual."""
+    después de una aprobación manual.
+
+    imagen_original_bytes (sin logo) solo llega poblado en el caso manual
+    (foto subida por Telegram) -- es la que se sube a Supabase Storage.
+    Las ofertas automáticas de Amazon NUNCA tocan Storage: a Oferta Radar
+    se le manda directo la URL que ya tiene Amazon."""
     if imagen_bytes is None and url_imagen:
         m = re.search(r"💸 Precio: (.+)", texto_nuevo)
         precio_para_badge = m.group(1).strip() if m else None
@@ -431,10 +436,17 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None):
     try:
         # Salida ADICIONAL, después de Facebook -- si esto falla, Facebook
         # y Telegram ya se publicaron y no se ven afectados.
-        # Reutiliza imagen_bytes (la misma que ya se publicó, con logo) --
-        # no se descarga ni se genera una segunda imagen.
-        url_supabase = subir_a_supabase(imagen_bytes)
-        enviar_a_oferta_radar(texto_nuevo, url_supabase or url_imagen)
+        if imagen_original_bytes:
+            # Caso manual: la imagen LIMPIA (sin logo) es la que se sube a
+            # Supabase Storage -- nunca la versión con logo, y nunca la
+            # automática de Amazon.
+            url_supabase = subir_a_supabase(imagen_original_bytes)
+            imagen_para_radar = url_supabase or url_imagen
+        else:
+            # Caso automático de Amazon: se manda su URL directa, sin
+            # pasar nunca por Supabase Storage.
+            imagen_para_radar = url_imagen
+        enviar_a_oferta_radar(texto_nuevo, imagen_para_radar)
     except Exception as e:
         print(f"Oferta Radar: error al importar (fallo inesperado, sin detener el resto): {e}")
 

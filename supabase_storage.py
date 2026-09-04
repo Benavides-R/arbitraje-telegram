@@ -1,7 +1,8 @@
 """
-Sube a Supabase Storage la MISMA imagen que ya se publica en Telegram/
-Facebook (con el logo de BenaTechs) -- no se descarga ni se genera una
-segunda versión de la imagen.
+Sube a Supabase Storage la imagen de una oferta MANUAL (subida a mano por
+Telegram), en su versión LIMPIA sin logo -- las ofertas automáticas de
+Amazon nunca pasan por aquí, se les manda su propia URL directa a Oferta
+Radar.
 
 Requiere en GitHub Secrets:
   SUPABASE_URL
@@ -48,13 +49,20 @@ def subir_a_supabase(imagen_bytes):
     (Supabase no configurado, o cualquier error -- nunca lanza excepción
     hacia afuera).
     """
-    if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY or not imagen_bytes:
+    if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
+        print("[Supabase Storage] SKIP: falta configuración (SUPABASE_URL o SUPABASE_SERVICE_ROLE_KEY)")
+        return None
+    if not imagen_bytes:
+        print("[Supabase Storage] SKIP: no hay imagen para subir")
+        return None
+    if not SUPABASE_URL.strip().lower().startswith("http"):
+        print("[Supabase Storage] error al generar URL pública: SUPABASE_URL no parece una URL válida")
         return None
 
     try:
         webp_bytes = _optimizar_a_webp(imagen_bytes)
     except Exception as e:
-        print(f"[Supabase Storage] No se pudo optimizar la imagen a WebP: {e}")
+        print(f"[Supabase Storage] error al optimizar la imagen a WebP: {e}")
         return None
 
     sha256 = hashlib.sha256(webp_bytes).hexdigest()

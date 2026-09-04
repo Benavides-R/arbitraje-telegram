@@ -7,6 +7,8 @@ Funciones para:
 
 import re
 import io
+import json
+import html
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
@@ -70,10 +72,84 @@ def resolver_link_final(url):
         return None
 
 
+_PATRONES_IMAGEN_INVALIDA = re.compile(
+    r"(sprite|icon|loading|transparent-pixel|grey-pixel|nav-sprite|"
+    r"gift-card|logo|placeholder)",
+    re.IGNORECASE,
+)
+
+
+def _es_imagen_valida(url):
+    """Filtro de seguridad: rechaza iconos, sprites de navegación, logos
+    y placeholders -- solo deja pasar lo que parece una foto real de
+    producto. Nunca acepta nada que no sea una URL http(s)."""
+    if not url or not isinstance(url, str) or not url.startswith("http"):
+        return False
+    return not _PATRONES_IMAGEN_INVALIDA.search(url)
+
+
+def _imagen_desde_json_ld(html_texto):
+    """Busca bloques <script type="application/ld+json"> con un campo
+    "image" -- lo usan las páginas de producto que siguen el estándar
+    schema.org/Product (Amazon lo trae en varias plantillas)."""
+    for bloque in re.findall(
+        r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+        html_texto, re.DOTALL | re.IGNORECASE,
+    ):
+        try:
+            data = json.loads(bloque.strip())
+        except Exception:
+            continue
+        for item in (data if isinstance(data, list) else [data]):
+            if not isinstance(item, dict):
+                continue
+            imagen = item.get("image")
+            if isinstance(imagen, list) and imagen:
+                imagen = imagen[0]
+            if isinstance(imagen, dict):
+                imagen = imagen.get("url")
+            if _es_imagen_valida(imagen):
+                return imagen
+    return None
+
+
+def _imagen_desde_galeria_amazon(html_texto):
+    """Busca el atributo data-a-dynamic-image que Amazon incrusta en el
+    HTML del producto -- es un diccionario {url: [ancho, alto]} con TODAS
+    las resoluciones disponibles de la imagen PRINCIPAL (no de productos
+    relacionados). Se elige la de mayor resolución -- las miniaturas de
+    navegación no sirven para publicar."""
+    match = re.search(r'data-a-dynamic-image="([^"]+)"', html_texto)
+    if not match:
+        return None
+    try:
+        mapa = json.loads(html.unescape(match.group(1)))
+    except Exception:
+        return None
+
+    mejor_url, mejor_area = None, 0
+    for url, dimensiones in mapa.items():
+        if not _es_imagen_valida(url):
+            continue
+        area = dimensiones[0] * dimensiones[1] if isinstance(dimensiones, list) and len(dimensiones) == 2 else 0
+        if area >= mejor_area:
+            mejor_area, mejor_url = area, url
+    return mejor_url
+
+
 def extraer_imagen_producto(url_tienda):
     """
-    Extrae la URL de la foto oficial del producto (meta tag og:image, o
-    directamente la imagen principal del producto si el meta tag no está).
+    Extrae la URL de la foto oficial del producto, probando varias fuentes
+    en orden (A→D), todas sacadas de la MISMA página del producto -- nunca
+    se busca una imagen en Google/Pexels/Pixabay ni en ningún sitio externo,
+    así que lo que se encuentra siempre pertenece de verdad a esa oferta,
+    o si no se encuentra nada confiable, se devuelve None (va a revisión
+    manual en vez de arriesgar una imagen que no corresponde):
+      A) meta og:image
+      B) JSON-LD (schema.org/Product)
+      C) galería embebida de Amazon (data-a-dynamic-image), la de mayor resolución
+      D) selectores HTML de la imagen principal (con navegador, último recurso)
+
     Primero intenta con un request simple (rápido). Amazon en particular
     suele bloquear ese request simple (lo detecta como bot) -- en ese caso
     reintenta con navegador headless con más señales de "navegador real".
@@ -84,9 +160,19 @@ def extraer_imagen_producto(url_tienda):
     """
     try:
         resp = requests.get(url_tienda, headers=HEADERS, timeout=15)
-        match = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', resp.text)
-        if match:
+        texto_html = resp.text
+
+        match = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', texto_html)
+        if match and _es_imagen_valida(match.group(1)):
             return match.group(1)
+
+        candidato = _imagen_desde_json_ld(texto_html)
+        if candidato:
+            return candidato
+
+        candidato = _imagen_desde_galeria_amazon(texto_html)
+        if candidato:
+            return candidato
     except Exception as e:
         print(f"[WARN] Request simple para imagen falló ({url_tienda}): {e}")
 
@@ -109,15 +195,23 @@ def extraer_imagen_producto(url_tienda):
             contenido = None
             elemento = page.query_selector('meta[property="og:image"]')
             if elemento:
-                contenido = elemento.get_attribute("content")
+                candidato = elemento.get_attribute("content")
+                if _es_imagen_valida(candidato):
+                    contenido = candidato
 
             if not contenido:
-                # Respaldo: la imagen principal del producto en la página de Amazon
+                # Con la página ya renderizada por JS, reintenta B y C sobre
+                # el HTML final (a veces solo aparecen después de cargar).
+                html_render = page.content()
+                contenido = _imagen_desde_json_ld(html_render) or _imagen_desde_galeria_amazon(html_render)
+
+            if not contenido:
                 for selector in ["#landingImage", "#imgBlkFront", ".a-dynamic-image"]:
                     img = page.query_selector(selector)
                     if img:
-                        contenido = img.get_attribute("src")
-                        if contenido:
+                        candidato = img.get_attribute("src")
+                        if _es_imagen_valida(candidato):
+                            contenido = candidato
                             break
 
             browser.close()
@@ -127,22 +221,23 @@ def extraer_imagen_producto(url_tienda):
         return None
 
 
-TAMANO_ESTANDAR = 1080  # cuadrado, el formato que mejor se ve en FB/Instagram
+
+TAMANO_MAXIMO = 1200  # límite superior; nunca agranda imágenes más chicas que esto
 
 
-def _recortar_cuadrado_centrado(imagen):
+def _normalizar_tamano(imagen):
     """
-    Encaja la imagen COMPLETA dentro de un cuadrado blanco (sin cortar
-    nada), centrada -- antes se recortaba a la fuerza y con fotos que no
-    eran cuadradas (ej. varios productos en fila) se perdían los bordes.
+    Limita el tamaño máximo a 1200x1200 manteniendo la proporción ORIGINAL
+    de la imagen -- no recorta, no deforma, no agranda imágenes pequeñas,
+    y ya NO fuerza un cuadrado (antes se rellenaba con fondo blanco; la
+    web de Oferta Radar ya respeta la proporción real, así que se manda
+    tal cual).
     """
     imagen = imagen.convert("RGBA")
-    imagen.thumbnail((TAMANO_ESTANDAR, TAMANO_ESTANDAR), Image.LANCZOS)
-
-    fondo = Image.new("RGBA", (TAMANO_ESTANDAR, TAMANO_ESTANDAR), (255, 255, 255, 255))
-    posicion = ((TAMANO_ESTANDAR - imagen.width) // 2, (TAMANO_ESTANDAR - imagen.height) // 2)
-    fondo.paste(imagen, posicion, imagen)
-    return fondo
+    if imagen.width > TAMANO_MAXIMO or imagen.height > TAMANO_MAXIMO:
+        imagen = imagen.copy()
+        imagen.thumbnail((TAMANO_MAXIMO, TAMANO_MAXIMO), Image.LANCZOS)
+    return imagen
 
 
 def _cargar_fuente(tamano):
@@ -211,12 +306,12 @@ def _dibujar_redes_sociales(producto):
 def aplicar_logo_a_bytes(imagen_bytes_original, precio_texto=None):
     """
     Toma los bytes de una imagen (ya descargada, ej. la que tú subes a mano),
-    la encaja en un cuadrado centrado de tamaño estándar, y le agrega el
+    la normaliza a un tamaño máximo (sin deformar ni forzar cuadrado), y le agrega el
     badge de precio (si se pasa), tus redes sociales, y tu logo.
     """
     try:
         producto = Image.open(io.BytesIO(imagen_bytes_original)).convert("RGBA")
-        producto = _recortar_cuadrado_centrado(producto)
+        producto = _normalizar_tamano(producto)
 
         _dibujar_badge_precio(producto, precio_texto)
         _dibujar_redes_sociales(producto)
