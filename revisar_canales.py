@@ -550,7 +550,7 @@ def procesar_mensaje(oferta_id, texto):
 
 def main():
     # 1. Revisa si el admin aprobó/descartó ofertas, o mandó una foto propia
-    revisar_actividad_admin(publicar_oferta_completa)
+    revisar_actividad_admin(publicar_oferta_completa, manual_func=procesar_mensaje)
 
     # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
     # Se reparte el tope EN PARTES IGUALES entre canales (en vez de dejar que

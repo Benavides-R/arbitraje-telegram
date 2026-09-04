@@ -114,10 +114,14 @@ def _descargar_archivo_telegram(file_id):
     return archivo.content
 
 
-def revisar_actividad_admin(publicar_func):
+def revisar_actividad_admin(publicar_func, manual_func=None):
     """
     Revisa en un solo paso: (1) si aprobaste/descartaste alguna oferta con
-    los botones, y (2) si respondiste a alguna oferta con una foto propia.
+    los botones, (2) si respondiste a alguna oferta con una foto propia, y
+    (3) si mandaste un mensaje NUEVO (no respuesta) con una URL -- oferta
+    manual, se procesa con `manual_func(oferta_id, texto)` reutilizando el
+    mismo pipeline de las ofertas automáticas (extracción, imagen, envío a
+    revisión, todo igual).
     `publicar_func(texto, url_imagen, imagen_bytes, imagen_original_bytes)` es
     la función real de publicación -- se llama solo cuando apruebas.
     `imagen_original_bytes` (sin logo) solo viene poblado cuando subiste la
@@ -188,6 +192,24 @@ def revisar_actividad_admin(publicar_func):
 
         # Caso 2: respondiste con una foto a un mensaje de revisión
         msg = update.get("message")
+
+        # Caso 0: mensaje NUEVO (no respuesta) del admin con una URL --
+        # oferta manual tuya, se procesa con el mismo pipeline de las
+        # automáticas (extracción, imagen, revisión) vía manual_func.
+        if (
+            manual_func and msg and "text" in msg
+            and "reply_to_message" not in msg
+            and str(msg.get("chat", {}).get("id")) == str(ADMIN_CHAT_ID)
+            and re.search(r"https?://", msg["text"])
+        ):
+            oferta_id = f"Manual:{msg['message_id']}"
+            print(f"[MANUAL] URL recibida del admin, procesando como oferta nueva ({oferta_id})")
+            try:
+                manual_func(oferta_id, msg["text"])
+            except Exception as e:
+                print(f"[WARN] No se pudo procesar la URL manual: {e}")
+            continue
+
         if msg and "photo" in msg and "reply_to_message" in msg:
             respondido_id = msg["reply_to_message"]["message_id"]
             oferta_id_encontrada = next(
