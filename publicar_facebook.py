@@ -39,10 +39,22 @@ def _html_a_texto_plano(texto_html):
     return html.unescape(texto)
 
 
+_RE_LINK_OFERTA = re.compile(r"⚡\s*Ver oferta:\s*(\S+)")
+
+
 def publicar_facebook(texto, imagen_bytes=None):
     if not FACEBOOK_PAGE_ID or not FACEBOOK_PAGE_ACCESS_TOKEN:
         print("[SKIP] Facebook no configurado todavía")
         return
+
+    # El link se saca del cuerpo del post y se manda aparte, como PRIMER
+    # COMENTARIO -- Facebook reduce el alcance orgánico de publicaciones
+    # con links externos en el texto principal; en el comentario no aplica
+    # esa penalización.
+    match = _RE_LINK_OFERTA.search(texto)
+    link_oferta = match.group(1) if match else None
+    if match:
+        texto = _RE_LINK_OFERTA.sub("👇 Link de la oferta en el primer comentario 👇", texto)
 
     texto = _html_a_texto_plano(texto)
 
@@ -59,5 +71,18 @@ def publicar_facebook(texto, imagen_bytes=None):
 
         if resp.status_code != 200:
             print(f"[WARN] Facebook respondió con error: {resp.text}")
+            return
+
+        if link_oferta:
+            cuerpo = resp.json()
+            post_id = cuerpo.get("post_id") or cuerpo.get("id")
+            if post_id:
+                resp_comentario = requests.post(
+                    f"{GRAPH_API_BASE}/{post_id}/comments",
+                    data={"message": link_oferta, "access_token": FACEBOOK_PAGE_ACCESS_TOKEN},
+                    timeout=30,
+                )
+                if resp_comentario.status_code != 200:
+                    print(f"[WARN] No se pudo comentar el link en Facebook: {resp_comentario.text}")
     except Exception as e:
         print(f"[ERROR] Fallo al publicar en Facebook: {e}")
