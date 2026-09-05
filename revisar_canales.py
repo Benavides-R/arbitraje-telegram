@@ -215,11 +215,14 @@ def extraer_precio(texto_original, link):
          salvedad de que amazon.com siempre es USD salvo que el texto diga
          lo contrario, como en el caso de arriba).
     """
-    match = re.search(r"\$\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
+    match = re.search(r"[\$💰]\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
     if not match:
         return None
 
-    precio = match.group(0).strip()
+    # Se normaliza siempre a "$" para mostrar consistente, sin importar si
+    # el canal usó "$" o "💰" (ej. Clubgratis) -- el resto del sistema
+    # (badge de imagen, Oferta Radar) espera el símbolo "$".
+    precio = "$" + re.sub(r"^[\$💰]\s?", "", match.group(0)).strip()
 
     # ¿El texto ya trae la moneda pegada justo después del precio?
     resto = texto_original[match.end():match.end() + 6]
@@ -254,9 +257,12 @@ def _extraer_titulo(texto_original):
     de peticiones de Groq)."""
     prompt = (
         "Extrae ÚNICAMENTE el nombre real del producto de este mensaje de "
-        "oferta de Telegram, en español, máximo 14 palabras. Incluye marca, "
-        "modelo y la característica principal si el mensaje la menciona "
-        "(ej. capacidad, tamaño, color).\n"
+        "oferta de Telegram, en español, máximo 14 palabras. El nombre del "
+        "producto puede estar en CUALQUIER parte del mensaje -- no asumas "
+        "que está en la primera línea; suele ser la frase más descriptiva "
+        "(marca, modelo, características), no la primera ni la más corta. "
+        "Incluye marca, modelo y la característica principal si el mensaje "
+        "la menciona (ej. capacidad, tamaño, color).\n"
         "NUNCA incluyas: el nombre de la tienda (Amazon, Temu, etc.), "
         "textos promocionales o de badge (\"Oferta Relámpago\", \"Envío "
         "GRATIS\", \"Elegible para...\", porcentajes de descuento, precios), "
@@ -313,16 +319,24 @@ def _es_titulo_basura(texto):
 
 
 def _titulo_de_respaldo(texto_original):
-    """Título simple sin IA: primera línea con texto real del mensaje
-    (saltándose banners/badges tipo "Oferta Relámpago"), quitando links y
-    emojis sueltos, recortado a un largo razonable."""
+    """Título sin IA: de todas las líneas con texto real del mensaje
+    (saltándose banners/badges, links y hashtags), se elige la MÁS LARGA
+    -- el nombre del producto casi siempre es la frase más descriptiva del
+    mensaje, no necesariamente la primera línea (muchos canales ponen
+    badges de descuento/envío antes del nombre real)."""
+    candidatas = []
     for linea in texto_original.splitlines():
-        limpia = re.sub(r"https?://\S+", "", linea).strip()
-        limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()-]", "", limpia).strip()
+        bruta = linea.strip()
+        if not bruta or bruta.startswith("#"):
+            continue  # línea de puros hashtags, no es el título
+        limpia = re.sub(r"https?://\S+", "", bruta).strip()
+        limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()–-]", "", limpia).strip()
         limpia = re.sub(r"^\s*amazon\.?\s*", "", limpia, flags=re.IGNORECASE).strip()
         if len(limpia) >= 8 and not _es_titulo_basura(limpia):
-            return limpia[:80].strip()
-    return None
+            candidatas.append(limpia)
+    if not candidatas:
+        return None
+    return max(candidatas, key=len)[:80].strip()
 
 
 CATEGORIAS_HASHTAGS = {
