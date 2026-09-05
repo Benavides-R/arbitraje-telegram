@@ -225,6 +225,11 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                 manual_func(oferta_id, msg["text"])
             except Exception as e:
                 print(f"[WARN] No se pudo procesar la URL manual: {e}")
+            # manual_func (vía enviar_para_revision) ya guardó la oferta nueva
+            # en disco por su cuenta -- se refresca esta copia en memoria para
+            # que el guardado final de esta función no la sobreescriba con
+            # una versión vieja que todavía no la tiene.
+            pendientes = _cargar_pendientes()
             continue
 
         if msg and "photo" in msg and "reply_to_message" in msg:
