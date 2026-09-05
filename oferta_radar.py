@@ -14,12 +14,17 @@ Si cualquiera de las dos falta, este módulo simplemente no envía nada
 """
 
 import re
+import json
 import html
+import time
 import requests
+from pathlib import Path
 
 from config import OFERTA_RADAR_API_KEY, OFERTA_RADAR_URL
 
 TIMEOUT_SEGUNDOS = 20
+COLA_FILE = Path(__file__).parent / "data" / "oferta_radar_pendientes.json"
+MAX_INTENTOS = 5  # después de esto, se deja de reintentar (probablemente el dato está mal, no es un problema pasajero)
 
 # Mismo formato que arma reescribir_texto() en revisar_canales.py -- si ese
 # formato cambia algún día, estos patrones hay que actualizarlos junto con él.
@@ -77,7 +82,10 @@ def _extraer_datos_de_texto(texto_nuevo):
 
     m = _RE_PRODUCTO.search(texto_nuevo)
     if m:
-        datos["product"] = html.unescape(m.group(1)).strip()
+        titulo_completo = html.unescape(m.group(1)).strip()
+        # Oferta Radar tiene un límite de 160 caracteres para el título --
+        # si se pasa, la API respondía con error 500 y la oferta se perdía.
+        datos["product"] = titulo_completo if len(titulo_completo) <= 160 else titulo_completo[:157].rstrip() + "..."
 
     m = _RE_CALIFICACION.search(texto_nuevo)
     if m:
@@ -93,7 +101,7 @@ def _extraer_datos_de_texto(texto_nuevo):
 
     m = _RE_CUPON_CON_CODIGO.search(texto_nuevo)
     if m:
-        datos["coupon"] = html.unescape(m.group(1)).strip()
+        datos["coupon"] = html.unescape(m.group(1)).strip()[:80]
     # si no hay <code>...</code>, coupon se queda en None (-> null en el JSON)
 
     m = _RE_LINK.search(texto_nuevo)
@@ -111,9 +119,93 @@ def _extraer_datos_de_texto(texto_nuevo):
     m = _RE_HASHTAGS.search(texto_nuevo)
     if m:
         primer_tag = m.group(1).strip().split()[0]
-        datos["category"] = primer_tag.lstrip("#")
+        datos["category"] = primer_tag.lstrip("#")[:50]
 
     return datos
+
+
+def _cargar_cola():
+    if COLA_FILE.exists():
+        try:
+            return json.loads(COLA_FILE.read_text())
+        except Exception:
+            return []
+    return []
+
+
+def _guardar_cola(cola):
+    COLA_FILE.parent.mkdir(parents=True, exist_ok=True)
+    COLA_FILE.write_text(json.dumps(cola, indent=2, ensure_ascii=False))
+
+
+def _enviar_payload(payload):
+    """Hace el POST real y decide qué significa la respuesta. Devuelve
+    True si ya quedó resuelto (se creó bien, o ya existía -- duplicado),
+    False si hay que reintentar más adelante."""
+    try:
+        resp = requests.post(
+            f"{OFERTA_RADAR_URL.rstrip('/')}/api/offers/import",
+            headers={
+                "Authorization": f"Bearer {OFERTA_RADAR_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=TIMEOUT_SEGUNDOS,
+        )
+    except Exception as e:
+        # Nunca se imprime la API key -- solo el tipo de problema de red.
+        print(f"Oferta Radar: error al importar (sin conexión/timeout, se reintentará: {e})")
+        return False
+
+    if resp.status_code == 409:
+        print("Oferta Radar: DUPLICATE")
+        return True
+
+    if not resp.ok:
+        # Se registra el código y la respuesta, pero la API key nunca viaja
+        # en la respuesta del servidor, así que no hay riesgo de imprimirla.
+        print(f"Oferta Radar: error al importar (HTTP {resp.status_code}, se reintentará): {resp.text[:300]}")
+        return False
+
+    try:
+        cuerpo = resp.json()
+    except ValueError:
+        cuerpo = {}
+
+    if cuerpo.get("duplicate"):
+        print("Oferta Radar: DUPLICATE")
+        return True
+
+    print("Oferta Radar: OK")
+    if cuerpo.get("id"):
+        print(f"Oferta Radar ID: {cuerpo['id']}")
+    if cuerpo.get("url"):
+        print(f"Oferta Radar URL: {cuerpo['url']}")
+    return True
+
+
+def reintentar_pendientes():
+    """Reintenta las ofertas que fallaron al importar en corridas
+    anteriores (ej. el error 500 por título muy largo, o Oferta Radar
+    caído un rato) -- se llama UNA vez al principio de cada corrida,
+    antes de procesar ofertas nuevas."""
+    if not OFERTA_RADAR_API_KEY or not OFERTA_RADAR_URL:
+        return
+    cola = _cargar_cola()
+    if not cola:
+        return
+
+    print(f"[Oferta Radar] Reintentando {len(cola)} oferta(s) pendiente(s) de corridas anteriores...")
+    quedan = []
+    for item in cola:
+        if _enviar_payload(item["payload"]):
+            continue  # resuelto (OK o duplicado) -- se saca de la cola
+        item["intentos"] = item.get("intentos", 1) + 1
+        if item["intentos"] < MAX_INTENTOS:
+            quedan.append(item)
+        else:
+            print(f"[Oferta Radar] Se descarta tras {MAX_INTENTOS} intentos fallidos: {item['payload'].get('product')}")
+    _guardar_cola(quedan)
 
 
 def enviar_a_oferta_radar(texto_nuevo, url_imagen):
@@ -153,42 +245,8 @@ def enviar_a_oferta_radar(texto_nuevo, url_imagen):
         "approved": True,
     }
 
-    try:
-        resp = requests.post(
-            f"{OFERTA_RADAR_URL.rstrip('/')}/api/offers/import",
-            headers={
-                "Authorization": f"Bearer {OFERTA_RADAR_API_KEY}",
-                "Content-Type": "application/json",
-            },
-            json=payload,
-            timeout=TIMEOUT_SEGUNDOS,
-        )
-    except Exception as e:
-        # Nunca se imprime la API key -- solo el tipo de problema de red.
-        print(f"Oferta Radar: error al importar (sin conexión/timeout: {e})")
-        return
-
-    if resp.status_code == 409:
-        print("Oferta Radar: DUPLICATE")
-        return
-
-    if not resp.ok:
-        # Se registra el código y la respuesta, pero la API key nunca viaja
-        # en la respuesta del servidor, así que no hay riesgo de imprimirla.
-        print(f"Oferta Radar: error al importar (HTTP {resp.status_code}): {resp.text[:300]}")
-        return
-
-    try:
-        cuerpo = resp.json()
-    except ValueError:
-        cuerpo = {}
-
-    if cuerpo.get("duplicate"):
-        print("Oferta Radar: DUPLICATE")
-        return
-
-    print("Oferta Radar: OK")
-    if cuerpo.get("id"):
-        print(f"Oferta Radar ID: {cuerpo['id']}")
-    if cuerpo.get("url"):
-        print(f"Oferta Radar URL: {cuerpo['url']}")
+    if not _enviar_payload(payload):
+        cola = _cargar_cola()
+        cola.append({"payload": payload, "intentos": 1, "guardado": time.time()})
+        _guardar_cola(cola)
+        print("[Oferta Radar] Se guardó para reintentar en la próxima corrida")

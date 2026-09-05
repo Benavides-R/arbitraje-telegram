@@ -38,7 +38,7 @@ from config import (
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
-from oferta_radar import enviar_a_oferta_radar
+from oferta_radar import enviar_a_oferta_radar, reintentar_pendientes
 from supabase_storage import subir_a_supabase
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
@@ -549,6 +549,10 @@ def procesar_mensaje(oferta_id, texto):
 
 
 def main():
+    # 0. Reintenta ofertas que fallaron al importar a Oferta Radar en
+    # corridas anteriores (ej. errores 500 puntuales, caídas cortas).
+    reintentar_pendientes()
+
     # 1. Revisa si el admin aprobó/descartó ofertas, o mandó una foto propia
     revisar_actividad_admin(publicar_oferta_completa, manual_func=procesar_mensaje)
 

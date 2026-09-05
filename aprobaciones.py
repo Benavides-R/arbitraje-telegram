@@ -114,6 +114,23 @@ def _descargar_archivo_telegram(file_id):
     return archivo.content
 
 
+def _avisar_no_encontrada():
+    """Le avisa al admin que su respuesta no encontró ninguna oferta
+    pendiente -- antes esto pasaba en silencio (foto o corrección se
+    perdían sin que el admin se enterara)."""
+    try:
+        requests.post(f"{API}/sendMessage", data={
+            "chat_id": ADMIN_CHAT_ID,
+            "text": (
+                "⚠️ No encontré a qué oferta corresponde ese mensaje -- puede "
+                "que ya se haya publicado, descartado, o vencido (+48h). "
+                "Verifica que respondiste al mensaje ORIGINAL de esa oferta."
+            ),
+        }, timeout=15)
+    except Exception:
+        pass
+
+
 def revisar_actividad_admin(publicar_func, manual_func=None):
     """
     Revisa en un solo paso: (1) si aprobaste/descartaste alguna oferta con
@@ -217,6 +234,7 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                 None,
             )
             if not oferta_id_encontrada:
+                _avisar_no_encontrada()
                 continue
 
             try:
@@ -254,6 +272,7 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                 None,
             )
             if not oferta_id_encontrada:
+                _avisar_no_encontrada()
                 continue
 
             palabra = msg["text"].strip().lower()
