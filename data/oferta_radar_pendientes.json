@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0DT8V2PXR",
+      "product": "Cestas apilables de alambre para organización de despensa",
+      "rating": null,
+      "reviews": null,
+      "price": 17.99,
+      "currency": "USD",
+      "affiliateUrl": "https://www.amazon.com/dp/B0DT8V2PXR?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0DT8V2PXR",
+      "imageUrl": "https://m.media-amazon.com/images/I/719+fuHCWML._AC_SX569_PIbundle-4,TopRight,0,0_SH20_.jpg",
+      "category": "Hogar",
+      "coupon": "4Y8GE4KF",
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788642111.0576286
+  }
+]
