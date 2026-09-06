@@ -15,11 +15,12 @@ Cómo conseguirlos (resumen -- el detalle completo está en el README):
 
 import re
 import html
+import time
 import requests
 
 from config import FACEBOOK_PAGE_ID, FACEBOOK_PAGE_ACCESS_TOKEN
 
-GRAPH_API_BASE = "https://graph.facebook.com/v19.0"
+GRAPH_API_BASE = "https://graph.facebook.com/v20.0"
 
 
 def _html_a_texto_plano(texto_html):
@@ -75,8 +76,11 @@ def publicar_facebook(texto, imagen_bytes=None):
 
         if link_oferta:
             cuerpo = resp.json()
+            print(f"[INFO] Respuesta de Facebook al crear el post: {cuerpo}")
             post_id = cuerpo.get("post_id") or cuerpo.get("id")
+            print(f"[INFO] Intentando comentar en: {GRAPH_API_BASE}/{post_id}/comments")
             if post_id:
+                time.sleep(5)  # le da tiempo a Facebook de terminar de procesar el post
                 resp_comentario = requests.post(
                     f"{GRAPH_API_BASE}/{post_id}/comments",
                     data={"message": link_oferta, "access_token": FACEBOOK_PAGE_ACCESS_TOKEN},
