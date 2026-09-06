@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0GMJ3B1V2",
+      "product": "Cable de carga múltiple 3 en 2 para viajes con iWatchiPhoneiPadAirPods",
+      "rating": null,
+      "reviews": null,
+      "price": 14.99,
+      "currency": "USD",
+      "affiliateUrl": "https://www.amazon.com/dp/B0GMJ3B1V2?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0GMJ3B1V2",
+      "imageUrl": "https://m.media-amazon.com/images/I/71a94ZlIasL._SX466_.jpg",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788652952.1235461
+  },
+  {
+    "payload": {
+      "externalId": "B0GRB7P918",
+      "product": "TSUYAGLA Cepillo alisador de cabello iónico con cerdas desmontables.",
+      "rating": 4.5,
+      "reviews": 9,
+      "price": 78381,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0GRB7P918?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0GRB7P918",
+      "imageUrl": "https://m.media-amazon.com/images/I/41L9xhBaxOL._AC_SX569_.jpg",
+      "category": "Ofertas",
+      "coupon": "GC8EN2VX",
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788653140.34272
+  }
+]
