@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0FFF4TW88",
+      "product": "Producto Reebok Energen Run 4 - Tenis de correr para hombre, talla 6.5 a 14.",
+      "rating": 4.6,
+      "reviews": 757,
+      "price": 140954,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0FFF4TW88?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0FFF4TW88",
+      "imageUrl": "https://m.media-amazon.com/images/I/81mfi8FBI+L._AC_SY695_.jpg",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788724858.3646595
+  }
+]
