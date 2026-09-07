@@ -1,1 +1,59 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0H3NN1ZR5",
+      "product": "Detector de cámara oculta con GPS y antiespía 6 en 1",
+      "rating": null,
+      "reviews": null,
+      "price": 15.49,
+      "currency": "USD",
+      "affiliateUrl": "https://www.amazon.com/dp/B0H3NN1ZR5?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0H3NN1ZR5",
+      "imageUrl": "https://m.media-amazon.com/images/I/71LtsMEx64L._AC_SX425_.jpg",
+      "category": "Ofertas",
+      "coupon": "HI6A6MT3",
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788739278.2071984
+  },
+  {
+    "payload": {
+      "externalId": "B0GBTJY8TZ",
+      "product": "Manta refrescante para perros grandes, transpirable, lavable, azul 50 x 60 pulgadas",
+      "rating": null,
+      "reviews": null,
+      "price": 14.99,
+      "currency": "USD",
+      "affiliateUrl": "https://www.amazon.com/dp/B0GBTJY8TZ?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0GBTJY8TZ",
+      "imageUrl": "https://m.media-amazon.com/images/I/61+GGKc2c+L._AC_SX679_.jpg",
+      "category": "Mascotas",
+      "coupon": "3XWH6DPE",
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788739299.3069513
+  },
+  {
+    "payload": {
+      "externalId": "B0CKRZGGVX",
+      "product": "Zapatillas de correr adidas Coreuner 5 para mujer",
+      "rating": 4.5,
+      "reviews": 544,
+      "price": 71903,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.co.jp/dp/B0CKRZGGVX?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0CKRZGGVX",
+      "imageUrl": "https://m.media-amazon.com/images/I/51sIKgqoheL._AC_SY695_.jpg",
+      "category": "Moda",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788739483.2645402
+  }
+]
