@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0FVXB1HL2",
+      "product": "Blazer Lazysmile manga larga cuello redondo, Azul marino, Pequeña",
+      "rating": null,
+      "reviews": null,
+      "price": 39.99,
+      "currency": "USD",
+      "affiliateUrl": "https://www.amazon.com/dp/B0FVXB1HL2?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0FVXB1HL2",
+      "imageUrl": "https://m.media-amazon.com/images/I/71bvL-7fiPL._AC_SY879_.jpg",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788764499.008431
+  }
+]
