@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0CB1D82NB",
+      "product": "INIU Cargador para Macbook Pro, 100 W, 3 puertos",
+      "rating": 4.5,
+      "reviews": 1137,
+      "price": 47494,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0CB1D82NB?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0CB1D82NB",
+      "imageUrl": "https://m.media-amazon.com/images/I/71l7Amv1-+L._AC_SX425_.jpg",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1788898510.3469741
+  }
+]
