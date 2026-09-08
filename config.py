@@ -76,6 +76,13 @@ REDES_SOCIALES_LINEAS = ["fb.com/Benatechs.Descuentos", "t.me/Benatechs_Descuent
 FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID")
 FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
 
+# Espera mínima (en segundos) entre un post de Facebook y el siguiente --
+# Meta no publica su límite exacto de "spam" (error 368), pero publicar
+# varias ofertas de golpe en pocos segundos es un patrón típico que lo
+# dispara. 60s = como mucho 1 post por minuto, algo que cualquier página
+# activa hace sin problema.
+FACEBOOK_SEGUNDOS_ENTRE_POSTS = 60
+
 # Oferta Radar (tu página) -- opcional, salida ADICIONAL después de aprobar
 # una oferta. Si no están configurados los dos, simplemente no se envía
 # nada ahí (Telegram y Facebook siguen funcionando igual).

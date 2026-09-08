@@ -15,11 +15,30 @@ Cómo conseguirlos (resumen -- el detalle completo está en el README):
 
 import re
 import html
+import json
+import time
 import requests
+from pathlib import Path
 
-from config import FACEBOOK_PAGE_ID, FACEBOOK_PAGE_ACCESS_TOKEN
+from config import FACEBOOK_PAGE_ID, FACEBOOK_PAGE_ACCESS_TOKEN, FACEBOOK_SEGUNDOS_ENTRE_POSTS
 
 GRAPH_API_BASE = "https://graph.facebook.com/v20.0"
+CONTADOR_FILE = Path(__file__).parent / "data" / "facebook_contador.json"
+
+
+def _segundos_desde_ultimo_post():
+    if CONTADOR_FILE.exists():
+        try:
+            datos = json.loads(CONTADOR_FILE.read_text())
+            return time.time() - datos.get("ultimo_post_ts", 0)
+        except Exception:
+            pass
+    return FACEBOOK_SEGUNDOS_ENTRE_POSTS  # sin dato previo -- no hay que esperar
+
+
+def _marcar_post_ahora():
+    CONTADOR_FILE.parent.mkdir(parents=True, exist_ok=True)
+    CONTADOR_FILE.write_text(json.dumps({"ultimo_post_ts": time.time()}))
 
 
 def _html_a_texto_plano(texto_html):
@@ -44,6 +63,12 @@ def publicar_facebook(texto, imagen_bytes=None):
         print("[SKIP] Facebook no configurado todavía")
         return
 
+    transcurrido = _segundos_desde_ultimo_post()
+    if transcurrido < FACEBOOK_SEGUNDOS_ENTRE_POSTS:
+        espera = round(FACEBOOK_SEGUNDOS_ENTRE_POSTS - transcurrido)
+        print(f"[Facebook] Esperando {espera}s para no publicar muy seguido (evitar el bloqueo de spam)...")
+        time.sleep(espera)
+
     texto = _html_a_texto_plano(texto)
 
     try:
@@ -59,5 +84,7 @@ def publicar_facebook(texto, imagen_bytes=None):
 
         if resp.status_code != 200:
             print(f"[WARN] Facebook respondió con error: {resp.text}")
+        else:
+            _marcar_post_ahora()
     except Exception as e:
         print(f"[ERROR] Fallo al publicar en Facebook: {e}")
