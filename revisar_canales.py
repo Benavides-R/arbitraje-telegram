@@ -44,6 +44,7 @@ from aprobaciones import enviar_para_revision, revisar_actividad_admin
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
 from estadisticas import verificar_y_enviar_reporte
 from aliexpress_afiliado import generar_link_afiliado_aliexpress
+from aliexpress_ofertas import obtener_ofertas_calientes, construir_texto
 
 API_ID = os.environ["TELEGRAM_API_ID"]
 API_HASH = os.environ["TELEGRAM_API_HASH"]
@@ -575,6 +576,19 @@ def main():
 
     # 1. Revisa si el admin aprobó/descartó ofertas, o mandó una foto propia
     revisar_actividad_admin(publicar_oferta_completa, manual_func=procesar_mensaje)
+
+    # 1.5 Ofertas directas de AliExpress -- siempre a revisión manual,
+    # nunca automático, aunque vengan completas (contenido nuevo sin validar).
+    estado_ali = cargar_estado()
+    vistos = set(estado_ali.get("aliexpress_vistos", []))
+    for oferta in obtener_ofertas_calientes():
+        if oferta["id"] in vistos:
+            continue
+        print(f"[OFERTA] aliexpress.com (buscador) -> enviada a revisión ({oferta['id']})")
+        enviar_para_revision(f"aliexpress_hot:{oferta['id']}", construir_texto(oferta), oferta["imagen"])
+        vistos.add(oferta["id"])
+    estado_ali["aliexpress_vistos"] = list(vistos)[-500:]  # no crece sin límite
+    guardar_estado(estado_ali)
 
     # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
     # Se reparte el tope EN PARTES IGUALES entre canales (en vez de dejar que

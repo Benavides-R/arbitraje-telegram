@@ -203,6 +203,7 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                     imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
                 publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes)
                 registrar_publicacion(oferta_id.split(":", 1)[0])
+                time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
             else:
                 print(f"[REVISION] Descartada por admin: {oferta_id}")
             continue
@@ -299,6 +300,7 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                         imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
                     publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes)
                     registrar_publicacion(oferta_id_encontrada.split(":", 1)[0])
+                    time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
                 else:
                     print(f"[REVISION] Descartada por texto: {oferta_id_encontrada}")
                 try:
