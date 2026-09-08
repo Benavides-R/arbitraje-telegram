@@ -57,6 +57,7 @@ jobs:
           git config user.email "bot@arbitraje.local"
           git add data/ultimo_id.json data/pendientes_revision.json data/ultimo_update_id.txt data/estadisticas.json
           [ -f data/oferta_radar_pendientes.json ] && git add data/oferta_radar_pendientes.json || true
+          [ -f data/facebook_contador.json ] && git add data/facebook_contador.json || true
           git diff --quiet && git diff --staged --quiet || git commit -m "Actualiza estado"
 
           # Si mientras corría el script alguien más subió cambios al repo
