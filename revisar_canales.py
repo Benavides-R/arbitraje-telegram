@@ -43,6 +43,7 @@ from supabase_storage import subir_a_supabase
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
 from estadisticas import verificar_y_enviar_reporte
+from aliexpress_afiliado import generar_link_afiliado_aliexpress
 
 API_ID = os.environ["TELEGRAM_API_ID"]
 API_HASH = os.environ["TELEGRAM_API_HASH"]
@@ -109,14 +110,19 @@ def _agregar_parametro_url(url, clave, valor):
 
 def generar_link_afiliado(link, dominio):
     info = TIENDAS.get(dominio, {})
-    if not info.get("afiliado_activo") or not info.get("id_afiliado"):
+    if not info.get("afiliado_activo"):
         return link  # sin afiliado activo todavía: se publica tal cual, sin comisión
 
     if dominio == "amazon.":
+        if not info.get("id_afiliado"):
+            return link
         return _agregar_parametro_url(link, "tag", info["id_afiliado"])
 
-    # TODO: otras tiendas (AliExpress, Mercado Libre, etc.) tienen su propio
-    # formato de link de afiliado -- lo conectamos cuando actives cada una.
+    if dominio == "aliexpress.com":
+        return generar_link_afiliado_aliexpress(link)
+
+    # TODO: otras tiendas (Mercado Libre, etc.) tienen su propio formato de
+    # link de afiliado -- lo conectamos cuando actives cada una.
     return link
 
 

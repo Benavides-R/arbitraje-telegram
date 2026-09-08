@@ -47,7 +47,7 @@ ADMIN_CHAT_ID = 6100796756
 # Mientras "afiliado_activo" sea False, el link se publica tal cual (sin comisión),
 # apenas te aprueben cambias esto a True y agregas tu ID de afiliado.
 TIENDAS = {
-    "aliexpress.com": {"afiliado_activo": False, "id_afiliado": None},
+    "aliexpress.com": {"afiliado_activo": True, "id_afiliado": None},
     # Cuando te registres de nuevo en Amazon Associates, te dan tu "tracking
     # ID" (algo como "tuusuario-20") de inmediato -- ponlo aquí ya mismo,
     # no necesitas esperar a las 3 ventas para EMPEZAR a usarlo, solo para
