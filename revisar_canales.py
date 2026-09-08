@@ -24,6 +24,7 @@ import re
 import json
 import time
 import html
+import unicodedata
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 import requests
@@ -34,7 +35,8 @@ from telethon.sessions import StringSession
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
-    MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA, MAX_ANTIGUEDAD_OFERTA_HORAS,
+    PALABRAS_SIEMPRE_MANUAL, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
+    MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
@@ -107,6 +109,13 @@ def _agregar_parametro_url(url, clave, valor):
     query = dict(parse_qsl(partes.query))
     query[clave] = valor
     return urlunsplit((partes.scheme, partes.netloc, partes.path, urlencode(query), partes.fragment))
+
+
+def _sin_tildes(texto):
+    """Quita tildes para comparar sin importar cómo esté escrita la palabra
+    (cámara/camara, pantalón/pantalon, etc.) -- ya no hace falta listar
+    ambas variantes a mano."""
+    return "".join(c for c in unicodedata.normalize("NFD", texto) if unicodedata.category(c) != "Mn")
 
 
 def generar_link_afiliado(link, dominio):
@@ -264,12 +273,14 @@ def _extraer_titulo(texto_original):
     de peticiones de Groq)."""
     prompt = (
         "Extrae ÚNICAMENTE el nombre real del producto de este mensaje de "
-        "oferta de Telegram, en español, máximo 14 palabras. El nombre del "
-        "producto puede estar en CUALQUIER parte del mensaje -- no asumas "
-        "que está en la primera línea; suele ser la frase más descriptiva "
-        "(marca, modelo, características), no la primera ni la más corta. "
-        "Incluye marca, modelo y la característica principal si el mensaje "
-        "la menciona (ej. capacidad, tamaño, color).\n"
+        "oferta de Telegram, en español, máximo 14 palabras. "
+        "IMPORTANTE - orden: la PRIMERA PALABRA debe ser el TIPO de "
+        "producto (ej. Reloj, Cámara, Tablet, Audífonos), NUNCA la marca "
+        "ni la palabra \"Producto\". Ejemplo correcto: \"Reloj inteligente "
+        "HUAKUA con llamada Bluetooth\". Ejemplo incorrecto: \"HUAKUA Reloj "
+        "inteligente...\" o \"Producto Reloj...\". Después del tipo, agrega "
+        "marca, modelo y la característica principal si el mensaje la "
+        "menciona (capacidad, tamaño, color).\n"
         "NUNCA incluyas: el nombre de la tienda (Amazon, Temu, etc.), "
         "textos promocionales o de badge (\"Oferta Relámpago\", \"Envío "
         "GRATIS\", \"Elegible para...\", porcentajes de descuento, precios), "
@@ -294,6 +305,8 @@ def _extraer_titulo(texto_original):
         # la IA la agregó pegada al inicio o al final (con o sin espacio).
         resultado = re.sub(r"^\s*amazon\.?\s*", "", resultado, flags=re.IGNORECASE)
         resultado = re.sub(r"\s*amazon\.?\s*$", "", resultado, flags=re.IGNORECASE).strip()
+        # Quita "Producto" pegado al inicio, por si la IA lo agregó igual.
+        resultado = re.sub(r"^\s*producto\s+", "", resultado, flags=re.IGNORECASE).strip()
     if resultado and _es_titulo_basura(resultado):
         # La IA devolvió una etiqueta/badge de la oferta ("Oferta
         # Relámpago", "60% Off... Elegible para ENVÍO GRATIS"...) en vez
@@ -553,7 +566,8 @@ def procesar_mensaje(oferta_id, texto):
 
     url_imagen = extraer_imagen_producto(link_con_afiliado)
 
-    if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL:
+    if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
+            and not any(palabra in _sin_tildes(titulo.lower()) for palabra in PALABRAS_SIEMPRE_MANUAL):
         # Título y precio ya están garantizados en este punto (si faltaba
         # alguno, se descartó arriba) -- con imagen también presente, la
         # oferta está completa y se publica sola, sin pasar por revisión.

@@ -37,6 +37,15 @@ AUTO_PUBLICAR_SI_COMPLETA = True
 # lo corrijas a mano antes de publicar (ej. sin afiliado activo todavía).
 TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
 
+# Palabras que, si aparecen en el título, mandan la oferta a revisión manual
+# aunque venga "completa" (imagen+título+precio) -- ropa/calzado varía mucho
+# en talla/calidad, mejor que tú la confirmes antes de publicar.
+PALABRAS_SIEMPRE_MANUAL = [
+    "camisa", "camiseta", "pantalon", "vestido", "falda", "blusa",
+    "chaqueta", "chaleco", "short", "leggins", "sueter", "abrigo",
+    "zapato", "zapatilla", "sandalia", "bota", "tenis", "calzado",
+]
+
 # Tu chat_id personal (no el del canal) -- para que el bot te mande las
 # ofertas a revisar. Sácalo así: mándale /start a tu bot en un chat privado,
 # luego visita https://api.telegram.org/bot<TU_TOKEN>/getUpdates y busca
