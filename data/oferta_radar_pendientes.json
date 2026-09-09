@@ -1,21 +1,21 @@
 [
   {
     "payload": {
-      "externalId": "B0HF4QPNYY",
-      "product": "Xbox Wireless Controller Gears of War E-Day Edición limitada",
-      "rating": null,
-      "reviews": null,
-      "price": 335,
-      "currency": "JPY",
-      "affiliateUrl": "https://www.amazon.co.jp/dp/B0HF4QPNYY?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.co.jp/dp/B0HF4QPNYY",
-      "imageUrl": "https://m.media-amazon.com/images/I/716kFNJ20xL._AC_SX679_.jpg",
-      "category": "Gaming",
+      "externalId": "B0F4MCWP81",
+      "product": "Tenis New Balance 696v6",
+      "rating": 4.2,
+      "reviews": 17,
+      "price": 196844,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0F4MCWP81?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0F4MCWP81",
+      "imageUrl": "https://m.media-amazon.com/images/I/51JNKcyavRL._AC_SY695_.jpg",
+      "category": "Ofertas",
       "coupon": null,
       "source": "github",
       "approved": true
     },
-    "intentos": 4,
-    "guardado": 1788959314.1186361
+    "intentos": 1,
+    "guardado": 1788973273.9955392
   }
 ]
