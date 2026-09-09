@@ -16,6 +16,7 @@ LIMITE_POR_CORRIDA = 5
 
 def obtener_ofertas_calientes():
     if not APP_KEY or not APP_SECRET:
+        print("[WARN] AliExpress no configurado (falta ALIEXPRESS_APP_KEY/SECRET) -- se omite el buscador")
         return []
 
     params = {
@@ -33,6 +34,7 @@ def obtener_ofertas_calientes():
 
     try:
         resp = requests.get(ENDPOINT, params=params, timeout=15).json()
+        print(f"[INFO] AliExpress respondió: {resp}")
         productos = (
             resp.get("aliexpress_affiliate_hotproduct_query_response", {})
             .get("resp_result", {})
