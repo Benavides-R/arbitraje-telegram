@@ -306,7 +306,7 @@ def _extraer_titulo(texto_original):
         resultado = re.sub(r"^\s*amazon\.?\s*", "", resultado, flags=re.IGNORECASE)
         resultado = re.sub(r"\s*amazon\.?\s*$", "", resultado, flags=re.IGNORECASE).strip()
         # Quita "Producto" pegado al inicio, por si la IA lo agregó igual.
-        resultado = re.sub(r"^\s*producto\s+", "", resultado, flags=re.IGNORECASE).strip()
+        resultado = re.sub(r"^\s*producto\s*:?\s*", "", resultado, flags=re.IGNORECASE).strip()
     if resultado and _es_titulo_basura(resultado):
         # La IA devolvió una etiqueta/badge de la oferta ("Oferta
         # Relámpago", "60% Off... Elegible para ENVÍO GRATIS"...) en vez
@@ -352,6 +352,7 @@ def _titulo_de_respaldo(texto_original):
         limpia = re.sub(r"https?://\S+", "", bruta).strip()
         limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()–-]", "", limpia).strip()
         limpia = re.sub(r"^\s*amazon\.?\s*", "", limpia, flags=re.IGNORECASE).strip()
+        limpia = re.sub(r"^\s*producto\s*:?\s*", "", limpia, flags=re.IGNORECASE).strip()
         if len(limpia) >= 8 and not _es_titulo_basura(limpia):
             candidatas.append(limpia)
     if not candidatas:
