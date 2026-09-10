@@ -77,7 +77,7 @@ LOGO_PATH = "logo.png"
 # Texto de tus redes que se dibuja abajo a la izquierda de cada imagen
 # (una línea por elemento de la lista). Vacío = no se dibuja nada.
 # Ejemplo: ["fb.com/TuPagina", "t.me/TuCanal"]
-REDES_SOCIALES_LINEAS = ["fb.com/Benatechs.Descuentos", "t.me/Benatechs_Descuentos"]
+REDES_SOCIALES_LINEAS = ["fb.com/Benatechs.Descuentos", "t.me/Benatechs_Descuentos", "oferta-radar.com"]
 
 # Facebook (Meta Graph API) -- opcional, se lee de variables de entorno/Secrets.
 # Si prefieres, también puedes escribir los valores aquí directamente (menos
