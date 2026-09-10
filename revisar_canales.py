@@ -608,6 +608,7 @@ def main():
     vistos = set(estado_ali.get("aliexpress_vistos", []))
     for oferta in obtener_ofertas_calientes():
         if oferta["id"] in vistos:
+            print(f"[INFO] AliExpress {oferta['id']} ya se había enviado antes, se salta")
             continue
         print(f"[OFERTA] aliexpress.com (buscador) -> enviada a revisión ({oferta['id']})")
         enviado = enviar_para_revision(f"aliexpress_hot:{oferta['id']}", construir_texto(oferta), oferta["imagen"])
