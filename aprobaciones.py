@@ -98,7 +98,17 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
         return
 
     try:
-        message_id = respuesta.json()["result"]["message_id"]
+        cuerpo_respuesta = respuesta.json()
+    except Exception as e:
+        print(f"[WARN] Respuesta de Telegram no es JSON válido: {respuesta.text[:300]}")
+        return
+
+    if not cuerpo_respuesta.get("ok"):
+        print(f"[WARN] Telegram rechazó el envío a revisión: {cuerpo_respuesta}")
+        return
+
+    try:
+        message_id = cuerpo_respuesta["result"]["message_id"]
         pendientes = _cargar_pendientes()
         if oferta_id in pendientes:
             pendientes[oferta_id]["message_id"] = message_id
