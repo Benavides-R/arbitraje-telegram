@@ -443,7 +443,17 @@ def publicar(chat_id, texto, imagen_bytes=None):
     if not chat_id:
         return
     try:
-        if imagen_bytes:
+        if imagen_bytes and len(texto) > 1024:
+            # El texto no cabe como caption de foto (links de afiliado muy
+            # largos, ej. AliExpress) -- se manda la foto sola, y el texto
+            # completo aparte, como mensaje normal (sin ese límite).
+            imagen_bytes.seek(0)
+            requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
+                           data={"chat_id": chat_id},
+                           files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=30)
+            resp = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+                                  json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+        elif imagen_bytes:
             imagen_bytes.seek(0)
             url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
             files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
@@ -600,8 +610,11 @@ def main():
         if oferta["id"] in vistos:
             continue
         print(f"[OFERTA] aliexpress.com (buscador) -> enviada a revisión ({oferta['id']})")
-        enviar_para_revision(f"aliexpress_hot:{oferta['id']}", construir_texto(oferta), oferta["imagen"])
-        vistos.add(oferta["id"])
+        enviado = enviar_para_revision(f"aliexpress_hot:{oferta['id']}", construir_texto(oferta), oferta["imagen"])
+        if enviado:
+            vistos.add(oferta["id"])
+        else:
+            print(f"[WARN] Oferta AliExpress {oferta['id']} no se pudo enviar, se reintenta en la próxima corrida")
     estado_ali["aliexpress_vistos"] = list(vistos)[-500:]  # no crece sin límite
     guardar_estado(estado_ali)
 

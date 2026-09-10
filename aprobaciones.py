@@ -75,37 +75,52 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
     encabezado = "🕵️ <b>Oferta pendiente de revisión</b>\n\n"
     imagen_bytes = preparar_imagen_con_logo(url_imagen) if url_imagen else None
 
+    if imagen_bytes:
+        cuerpo_texto = encabezado + texto + pie
+    else:
+        cuerpo_texto = (encabezado + texto + "\n\n📸 <i>Sin imagen -- puedes responder a "
+                         "este mensaje con una foto tuya para usarla en su lugar.</i>" + pie)
+
+    # Telegram limita el "caption" de una foto a 1024 caracteres -- los links
+    # de afiliado de AliExpress son muy largos y lo pueden superar. Si pasa,
+    # se manda la foto SIN texto, y el texto completo (con los botones) va
+    # aparte, en un mensaje normal sin ese límite.
+    caption_muy_largo = imagen_bytes is not None and len(cuerpo_texto) > 1024
+
     respuesta = None
     try:
-        if imagen_bytes:
+        if imagen_bytes and not caption_muy_largo:
             imagen_bytes.seek(0)
             respuesta = requests.post(f"{API}/sendPhoto", data={
                 "chat_id": ADMIN_CHAT_ID,
-                "caption": encabezado + texto + pie,
+                "caption": cuerpo_texto,
                 "reply_markup": json.dumps(teclado),
                 "parse_mode": "HTML",
             }, files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=30)
         else:
+            if imagen_bytes:
+                imagen_bytes.seek(0)
+                requests.post(f"{API}/sendPhoto", data={"chat_id": ADMIN_CHAT_ID},
+                               files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=30)
             respuesta = requests.post(f"{API}/sendMessage", data={
                 "chat_id": ADMIN_CHAT_ID,
-                "text": encabezado + texto + "\n\n📸 <i>Sin imagen -- puedes responder a "
-                        "este mensaje con una foto tuya para usarla en su lugar.</i>" + pie,
+                "text": cuerpo_texto,
                 "reply_markup": json.dumps(teclado),
                 "parse_mode": "HTML",
             }, timeout=20)
     except Exception as e:
         print(f"[WARN] No se pudo enviar oferta a revisión: {e}")
-        return
+        return False
 
     try:
         cuerpo_respuesta = respuesta.json()
     except Exception as e:
         print(f"[WARN] Respuesta de Telegram no es JSON válido: {respuesta.text[:300]}")
-        return
+        return False
 
     if not cuerpo_respuesta.get("ok"):
         print(f"[WARN] Telegram rechazó el envío a revisión: {cuerpo_respuesta}")
-        return
+        return False
 
     try:
         message_id = cuerpo_respuesta["result"]["message_id"]
@@ -115,6 +130,8 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
             _guardar_pendientes(pendientes)
     except Exception as e:
         print(f"[WARN] No se pudo guardar el message_id de la revisión: {e}")
+
+    return True
 
 
 def _descargar_archivo_telegram(file_id):
