@@ -30,7 +30,7 @@ MAX_INTENTOS = 5  # después de esto, se deja de reintentar (probablemente el da
 # formato cambia algún día, estos patrones hay que actualizarlos junto con él.
 _RE_PRODUCTO = re.compile(r"📦\s*<b>Producto:</b>\s*(.+)")
 _RE_CALIFICACION = re.compile(r"⭐️?\s*Calificación:\s*([\d.,]+)\s*\(([\d.,]+)\)")
-_RE_PRECIO = re.compile(r"💸\s*Precio:\s*(.+)")
+_RE_PRECIO = re.compile(r"💸\s*Precio:\s*(.+?)(?:\s*🔻|\s*$)")
 _RE_CUPON_CON_CODIGO = re.compile(r"🏷️?\s*Cupón:\s*<code>(.+?)</code>")
 _RE_LINK = re.compile(r"⚡\s*Ver oferta:\s*(\S+)")
 _RE_HASHTAGS = re.compile(r"#ad\s+(.+)")
