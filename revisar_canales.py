@@ -35,7 +35,7 @@ from telethon.sessions import StringSession
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
-    PALABRAS_SIEMPRE_MANUAL, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
+    PALABRAS_SIEMPRE_MANUAL, ACTIVAR_BUSCADOR_ALIEXPRESS, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
@@ -259,6 +259,53 @@ def extraer_precio(texto_original, link):
     return precio
 
 
+def extraer_descuento(texto_original):
+    """
+    Busca 2 precios en el mensaje (antes/ahora) y calcula el % de
+    descuento real -- solo si el canal trae ambos valores, nunca se
+    inventa. Si el mensaje ya trae un "%" explícito (ej. "43% OFF"), se
+    usa ese directo, es más confiable que calcularlo.
+    """
+    match_pct = re.search(r"(\d{1,3})\s*%\s*(?:de\s*)?(?:descuento|off|dcto)", texto_original, re.IGNORECASE)
+    if match_pct:
+        return f"{match_pct.group(1)}%"
+
+    precios = re.findall(r"[\$💰]\s?(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?)", texto_original)
+    if len(precios) < 2:
+        return None
+
+    def _a_numero(p):
+        p = p.replace(",", "").replace(".", "") if p.count(".") > 1 or p.count(",") > 1 else p.replace(",", "")
+        try:
+            return float(p)
+        except ValueError:
+            return None
+
+    antes, ahora = _a_numero(precios[0]), _a_numero(precios[1])
+    if not antes or not ahora or antes <= ahora:
+        return None  # datos raros o el "antes" no es mayor -- no se muestra nada
+
+
+def extraer_badges(texto_original):
+    """
+    Detecta menciones de envío gratis o Prime en el texto ORIGINAL del
+    canal (no se verifica con Amazon en vivo, solo se refleja lo que el
+    canal ya escribió). Devuelve una lista de textos cortos para mostrar.
+    """
+    badges = []
+    texto_normalizado = _sin_tildes(texto_original.lower())
+    if re.search(r"envio\s*gratis|free\s*shipping|envio\s*gratuito", texto_normalizado):
+        badges.append("🚚 Envío gratis")
+    if re.search(r"\bprime\b", texto_normalizado):
+        badges.append("✅ Prime")
+    return badges
+
+    porcentaje = round((1 - ahora / antes) * 100)
+    if porcentaje <= 0:
+        return None
+    return f"{porcentaje}%"
+
+
 def extraer_calificacion(texto_original):
     """Busca un patrón tipo '4.5 (3.962)' -- calificación + número de reseñas."""
     match = re.search(r"(\d(?:[.,]\d)?)\s*\(([\d.,]+)\)", texto_original)
@@ -421,6 +468,8 @@ def reescribir_texto(texto_original, link):
     """
     titulo = _extraer_titulo(texto_original)
     precio = extraer_precio(texto_original, link)
+    descuento = extraer_descuento(texto_original)
+    badges = extraer_badges(texto_original)
     calificacion = extraer_calificacion(texto_original)
     cupon = extraer_cupon(texto_original)
     hashtags = generar_hashtags(titulo, texto_original)
@@ -429,7 +478,9 @@ def reescribir_texto(texto_original, link):
     if calificacion:
         lineas.append(f"⭐️ Calificación: {html.escape(calificacion)}")
     if precio:
-        lineas.append(f"💸 Precio: {html.escape(precio)}")
+        lineas.append(f"💸 Precio: {html.escape(precio)}" + (f" 🔻{descuento}" if descuento else ""))
+    if badges:
+        lineas.append(" | ".join(badges))
     lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
     lineas.append(f"⚡ Ver oferta: {link}")
     lineas.append("")
@@ -604,20 +655,21 @@ def main():
 
     # 1.5 Ofertas directas de AliExpress -- siempre a revisión manual,
     # nunca automático, aunque vengan completas (contenido nuevo sin validar).
-    estado_ali = cargar_estado()
-    vistos = set(estado_ali.get("aliexpress_vistos", []))
-    for oferta in obtener_ofertas_calientes():
-        if oferta["id"] in vistos:
-            print(f"[INFO] AliExpress {oferta['id']} ya se había enviado antes, se salta")
-            continue
-        print(f"[OFERTA] aliexpress.com (buscador) -> enviada a revisión ({oferta['id']})")
-        enviado = enviar_para_revision(f"aliexpress_hot:{oferta['id']}", construir_texto(oferta), oferta["imagen"])
-        if enviado:
-            vistos.add(oferta["id"])
-        else:
-            print(f"[WARN] Oferta AliExpress {oferta['id']} no se pudo enviar, se reintenta en la próxima corrida")
-    estado_ali["aliexpress_vistos"] = list(vistos)[-500:]  # no crece sin límite
-    guardar_estado(estado_ali)
+    if ACTIVAR_BUSCADOR_ALIEXPRESS:
+        estado_ali = cargar_estado()
+        vistos = set(estado_ali.get("aliexpress_vistos", []))
+        for oferta in obtener_ofertas_calientes():
+            if oferta["id"] in vistos:
+                print(f"[INFO] AliExpress {oferta['id']} ya se había enviado antes, se salta")
+                continue
+            print(f"[OFERTA] aliexpress.com (buscador) -> enviada a revisión ({oferta['id']})")
+            enviado = enviar_para_revision(f"aliexpress_hot:{oferta['id']}", construir_texto(oferta), oferta["imagen"])
+            if enviado:
+                vistos.add(oferta["id"])
+            else:
+                print(f"[WARN] Oferta AliExpress {oferta['id']} no se pudo enviar, se reintenta en la próxima corrida")
+        estado_ali["aliexpress_vistos"] = list(vistos)[-500:]  # no crece sin límite
+        guardar_estado(estado_ali)
 
     # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
     # Se reparte el tope EN PARTES IGUALES entre canales (en vez de dejar que

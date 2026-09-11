@@ -46,6 +46,14 @@ PALABRAS_SIEMPRE_MANUAL = [
     "zapato", "zapatilla", "sandalia", "bota", "tenis", "calzado",
 ]
 
+# Buscador de ofertas directo de AliExpress (sin depender de canales de
+# Telegram). Desactivado: el pool de "hot products" que trae es chico (~10
+# fijos que se repiten) y de categorías que no encajan con el nicho de
+# tecnología (disfraces, accesorios). El link de afiliado para AliExpress
+# que SÍ aparezca en los canales sigue funcionando normal, esto solo apaga
+# el buscador aparte.
+ACTIVAR_BUSCADOR_ALIEXPRESS = False
+
 # Tu chat_id personal (no el del canal) -- para que el bot te mande las
 # ofertas a revisar. Sácalo así: mándale /start a tu bot en un chat privado,
 # luego visita https://api.telegram.org/bot<TU_TOKEN>/getUpdates y busca
