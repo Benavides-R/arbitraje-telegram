@@ -35,7 +35,8 @@ from telethon.sessions import StringSession
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
-    PALABRAS_SIEMPRE_MANUAL, ACTIVAR_BUSCADOR_ALIEXPRESS, MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
+    PALABRAS_SIEMPRE_MANUAL, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
+    MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
@@ -513,25 +514,41 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
         precio_para_badge = m.group(1).strip() if m else None
         imagen_bytes = preparar_imagen_con_logo(url_imagen, precio_texto=precio_para_badge)
 
+    # Si el bridge está activo, primero se crea la oferta en Oferta Radar
+    # para conseguir SU link, y se usa ese en vez del de Amazon al publicar
+    # en Telegram/Facebook (mejor tracking para cuando corras anuncios).
+    # Si Oferta Radar falla, se sigue con el link de Amazon -- nunca se
+    # pierde la publicación por eso.
+    url_oferta_radar = None
+    if USAR_BRIDGE_OFERTA_RADAR:
+        try:
+            if imagen_original_bytes:
+                url_supabase = subir_a_supabase(imagen_original_bytes)
+                imagen_para_radar = url_supabase or url_imagen
+            else:
+                imagen_para_radar = url_imagen
+            url_oferta_radar = enviar_a_oferta_radar(texto_nuevo, imagen_para_radar)
+        except Exception as e:
+            print(f"Oferta Radar: error al importar (fallo inesperado): {e}")
+
+        if url_oferta_radar:
+            texto_nuevo = re.sub(r"⚡ Ver oferta: \S+", f"⚡ Ver oferta: {url_oferta_radar}", texto_nuevo)
+
     publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
     publicar_facebook(texto_nuevo, imagen_bytes)
 
-    try:
-        # Salida ADICIONAL, después de Facebook -- si esto falla, Facebook
-        # y Telegram ya se publicaron y no se ven afectados.
-        if imagen_original_bytes:
-            # Caso manual: la imagen LIMPIA (sin logo) es la que se sube a
-            # Supabase Storage -- nunca la versión con logo, y nunca la
-            # automática de Amazon.
-            url_supabase = subir_a_supabase(imagen_original_bytes)
-            imagen_para_radar = url_supabase or url_imagen
-        else:
-            # Caso automático de Amazon: se manda su URL directa, sin
-            # pasar nunca por Supabase Storage.
-            imagen_para_radar = url_imagen
-        enviar_a_oferta_radar(texto_nuevo, imagen_para_radar)
-    except Exception as e:
-        print(f"Oferta Radar: error al importar (fallo inesperado, sin detener el resto): {e}")
+    if not USAR_BRIDGE_OFERTA_RADAR:
+        # Modo normal (sin bridge): Oferta Radar se crea DESPUÉS de publicar,
+        # como siempre -- el link que la gente vio ya fue el de Amazon.
+        try:
+            if imagen_original_bytes:
+                url_supabase = subir_a_supabase(imagen_original_bytes)
+                imagen_para_radar = url_supabase or url_imagen
+            else:
+                imagen_para_radar = url_imagen
+            enviar_a_oferta_radar(texto_nuevo, imagen_para_radar)
+        except Exception as e:
+            print(f"Oferta Radar: error al importar (fallo inesperado, sin detener el resto): {e}")
 
     if not CANAL_DESTINO_VIP:
         # No hay canal VIP todavía -- no tiene sentido hacer esperar al

@@ -140,8 +140,9 @@ def _guardar_cola(cola):
 
 def _enviar_payload(payload):
     """Hace el POST real y decide qué significa la respuesta. Devuelve
-    True si ya quedó resuelto (se creó bien, o ya existía -- duplicado),
-    False si hay que reintentar más adelante."""
+    la URL de la oferta si se creó con éxito, True si ya quedó resuelto
+    de otra forma (duplicado, o éxito sin URL en la respuesta), o False
+    si hay que reintentar más adelante."""
     try:
         resp = requests.post(
             f"{OFERTA_RADAR_URL.rstrip('/')}/api/offers/import",
@@ -181,6 +182,7 @@ def _enviar_payload(payload):
         print(f"Oferta Radar ID: {cuerpo['id']}")
     if cuerpo.get("url"):
         print(f"Oferta Radar URL: {cuerpo['url']}")
+        return cuerpo["url"]
     return True
 
 
@@ -210,24 +212,24 @@ def reintentar_pendientes():
 
 def enviar_a_oferta_radar(texto_nuevo, url_imagen):
     """
-    Envía la oferta ya aprobada a Oferta Radar. Se llama DESPUÉS de
-    publicar en Telegram/Facebook y nunca lanza una excepción hacia
-    afuera -- cualquier problema queda solo en el log.
+    Envía la oferta a Oferta Radar. Devuelve la URL de la oferta creada
+    (ej. "https://oferta-radar.com/oferta/xxx") si se pudo crear, o None
+    si falló o no está configurado -- quien llama decide el plan B.
     """
     if not OFERTA_RADAR_API_KEY or not OFERTA_RADAR_URL:
-        return  # integración no configurada todavía -- no hace nada
+        return None  # integración no configurada todavía -- no hace nada
 
     if not url_imagen:
         # No se descarga ni se genera otra imagen -- si la oferta se
         # aprobó con una foto subida a mano (sin URL pública), simplemente
         # no se manda a Oferta Radar esta vez.
         print("[Oferta Radar] SKIP: la oferta no tiene una URL de imagen pública")
-        return
+        return None
 
     datos = _extraer_datos_de_texto(texto_nuevo)
     if not datos["product"] or not datos["price"]:
         print("[Oferta Radar] SKIP: no se pudieron leer los datos mínimos del mensaje aprobado")
-        return
+        return None
 
     payload = {
         "externalId": datos["externalId"],
@@ -245,8 +247,12 @@ def enviar_a_oferta_radar(texto_nuevo, url_imagen):
         "approved": True,
     }
 
-    if not _enviar_payload(payload):
+    resultado = _enviar_payload(payload)
+    if not resultado:
         cola = _cargar_cola()
         cola.append({"payload": payload, "intentos": 1, "guardado": time.time()})
         _guardar_cola(cola)
         print("[Oferta Radar] Se guardó para reintentar en la próxima corrida")
+        return None
+
+    return resultado if isinstance(resultado, str) else None

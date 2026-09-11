@@ -54,6 +54,13 @@ PALABRAS_SIEMPRE_MANUAL = [
 # el buscador aparte.
 ACTIVAR_BUSCADOR_ALIEXPRESS = False
 
+# Si está en True, las publicaciones de Telegram y Facebook usan el link de
+# tu página (oferta-radar.com/oferta/xxx) en vez del link directo de Amazon
+# -- útil cuando corras anuncios pagados (mejor tracking/retargeting).
+# Si Oferta Radar falla al crear la oferta, se usa el link de Amazon esa
+# vez (nunca se pierde la publicación por eso).
+USAR_BRIDGE_OFERTA_RADAR = False
+
 # Tu chat_id personal (no el del canal) -- para que el bot te mande las
 # ofertas a revisar. Sácalo así: mándale /start a tu bot en un chat privado,
 # luego visita https://api.telegram.org/bot<TU_TOKEN>/getUpdates y busca
