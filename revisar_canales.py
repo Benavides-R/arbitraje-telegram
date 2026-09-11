@@ -259,33 +259,6 @@ def extraer_precio(texto_original, link):
     return precio
 
 
-def extraer_descuento(texto_original):
-    """
-    Busca 2 precios en el mensaje (antes/ahora) y calcula el % de
-    descuento real -- solo si el canal trae ambos valores, nunca se
-    inventa. Si el mensaje ya trae un "%" explícito (ej. "43% OFF"), se
-    usa ese directo, es más confiable que calcularlo.
-    """
-    match_pct = re.search(r"(\d{1,3})\s*%\s*(?:de\s*)?(?:descuento|off|dcto)", texto_original, re.IGNORECASE)
-    if match_pct:
-        return f"{match_pct.group(1)}%"
-
-    precios = re.findall(r"[\$💰]\s?(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?)", texto_original)
-    if len(precios) < 2:
-        return None
-
-    def _a_numero(p):
-        p = p.replace(",", "").replace(".", "") if p.count(".") > 1 or p.count(",") > 1 else p.replace(",", "")
-        try:
-            return float(p)
-        except ValueError:
-            return None
-
-    antes, ahora = _a_numero(precios[0]), _a_numero(precios[1])
-    if not antes or not ahora or antes <= ahora:
-        return None  # datos raros o el "antes" no es mayor -- no se muestra nada
-
-
 def extraer_badges(texto_original):
     """
     Detecta menciones de envío gratis o Prime en el texto ORIGINAL del
@@ -468,7 +441,6 @@ def reescribir_texto(texto_original, link):
     """
     titulo = _extraer_titulo(texto_original)
     precio = extraer_precio(texto_original, link)
-    descuento = extraer_descuento(texto_original)
     badges = extraer_badges(texto_original)
     calificacion = extraer_calificacion(texto_original)
     cupon = extraer_cupon(texto_original)
@@ -478,7 +450,7 @@ def reescribir_texto(texto_original, link):
     if calificacion:
         lineas.append(f"⭐️ Calificación: {html.escape(calificacion)}")
     if precio:
-        lineas.append(f"💸 Precio: {html.escape(precio)}" + (f" 🔻{descuento}" if descuento else ""))
+        lineas.append(f"💸 Precio: {html.escape(precio)}")
     if badges:
         lineas.append(" | ".join(badges))
     lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
@@ -537,7 +509,7 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
     Las ofertas automáticas de Amazon NUNCA tocan Storage: a Oferta Radar
     se le manda directo la URL que ya tiene Amazon."""
     if imagen_bytes is None and url_imagen:
-        m = re.search(r"💸 Precio: (.+)", texto_nuevo)
+        m = re.search(r"💸 Precio: ([^\n🔻]+)", texto_nuevo)
         precio_para_badge = m.group(1).strip() if m else None
         imagen_bytes = preparar_imagen_con_logo(url_imagen, precio_texto=precio_para_badge)
 
