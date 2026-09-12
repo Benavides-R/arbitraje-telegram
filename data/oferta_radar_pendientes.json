@@ -15,7 +15,26 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1789189678.1788712
+  },
+  {
+    "payload": {
+      "externalId": "B07HC6GLP8",
+      "product": "Nintendo Switch 大乱闘スマッシュブラザーズ SPECIALセット juego digital",
+      "rating": null,
+      "reviews": null,
+      "price": 589651,
+      "currency": "JPY",
+      "affiliateUrl": "https://www.amazon.co.jp/dp/B07HC6GLP8?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B07HC6GLP8",
+      "imageUrl": "https://m.media-amazon.com/images/I/718KONOd-BL._AC_SX679_.jpg",
+      "category": "Gaming",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789193180.0381594
   }
 ]
