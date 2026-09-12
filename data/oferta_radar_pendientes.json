@@ -1,21 +1,21 @@
 [
   {
     "payload": {
-      "externalId": "B0GSVZQMBX",
-      "product": "Camisetas de protección solar UPF 50 manga larga, pack de 7",
-      "rating": null,
-      "reviews": null,
-      "price": 25.17,
-      "currency": "USD",
-      "affiliateUrl": "https://www.amazon.com/dp/B0GSVZQMBX?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0GSVZQMBX",
-      "imageUrl": "https://m.media-amazon.com/images/I/71jKXn4ZNuL._AC_SX679_.jpg",
-      "category": "Moda",
+      "externalId": "B09LD2CD1L",
+      "product": "Comedero VOLUAS automático",
+      "rating": 4.4,
+      "reviews": 12454,
+      "price": 129340,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B09LD2CD1L?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B09LD2CD1L",
+      "imageUrl": "https://m.media-amazon.com/images/I/61p9MrNoQ5L._AC_SX679_.jpg",
+      "category": "Tecnologia",
       "coupon": null,
       "source": "github",
       "approved": true
     },
     "intentos": 1,
-    "guardado": 1789228873.5874255
+    "guardado": 1789232585.9445155
   }
 ]
