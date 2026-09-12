@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0DS2B3P2B",
+      "product": "Cámara DJI Osmo Action 4 4K/120fps",
+      "rating": null,
+      "reviews": null,
+      "price": 691618,
+      "currency": "JPY",
+      "affiliateUrl": "https://www.amazon.co.jp/dp/B0DS2B3P2B?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0DS2B3P2B",
+      "imageUrl": "https://m.media-amazon.com/images/I/71KJ+llCD+L._AC_SX679_.jpg",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789189678.1788712
+  }
+]
