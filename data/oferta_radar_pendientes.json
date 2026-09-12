@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0GSVZQMBX",
+      "product": "Camisetas de protección solar UPF 50 manga larga, pack de 7",
+      "rating": null,
+      "reviews": null,
+      "price": 25.17,
+      "currency": "USD",
+      "affiliateUrl": "https://www.amazon.com/dp/B0GSVZQMBX?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0GSVZQMBX",
+      "imageUrl": "https://m.media-amazon.com/images/I/71jKXn4ZNuL._AC_SX679_.jpg",
+      "category": "Moda",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789228873.5874255
+  }
+]
