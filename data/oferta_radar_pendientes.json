@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0DR27BWHD",
+      "product": "CAMBIVO Rodillera de compresión ultra fina y ligera, paquete de 2, color negro,",
+      "rating": 4.1,
+      "reviews": 110,
+      "price": 21599,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0DR27BWHD?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0DR27BWHD",
+      "imageUrl": "https://m.media-amazon.com/images/I/81FdwsCBzQL._SX466_.jpg",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789243625.6886964
+  }
+]
