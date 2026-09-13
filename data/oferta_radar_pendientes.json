@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B09X6XW6RM",
+      "product": "Maquinilla de afeitar eléctrica recargable para hombres uso húmedo y seco",
+      "rating": null,
+      "reviews": null,
+      "price": 27.99,
+      "currency": "USD",
+      "affiliateUrl": "https://www.amazon.com/dp/B09X6XW6RM?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B09X6XW6RM",
+      "imageUrl": "https://m.media-amazon.com/images/I/61R0v4FuE7L._AC_SX569_.jpg",
+      "category": "Ofertas",
+      "coupon": "TY7MGPMP",
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789336867.6237824
+  }
+]
