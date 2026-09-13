@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0CGJVH29V",
+      "product": "Tenis New Balance BBW80 V1 para mujer",
+      "rating": 4.4,
+      "reviews": 428,
+      "price": 134631,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0CGJVH29V?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0CGJVH29V",
+      "imageUrl": "https://m.media-amazon.com/images/I/415nnSW-5VL._AC_SY695_.jpg",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789264856.5459037
+  }
+]
