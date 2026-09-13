@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0H5Q41FS6",
+      "product": "STREBITO Mini destornillador eléctrico, juego de destornilladores.",
+      "rating": 4.7,
+      "reviews": 16,
+      "price": 66511,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0H5Q41FS6?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0H5Q41FS6",
+      "imageUrl": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f0781b65c4fe77ea629ba4725256bc08cbc27998b8c0e7ceef52a939d6a806e7.webp",
+      "category": "Hogar",
+      "coupon": "17E36QOB",
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789322461.7216458
+  },
+  {
+    "payload": {
+      "externalId": "B0D9V8R5X9",
+      "product": "Impresora de etiquetas de envío Bluetooth con papelera.",
+      "rating": 4.2,
+      "reviews": 1174,
+      "price": 187154,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0D9V8R5X9?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0D9V8R5X9",
+      "imageUrl": "https://m.media-amazon.com/images/I/71WDb3WBQ1L._AC_SX425_.jpg",
+      "category": "Audio",
+      "coupon": "86UFO2YJ",
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789323053.8072813
+  }
+]
