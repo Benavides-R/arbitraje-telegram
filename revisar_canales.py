@@ -617,8 +617,9 @@ def procesar_mensaje(oferta_id, texto):
 
     url_imagen = extraer_imagen_producto(link_con_afiliado)
 
+    titulo_normalizado = _sin_tildes(titulo.lower())
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
-            and not any(palabra in _sin_tildes(titulo.lower()) for palabra in PALABRAS_SIEMPRE_MANUAL):
+            and not any(palabra in titulo_normalizado for palabra in PALABRAS_SIEMPRE_MANUAL):
         # Título y precio ya están garantizados en este punto (si faltaba
         # alguno, se descartó arriba) -- con imagen también presente, la
         # oferta está completa y se publica sola, sin pasar por revisión.

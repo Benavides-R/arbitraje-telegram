@@ -39,11 +39,14 @@ TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
 
 # Palabras que, si aparecen en el título, mandan la oferta a revisión manual
 # aunque venga "completa" (imagen+título+precio) -- ropa/calzado varía mucho
-# en talla/calidad, mejor que tú la confirmes antes de publicar.
+# en talla/calidad, y todo lo relacionado a mujer se revisa aparte, mejor
+# que tú lo confirmes antes de publicar.
 PALABRAS_SIEMPRE_MANUAL = [
     "camisa", "camiseta", "pantalon", "vestido", "falda", "blusa",
     "chaqueta", "chaleco", "short", "leggins", "sueter", "abrigo",
     "zapato", "zapatilla", "sandalia", "bota", "tenis", "calzado",
+    "mujer", "women", "womens", "dama", "femenino", "para ella",
+    "bolso", "cartera", "rosa", "pijama", "brasier", "sosten",
 ]
 
 # Buscador de ofertas directo de AliExpress (sin depender de canales de
