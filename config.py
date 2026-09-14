@@ -136,7 +136,20 @@ MODELO_GROQ = "openai/gpt-oss-20b"
 # de revisión de golpe (por ejemplo, la primera vez que arranca, o si un
 # canal publica muchísimo de una sola vez). Lo que no alcanza a procesar en
 # una corrida, se retoma automáticamente en la siguiente -- no se pierde.
-MAX_OFERTAS_POR_CORRIDA = 30
+MAX_OFERTAS_POR_CORRIDA = 40
+
+# Cuota por canal (en vez de repartir parejo) -- los que más rinden reciben
+# más cupo. Si un canal no está aquí, usa 5 por defecto.
+CUOTA_POR_CANAL = {
+    "ElPromoHunter": 18,
+    "ReviuDescuentos": 15,
+    "Clubgratis": 5,
+}
+
+# Si el mismo producto de Amazon (mismo ASIN) ya se publicó hace menos de
+# este tiempo, se descarta como duplicado -- pasado ese tiempo, se permite
+# de nuevo (la oferta pudo seguir vigente o repetirse un día después).
+HORAS_BLOQUEO_DUPLICADO = 12
 
 # Si un mensaje del canal origen ya es más viejo que esto, se descarta sin
 # procesar -- evita mandar a revisión (o publicar) ofertas relámpago que ya

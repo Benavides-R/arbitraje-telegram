@@ -36,6 +36,7 @@ from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
     PALABRAS_SIEMPRE_MANUAL, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
+    CUOTA_POR_CANAL, HORAS_BLOQUEO_DUPLICADO,
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
@@ -604,6 +605,26 @@ def procesar_mensaje(oferta_id, texto):
         print(f"[SKIP] Link de {dominio} inválido o roto, se descarta")
         return
 
+    # Bloqueo de duplicados: mismo producto de Amazon (mismo ASIN) publicado
+    # hace menos de HORAS_BLOQUEO_DUPLICADO -- pasado ese tiempo, se permite
+    # de nuevo (la oferta puede seguir vigente o repetirse otro día).
+    if dominio == "amazon.":
+        m_asin = re.search(r"/dp/([A-Z0-9]{10})", link_limpio)
+        if m_asin:
+            asin = m_asin.group(1)
+            estado_dup = cargar_estado()
+            ultimos = estado_dup.get("ultimos_publicados_asin", {})
+            visto_en = ultimos.get(asin)
+            if visto_en and (time.time() - visto_en) < HORAS_BLOQUEO_DUPLICADO * 3600:
+                horas_falta = HORAS_BLOQUEO_DUPLICADO - (time.time() - visto_en) / 3600
+                print(f"[SKIP] {oferta_id}: producto {asin} ya se publicó, "
+                      f"faltan {horas_falta:.1f}h para poder repetirlo, se descarta")
+                return
+            ultimos[asin] = time.time()
+            corte = time.time() - HORAS_BLOQUEO_DUPLICADO * 3600 * 2
+            estado_dup["ultimos_publicados_asin"] = {a: t for a, t in ultimos.items() if t > corte}
+            guardar_estado(estado_dup)
+
     link_con_afiliado = generar_link_afiliado(link_limpio, dominio)
     texto_nuevo, titulo, precio = reescribir_texto(texto, link_con_afiliado)
 
@@ -662,13 +683,10 @@ def main():
         guardar_estado(estado_ali)
 
     # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
-    # Se reparte el tope EN PARTES IGUALES entre canales (en vez de dejar que
-    # el primer canal con mensajes se coma todo el cupo) -- así ningún canal
-    # acapara la corrida y todos avanzan cada vez, aunque uno publique mucho
-    # más seguido que los otros.
+    # Cada canal tiene su propia cuota (CUOTA_POR_CANAL) -- los que más
+    # rinden reciben más cupo, en vez de repartir parejo entre todos.
     estado = cargar_estado()
     ofertas_procesadas = 0
-    tope_por_canal = max(1, MAX_OFERTAS_POR_CORRIDA // len(CANALES_ORIGEN))
 
     with TelegramClient(
         StringSession(SESSION), API_ID, API_HASH,
@@ -689,6 +707,7 @@ def main():
                 continue
 
             ofertas_de_este_canal = 0
+            tope_por_canal = CUOTA_POR_CANAL.get(canal, 5)
             ultimo_evaluado = ultimo_id
             for msg in reversed(mensajes_nuevos):  # orden cronológico
                 if ofertas_procesadas >= MAX_OFERTAS_POR_CORRIDA:
