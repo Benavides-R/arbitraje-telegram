@@ -2747,12 +2747,6 @@
     "creado": 1789365865.3604958,
     "message_id": 5720
   },
-  "ElPromoHunter:67079": {
-    "texto": "📦 <b>Producto:</b> Nautica Zapatillas deportivas casual para hombre, ligeras, con cordones.\n\n⭐️ Calificación: 4.4 (377)\n💸 Precio: $92.788 COP\n🚚 Envío gratis\n🏷️ Cupón: ¡No necesita!\n⚡ Ver oferta: https://www.amazon.com/dp/B0G59V6QQX?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad #Moda #Estilo",
-    "url_imagen": "https://m.media-amazon.com/images/I/51s78JBiW3L._AC_SY695_.jpg",
-    "creado": 1789365873.8780985,
-    "message_id": 5721
-  },
   "ElPromoHunter:67080": {
     "texto": "📦 <b>Producto:</b> Cesta de regalo de cumpleaños con manta\n\n⭐️ Calificación: 4.7 (172)\n💸 Precio: $68.059 COP\n🚚 Envío gratis\n🏷️ Cupón: <code>LQ4TTBYH</code>\n⚡ Ver oferta: https://www.amazon.com/dp/B0DT9QDZ89?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad #Hogar #Cocina",
     "url_imagen": null,
@@ -2770,12 +2764,6 @@
     "url_imagen": null,
     "creado": 1789365898.5564692,
     "message_id": 5724
-  },
-  "ReviuDescuentos:92681": {
-    "texto": "📦 <b>Producto:</b> Teclado para juegos con retroiluminación RGB, cableado\n\n💸 Precio: $11.99 USD\n🚚 Envío gratis\n🏷️ Cupón: <code>PBS8IR6Q</code>\n⚡ Ver oferta: https://www.amazon.com/dp/B0DYV9HV2H?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad #Tecnologia #PCGamer",
-    "url_imagen": null,
-    "creado": 1789369277.5506938,
-    "message_id": 5725
   },
   "ReviuDescuentos:92682": {
     "texto": "📦 <b>Producto:</b> Bolso cruzado para mujer, 2 correas extraíbles, Negro\n\n💸 Precio: $8.18 USD\n🚚 Envío gratis\n🏷️ Cupón: <code>KSE6TC87</code>\n⚡ Ver oferta: https://www.amazon.com/dp/B0GLPB4CVD?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad #Moda #Estilo",
@@ -2812,5 +2800,23 @@
     "url_imagen": "https://ae-pic-a1.aliexpress-media.com/kf/Sa0202ec8a96a4085962acfc27e9ffd04F/1080x1080.jpg",
     "creado": 1789369326.0997348,
     "message_id": 5731
+  },
+  "Manual:5732": {
+    "texto": "📦 <b>Producto:</b> Webcam 4K wegear con sensor Sony y autoenfoque PDAF\n\n💸 Precio: $24.99 USD\n🏷️ Cupón: <code>ZFEEWDZK</code>\n⚡ Ver oferta: https://www.amazon.com/dp/B0GXKR5ZZ4?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad #Automotriz #Carros",
+    "url_imagen": null,
+    "creado": 1789387256.1282597,
+    "message_id": 5739
+  },
+  "Manual:5733": {
+    "texto": "📦 <b>Producto:</b> Cargador GaN 140W USB-C, 4 puertos con pantalla táctil\n\n💸 Precio: $32.99 USD\n🏷️ Cupón: <code>N3Y3L66Y</code>\n⚡ Ver oferta: https://www.amazon.com/dp/B0H14NRQ35?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad #Ofertas #Descuentos",
+    "url_imagen": null,
+    "creado": 1789387262.3449073,
+    "message_id": 5740
+  },
+  "Manual:5734": {
+    "texto": "📦 <b>Producto:</b> La oferta puede expirar en cualquier momento.\n\n💸 Precio: $12.50 USD\n🏷️ Cupón: <code>JH5UT3AJ</code>\n⚡ Ver oferta: https://www.amazon.com/dp/B0GZYYN28V?tag=benatechs00-20\n\n⚠️ La oferta puede expirar en cualquier momento.\n#ad #Ofertas #Descuentos",
+    "url_imagen": null,
+    "creado": 1789387268.518858,
+    "message_id": 5741
   }
 }
