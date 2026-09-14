@@ -267,7 +267,7 @@ def extraer_precio(texto_original, link):
 
 
 _TASA_CACHE = {}  # {"USD": (valor, timestamp), "MXN": (...), ...}
-MARGEN_SEGURIDAD_CAMBIO = 1.02  # +2% de colchón: Amazon/tu banco suelen
+MARGEN_SEGURIDAD_CAMBIO = 1.037  # +3.7% de colchón: Amazon/tu banco suelen
 # cobrar un poco más que la tasa de mercado al convertir -- mejor mostrar
 # un poco más caro que sorprender con un cobro mayor al mostrado.
 
