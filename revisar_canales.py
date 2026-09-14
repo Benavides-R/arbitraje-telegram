@@ -279,7 +279,7 @@ def _obtener_tasa_a_cop(moneda):
     if cache and (time.time() - cache[1]) < 24 * 3600:
         return cache[0]
     try:
-        resp = requests.get(f"https://api.frankfurter.app/latest?from={moneda}&to=COP", timeout=10).json()
+        resp = requests.get(f"https://open.er-api.com/v6/latest/{moneda}", timeout=10).json()
         tasa = resp["rates"]["COP"]
         _TASA_CACHE[moneda] = (tasa, time.time())
         return tasa
