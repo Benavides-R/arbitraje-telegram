@@ -23,6 +23,7 @@ import os
 import re
 import json
 import time
+import math
 import html
 import unicodedata
 from datetime import datetime, timezone, timedelta
@@ -131,7 +132,11 @@ def generar_link_afiliado(link, dominio):
         return _agregar_parametro_url(link, "tag", info["id_afiliado"])
 
     if dominio == "aliexpress.com":
-        return generar_link_afiliado_aliexpress(link)
+        link_generado, exito = generar_link_afiliado_aliexpress(link)
+        if not exito:
+            enviar_alerta(f"⚠️ AliExpress: no se pudo generar TU link de afiliado para {link} "
+                           f"-- oferta descartada para no publicar la comisión de otra persona.")
+        return link_generado
 
     # TODO: otras tiendas (Mercado Libre, etc.) tienen su propio formato de
     # link de afiliado -- lo conectamos cuando actives cada una.
@@ -246,19 +251,62 @@ def extraer_precio(texto_original, link):
     resto = texto_original[match.end():match.end() + 6]
     moneda_explicita = re.match(r"\s*(COP|USD|MXN|JPY|PEN|ARS|CLP)\b", resto)
     if moneda_explicita:
-        return f"{precio} {moneda_explicita.group(1)}"
+        return _convertir_a_cop(precio, moneda_explicita.group(1))
 
     netloc = urlsplit(link).netloc
 
     if netloc.endswith("amazon.com"):
-        return f"{precio} USD"
+        return _convertir_a_cop(precio, "USD")
     if netloc.endswith("amazon.com.mx"):
-        return f"{precio} MXN"
+        return _convertir_a_cop(precio, "MXN")
     if netloc.endswith("amazon.co.jp"):
-        return f"{precio} JPY"
+        return _convertir_a_cop(precio, "JPY")
     # Otros dominios (o cuando el canal ya vende en pesos colombianos):
     # se deja el símbolo tal cual, sin adivinar la moneda.
     return precio
+
+
+_TASA_CACHE = {}  # {"USD": (valor, timestamp), "MXN": (...), ...}
+MARGEN_SEGURIDAD_CAMBIO = 1.02  # +2% de colchón: Amazon/tu banco suelen
+# cobrar un poco más que la tasa de mercado al convertir -- mejor mostrar
+# un poco más caro que sorprender con un cobro mayor al mostrado.
+
+
+def _obtener_tasa_a_cop(moneda):
+    """Tasa de cambio a COP, se guarda en memoria y se reusa por 24h para
+    no pedirla de nuevo en cada oferta."""
+    cache = _TASA_CACHE.get(moneda)
+    if cache and (time.time() - cache[1]) < 24 * 3600:
+        return cache[0]
+    try:
+        resp = requests.get(f"https://api.frankfurter.app/latest?from={moneda}&to=COP", timeout=10).json()
+        tasa = resp["rates"]["COP"]
+        _TASA_CACHE[moneda] = (tasa, time.time())
+        return tasa
+    except Exception as e:
+        print(f"[WARN] No se pudo obtener la tasa de cambio {moneda}/COP: {e}")
+        return None
+
+
+def _convertir_a_cop(precio_texto, moneda):
+    """Convierte cualquier precio a COP -- nunca se muestra USD/MXN/JPY en
+    ningún lado. Aplica un colchón de seguridad y redondea hacia ARRIBA,
+    a la centena, para no mostrar menos de lo que realmente se cobra."""
+    if moneda == "COP":
+        return f"{precio_texto} COP"
+
+    tasa = _obtener_tasa_a_cop(moneda)
+    if not tasa:
+        return f"{precio_texto} {moneda}"  # no se pudo convertir -- mejor esto que mostrar mal
+
+    try:
+        numero = float(re.sub(r"[^\d.]", "", precio_texto))
+        cop = numero * tasa * MARGEN_SEGURIDAD_CAMBIO
+        cop_redondeado = math.ceil(cop / 100) * 100
+        formateado = f"{cop_redondeado:,}".replace(",", ".")
+        return f"~${formateado} COP"
+    except (ValueError, TypeError):
+        return f"{precio_texto} {moneda}"
 
 
 def extraer_badges(texto_original):
@@ -511,8 +559,8 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
     Las ofertas automáticas de Amazon NUNCA tocan Storage: a Oferta Radar
     se le manda directo la URL que ya tiene Amazon."""
     if imagen_bytes is None and url_imagen:
-        m = re.search(r"💸 Precio: ([^\n🔻]+)", texto_nuevo)
-        precio_para_badge = m.group(1).strip() if m else None
+        m = re.search(r"💸 Precio: ([^\n🔻(]+)", texto_nuevo)
+        precio_para_badge = m.group(1).strip().lstrip("~").strip() if m else None
         imagen_bytes = preparar_imagen_con_logo(url_imagen, precio_texto=precio_para_badge)
 
     # Si el bridge está activo, primero se crea la oferta en Oferta Radar
@@ -626,6 +674,9 @@ def procesar_mensaje(oferta_id, texto):
             guardar_estado(estado_dup)
 
     link_con_afiliado = generar_link_afiliado(link_limpio, dominio)
+    if not link_con_afiliado:
+        print(f"[SKIP] {oferta_id}: no se pudo generar link de afiliado propio, se descarta")
+        return
     texto_nuevo, titulo, precio = reescribir_texto(texto, link_con_afiliado)
 
     # Filtro de mínimos: si no se pudo sacar título o precio, no vale la
