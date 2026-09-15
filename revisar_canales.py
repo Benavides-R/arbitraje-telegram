@@ -293,7 +293,24 @@ def _convertir_a_cop(precio_texto, moneda):
     ningún lado. Aplica un colchón de seguridad y redondea hacia ARRIBA,
     a la centena, para no mostrar menos de lo que realmente se cobra."""
     if moneda == "COP":
-        return f"{precio_texto} COP"
+        # Ya viene en COP, pero igual se le aplica el mismo colchón del
+        # 3.7% y el redondeo hacia arriba (Amazon/el banco igual cobran
+        # de más al procesar el pago, sea cual sea la moneda de origen).
+        # El "." o "," en precios COP casi siempre es separador de miles
+        # (ej. "$159.895"), no decimal -- solo se trata como decimal si el
+        # último grupo tiene 1-2 dígitos (ej. "$70.24").
+        partes = re.split(r"[.,]", re.sub(r"[^\d.,]", "", precio_texto))
+        try:
+            if len(partes) > 1 and len(partes[-1]) in (1, 2):
+                numero = float(f"{''.join(partes[:-1])}.{partes[-1]}")
+            else:
+                numero = float("".join(partes))
+        except (ValueError, TypeError):
+            return f"{precio_texto} COP"
+        cop = numero * MARGEN_SEGURIDAD_CAMBIO
+        cop_redondeado = math.ceil(cop / 100) * 100
+        formateado = f"{cop_redondeado:,}".replace(",", ".")
+        return f"~${formateado} COP"
 
     tasa = _obtener_tasa_a_cop(moneda)
     if not tasa:
@@ -321,7 +338,16 @@ def extraer_badges(texto_original):
         badges.append("🚚 Envío gratis")
     if re.search(r"\bprime\b", texto_normalizado):
         badges.append("✅ Prime")
+    if re.search(r"\bcasillero(s)?\b", texto_normalizado):
+        badges.append("📦 Requiere casillero")
     return badges
+
+
+def requiere_casillero(texto_original):
+    """True si el canal menciona 'casillero' -- el producto no envía
+    directo a Colombia y necesita un servicio de casillero (reenvío desde
+    EE.UU.). Estas ofertas siempre van a revisión manual, nunca auto."""
+    return bool(re.search(r"\bcasillero(s)?\b", _sin_tildes(texto_original.lower())))
 
     porcentaje = round((1 - ahora / antes) * 100)
     if porcentaje <= 0:
@@ -690,7 +716,9 @@ def procesar_mensaje(oferta_id, texto):
     url_imagen = extraer_imagen_producto(link_con_afiliado)
 
     titulo_normalizado = _sin_tildes(titulo.lower())
+    oferta_requiere_casillero = requiere_casillero(texto)
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
+            and not oferta_requiere_casillero \
             and not any(palabra in titulo_normalizado for palabra in PALABRAS_SIEMPRE_MANUAL):
         # Título y precio ya están garantizados en este punto (si faltaba
         # alguno, se descartó arriba) -- con imagen también presente, la
@@ -698,7 +726,8 @@ def procesar_mensaje(oferta_id, texto):
         print(f"[OFERTA] {dominio} -> completa (imagen+título+precio), publicando automático ({oferta_id})")
         publicar_oferta_completa(texto_nuevo, url_imagen)
     elif MODO_REVISION:
-        motivo = "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL else "sin imagen"
+        motivo = "requiere casillero" if oferta_requiere_casillero \
+            else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL else "sin imagen"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
         enviar_para_revision(oferta_id, texto_nuevo, url_imagen)
     else:
