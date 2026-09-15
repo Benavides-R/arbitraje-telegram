@@ -1,9 +1,9 @@
 {
-  "Clubgratis": 56626,
+  "Clubgratis": 56629,
   "pendientes_gratis": [],
   "ElPromoHunter": 67285,
   "cajitatech": 83454,
-  "ReviuDescuentos": 92888,
+  "ReviuDescuentos": 92890,
   "aliexpress_vistos": [
     "1005013093412558",
     "1005013110064834",
@@ -20,5 +20,11 @@
     "1005012942019103",
     "1005012889475361",
     "1005012897766900"
-  ]
+  ],
+  "ultimos_publicados_asin": {
+    "B0GT4BZJ1G": 1789473721.3544962,
+    "B0H8N51GD2": 1789473729.8718076,
+    "B0GKFB5RSM": 1789473736.413966,
+    "B0GJ544MVH": 1789473743.6825864
+  }
 }
