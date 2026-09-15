@@ -1,8 +1,9 @@
 {
   "conteo_por_canal": {
-    "ElPromoHunter": 25,
+    "ElPromoHunter": 29,
     "ReviuDescuentos": 18,
-    "Manual": 5
+    "Manual": 5,
+    "Clubgratis": 3
   },
   "ultimo_reporte": "2026-09-13"
 }
