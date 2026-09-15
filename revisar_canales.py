@@ -73,6 +73,20 @@ def guardar_estado(estado):
     ESTADO_FILE.write_text(json.dumps(estado, indent=2, ensure_ascii=False))
 
 
+def _marcar_asin_publicado(asin):
+    """Registra el ASIN como publicado/enviado ahora mismo, para el bloqueo
+    de duplicados. Se llama solo cuando la oferta SÍ se va a publicar o
+    mandar a revisión, nunca antes."""
+    if not asin:
+        return
+    estado_dup = cargar_estado()
+    ultimos = estado_dup.get("ultimos_publicados_asin", {})
+    ultimos[asin] = time.time()
+    corte = time.time() - HORAS_BLOQUEO_DUPLICADO * 3600 * 2
+    estado_dup["ultimos_publicados_asin"] = {a: t for a, t in ultimos.items() if t > corte}
+    guardar_estado(estado_dup)
+
+
 def limpiar_link_tienda(link, dominio):
     """
     Quita todo el 'ruido' de tracking que traía el link original (del canal
@@ -682,22 +696,22 @@ def procesar_mensaje(oferta_id, texto):
     # Bloqueo de duplicados: mismo producto de Amazon (mismo ASIN) publicado
     # hace menos de HORAS_BLOQUEO_DUPLICADO -- pasado ese tiempo, se permite
     # de nuevo (la oferta puede seguir vigente o repetirse otro día).
+    # Solo se CHEQUEA aquí; el marcado como "ya publicado" se hace más abajo,
+    # justo antes de publicar/enviar a revisión -- así, si la oferta se
+    # descarta después por otro motivo (sin link de afiliado, sin título o
+    # precio), el ASIN no queda bloqueado sin haberse publicado nunca.
+    asin = None
     if dominio == "amazon.":
         m_asin = re.search(r"/dp/([A-Z0-9]{10})", link_limpio)
         if m_asin:
             asin = m_asin.group(1)
-            estado_dup = cargar_estado()
-            ultimos = estado_dup.get("ultimos_publicados_asin", {})
+            ultimos = cargar_estado().get("ultimos_publicados_asin", {})
             visto_en = ultimos.get(asin)
             if visto_en and (time.time() - visto_en) < HORAS_BLOQUEO_DUPLICADO * 3600:
                 horas_falta = HORAS_BLOQUEO_DUPLICADO - (time.time() - visto_en) / 3600
                 print(f"[SKIP] {oferta_id}: producto {asin} ya se publicó, "
                       f"faltan {horas_falta:.1f}h para poder repetirlo, se descarta")
                 return
-            ultimos[asin] = time.time()
-            corte = time.time() - HORAS_BLOQUEO_DUPLICADO * 3600 * 2
-            estado_dup["ultimos_publicados_asin"] = {a: t for a, t in ultimos.items() if t > corte}
-            guardar_estado(estado_dup)
 
     link_con_afiliado = generar_link_afiliado(link_limpio, dominio)
     if not link_con_afiliado:
@@ -724,14 +738,17 @@ def procesar_mensaje(oferta_id, texto):
         # alguno, se descartó arriba) -- con imagen también presente, la
         # oferta está completa y se publica sola, sin pasar por revisión.
         print(f"[OFERTA] {dominio} -> completa (imagen+título+precio), publicando automático ({oferta_id})")
+        _marcar_asin_publicado(asin)
         publicar_oferta_completa(texto_nuevo, url_imagen)
     elif MODO_REVISION:
         motivo = "requiere casillero" if oferta_requiere_casillero \
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL else "sin imagen"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
+        _marcar_asin_publicado(asin)
         enviar_para_revision(oferta_id, texto_nuevo, url_imagen)
     else:
         print(f"[OFERTA] {dominio} -> publicando directo")
+        _marcar_asin_publicado(asin)
         publicar_oferta_completa(texto_nuevo, url_imagen)
     return True  # sí contó como oferta procesada, para el tope por corrida
 
@@ -772,6 +789,13 @@ def main():
         StringSession(SESSION), API_ID, API_HASH,
         connection_retries=8, retry_delay=3, timeout=20, request_retries=5,
         auto_reconnect=True,
+        # El script solo hace iter_messages() puntual, nunca escucha eventos
+        # en vivo -- sin esto, Telethon igual procesa TODO lo que publican
+        # los canales en tiempo real de fondo (la cuenta es miembro de
+        # todos), lo que con canales muy activos generaba una avalancha de
+        # "Server sent a very old message"/"Too many messages had to be
+        # ignored" y alargaba la corrida innecesariamente.
+        receive_updates=False,
     ) as client:
         for canal in CANALES_ORIGEN:
             if ofertas_procesadas >= MAX_OFERTAS_POR_CORRIDA:

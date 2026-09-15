@@ -136,14 +136,14 @@ MODELO_GROQ = "openai/gpt-oss-20b"
 # de revisión de golpe (por ejemplo, la primera vez que arranca, o si un
 # canal publica muchísimo de una sola vez). Lo que no alcanza a procesar en
 # una corrida, se retoma automáticamente en la siguiente -- no se pierde.
-MAX_OFERTAS_POR_CORRIDA = 40
+MAX_OFERTAS_POR_CORRIDA = 31
 
 # Cuota por canal (en vez de repartir parejo) -- los que más rinden reciben
 # más cupo. Si un canal no está aquí, usa 5 por defecto.
 CUOTA_POR_CANAL = {
-    "ElPromoHunter": 18,
-    "ReviuDescuentos": 15,
-    "Clubgratis": 5,
+    "ElPromoHunter": 15,
+    "ReviuDescuentos": 12,
+    "Clubgratis": 4,
 }
 
 # Si el mismo producto de Amazon (mismo ASIN) ya se publicó hace menos de
