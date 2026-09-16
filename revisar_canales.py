@@ -604,6 +604,13 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
     texto_original (opcional): el mensaje tal cual lo escribió el canal,
     solo se usa para el historial de selección de video (leer el % de
     descuento si lo mencionan) -- no afecta la publicación en sí."""
+    # Caso manual (foto subida por Telegram, sin URL propia): se sube a
+    # Supabase UNA sola vez aquí, al principio, y se guarda en url_imagen
+    # -- así el badge, Oferta Radar y el historial de video usan la misma
+    # URL, en vez de subirla dos veces como pasaba antes.
+    if url_imagen is None and imagen_original_bytes:
+        url_imagen = subir_a_supabase(imagen_original_bytes)
+
     if imagen_bytes is None and url_imagen:
         m = re.search(r"💸 Precio: ([^\n🔻(]+)", texto_nuevo)
         precio_para_badge = m.group(1).strip().lstrip("~").strip() if m else None
@@ -617,12 +624,7 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
     url_oferta_radar = None
     if USAR_BRIDGE_OFERTA_RADAR:
         try:
-            if imagen_original_bytes:
-                url_supabase = subir_a_supabase(imagen_original_bytes)
-                imagen_para_radar = url_supabase or url_imagen
-            else:
-                imagen_para_radar = url_imagen
-            url_oferta_radar = enviar_a_oferta_radar(texto_nuevo, imagen_para_radar)
+            url_oferta_radar = enviar_a_oferta_radar(texto_nuevo, url_imagen)
         except Exception as e:
             print(f"Oferta Radar: error al importar (fallo inesperado): {e}")
 
@@ -641,12 +643,7 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
         # Modo normal (sin bridge): Oferta Radar se crea DESPUÉS de publicar,
         # como siempre -- el link que la gente vio ya fue el de Amazon.
         try:
-            if imagen_original_bytes:
-                url_supabase = subir_a_supabase(imagen_original_bytes)
-                imagen_para_radar = url_supabase or url_imagen
-            else:
-                imagen_para_radar = url_imagen
-            enviar_a_oferta_radar(texto_nuevo, imagen_para_radar)
+            enviar_a_oferta_radar(texto_nuevo, url_imagen)
         except Exception as e:
             print(f"Oferta Radar: error al importar (fallo inesperado, sin detener el resto): {e}")
 
