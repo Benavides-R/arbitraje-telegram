@@ -1,0 +1,43 @@
+name: Enviar Candidatas de Video
+
+on:
+  schedule:
+    # 7:00 PM hora Colombia (UTC-5, sin horario de verano) = 00:00 UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch:   # para probarlo a mano cuando quieras
+
+concurrency:
+  group: revisar-canales   # mismo grupo que el workflow principal, para no
+  cancel-in-progress: false # pisar un guardado de estado mientras corre el otro
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Clonar repo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install requests
+
+      - name: Enviar candidatas
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python -u -c "from resumen_video import enviar_candidatas_para_elegir; enviar_candidatas_para_elegir()"
+
+      - name: Guardar estado actualizado
+        if: always()
+        run: |
+          git config user.name "bot-arbitraje"
+          git config user.email "bot@arbitraje.local"
+          git add data/pendiente_seleccion_video.json 2>/dev/null || true
+          git diff --quiet && git diff --staged --quiet || git commit -m "Actualiza selección de video pendiente"
+          git push || (git pull --rebase origin main && git push)
