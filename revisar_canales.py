@@ -46,6 +46,7 @@ from publicar_facebook import publicar_facebook
 from oferta_radar import enviar_a_oferta_radar, reintentar_pendientes
 from supabase_storage import subir_a_supabase
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
+from resumen_video import registrar_oferta_para_video
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
 from estadisticas import verificar_y_enviar_reporte
 from aliexpress_afiliado import generar_link_afiliado_aliexpress
@@ -588,7 +589,8 @@ def publicar(chat_id, texto, imagen_bytes=None):
         registrar_fallo("Publicar en Telegram")
 
 
-def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, imagen_original_bytes=None):
+def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, imagen_original_bytes=None,
+                              texto_original=None):
     """Publica de verdad: prepara la imagen con logo (o usa la que ya viene
     lista, ej. una foto que subiste tú a mano), publica VIP+Facebook ya, y
     programa el canal gratis con retraso. Usada tanto en modo directo como
@@ -597,7 +599,11 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
     imagen_original_bytes (sin logo) solo llega poblado en el caso manual
     (foto subida por Telegram) -- es la que se sube a Supabase Storage.
     Las ofertas automáticas de Amazon NUNCA tocan Storage: a Oferta Radar
-    se le manda directo la URL que ya tiene Amazon."""
+    se le manda directo la URL que ya tiene Amazon.
+
+    texto_original (opcional): el mensaje tal cual lo escribió el canal,
+    solo se usa para el historial de selección de video (leer el % de
+    descuento si lo mencionan) -- no afecta la publicación en sí."""
     if imagen_bytes is None and url_imagen:
         m = re.search(r"💸 Precio: ([^\n🔻(]+)", texto_nuevo)
         precio_para_badge = m.group(1).strip().lstrip("~").strip() if m else None
@@ -625,6 +631,11 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
 
     publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
     publicar_facebook(texto_nuevo, imagen_bytes)
+
+    try:
+        registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_oferta_radar)
+    except Exception as e:
+        print(f"[VIDEO] No se pudo registrar en el historial de video: {e}")
 
     if not USAR_BRIDGE_OFERTA_RADAR:
         # Modo normal (sin bridge): Oferta Radar se crea DESPUÉS de publicar,
@@ -739,17 +750,17 @@ def procesar_mensaje(oferta_id, texto):
         # oferta está completa y se publica sola, sin pasar por revisión.
         print(f"[OFERTA] {dominio} -> completa (imagen+título+precio), publicando automático ({oferta_id})")
         _marcar_asin_publicado(asin)
-        publicar_oferta_completa(texto_nuevo, url_imagen)
+        publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
     elif MODO_REVISION:
         motivo = "requiere casillero" if oferta_requiere_casillero \
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL else "sin imagen"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
         _marcar_asin_publicado(asin)
-        enviar_para_revision(oferta_id, texto_nuevo, url_imagen)
+        enviar_para_revision(oferta_id, texto_nuevo, url_imagen, texto_original=texto)
     else:
         print(f"[OFERTA] {dominio} -> publicando directo")
         _marcar_asin_publicado(asin)
-        publicar_oferta_completa(texto_nuevo, url_imagen)
+        publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
     return True  # sí contó como oferta procesada, para el tope por corrida
 
 

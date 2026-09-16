@@ -21,6 +21,7 @@ from pathlib import Path
 from config import ADMIN_CHAT_ID
 from procesar_oferta import preparar_imagen_con_logo, aplicar_logo_a_bytes
 from estadisticas import registrar_publicacion
+from resumen_video import enviar_candidatas_para_elegir, procesar_respuesta_seleccion
 
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
@@ -52,7 +53,7 @@ def _guardar_offset(offset):
     OFFSET_FILE.write_text(str(offset))
 
 
-def enviar_para_revision(oferta_id, texto, url_imagen):
+def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None):
     """Manda la oferta candidata al chat del admin, con botones para decidir.
     Guarda el message_id del envío, para poder detectar después si le
     respondes con una foto propia."""
@@ -61,7 +62,10 @@ def enviar_para_revision(oferta_id, texto, url_imagen):
         return
 
     pendientes = _cargar_pendientes()
-    pendientes[oferta_id] = {"texto": texto, "url_imagen": url_imagen, "creado": time.time()}
+    pendientes[oferta_id] = {
+        "texto": texto, "url_imagen": url_imagen, "creado": time.time(),
+        "texto_original": texto_original,
+    }
     _guardar_pendientes(pendientes)
 
     teclado = {
@@ -228,7 +232,8 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                     imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
                 if oferta.get("imagen_original_base64"):
                     imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
-                publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes)
+                publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
+                               texto_original=oferta.get("texto_original"))
                 registrar_publicacion(oferta_id.split(":", 1)[0])
                 time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
             else:
@@ -237,6 +242,32 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
 
         # Caso 2: respondiste con una foto a un mensaje de revisión
         msg = update.get("message")
+
+        # Caso video A: pediste la lista de candidatas para elegir.
+        if (
+            msg and "text" in msg
+            and str(msg.get("chat", {}).get("id")) == str(ADMIN_CHAT_ID)
+            and msg["text"].strip().lower() in ("/elegir", "elegir", "elegir videos")
+        ):
+            print("[VIDEO] Comando /elegir recibido, mandando candidatas")
+            try:
+                enviar_candidatas_para_elegir()
+            except Exception as e:
+                print(f"[WARN] No se pudo mandar la selección de video: {e}")
+            continue
+
+        # Caso video B: le respondiste con números a una tanda de candidatas
+        # ya enviada (ej. "1,3,5") -- se procesa aparte y no sigue de largo
+        # como si fuera otra cosa (una URL manual, una aprobación, etc.).
+        if (
+            msg and "text" in msg
+            and str(msg.get("chat", {}).get("id")) == str(ADMIN_CHAT_ID)
+        ):
+            try:
+                if procesar_respuesta_seleccion(msg["text"]):
+                    continue
+            except Exception as e:
+                print(f"[WARN] No se pudo procesar la respuesta de selección de video: {e}")
 
         # Caso 0: mensaje NUEVO (no respuesta) del admin con una URL --
         # oferta manual tuya, se procesa con el mismo pipeline de las
@@ -325,7 +356,8 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                         imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
                     if oferta.get("imagen_original_base64"):
                         imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
-                    publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes)
+                    publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
+                                   texto_original=oferta.get("texto_original"))
                     registrar_publicacion(oferta_id_encontrada.split(":", 1)[0])
                     time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
                 else:
