@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0G59BDYDS",
+      "product": "La oferta puede expirar en cualquier momento.",
+      "rating": 4.4,
+      "reviews": 8,
+      "price": 106200,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0G59BDYDS?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0G59BDYDS",
+      "imageUrl": "https://m.media-amazon.com/images/I/618HNItx8nL._AC_SY695_.jpg",
+      "category": "Moda",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789581805.5345054
+  }
+]
