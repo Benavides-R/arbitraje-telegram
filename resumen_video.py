@@ -108,6 +108,7 @@ def registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_ofe
     m_titulo = re.search(r"📦 Producto:\s*(.+)", texto_nuevo)
     m_precio = re.search(r"💸 Precio:\s*([^\n🔻(]+)", texto_nuevo)
     m_link = re.search(r"⚡ Ver oferta:\s*(\S+)", texto_nuevo)
+    tiene_cupon = "🏷️ Cupón:" in texto_nuevo and "¡No necesita!" not in texto_nuevo
     if not m_titulo or not m_precio:
         return
 
@@ -122,6 +123,7 @@ def registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_ofe
         "titulo": titulo,
         "precio": m_precio.group(1).strip(),
         "descuento_pct": extraer_descuento_pct(texto_original),
+        "tiene_cupon": tiene_cupon,
         "imagen": url_imagen,
         "link": url_oferta_radar or (m_link.group(1).strip() if m_link else None),
     }
