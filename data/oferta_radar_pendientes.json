@@ -15,7 +15,26 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1789581805.5345054
+  },
+  {
+    "payload": {
+      "externalId": "B0F7WYRKJ9",
+      "product": "Xbox Series S 512GB  hasta 120 FPS",
+      "rating": null,
+      "reviews": null,
+      "price": 1197062,
+      "currency": "JPY",
+      "affiliateUrl": "https://www.amazon.co.jp/dp/B0F7WYRKJ9?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.co.jp/dp/B0F7WYRKJ9",
+      "imageUrl": "https://m.media-amazon.com/images/I/611jH0TtQrL._AC_SX679_.jpg",
+      "category": "Gaming",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1789592787.6583562
   }
 ]
