@@ -18,6 +18,7 @@ Flujo:
 
 import os
 import re
+import html
 import json
 import time
 import requests
@@ -43,11 +44,25 @@ ZONA_COLOMBIA = timezone(timedelta(hours=-5))
 # quedan fuera hasta que agregues esas categorías si algún día las quieres).
 CATEGORIAS_VIDEO = {
     "tecnologia": [
+        # Gadgets pequeños / accesorios
         "cargador", "audifono", "auricular", "smartwatch", "reloj inteligente",
         "camara", "tablet", "laptop", "bluetooth", "usb-c", "usb c", "altavoz",
         "parlante", "bocina", "power bank", "batería externa", "bateria externa",
         "drone", "dron", "monitor", "teclado", "mouse", "proyector", "gadget",
         "smart", "led", "gaming", "consola", "impresora", "router", "gps",
+        "airtag", "localizador", "rastreador", "cable", "adaptador", "hub",
+        "disco duro", "ssd", "memoria usb", "lector", "escaner", "calculadora",
+        "extensor wifi", "power strip", "regulador de voltaje", "estabilizador",
+        # Cámaras / seguridad / hogar inteligente
+        "camara de seguridad", "timbre inteligente", "cerradura inteligente",
+        "sensor de movimiento", "alarma",
+        # Electrodomésticos / línea blanca y pequeña
+        "cafetera", "licuadora", "batidora", "freidora de aire", "aspiradora",
+        "robot aspirador", "microondas", "nevera", "lavadora", "secadora",
+        "ventilador", "purificador de aire", "humidificador", "plancha",
+        "olla", "sanduchera", "tostadora", "extractor de jugos",
+        # Pantallas / entretenimiento
+        "televisor", "pantalla", "smart tv", "soundbar", "home theater",
     ],
     "ropa_calzado": [
         "tenis", "zapatilla", "zapato", "bota", "sandalia", "chancla",
@@ -105,14 +120,14 @@ def registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_ofe
     if not url_imagen:
         return  # sin imagen no sirve para el video
 
-    m_titulo = re.search(r"📦 Producto:\s*(.+)", texto_nuevo)
+    m_titulo = re.search(r"📦 <b>Producto:</b>\s*(.+)", texto_nuevo)
     m_precio = re.search(r"💸 Precio:\s*([^\n🔻(]+)", texto_nuevo)
     m_link = re.search(r"⚡ Ver oferta:\s*(\S+)", texto_nuevo)
     tiene_cupon = "🏷️ Cupón:" in texto_nuevo and "¡No necesita!" not in texto_nuevo
     if not m_titulo or not m_precio:
         return
 
-    titulo = m_titulo.group(1).strip()
+    titulo = html.unescape(m_titulo.group(1).strip())
     categoria = categorizar_para_video(titulo)
     if not categoria:
         return
