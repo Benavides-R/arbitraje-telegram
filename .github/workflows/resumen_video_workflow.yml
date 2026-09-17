@@ -2,8 +2,8 @@ name: Enviar Candidatas de Video
 
 on:
   schedule:
-    # 7:00 PM hora Colombia (UTC-5, sin horario de verano) = 00:00 UTC
-    - cron: "0 0 * * *"
+    # 5:00 PM hora Colombia (UTC-5, sin horario de verano) = 22:00 UTC
+    - cron: "0 22 * * *"
   workflow_dispatch:   # para probarlo a mano cuando quieras
 
 jobs:
