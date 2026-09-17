@@ -208,5 +208,15 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/91Qpz5F07pL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0BYCRS5HB?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T16:02:44.373896-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Estación de carga inalámbrica 3 en 1 para dispositivos Apple, con cargador magné",
+    "precio": "~$58.200 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/711crBiZWKL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FXMPZ6WK?tag=benatechs00-20"
   }
 ]
