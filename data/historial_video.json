@@ -168,5 +168,45 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/81g9uuK9IbL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0H9R9NDSG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T15:00:45.910674-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de impresión instantánea para niños de 4 a 12 años",
+    "precio": "~$118.900 COP",
+    "descuento_pct": 20,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ab029a7146c9ff791a1a3688a8a5da01374716fe713e3b1ee572f44319b2df16.webp",
+    "link": "https://www.amazon.com/dp/B0DF5JY74T?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T15:02:05.992799-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares híbridos ANC Bluetooth 5.4, graves profundos, 60 horas",
+    "precio": "~$76.400 COP",
+    "descuento_pct": 45,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/8698afcbb770cc9aeb874994edc5a6f4e75c89ba6a10cd24efaf54bd33a73bf0.webp",
+    "link": "https://www.amazon.com/dp/B0FDWSTC96?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T15:03:23.134264-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Impresora térmica Bluetooth de etiquetas de envío",
+    "precio": "~$80.700 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f36acaa7bba2e1b3877998b23de780d53076505f062044eeb3546a1ceb554c72.webp",
+    "link": "https://www.amazon.com/dp/B0GZVKHXNG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T15:05:11.549894-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Mochila Bagsure de viaje 42L aprobada para vuelos",
+    "precio": "~$83.700 COP",
+    "descuento_pct": 30,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/91Qpz5F07pL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0BYCRS5HB?tag=benatechs00-20"
   }
 ]
