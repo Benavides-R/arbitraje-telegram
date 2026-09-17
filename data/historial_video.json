@@ -58,5 +58,75 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71ZPpAVvVvL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0CYKMFN6R?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T00:02:01.458950-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mini proyector inteligente con aplicaciones con licencia oficial.",
+    "precio": "~$225.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/9daffa8ed0cf5c508eb142f68de0738c5c82a25a8284921dcbc6cc2b658a1008.webp",
+    "link": "https://www.amazon.com/dp/B0HCPZL9GH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T00:03:12.172485-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Tablet Android 15 de 11 pulgadas, 128GB ROM, 16GB RAM, 4G LTE, 5G WiFi, Octa-Cor",
+    "precio": "~$407.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/1540088631243f15f13e8ac8dab94367bd6b88f5335be4d0f0ef34ddc13b5cdd.webp",
+    "link": "https://www.amazon.com/dp/B0F1FQCL1R?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T00:04:22.383045-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente de 1.8 pulgadas, compatible con Android e iPhone, con Alexa y",
+    "precio": "~$80.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/01c1b00c4496b90ab3261ed31214c3b9f60272ae32a5278a90546294d465719e.webp",
+    "link": "https://www.amazon.com/dp/B0DCJPKQ8S?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T00:05:39.845430-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Barato!!!! Mini proyector portátil de corto alcance con soporte 4K la oferta expira en 1 Hora!!!",
+    "precio": "~$74.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/dff0285941ac46b087bdbfe39a3c78a30e13e70a1283008596bd1e1d0ba4b0d6.webp",
+    "link": "https://www.amazon.com/dp/B0HDC9D6QG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T00:06:49.472706-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Paquete de 4 etiquetas de rastreador de aire TSIEUSL, buscador de artículos.",
+    "precio": "~$32.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7c11f28fa482ab441da928481e90ebad0fdfc3decd346189d22852aa77d52580.webp",
+    "link": "https://www.amazon.com/dp/B0GCHQ87TM?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T00:08:07.960044-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Licuadora de mano KOIOS 5 en 1, 1000W, 12 velocidades, vaso de 20.3 fl oz, proce",
+    "precio": "~$48.500 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71RYRLNaruL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B07DHM7K8J?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T00:11:31.863431-05:00",
+    "categoria": "tecnologia",
+    "titulo": "TECKNET Ratón inalámbrico Bluetooth 5.03.0 y 2.4G, recargable, 4800 ppp, 6 boton",
+    "precio": "~$25.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61gVubhyJtL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FY5LNRCK?tag=benatechs00-20"
   }
 ]
