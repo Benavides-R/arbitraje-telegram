@@ -18,5 +18,45 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/61xDRZagsvL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0GK7FVTR4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-16T22:00:58.194607-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara 2K",
+    "precio": "~$64.400 COP",
+    "descuento_pct": 27,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/37da756cd2748aad58709b098f29ce4f3c3b74e7c587e6e59f36723a718038a3.webp",
+    "link": "https://www.amazon.com/dp/B0D5V13FWQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-16T22:02:16.097180-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de bolsillo 5K para vlogging con seguimiento facial AI y conectividad Wi-",
+    "precio": "~$231.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/88a99e537889a5dc5dda277c26df4f55e847d972221e2cb56ece21115dc17437.webp",
+    "link": "https://www.amazon.com/dp/B0HHHXK526?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-16T22:03:29.578349-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara Arlo Essential HD 2ª generación cableada audio bidireccional visión",
+    "precio": "~$32.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/9df7e9d917acc681f321ee6b169dcdd84361945b7d5fbd63bc523971ae632818.webp",
+    "link": "https://www.amazon.com/dp/B0DVN2RW1W?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-16T22:10:30.356709-05:00",
+    "categoria": "tecnologia",
+    "titulo": "AYY Monitor portátil de 15 pulgadas, FHD 1080P, USB-C y HDMI, compatible con PC,",
+    "precio": "~$132.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71ZPpAVvVvL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0CYKMFN6R?tag=benatechs00-20"
   }
 ]
