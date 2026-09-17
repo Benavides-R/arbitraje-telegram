@@ -28,5 +28,45 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71ZPpAVvVvL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0CYKMFN6R?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T15:03:23.134264-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Impresora térmica Bluetooth de etiquetas de envío",
+    "precio": "~$80.700 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f36acaa7bba2e1b3877998b23de780d53076505f062044eeb3546a1ceb554c72.webp",
+    "link": "https://www.amazon.com/dp/B0GZVKHXNG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-16T22:00:58.194607-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara 2K",
+    "precio": "~$64.400 COP",
+    "descuento_pct": 27,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/37da756cd2748aad58709b098f29ce4f3c3b74e7c587e6e59f36723a718038a3.webp",
+    "link": "https://www.amazon.com/dp/B0D5V13FWQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-16T22:03:29.578349-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara Arlo Essential HD 2ª generación cableada audio bidireccional visión",
+    "precio": "~$32.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/9df7e9d917acc681f321ee6b169dcdd84361945b7d5fbd63bc523971ae632818.webp",
+    "link": "https://www.amazon.com/dp/B0DVN2RW1W?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T14:03:32.080209-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Detector de cámara oculta y rastreador GPS compacto",
+    "precio": "~$51.700 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0164d0bc9c99cc3a900c56ebfe75e6ec7fac342e4756fedf16cd5cb244e886a1.webp",
+    "link": "https://www.amazon.com/dp/B0H6XDB414?tag=benatechs00-20"
   }
 ]
