@@ -138,5 +138,35 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/47b20ed3c3781152527591e93fa77046e1b82fe6e4a1068f61713c727fc08b81.webp",
     "link": "https://www.amazon.com/dp/B0C5CW9V7P?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T14:02:21.688058-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor Asnaghi automático con pantalla LED de 5.4 pulgadas",
+    "precio": "~$64.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/8b17d91a54e75e8725bf99e19548cd02b1d6d4a663dff94f008aad6ef32d4354.webp",
+    "link": "https://www.amazon.com/dp/B0H4LPKHT4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T14:03:32.080209-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Detector de cámara oculta y rastreador GPS compacto",
+    "precio": "~$51.700 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0164d0bc9c99cc3a900c56ebfe75e6ec7fac342e4756fedf16cd5cb244e886a1.webp",
+    "link": "https://www.amazon.com/dp/B0H6XDB414?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T14:08:44.080413-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Altavoz Bluetooth IPX7 impermeable de 50 W pico y 25 W RMS, color negro mate.",
+    "precio": "~$127.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81g9uuK9IbL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H9R9NDSG?tag=benatechs00-20"
   }
 ]
