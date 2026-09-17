@@ -218,5 +218,15 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/711crBiZWKL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0FXMPZ6WK?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T17:05:55.949916-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente Garmin vívoactive 5",
+    "precio": "~$613.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/413JlPp3QjL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0CG6LMQHH?tag=benatechs00-20"
   }
 ]
