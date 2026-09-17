@@ -128,5 +128,15 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/61gVubhyJtL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0FY5LNRCK?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T10:00:55.716333-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de video digital HD para niñas de 3-9 años",
+    "precio": "~$46.600 COP",
+    "descuento_pct": 60,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/47b20ed3c3781152527591e93fa77046e1b82fe6e4a1068f61713c727fc08b81.webp",
+    "link": "https://www.amazon.com/dp/B0C5CW9V7P?tag=benatechs00-20"
   }
 ]
