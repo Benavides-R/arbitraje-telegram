@@ -1,9 +1,8 @@
 name: Enviar Candidatas de Video
 
 on:
-  schedule:
-    # 5:00 PM hora Colombia (UTC-5, sin horario de verano) = 22:00 UTC
-    - cron: "0 22 * * *"
+  # schedule suspendido -- GitHub lo corre con horas de atraso variable.
+  # Se dispara por fuera con cron-job.org a las 5:00pm Colombia.
   workflow_dispatch:   # para probarlo a mano cuando quieras
 
 jobs:
