@@ -1,6 +1,16 @@
 {
   "candidatas": [
     {
+      "fecha": "2026-09-17T10:00:55.716333-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Cámara de video digital HD para niñas de 3-9 años",
+      "precio": "~$46.600 COP",
+      "descuento_pct": 60,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/47b20ed3c3781152527591e93fa77046e1b82fe6e4a1068f61713c727fc08b81.webp",
+      "link": "https://www.amazon.com/dp/B0C5CW9V7P?tag=benatechs00-20"
+    },
+    {
       "fecha": "2026-09-17T00:08:07.960044-05:00",
       "categoria": "tecnologia",
       "titulo": "Licuadora de mano KOIOS 5 en 1, 1000W, 12 velocidades, vaso de 20.3 fl oz, proce",
@@ -11,6 +21,46 @@
       "link": "https://www.amazon.com/dp/B07DHM7K8J?tag=benatechs00-20"
     },
     {
+      "fecha": "2026-09-17T14:03:32.080209-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Detector de cámara oculta y rastreador GPS compacto",
+      "precio": "~$51.700 COP",
+      "descuento_pct": 50,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0164d0bc9c99cc3a900c56ebfe75e6ec7fac342e4756fedf16cd5cb244e886a1.webp",
+      "link": "https://www.amazon.com/dp/B0H6XDB414?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-17T15:03:23.134264-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Impresora térmica Bluetooth de etiquetas de envío",
+      "precio": "~$80.700 COP",
+      "descuento_pct": 50,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f36acaa7bba2e1b3877998b23de780d53076505f062044eeb3546a1ceb554c72.webp",
+      "link": "https://www.amazon.com/dp/B0GZVKHXNG?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-17T15:02:05.992799-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Auriculares híbridos ANC Bluetooth 5.4, graves profundos, 60 horas",
+      "precio": "~$76.400 COP",
+      "descuento_pct": 45,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/8698afcbb770cc9aeb874994edc5a6f4e75c89ba6a10cd24efaf54bd33a73bf0.webp",
+      "link": "https://www.amazon.com/dp/B0FDWSTC96?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-17T15:05:11.549894-05:00",
+      "categoria": "ropa_calzado",
+      "titulo": "Mochila Bagsure de viaje 42L aprobada para vuelos",
+      "precio": "~$83.700 COP",
+      "descuento_pct": 30,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/91Qpz5F07pL._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0BYCRS5HB?tag=benatechs00-20"
+    },
+    {
       "fecha": "2026-09-16T22:00:58.194607-05:00",
       "categoria": "tecnologia",
       "titulo": "Cámara 2K",
@@ -19,6 +69,16 @@
       "tiene_cupon": false,
       "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/37da756cd2748aad58709b098f29ce4f3c3b74e7c587e6e59f36723a718038a3.webp",
       "link": "https://www.amazon.com/dp/B0D5V13FWQ?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-17T15:00:45.910674-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Cámara de impresión instantánea para niños de 4 a 12 años",
+      "precio": "~$118.900 COP",
+      "descuento_pct": 20,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ab029a7146c9ff791a1a3688a8a5da01374716fe713e3b1ee572f44319b2df16.webp",
+      "link": "https://www.amazon.com/dp/B0DF5JY74T?tag=benatechs00-20"
     },
     {
       "fecha": "2026-09-16T21:00:47.522080-05:00",
@@ -59,67 +119,7 @@
       "tiene_cupon": false,
       "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/9df7e9d917acc681f321ee6b169dcdd84361945b7d5fbd63bc523971ae632818.webp",
       "link": "https://www.amazon.com/dp/B0DVN2RW1W?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-16T22:10:30.356709-05:00",
-      "categoria": "tecnologia",
-      "titulo": "AYY Monitor portátil de 15 pulgadas, FHD 1080P, USB-C y HDMI, compatible con PC,",
-      "precio": "~$132.500 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://m.media-amazon.com/images/I/71ZPpAVvVvL._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0CYKMFN6R?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T00:02:01.458950-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Mini proyector inteligente con aplicaciones con licencia oficial.",
-      "precio": "~$225.300 COP",
-      "descuento_pct": null,
-      "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/9daffa8ed0cf5c508eb142f68de0738c5c82a25a8284921dcbc6cc2b658a1008.webp",
-      "link": "https://www.amazon.com/dp/B0HCPZL9GH?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T00:03:12.172485-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Tablet Android 15 de 11 pulgadas, 128GB ROM, 16GB RAM, 4G LTE, 5G WiFi, Octa-Cor",
-      "precio": "~$407.300 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/1540088631243f15f13e8ac8dab94367bd6b88f5335be4d0f0ef34ddc13b5cdd.webp",
-      "link": "https://www.amazon.com/dp/B0F1FQCL1R?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T00:04:22.383045-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Reloj inteligente de 1.8 pulgadas, compatible con Android e iPhone, con Alexa y",
-      "precio": "~$80.800 COP",
-      "descuento_pct": null,
-      "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/01c1b00c4496b90ab3261ed31214c3b9f60272ae32a5278a90546294d465719e.webp",
-      "link": "https://www.amazon.com/dp/B0DCJPKQ8S?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T00:05:39.845430-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Barato!!!! Mini proyector portátil de corto alcance con soporte 4K la oferta expira en 1 Hora!!!",
-      "precio": "~$74.000 COP",
-      "descuento_pct": null,
-      "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/dff0285941ac46b087bdbfe39a3c78a30e13e70a1283008596bd1e1d0ba4b0d6.webp",
-      "link": "https://www.amazon.com/dp/B0HDC9D6QG?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T00:06:49.472706-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Paquete de 4 etiquetas de rastreador de aire TSIEUSL, buscador de artículos.",
-      "precio": "~$32.300 COP",
-      "descuento_pct": null,
-      "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7c11f28fa482ab441da928481e90ebad0fdfc3decd346189d22852aa77d52580.webp",
-      "link": "https://www.amazon.com/dp/B0GCHQ87TM?tag=benatechs00-20"
     }
   ],
-  "enviado": 1789653347.4936304
+  "enviado": 1789682422.5009809
 }
