@@ -458,5 +458,15 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f5df06c2a4267bcd8a009d1531f1ad74413533fc1d7d4a7eededd10942edffb4.webp",
     "link": "https://www.amazon.com/dp/B0H2CBWT5V?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T16:03:43.127192-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Turtle Beach Stealth 600 Wireless Multiplatform Amplified Gaming Headset",
+    "precio": "~$291.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/611llngEBvL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0CYWD9PSM?tag=benatechs00-20"
   }
 ]
