@@ -398,5 +398,35 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e9f186570c4859368c9c325c9b16e13e3f71ecaff3125463841878fdf792f168.webp",
     "link": "https://www.amazon.com/dp/B0CP4SQ639?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T13:01:20.407745-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Juego de ollas y sartenes 8 piezas, cerámica antiadherente para inducción",
+    "precio": "~$129.800 COP",
+    "descuento_pct": 33,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/51wd+YXjs8L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0F2F3B2ZS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T13:02:23.866209-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "PRETTYGARDEN Sudadera media cremallera forro polar con capucha",
+    "precio": "~$63.300 COP",
+    "descuento_pct": 35,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61h8wiE7dfL._AC_SY879_.jpg",
+    "link": "https://www.amazon.com/dp/B0D7B6RH5B?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T13:03:31.360708-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Placa base ASUS TUF GAMING B650E-E WIFI AMD AM5 B650 ATX con soporte para DDR5 y",
+    "precio": "~$472.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81g5UBgQvNL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FBMMDMY6?tag=benatechs00-20"
   }
 ]
