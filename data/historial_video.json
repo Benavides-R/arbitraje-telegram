@@ -238,5 +238,85 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/61zdXA4XeAL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0D7S1RRH2?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:00:49.134693-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Ratón vertical inalámbrico ergonómico, triple modo BluetoothUSB, recargable, 4 n",
+    "precio": "~$37.200 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/d8aeb97426d74d5e417658b10c45324567db22b4f3ecef5471cfd679294317c3.webp",
+    "link": "https://www.amazon.com/dp/B0GK95S8ST?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:02:02.279201-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares sonido envolvente 7.1 con micrófono",
+    "precio": "~$42.000 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/61acc4c3c3be0f5e152aeeb4272428efbacefc64c7bd95edeeffe4720bb673d8.webp",
+    "link": "https://www.amazon.com/dp/B0H1M89QXY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:03:13.733475-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Winees cámara seguridad exterior 2K-4MP",
+    "precio": "~$40.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0c27a87c330775da512c72587e0e81b23db8bd49d685220c1a774cc907ccdd15.webp",
+    "link": "https://www.amazon.com/dp/B0CR6K1BQ7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:04:23.286758-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Altavoz Bluetooth portátil 5.4 con sonido estéreo de 15 W y emparejamiento TWS.",
+    "precio": "~$45.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c649a0f6cdaa4898bd7bbfdd73393e2954b846d4aa72d9bd90150287bbe6695b.webp",
+    "link": "https://www.amazon.com/dp/B0H9RSY5B6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:05:43.471885-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Smart TV Full HD Samsung de 40 (101,6 cm) serie F6000, modelo 2025, con HDR y On",
+    "precio": "~$641.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/d2c0801df6c5443fbb17cbf61d2f1fd4b836e23b3e87e7a9f02579b301caa5fc.webp",
+    "link": "https://www.amazon.com/dp/B0DXN1CFFR?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:06:52.556672-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "PUMA Zapatos deportivos Maxima Pro para hombre.",
+    "precio": "~$203.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/711mFuW0PSL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0GH2G6SSG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:08:02.498713-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente HD de 1.85 pulgadas, compatible con iPhoneSamsungAndroid, con",
+    "precio": "~$73.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c99bdbb4ee64a778fcb95c1d0e1ae3960576d9866b3cae54e3dc6368cf48695e.webp",
+    "link": "https://www.amazon.com/dp/B0GVN1L45Y?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:23:03.769462-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Aootek luces solares con sensor de movimiento para exteriores, 120 LED.",
+    "precio": "~$50.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/710KOgOmeXL._AC_SX679_PIbundle-6,TopRight,0,0_SH20_.jpg",
+    "link": "https://www.amazon.com/dp/B0G523KP6J?tag=benatechs00-20"
   }
 ]
