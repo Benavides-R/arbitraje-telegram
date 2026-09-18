@@ -428,5 +428,35 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/81g5UBgQvNL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0FBMMDMY6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T15:01:12.617672-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente Garmin vívoactive 5 con GPS",
+    "precio": "~$589.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/18cfee129962247c657fabe3d9e75a7820a4d05092fc58367b51997b78b48177.webp",
+    "link": "https://www.amazon.com/dp/B0CG6NBJ61?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T15:05:20.490126-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Pantalla inalámbrica ISAMUTO de 11.26 para Apple CarPlay y Android Auto en autos",
+    "precio": "~$194.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/dc2713d5f499beacd2394ee50bff65939348b22987f164386cf66d78374e8116.webp",
+    "link": "https://www.amazon.com/dp/B0HDCHWHK2?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T15:07:49.410245-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de seguridad WiFi 2K con forma de cara de perro, para interiores, con seg",
+    "precio": "~$75.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f5df06c2a4267bcd8a009d1531f1ad74413533fc1d7d4a7eededd10942edffb4.webp",
+    "link": "https://www.amazon.com/dp/B0H2CBWT5V?tag=benatechs00-20"
   }
 ]
