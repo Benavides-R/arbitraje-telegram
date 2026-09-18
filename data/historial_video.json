@@ -318,5 +318,85 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/710KOgOmeXL._AC_SX679_PIbundle-6,TopRight,0,0_SH20_.jpg",
     "link": "https://www.amazon.com/dp/B0G523KP6J?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:00:52.414262-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares con cable para iPhone, pack de 2 con certificación MFi",
+    "precio": "~$32.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/aee020adbe9d47125668e672b608f9288b2cdb83eb20e0fc6caffa8aee77f332.webp",
+    "link": "https://www.amazon.com/dp/B0HHX4HGVN?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:02:25.505665-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor LG 27U411A-B de 27 (68.6 cm) Full HD (1920 x 1080) IPS, 120Hz, HDR10, co",
+    "precio": "~$356.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b0a33a582f0ea0470b5373efd65964971115dbf16cab3c57fb4368409c46f058.webp",
+    "link": "https://www.amazon.com/dp/B0FHXY7VZ5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:03:38.688000-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Tablet Android de 11 (27.94 cm) con 32 GB de RAM y 128 GB de ROM (expansión de 1",
+    "precio": "~$272.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a2d46807437ad46277ce822a636e671a06398f7049c6dfbafba1bc5e753ceef4.webp",
+    "link": "https://www.amazon.com/dp/B0GVMKBNH6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:04:54.905363-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Zapato Under Armour Charged Assert 11 para hombre",
+    "precio": "~$181.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/51bBzZnRSWL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0F344M3HJ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:07:20.373468-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara dual 4K+1080P tarjeta 64 GB",
+    "precio": "~$129.800 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/581ced04393227cdb952dc478958009873942fbb783885b90e10163c7d14a650.webp",
+    "link": "https://www.amazon.com/dp/B0CRHNVG2S?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:08:28.878097-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Bolso de hombro Lenovo T215 para laptop 15.6 pulgadas con correa ajustable",
+    "precio": "~$35.700 COP",
+    "descuento_pct": 45,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61w77ig-QYL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0BGCGLQXJ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:09:42.763873-05:00",
+    "categoria": "tecnologia",
+    "titulo": "InnoView Monitor portátil de 16 pulgadas",
+    "precio": "~$259.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f18f5c133f3d4b03225232ca7c5b937c11ea7627d954f02a090967e5461e1e32.webp",
+    "link": "https://www.amazon.com/dp/B0GGGZTSTH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:10:57.752220-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor de bebé iFamily con pantalla de 5 pulgadas",
+    "precio": "~$97.400 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e9f186570c4859368c9c325c9b16e13e3f71ecaff3125463841878fdf792f168.webp",
+    "link": "https://www.amazon.com/dp/B0CP4SQ639?tag=benatechs00-20"
   }
 ]
