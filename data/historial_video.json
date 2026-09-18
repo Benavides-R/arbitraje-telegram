@@ -228,5 +228,15 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/413JlPp3QjL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0CG6LMQHH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T20:03:04.272546-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cargador rápido USB C de 20 W con cable tipo C a C de 3 m para iPhone 18171615 y",
+    "precio": "~$14.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61zdXA4XeAL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0D7S1RRH2?tag=benatechs00-20"
   }
 ]
