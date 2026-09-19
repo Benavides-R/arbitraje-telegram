@@ -1,125 +1,215 @@
 {
   "candidatas": [
     {
-      "fecha": "2026-09-17T21:00:49.134693-05:00",
+      "fecha": "2026-09-19T10:11:23.439928-05:00",
       "categoria": "tecnologia",
-      "titulo": "Ratón vertical inalámbrico ergonómico, triple modo BluetoothUSB, recargable, 4 n",
-      "precio": "~$37.200 COP",
-      "descuento_pct": 50,
+      "titulo": "Cámara de seguridad panorámica 2K",
+      "precio": "~$37.300 COP",
+      "descuento_pct": 60,
       "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/d8aeb97426d74d5e417658b10c45324567db22b4f3ecef5471cfd679294317c3.webp",
-      "link": "https://www.amazon.com/dp/B0GK95S8ST?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/61LOV+lCImL._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0FJQG43QL?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-17T21:02:02.279201-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Auriculares sonido envolvente 7.1 con micrófono",
-      "precio": "~$42.000 COP",
+      "fecha": "2026-09-19T00:00:47.150906-05:00",
+      "categoria": null,
+      "titulo": "Linterna de emergencia agua salada activada sin batería",
+      "precio": "~$32.500 COP",
       "descuento_pct": 50,
       "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/61acc4c3c3be0f5e152aeeb4272428efbacefc64c7bd95edeeffe4720bb673d8.webp",
-      "link": "https://www.amazon.com/dp/B0H1M89QXY?tag=benatechs00-20"
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/27a718c47dadcd73457cc000d87791d50634bfd8a6cb3cf611aea20cb0d6a9ab.webp",
+      "link": "https://www.amazon.com/dp/B0GWDRX18W?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-18T11:07:20.373468-05:00",
+      "fecha": "2026-09-19T00:04:21.190420-05:00",
       "categoria": "tecnologia",
-      "titulo": "Cámara dual 4K+1080P tarjeta 64 GB",
+      "titulo": "Inflador de neumáticos portátil digital con linterna LED",
+      "precio": "~$32.500 COP",
+      "descuento_pct": 50,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a6b730bc64142947553114f29246f0be6d1273d8f1b681d92aeaead41aa45192.webp",
+      "link": "https://www.amazon.com/dp/B0H11FBW6D?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T10:02:46.394487-05:00",
+      "categoria": null,
+      "titulo": "Suero Minoxidil 5% Crecimiento Capilar Masculino",
+      "precio": "~$40.600 COP",
+      "descuento_pct": 50,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/85790882be83008972652ef1fdc4878a2f8c8f5051465da6b0931dbd3637d982.webp",
+      "link": "https://www.amazon.com/dp/B0HB4K9WC3?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T12:00:44.473281-05:00",
+      "categoria": null,
+      "titulo": "Reloj de cuarzo para hombre acero inoxidable resistente al agua con fecha",
+      "precio": "~$32.400 COP",
+      "descuento_pct": 50,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/71U6-zr3C2L._AC_SY695_.jpg",
+      "link": "https://www.amazon.com/dp/B0CHJLFF9G?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T10:06:25.099509-05:00",
+      "categoria": null,
+      "titulo": "Reloj digital hombre deportivo impermeable con cronómetro",
+      "precio": "~$29.200 COP",
+      "descuento_pct": 44,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a2d8c1a63b56eab2d2b521ecbee09787409a14681877190112f90b04e0980cdc.webp",
+      "link": "https://www.amazon.com/dp/B0DKX88R4L?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T13:03:42.653431-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Adaptador USB-C a Ethernet 1 Gbps compatible Thunderbolt 34",
+      "precio": "~$32.500 COP",
+      "descuento_pct": 29,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/3991587db3fa92c78b639b18e3c74469ccdeb362be5beabf8cd9700df045e597.webp",
+      "link": "https://www.amazon.com/dp/B0D5QK5P59?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T00:01:59.887072-05:00",
+      "categoria": "tecnologia",
+      "titulo": "SEHMUA Cámara de Seguridad Solar Inalámbrica para exteriores, resolución 2K, vis",
+      "precio": "~$105.000 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/3e1542b6bab04105aefb0499654cfc9511d9186777f7dd95893ce35e59a814e5.webp",
+      "link": "https://www.amazon.com/dp/B0BY8KN5CG?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T00:03:10.913857-05:00",
+      "categoria": null,
+      "titulo": "CBQ Cortadora de pelo profesional para hombres, recortadora inalámbrica con pant",
+      "precio": "~$33.500 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/941c5fdce7397e6008db957d6b39c2c7c0039b204c7429a726e4da02c500b2aa.webp",
+      "link": "https://www.amazon.com/dp/B0GBT251GW?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T10:01:23.690550-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Reloj inteligente 2026 HD de 1.96 pulgadas, resistente al agua IP68, con podómet",
+      "precio": "~$64.800 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/83e8930eab8706df69fca2ecdd5e64831acac8fbdc4c3cea15f4c70bcc8865f9.webp",
+      "link": "https://www.amazon.com/dp/B0GXF1VRVQ?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T10:03:57.429604-05:00",
+      "categoria": "tecnologia",
+      "titulo": "MOKURU Teclado mecánico inalámbrico con tres modos de conexión BT2.4GUSB-C y ret",
+      "precio": "~$129.600 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c0aedbb45718ccc39cf1ea4b03c167ff17359751d861835190726f81143521d9.webp",
+      "link": "https://www.amazon.com/dp/B0GGZMQQMD?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T10:05:07.753138-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Cámara Hiseeu solar de seguridad para exteriores, paquete de 4 cámaras",
+      "precio": "~$389.200 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/343beedd93dfc1875e74e31fd6dc7c5f905217d4cb0e3966473df6404d71698b.webp",
+      "link": "https://www.amazon.com/dp/B0CPSXVQZP?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T10:07:34.938539-05:00",
+      "categoria": null,
+      "titulo": "Destornillador ángulo juego 10 en 1",
+      "precio": "~$17.500 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/14af7e02ab8c80be29a8df68585afb8459d6c2705bb84e25b6a1207a99655243.webp",
+      "link": "https://www.amazon.com/dp/B0FB87K61B?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T10:08:43.100347-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Pelacables y crimpadora manual 5 en 1, eléctrico 10-20 AWG",
+      "precio": "~$14.300 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/61A-Mll88ZL._AC_SX569_.jpg",
+      "link": "https://www.amazon.com/dp/B0F1FRHKZ1?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T10:09:52.405697-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Monitor portátil de 15.6 FHD IPS, Plug  Play USB-CHDMI",
       "precio": "~$129.800 COP",
-      "descuento_pct": 50,
+      "descuento_pct": null,
       "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/581ced04393227cdb952dc478958009873942fbb783885b90e10163c7d14a650.webp",
-      "link": "https://www.amazon.com/dp/B0CRHNVG2S?tag=benatechs00-20"
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ce68a981e42edb7383d15afa56f91fd8d708587b44df38a48abc1fbfc268764d.webp",
+      "link": "https://www.amazon.com/dp/B0D1DVNXG1?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-18T11:10:57.752220-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Monitor de bebé iFamily con pantalla de 5 pulgadas",
-      "precio": "~$97.400 COP",
-      "descuento_pct": 50,
-      "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e9f186570c4859368c9c325c9b16e13e3f71ecaff3125463841878fdf792f168.webp",
-      "link": "https://www.amazon.com/dp/B0CP4SQ639?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-18T11:08:28.878097-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Bolso de hombro Lenovo T215 para laptop 15.6 pulgadas con correa ajustable",
-      "precio": "~$35.700 COP",
-      "descuento_pct": 45,
+      "fecha": "2026-09-19T12:01:55.187211-05:00",
+      "categoria": null,
+      "titulo": "Reloj Casotime Leather Chronograph",
+      "precio": "~$32.500 COP",
+      "descuento_pct": null,
       "tiene_cupon": false,
-      "imagen": "https://m.media-amazon.com/images/I/61w77ig-QYL._AC_SY695_.jpg",
-      "link": "https://www.amazon.com/dp/B0BGCGLQXJ?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/81z5rskouVL._AC_SY695_.jpg",
+      "link": "https://www.amazon.com/dp/B0H61K39QX?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-18T13:02:23.866209-05:00",
+      "fecha": "2026-09-19T12:03:03.806666-05:00",
+      "categoria": null,
+      "titulo": "IRON FLASK Frasco de hidratación para acampar y senderismo",
+      "precio": "~$29.200 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/61Kc05ASiPL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0F1THC8P3?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T12:04:12.572878-05:00",
+      "categoria": null,
+      "titulo": "IRON FLASK Frasco de hidratación para senderismo y camping",
+      "precio": "~$26.000 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/51Nt2pW84SL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0F1TJ9VLG?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T12:05:26.231882-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Yetmadi Alfombrilla de mouse para juegos",
+      "precio": "~$16.200 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/65e461f478da4db962003a7b4e8a0049607afc55caa82f249e1402760ef45ae0.webp",
+      "link": "https://www.amazon.com/dp/B0GGQNC58Y?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-19T13:01:09.711560-05:00",
       "categoria": "ropa_calzado",
-      "titulo": "PRETTYGARDEN Sudadera media cremallera forro polar con capucha",
-      "precio": "~$63.300 COP",
-      "descuento_pct": 35,
-      "tiene_cupon": true,
-      "imagen": "https://m.media-amazon.com/images/I/61h8wiE7dfL._AC_SY879_.jpg",
-      "link": "https://www.amazon.com/dp/B0D7B6RH5B?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-18T13:01:20.407745-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Juego de ollas y sartenes 8 piezas, cerámica antiadherente para inducción",
-      "precio": "~$129.800 COP",
-      "descuento_pct": 33,
+      "titulo": "Zapatos adidas Cloudfoam Flex con cordones",
+      "precio": "~$131.500 COP",
+      "descuento_pct": null,
       "tiene_cupon": false,
-      "imagen": "https://m.media-amazon.com/images/I/51wd+YXjs8L._AC_SX679_.jpg",
-      "link": "https://www.amazon.com/dp/B0F2F3B2ZS?tag=benatechs00-20"
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/78f6d1b47f805a31ec57360d88ed6e5b621ae215fa32cad69cfd276d88e7563d.webp",
+      "link": "https://www.amazon.com/dp/B0F2B57GFX?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-17T21:03:13.733475-05:00",
+      "fecha": "2026-09-19T13:02:23.814177-05:00",
       "categoria": "tecnologia",
-      "titulo": "Winees cámara seguridad exterior 2K-4MP",
-      "precio": "~$40.400 COP",
+      "titulo": "Paquete de 4 etiquetas de rastreador de aire TSIEUSL compatibles con Apple Find",
+      "precio": "~$32.700 COP",
       "descuento_pct": null,
       "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0c27a87c330775da512c72587e0e81b23db8bd49d685220c1a774cc907ccdd15.webp",
-      "link": "https://www.amazon.com/dp/B0CR6K1BQ7?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T21:04:23.286758-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Altavoz Bluetooth portátil 5.4 con sonido estéreo de 15 W y emparejamiento TWS.",
-      "precio": "~$45.400 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c649a0f6cdaa4898bd7bbfdd73393e2954b846d4aa72d9bd90150287bbe6695b.webp",
-      "link": "https://www.amazon.com/dp/B0H9RSY5B6?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T21:05:43.471885-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Smart TV Full HD Samsung de 40 (101,6 cm) serie F6000, modelo 2025, con HDR y On",
-      "precio": "~$641.300 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/d2c0801df6c5443fbb17cbf61d2f1fd4b836e23b3e87e7a9f02579b301caa5fc.webp",
-      "link": "https://www.amazon.com/dp/B0DXN1CFFR?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T21:06:52.556672-05:00",
-      "categoria": "ropa_calzado",
-      "titulo": "PUMA Zapatos deportivos Maxima Pro para hombre.",
-      "precio": "~$203.600 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://m.media-amazon.com/images/I/711mFuW0PSL._AC_SY695_.jpg",
-      "link": "https://www.amazon.com/dp/B0GH2G6SSG?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-17T21:08:02.498713-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Reloj inteligente HD de 1.85 pulgadas, compatible con iPhoneSamsungAndroid, con",
-      "precio": "~$73.800 COP",
-      "descuento_pct": null,
-      "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c99bdbb4ee64a778fcb95c1d0e1ae3960576d9866b3cae54e3dc6368cf48695e.webp",
-      "link": "https://www.amazon.com/dp/B0GVN1L45Y?tag=benatechs00-20"
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b422c83fc6de55ee66e813f22e2c0244e598e6bd13062296c0cd05c013f8e69b.webp",
+      "link": "https://www.amazon.com/dp/B0FGJBRBGP?tag=benatechs00-20"
     }
   ],
-  "enviado": 1789783226.608885
+  "enviado": 1789855216.0617285
 }
