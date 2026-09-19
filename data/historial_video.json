@@ -518,5 +518,45 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/619trWU2qjL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0H5PHQVQD?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T00:00:47.150906-05:00",
+    "categoria": null,
+    "titulo": "Linterna de emergencia agua salada activada sin batería",
+    "precio": "~$32.500 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/27a718c47dadcd73457cc000d87791d50634bfd8a6cb3cf611aea20cb0d6a9ab.webp",
+    "link": "https://www.amazon.com/dp/B0GWDRX18W?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T00:01:59.887072-05:00",
+    "categoria": "tecnologia",
+    "titulo": "SEHMUA Cámara de Seguridad Solar Inalámbrica para exteriores, resolución 2K, vis",
+    "precio": "~$105.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/3e1542b6bab04105aefb0499654cfc9511d9186777f7dd95893ce35e59a814e5.webp",
+    "link": "https://www.amazon.com/dp/B0BY8KN5CG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T00:03:10.913857-05:00",
+    "categoria": null,
+    "titulo": "CBQ Cortadora de pelo profesional para hombres, recortadora inalámbrica con pant",
+    "precio": "~$33.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/941c5fdce7397e6008db957d6b39c2c7c0039b204c7429a726e4da02c500b2aa.webp",
+    "link": "https://www.amazon.com/dp/B0GBT251GW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T00:04:21.190420-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Inflador de neumáticos portátil digital con linterna LED",
+    "precio": "~$32.500 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a6b730bc64142947553114f29246f0be6d1273d8f1b681d92aeaead41aa45192.webp",
+    "link": "https://www.amazon.com/dp/B0H11FBW6D?tag=benatechs00-20"
   }
 ]
