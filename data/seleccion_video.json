@@ -68,5 +68,55 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0164d0bc9c99cc3a900c56ebfe75e6ec7fac342e4756fedf16cd5cb244e886a1.webp",
     "link": "https://www.amazon.com/dp/B0H6XDB414?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:00:49.134693-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Ratón vertical inalámbrico ergonómico, triple modo BluetoothUSB, recargable, 4 n",
+    "precio": "~$37.200 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/d8aeb97426d74d5e417658b10c45324567db22b4f3ecef5471cfd679294317c3.webp",
+    "link": "https://www.amazon.com/dp/B0GK95S8ST?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:02:02.279201-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares sonido envolvente 7.1 con micrófono",
+    "precio": "~$42.000 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/61acc4c3c3be0f5e152aeeb4272428efbacefc64c7bd95edeeffe4720bb673d8.webp",
+    "link": "https://www.amazon.com/dp/B0H1M89QXY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:07:20.373468-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara dual 4K+1080P tarjeta 64 GB",
+    "precio": "~$129.800 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/581ced04393227cdb952dc478958009873942fbb783885b90e10163c7d14a650.webp",
+    "link": "https://www.amazon.com/dp/B0CRHNVG2S?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T11:10:57.752220-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor de bebé iFamily con pantalla de 5 pulgadas",
+    "precio": "~$97.400 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e9f186570c4859368c9c325c9b16e13e3f71ecaff3125463841878fdf792f168.webp",
+    "link": "https://www.amazon.com/dp/B0CP4SQ639?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-17T21:03:13.733475-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Winees cámara seguridad exterior 2K-4MP",
+    "precio": "~$40.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0c27a87c330775da512c72587e0e81b23db8bd49d685220c1a774cc907ccdd15.webp",
+    "link": "https://www.amazon.com/dp/B0CR6K1BQ7?tag=benatechs00-20"
   }
 ]
