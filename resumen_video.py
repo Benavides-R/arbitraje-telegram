@@ -128,9 +128,7 @@ def registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_ofe
         return
 
     titulo = html.unescape(m_titulo.group(1).strip())
-    categoria = categorizar_para_video(titulo)
-    if not categoria:
-        return
+    categoria = categorizar_para_video(titulo)  # se guarda como dato informativo, ya no filtra nada
 
     entrada = {
         "fecha": datetime.now(ZONA_COLOMBIA).isoformat(),
@@ -152,19 +150,23 @@ def registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_ofe
     _guardar_json(HISTORIAL_FILE, historial)
 
 
-def generar_candidatas(dias=1, top_n=12):
+def generar_candidatas(dias=1, top_n=40):
     """Las mejores candidatas de los últimos `dias` días: primero las que
-    tienen % de descuento (de mayor a menor), luego el resto."""
+    tienen % de descuento (de mayor a menor), luego el resto. Excluye las
+    que ya elegiste antes (en cualquier día), para no repetir por el
+    traslape de la ventana de 24h."""
     historial = _cargar_json(HISTORIAL_FILE, [])
     corte = datetime.now(ZONA_COLOMBIA) - timedelta(days=dias)
-    recientes = [h for h in historial if datetime.fromisoformat(h["fecha"]) > corte]
+    ya_elegidas = {e.get("link") for e in _cargar_json(SELECCION_FILE, [])}
+    recientes = [h for h in historial if datetime.fromisoformat(h["fecha"]) > corte
+                 and h.get("link") not in ya_elegidas]
     recientes.sort(key=lambda h: h["descuento_pct"] if h["descuento_pct"] is not None else -1, reverse=True)
     return recientes[:top_n]
 
 
 def enviar_candidatas_para_elegir(dias=1):
-    """Manda el álbum numerado al admin. Guarda la tanda enviada para poder
-    interpretar tu respuesta con números después."""
+    """Manda la lista en texto plano (número + título + precio) al admin.
+    Guarda la tanda enviada para poder interpretar tu respuesta después."""
     if not ADMIN_CHAT_ID:
         print("[VIDEO] ADMIN_CHAT_ID no configurado, no se puede enviar")
         return
@@ -173,28 +175,25 @@ def enviar_candidatas_para_elegir(dias=1):
     if not candidatas:
         requests.post(f"{API}/sendMessage", data={
             "chat_id": ADMIN_CHAT_ID,
-            "text": "🎬 No hay ofertas de tecnología o ropa/calzado recientes para elegir hoy.",
+            "text": "🎬 No hay ofertas recientes para elegir hoy.",
         }, timeout=15)
         return
 
-    media = []
+    lineas = [f"🎬 {len(candidatas)} ofertas de hoy, elige las que quieras para video:", ""]
     for i, c in enumerate(candidatas, start=1):
         descuento_txt = f" (-{c['descuento_pct']}%)" if c["descuento_pct"] else ""
-        caption = f"{i}) {c['titulo'][:150]}\n💸 {c['precio']}{descuento_txt}"
-        media.append({"type": "photo", "media": c["imagen"], "caption": caption})
+        lineas.append(f"{i}) {c['titulo'][:120]} - {c['precio']}{descuento_txt}")
+    lineas.append("")
+    lineas.append("Responde con los números o rangos que quieras (ej: 1-5, 15, 20-30).")
 
-    # sendMediaGroup solo acepta hasta 10 por llamada -- se manda en tandas.
-    for lote in range(0, len(media), 10):
-        requests.post(f"{API}/sendMediaGroup", data={
+    # Telegram tiene un límite de 4096 caracteres por mensaje -- si el
+    # listado no cabe, se manda partido en varios mensajes.
+    texto_completo = "\n".join(lineas)
+    for i in range(0, len(texto_completo), 4000):
+        requests.post(f"{API}/sendMessage", data={
             "chat_id": ADMIN_CHAT_ID,
-            "media": json.dumps(media[lote:lote + 10]),
-        }, timeout=30)
-
-    requests.post(f"{API}/sendMessage", data={
-        "chat_id": ADMIN_CHAT_ID,
-        "text": (f"🎬 {len(candidatas)} candidatas para video. Responde con los números "
-                 f"que quieras (ej: 1,3,5), separados por coma."),
-    }, timeout=15)
+            "text": texto_completo[i:i + 4000],
+        }, timeout=15)
 
     _guardar_json(PENDIENTE_FILE, {"candidatas": candidatas, "enviado": time.time()})
 
@@ -209,7 +208,25 @@ def hay_seleccion_pendiente():
     return (time.time() - pendiente["enviado"]) < 48 * 3600
 
 
-_RE_SOLO_NUMEROS = re.compile(r"^[\d,\s]+$")
+_RE_SOLO_NUMEROS = re.compile(r"^[\d,\s-]+$")
+
+
+def _parsear_numeros_y_rangos(texto):
+    """'1-5, 15, 20-30' -> [1,2,3,4,5,15,20,21,...,30]"""
+    numeros = set()
+    for parte in texto.split(","):
+        parte = parte.strip()
+        if not parte:
+            continue
+        m = re.match(r"^(\d+)\s*-\s*(\d+)$", parte)
+        if m:
+            desde, hasta = int(m.group(1)), int(m.group(2))
+            if desde > hasta:
+                desde, hasta = hasta, desde
+            numeros.update(range(desde, hasta + 1))
+        elif parte.isdigit():
+            numeros.add(int(parte))
+    return sorted(numeros)
 
 
 def procesar_respuesta_seleccion(texto_mensaje):
@@ -222,7 +239,7 @@ def procesar_respuesta_seleccion(texto_mensaje):
 
     pendiente = _cargar_json(PENDIENTE_FILE, {})
     candidatas = pendiente.get("candidatas", [])
-    numeros = [int(n) for n in re.findall(r"\d+", texto_mensaje)]
+    numeros = _parsear_numeros_y_rangos(texto_mensaje)
     elegidas = [candidatas[n - 1] for n in numeros if 1 <= n <= len(candidatas)]
 
     if not elegidas:
