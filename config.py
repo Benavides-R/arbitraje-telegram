@@ -41,12 +41,15 @@ TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
 # aunque venga "completa" (imagen+título+precio) -- ropa/calzado varía mucho
 # en talla/calidad, y todo lo relacionado a mujer se revisa aparte, mejor
 # que tú lo confirmes antes de publicar.
-PALABRAS_SIEMPRE_MANUAL = [
-    "camisa", "camiseta", "pantalon", "vestido", "falda", "blusa",
-    "chaqueta", "chaleco", "short", "leggins", "sueter", "abrigo",
-    "zapato", "zapatilla", "sandalia", "bota", "tenis", "calzado",
-    "mujer", "women", "womens", "dama", "femenino", "para ella",
-    "bolso", "cartera", "rosa", "pijama", "brasier", "sosten",
+# Ahora funciona como WHITELIST: solo si el título contiene una de estas
+# palabras Y está completa (imagen+título+precio), se auto-publica. Todo lo
+# demás (aunque esté completo) se manda a revisión manual -- control total.
+PALABRAS_AUTO_PERMITIDAS = [
+    "camara", "camara de seguridad", "seguridad", "alarma", "cerradura",
+    "sensor", "timbre inteligente", "rastreador", "localizador", "gps",
+    "tablet", "inflador", "compresor", "drone", "dron",
+    "audifono", "auricular", "smartwatch", "reloj inteligente", "laptop",
+    "monitor", "disco duro", "ssd", "router", "proyector", "impresora",
 ]
 
 # Buscador de ofertas directo de AliExpress (sin depender de canales de

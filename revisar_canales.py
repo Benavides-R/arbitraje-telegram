@@ -36,7 +36,7 @@ from telethon.sessions import StringSession
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
-    PALABRAS_SIEMPRE_MANUAL, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
+    PALABRAS_AUTO_PERMITIDAS, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
     CUOTA_POR_CANAL, HORAS_BLOQUEO_DUPLICADO,
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
@@ -478,8 +478,11 @@ CATEGORIAS_HASHTAGS = {
     "gaming": (["gamer", "gaming", "consola", "playstation", "xbox", "nintendo", "mando", "teclado gamer"],
                ["#Gaming", "#Videojuegos"]),
     "computo": (["laptop", "portatil", "monitor", "teclado", "mouse", "ram", "memoria", "ssd", "disco duro",
-                 "tarjeta grafica", "procesador"],
+                 "tarjeta grafica", "procesador", "tablet"],
                 ["#Tecnologia", "#PCGamer"]),
+    "seguridad": (["camara", "seguridad", "alarma", "cerradura", "sensor", "timbre inteligente",
+                   "rastreador", "localizador"],
+                  ["#Seguridad", "#Tecnologia"]),
     "hogar": (["cocina", "hogar", "electrodomestico", "aspiradora", "licuadora", "freidora", "olla",
                "organizador", "decoracion"],
               ["#Hogar", "#Cocina"]),
@@ -496,7 +499,7 @@ CATEGORIAS_HASHTAGS = {
                  ["#Juguetes", "#Niños"]),
     "oficina": (["oficina", "papeleria", "escritorio", "silla oficina", "impresora"],
                 ["#Oficina", "#Productividad"]),
-    "herramientas": (["herramienta", "taladro", "destornillador", "llave", "kit herramientas"],
+    "herramientas": (["herramienta", "taladro", "destornillador", "llave", "kit herramientas", "inflador", "compresor"],
                       ["#Herramientas", "#Hogar"]),
     "automotriz": (["carro", "auto", "vehiculo", "accesorio carro", "cargador auto", "gps vehicular"],
                     ["#Automotriz", "#Carros"]),
@@ -741,7 +744,7 @@ def procesar_mensaje(oferta_id, texto):
     oferta_requiere_casillero = requiere_casillero(texto)
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
             and not oferta_requiere_casillero \
-            and not any(palabra in titulo_normalizado for palabra in PALABRAS_SIEMPRE_MANUAL):
+            and any(palabra in titulo_normalizado for palabra in PALABRAS_AUTO_PERMITIDAS):
         # Título y precio ya están garantizados en este punto (si faltaba
         # alguno, se descartó arriba) -- con imagen también presente, la
         # oferta está completa y se publica sola, sin pasar por revisión.
