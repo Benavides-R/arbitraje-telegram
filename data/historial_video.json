@@ -498,5 +498,25 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71GBlMiclTL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0GT2JP76J?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T23:04:41.030480-05:00",
+    "categoria": "tecnologia",
+    "titulo": "King Lucky Auriculares inalámbricos Bluetooth 6.0 con micrófono, reproducción de",
+    "precio": "~$90.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71jcXqUrPWL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0D9M4Z8V7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T23:13:08.139815-05:00",
+    "categoria": "tecnologia",
+    "titulo": "YOTON Cámara interior 2K, monitor para bebé con conectividad Wi-Fi 5G.",
+    "precio": "~$32.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/619trWU2qjL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H5PHQVQD?tag=benatechs00-20"
   }
 ]
