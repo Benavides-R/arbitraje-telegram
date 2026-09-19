@@ -478,5 +478,25 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/61xmfwMpK5L._SX466_.jpg",
     "link": "https://www.amazon.com/dp/B0F1J1JTKP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T20:04:29.499343-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Disfraz de tiburón para perro, sudadera con capucha para gatos y perros, color a",
+    "precio": "~$21.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/70679e0bcf59313f0d2a901926b467a856283115feb2f41de14f82bda40f4cd6.webp",
+    "link": "https://www.amazon.com/dp/B07648RYPR?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-18T20:17:33.139556-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor AOC de 27 (68.6 cm) QHD 240Hz QD OLED, compatible con NVIDIA G-SYNC.",
+    "precio": "~$1.016.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71GBlMiclTL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GT2JP76J?tag=benatechs00-20"
   }
 ]
