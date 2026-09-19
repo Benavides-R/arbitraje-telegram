@@ -738,5 +738,75 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/51XMd-O-SzL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0D1CBDFP3?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T18:01:01.880224-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Plancha alisadora rizadora 2 en 1 titanio 1.18 calentamiento rápido 5 temperatur",
+    "precio": "~$26.000 COP",
+    "descuento_pct": 52,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/86708f797b8fbf038442fe0e0479aab20dc4a565a933743cfbba3be4a135300b.webp",
+    "link": "https://www.amazon.com/dp/B0FF48VKML?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T18:02:12.880472-05:00",
+    "categoria": null,
+    "titulo": "Juego de pistas de carreras con 6 autos 164",
+    "precio": "~$64.900 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71xl75VhsJL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0GJ6QLD8Z?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T18:03:31.275504-05:00",
+    "categoria": null,
+    "titulo": "Máquina de burbujas para niños, color blanco, paquete de 1.",
+    "precio": "~$39.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": null,
+    "link": "https://www.amazon.com/dp/B0HGLB8NTB?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T18:04:36.671426-05:00",
+    "categoria": null,
+    "titulo": "VASSON Plumero de aire comprimido inalámbrico de 260000 RPM.",
+    "precio": "~$55.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71LjXAdfSUL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DSHVRDJ6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T18:05:47.773565-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Skechers Tenis Max Cushioning Endeavour para hombre, diseñado para ofrecer comod",
+    "precio": "~$170.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81s0WAQ8vJL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0D5SQFXLP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T18:07:09.390570-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente Fitness Tracker",
+    "precio": "~$71.200 COP",
+    "descuento_pct": 63,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b4dd6b77b6f795c94a8be4911725a90e2d8b2445ae633024fec1a7b392059193.webp",
+    "link": "https://www.amazon.com/dp/B0GK8SWSVL?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T18:08:21.227757-05:00",
+    "categoria": null,
+    "titulo": "PAPIFEED Comedero Automático Inteligente para Gatos, con control de APP y cuenco",
+    "precio": "~$73.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b505bf930be72bbc12d22ad3d686e393583424f5804a501e1ccb14754ad05a75.webp",
+    "link": "https://www.amazon.com/dp/B09TKH9Q31?tag=benatechs00-20"
   }
 ]

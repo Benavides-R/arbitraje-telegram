@@ -118,5 +118,55 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0c27a87c330775da512c72587e0e81b23db8bd49d685220c1a774cc907ccdd15.webp",
     "link": "https://www.amazon.com/dp/B0CR6K1BQ7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T10:11:23.439928-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de seguridad panorámica 2K",
+    "precio": "~$37.300 COP",
+    "descuento_pct": 60,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61LOV+lCImL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FJQG43QL?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T00:04:21.190420-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Inflador de neumáticos portátil digital con linterna LED",
+    "precio": "~$32.500 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a6b730bc64142947553114f29246f0be6d1273d8f1b681d92aeaead41aa45192.webp",
+    "link": "https://www.amazon.com/dp/B0H11FBW6D?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T10:05:07.753138-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara Hiseeu solar de seguridad para exteriores, paquete de 4 cámaras",
+    "precio": "~$389.200 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/343beedd93dfc1875e74e31fd6dc7c5f905217d4cb0e3966473df6404d71698b.webp",
+    "link": "https://www.amazon.com/dp/B0CPSXVQZP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T10:09:52.405697-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor portátil de 15.6 FHD IPS, Plug  Play USB-CHDMI",
+    "precio": "~$129.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ce68a981e42edb7383d15afa56f91fd8d708587b44df38a48abc1fbfc268764d.webp",
+    "link": "https://www.amazon.com/dp/B0D1DVNXG1?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T13:02:23.814177-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Paquete de 4 etiquetas de rastreador de aire TSIEUSL compatibles con Apple Find",
+    "precio": "~$32.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b422c83fc6de55ee66e813f22e2c0244e598e6bd13062296c0cd05c013f8e69b.webp",
+    "link": "https://www.amazon.com/dp/B0FGJBRBGP?tag=benatechs00-20"
   }
 ]
