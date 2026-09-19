@@ -698,5 +698,35 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/65e461f478da4db962003a7b4e8a0049607afc55caa82f249e1402760ef45ae0.webp",
     "link": "https://www.amazon.com/dp/B0GGQNC58Y?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T13:01:09.711560-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Zapatos adidas Cloudfoam Flex con cordones",
+    "precio": "~$131.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/78f6d1b47f805a31ec57360d88ed6e5b621ae215fa32cad69cfd276d88e7563d.webp",
+    "link": "https://www.amazon.com/dp/B0F2B57GFX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T13:02:23.814177-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Paquete de 4 etiquetas de rastreador de aire TSIEUSL compatibles con Apple Find",
+    "precio": "~$32.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b422c83fc6de55ee66e813f22e2c0244e598e6bd13062296c0cd05c013f8e69b.webp",
+    "link": "https://www.amazon.com/dp/B0FGJBRBGP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T13:03:42.653431-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Adaptador USB-C a Ethernet 1 Gbps compatible Thunderbolt 34",
+    "precio": "~$32.500 COP",
+    "descuento_pct": 29,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/3991587db3fa92c78b639b18e3c74469ccdeb362be5beabf8cd9700df045e597.webp",
+    "link": "https://www.amazon.com/dp/B0D5QK5P59?tag=benatechs00-20"
   }
 ]
