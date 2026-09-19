@@ -151,15 +151,13 @@ def registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_ofe
 
 
 def generar_candidatas(dias=1, top_n=40):
-    """Las mejores candidatas de los últimos `dias` días: primero las que
-    tienen % de descuento (de mayor a menor), luego el resto. Excluye las
-    que ya elegiste antes (en cualquier día), para no repetir por el
-    traslape de la ventana de 24h."""
+    """Ofertas de HOY (desde medianoche hora Colombia), no ventana rodante
+    de 24h. Primero las que tienen % de descuento (de mayor a menor), luego
+    el resto. No excluye ofertas ya elegidas antes -- si una sigue vigente
+    semanas después y la vuelves a elegir, se procesa igual."""
     historial = _cargar_json(HISTORIAL_FILE, [])
-    corte = datetime.now(ZONA_COLOMBIA) - timedelta(days=dias)
-    ya_elegidas = {e.get("link") for e in _cargar_json(SELECCION_FILE, [])}
-    recientes = [h for h in historial if datetime.fromisoformat(h["fecha"]) > corte
-                 and h.get("link") not in ya_elegidas]
+    corte = datetime.now(ZONA_COLOMBIA).replace(hour=0, minute=0, second=0, microsecond=0)
+    recientes = [h for h in historial if datetime.fromisoformat(h["fecha"]) > corte]
     recientes.sort(key=lambda h: h["descuento_pct"] if h["descuento_pct"] is not None else -1, reverse=True)
     return recientes[:top_n]
 
