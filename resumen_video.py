@@ -104,7 +104,9 @@ def _cargar_json(archivo, valor_default):
     if archivo.exists():
         try:
             return json.loads(archivo.read_text())
-        except (json.JSONDecodeError, OSError):
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"[WARN] {archivo.name} no se pudo leer ({e}) -- "
+                  f"si esto pasa con el historial de video, se perdería sin querer")
             return valor_default
     return valor_default
 
@@ -116,10 +118,8 @@ def _guardar_json(archivo, datos):
 
 def registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_oferta_radar=None):
     """Se llama justo cuando una oferta SE PUBLICÓ de verdad (no antes).
-    Si no es de una categoría de interés, no hace nada."""
-    if not url_imagen:
-        return  # sin imagen no sirve para el video
-
+    Ya no exige imagen -- la lista de las 5pm es puro texto (título+precio),
+    la foto solo hace falta después si eliges esa oferta para el video."""
     m_titulo = re.search(r"📦 <b>Producto:</b>\s*(.+)", texto_nuevo)
     m_precio = re.search(r"💸 Precio:\s*([^\n🔻(]+)", texto_nuevo)
     m_link = re.search(r"⚡ Ver oferta:\s*(\S+)", texto_nuevo)
@@ -182,7 +182,8 @@ def enviar_candidatas_para_elegir(dias=1):
     lineas = [f"🎬 {len(candidatas)} ofertas de hoy, elige las que quieras para video:", ""]
     for i, c in enumerate(candidatas, start=1):
         descuento_txt = f" (-{c['descuento_pct']}%)" if c["descuento_pct"] else ""
-        lineas.append(f"{i}) {c['titulo'][:120]} - {c['precio']}{descuento_txt}")
+        sin_foto = "" if c.get("imagen") else " 📵 sin foto"
+        lineas.append(f"{i}) {c['titulo'][:120]} - {c['precio']}{descuento_txt}{sin_foto}")
     lineas.append("")
     lineas.append("Responde con los números o rangos que quieras (ej: 1-5, 15, 20-30).")
 

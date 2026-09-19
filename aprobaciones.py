@@ -226,16 +226,25 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
 
             if accion == "aprobar":
                 print(f"[REVISION] Aprobada por admin: {oferta_id}")
-                imagen_bytes = None
-                imagen_original_bytes = None
-                if oferta.get("imagen_base64"):
-                    imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
-                if oferta.get("imagen_original_base64"):
-                    imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
-                publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
-                               texto_original=oferta.get("texto_original"))
-                registrar_publicacion(oferta_id.split(":", 1)[0])
-                time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
+                try:
+                    imagen_bytes = None
+                    imagen_original_bytes = None
+                    if oferta.get("imagen_base64"):
+                        imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
+                    if oferta.get("imagen_original_base64"):
+                        imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
+                    publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
+                                   texto_original=oferta.get("texto_original"))
+                    registrar_publicacion(oferta_id.split(":", 1)[0])
+                    time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
+                except Exception as e:
+                    # Si UNA oferta falla al publicar, no se debe perder el
+                    # resto del lote -- antes esto tumbaba toda la corrida y
+                    # como el offset de Telegram no avanza hasta el final de
+                    # la función, esa misma oferta rota se reintentaba (y
+                    # fallaba) en cada corrida, bloqueando todo lo que venía
+                    # después de ella en la cola, indefinidamente.
+                    print(f"[ERROR] Falló publicar {oferta_id}, se sigue con las demás: {e}")
             else:
                 print(f"[REVISION] Descartada por admin: {oferta_id}")
             continue
@@ -350,16 +359,19 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                     continue
                 if palabra in aprobar_palabras:
                     print(f"[REVISION] Aprobada por texto: {oferta_id_encontrada}")
-                    imagen_bytes = None
-                    imagen_original_bytes = None
-                    if oferta.get("imagen_base64"):
-                        imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
-                    if oferta.get("imagen_original_base64"):
-                        imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
-                    publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
-                                   texto_original=oferta.get("texto_original"))
-                    registrar_publicacion(oferta_id_encontrada.split(":", 1)[0])
-                    time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
+                    try:
+                        imagen_bytes = None
+                        imagen_original_bytes = None
+                        if oferta.get("imagen_base64"):
+                            imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
+                        if oferta.get("imagen_original_base64"):
+                            imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
+                        publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
+                                       texto_original=oferta.get("texto_original"))
+                        registrar_publicacion(oferta_id_encontrada.split(":", 1)[0])
+                        time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
+                    except Exception as e:
+                        print(f"[ERROR] Falló publicar {oferta_id_encontrada}, se sigue con las demás: {e}")
                 else:
                     print(f"[REVISION] Descartada por texto: {oferta_id_encontrada}")
                 try:
