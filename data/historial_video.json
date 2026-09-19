@@ -728,5 +728,15 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/3991587db3fa92c78b639b18e3c74469ccdeb362be5beabf8cd9700df045e597.webp",
     "link": "https://www.amazon.com/dp/B0D5QK5P59?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T17:03:56.323237-05:00",
+    "categoria": "tecnologia",
+    "titulo": "NIIMBOT Mini etiquetadora D110, impresora térmica Bluetooth.",
+    "precio": "~$33.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/51XMd-O-SzL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0D1CBDFP3?tag=benatechs00-20"
   }
 ]
