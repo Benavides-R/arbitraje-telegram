@@ -648,5 +648,55 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/61LOV+lCImL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0FJQG43QL?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T12:00:44.473281-05:00",
+    "categoria": null,
+    "titulo": "Reloj de cuarzo para hombre acero inoxidable resistente al agua con fecha",
+    "precio": "~$32.400 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71U6-zr3C2L._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0CHJLFF9G?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T12:01:55.187211-05:00",
+    "categoria": null,
+    "titulo": "Reloj Casotime Leather Chronograph",
+    "precio": "~$32.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81z5rskouVL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0H61K39QX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T12:03:03.806666-05:00",
+    "categoria": null,
+    "titulo": "IRON FLASK Frasco de hidratación para acampar y senderismo",
+    "precio": "~$29.200 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61Kc05ASiPL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0F1THC8P3?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T12:04:12.572878-05:00",
+    "categoria": null,
+    "titulo": "IRON FLASK Frasco de hidratación para senderismo y camping",
+    "precio": "~$26.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/51Nt2pW84SL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0F1TJ9VLG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T12:05:26.231882-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Yetmadi Alfombrilla de mouse para juegos",
+    "precio": "~$16.200 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/65e461f478da4db962003a7b4e8a0049607afc55caa82f249e1402760ef45ae0.webp",
+    "link": "https://www.amazon.com/dp/B0GGQNC58Y?tag=benatechs00-20"
   }
 ]
