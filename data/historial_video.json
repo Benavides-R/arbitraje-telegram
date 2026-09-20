@@ -1108,5 +1108,45 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/98e1faaaedb622a051ecfa067969d9ddf473497724bbc8b24a60a93b9634080d.webp",
     "link": "https://www.amazon.com/dp/B0H6PDR9TL?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T09:00:44.225346-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Licuadora KOIOS 1000 W",
+    "precio": "~$81.400 COP",
+    "descuento_pct": 65,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/57ae2cd8ee821ee29ec0476439c97ac74c70e8711b330acc718561d5a623c7d5.webp",
+    "link": "https://www.amazon.com/dp/B0GZP3WXDL?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T09:01:55.814984-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mando inalámbrico Xbox Forza Horizon 6 Edición limitada, Bluetooth USB-C",
+    "precio": "~$244.300 COP",
+    "descuento_pct": 17,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71C2B89d9dL._SX466_.jpg",
+    "link": "https://www.amazon.com/dp/B0GS3Z1X2Q?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T09:03:10.381934-05:00",
+    "categoria": null,
+    "titulo": "Vaporizador G10 portátil",
+    "precio": "~$42.400 COP",
+    "descuento_pct": 67,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0d5b2850d31f517ba48643c5e13d7a7881fe52f0be26c71c566be106019ab864.webp",
+    "link": "https://www.amazon.com/dp/B0HJHRSBPX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T09:04:20.274262-05:00",
+    "categoria": null,
+    "titulo": "Condones Durex RED extra sensibles",
+    "precio": "~$44.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/787fef96ea3e826d4b7ae23b187d4630c67917d10af078dcba55981f38b609d0.webp",
+    "link": "https://www.amazon.com/dp/B0759N57BX?tag=benatechs00-20"
   }
 ]
