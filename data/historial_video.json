@@ -1148,5 +1148,45 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/787fef96ea3e826d4b7ae23b187d4630c67917d10af078dcba55981f38b609d0.webp",
     "link": "https://www.amazon.com/dp/B0759N57BX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T14:00:56.628018-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente militar con batería de 100 días",
+    "precio": "~$122.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/88d777012c52d79e59b8c727c344a1d77cb8f7aa607fc3fb5b10c8997be65d0b.webp",
+    "link": "https://www.amazon.com/dp/B0HF7ZM3XH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T14:02:09.789516-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Plancha plana de titanio 2 en 1 con calentamiento rápido, 1 pulgada, 5 ajustes d",
+    "precio": "~$28.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c4d2b74fe3295401da67f18c0653a19b402e8ea8917af07578062635bb1db1c6.webp",
+    "link": "https://www.amazon.com/dp/B0FF48VKML?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T14:03:33.420920-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Proyector Mini Inteligente 1080P nativo con WiFi y Bluetooth.",
+    "precio": "~$131.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/360e60f686a318055cd5f2fe602f9dd6bc2a78bb5e06277dff065571886a62a1.webp",
+    "link": "https://www.amazon.com/dp/B0HFW17ZPY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T14:06:39.188803-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares de conducción ósea abiertos para correr, duración de 12 horas.",
+    "precio": "~$56.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61OReAuXfnL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H5VQGGFJ?tag=benatechs00-20"
   }
 ]
