@@ -808,5 +808,145 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b505bf930be72bbc12d22ad3d686e393583424f5804a501e1ccb14754ad05a75.webp",
     "link": "https://www.amazon.com/dp/B09TKH9Q31?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:00:50.096568-05:00",
+    "categoria": null,
+    "titulo": "Limpiador eléctrico giratorio Oawenhe con 7 cabezales reemplazables y mango larg",
+    "precio": "~$65.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/efe15549d7c9dbc4df307db5bcf7173467de3acb54fa118ca5ccd103c53c9ed6.webp",
+    "link": "https://www.amazon.com/dp/B0H1QGRTQ4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:02:01.346438-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Compresor aire inalámbrico portátil con luz LED",
+    "precio": "~$48.700 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/abdea4b35bfd560d77a6c1828e608dec6532da9cb0316fba3bded718a0d0d6a1.webp",
+    "link": "https://www.amazon.com/dp/B0DB21LZGH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:03:11.364259-05:00",
+    "categoria": null,
+    "titulo": "Smedz Masajeador de cuello 2026, almohada curva C 4 en 1 con ajuste.",
+    "precio": "~$83.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/dee5f5a63d397899f2831e6ab1701b8f33453472227e8b7e9529a828ad90f0a5.webp",
+    "link": "https://www.amazon.com/dp/B0HDTJZ47W?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:04:26.956373-05:00",
+    "categoria": null,
+    "titulo": "BaBylissPRO Nano Titanium Secador de Pelo de 2000 W con Boquilla Concentradora,",
+    "precio": "~$263.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b60a0ff7b3ff64068646990a213264875f603e42054aa1d0e98b328398fdf426.webp",
+    "link": "https://www.amazon.com/dp/B091KB6H1F?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:05:36.268168-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares Bluetooth con cancelación de ruido, 65h de reproducción",
+    "precio": "~$50.000 COP",
+    "descuento_pct": 30,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f33649f52867aade9cd293cd0d6d9d1549c7bddec6401ee0288e336668081858.webp",
+    "link": "https://www.amazon.com/dp/B0D8B4Q4PR?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:08:11.167946-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Inflador AstroAI L4 con Luz LED",
+    "precio": "~$119.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71R358q-i-L._AC_SY879_.jpg",
+    "link": "https://www.amazon.com/dp/B0CS3K3T8T?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:09:13.568173-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mini proyector portátil Full HD con soporte 4K",
+    "precio": "~$128.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81klqAmzW7L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0HJ29C5YD?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:10:16.339813-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Audífonos ultraligeros Bluetooth con clip",
+    "precio": "~$20.200 COP",
+    "descuento_pct": 69,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61JelcuDMRL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GCCQV99L?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:11:18.754222-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de inspección endoscópica Lightswim 1920P",
+    "precio": "~$58.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/816TezgUnVL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0C2P7KP5D?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:12:21.292918-05:00",
+    "categoria": null,
+    "titulo": "RUYI iluminación para debajo del gabinete, paquete de 5 luces con sensor.",
+    "precio": "~$82.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61+rQ5V7LKL._AC_SX679_PIbundle-5,TopRight,0,0_SH20_.jpg",
+    "link": "https://www.amazon.com/dp/B0H2VBTDW5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:13:23.133271-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Smart Ring Pro, anillo de fitness con monitoreo de frecuencia cardíaca y rastrea",
+    "precio": "~$222.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/617AZq1pz-L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GHNSGW3F?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:14:25.698167-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares Bluetooth inalámbricos sobre la oreja con cancelación de ruido y 130",
+    "precio": "~$98.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71eggeqF7LL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0CKF4W3PM?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:15:54.865775-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara Molegar",
+    "precio": "~$183.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/51KZpid+-gL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H75JFP26?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T19:18:39.810898-05:00",
+    "categoria": "tecnologia",
+    "titulo": "AOC Auriculares inalámbricos para juegos compatibles con PS5, PS4, Nintendo Swit",
+    "precio": "~$131.200 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/717G3wK80AL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0HGFCS9MS?tag=benatechs00-20"
   }
 ]
