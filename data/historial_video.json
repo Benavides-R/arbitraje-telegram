@@ -958,5 +958,45 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/71i3so9+vuL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0F9YBMJDV?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T21:00:54.764374-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Audífonos X3 60H Wireless",
+    "precio": "~$57.000 COP",
+    "descuento_pct": 65,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/712I4s4Qk2L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0HF85BP2L?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T21:05:40.568181-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Gleeso Tableta 2026, Android, 10 (25.4 cm), 24GB RAM, 64GB almacenamiento, 1TB T",
+    "precio": "~$262.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71SeqMNRLKL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H8D7XTWC?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T21:07:26.144249-05:00",
+    "categoria": "tecnologia",
+    "titulo": "TMY Proyector inteligente con Google TV integrado, cine en casa nativo.",
+    "precio": "~$329.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71ROLvL7B7L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H14CFGVM?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T21:10:02.649358-05:00",
+    "categoria": "tecnologia",
+    "titulo": "AOC Auriculares inalámbricos para juegos de 2.4 GHz, compatibles con PS5, PS4 y",
+    "precio": "~$131.200 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71HEIZFbBEL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0HGR4SDYC?tag=benatechs00-20"
   }
 ]
