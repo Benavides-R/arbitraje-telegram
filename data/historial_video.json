@@ -1088,5 +1088,25 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/61lw2AQiylL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0GXXN4PDK?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T23:00:46.435046-05:00",
+    "categoria": null,
+    "titulo": "SATA juego de destornilladores eléctricos de 32 piezas, destornillador inalámbri",
+    "precio": "~$65.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71tbAODWrML._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0GJDJ7KY2?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T23:02:01.047418-05:00",
+    "categoria": "tecnologia",
+    "titulo": "NIDUBIO Tablet Android de 10 pulgadas con 24GB RAM, 128GB ROM y expansión de 1TB",
+    "precio": "~$247.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/98e1faaaedb622a051ecfa067969d9ddf473497724bbc8b24a60a93b9634080d.webp",
+    "link": "https://www.amazon.com/dp/B0H6PDR9TL?tag=benatechs00-20"
   }
 ]
