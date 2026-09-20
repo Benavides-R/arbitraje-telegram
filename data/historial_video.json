@@ -1188,5 +1188,45 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/61OReAuXfnL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0H5VQGGFJ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T15:00:45.677055-05:00",
+    "categoria": null,
+    "titulo": "NZXT Kraken Core 360 RGB - Enfriador de CPU AIO de 35.9 cm - Negro",
+    "precio": "~$329.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/51Utzq0h5HL._SX466_.jpg",
+    "link": "https://www.amazon.com/dp/B0FLTZ2SHM?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T15:01:58.372724-05:00",
+    "categoria": null,
+    "titulo": "Tarjeta MiLi Wallet Finder seguimiento billetera",
+    "precio": "~$40.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/79d3031f0e63b6ff916bd2eaaf4fea39029d09285dd07a35499145863f54b6da.webp",
+    "link": "https://www.amazon.com/dp/B0HDCCWHFP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T15:03:09.080140-05:00",
+    "categoria": null,
+    "titulo": "Minorsonic AIO Enfriador de CPU, 360 mm, bomba cerámica 3000 RPM",
+    "precio": "~$162.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/2eb5481da22212b3e3b582cfc138b933790d0aa065e12860f3f18003554d57bd.webp",
+    "link": "https://www.amazon.com/dp/B0FHW333V3?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T15:04:18.551398-05:00",
+    "categoria": null,
+    "titulo": "Máquina de coser pequeña para principiantes, kit portátil para telas ligeras.",
+    "precio": "~$196.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71xtD08wYmL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0HG12YSV6?tag=benatechs00-20"
   }
 ]
