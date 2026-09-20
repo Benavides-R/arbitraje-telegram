@@ -948,5 +948,15 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/717G3wK80AL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0HGFCS9MS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T20:05:58.400451-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Impresora térmica inalámbrica N80, portátil y sin tinta, compatible con papel de",
+    "precio": "~$96.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71i3so9+vuL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0F9YBMJDV?tag=benatechs00-20"
   }
 ]
