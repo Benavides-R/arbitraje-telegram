@@ -998,5 +998,95 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71HEIZFbBEL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0HGR4SDYC?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:00:42.326311-05:00",
+    "categoria": null,
+    "titulo": "Herramienta eléctrica Gua Sha con calor para cara y cuello",
+    "precio": "~$58.400 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71stPj2-6+L._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0H36BD6GQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:01:51.834235-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mini CarPlay inalámbrico para coches con cable OEM",
+    "precio": "~$48.700 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/51mYplxjXUL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0HGSJJ7PX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:03:01.043561-05:00",
+    "categoria": null,
+    "titulo": "Glocusent Luz de Libro, luz de lectura recargable con 3 colores y 6 niveles de b",
+    "precio": "~$42.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/614xoTCz--L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B07WNRN9WQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:04:17.307487-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Combo de teclado y mouse inalámbricos, diseño colorido, tamaño completo",
+    "precio": "~$44.000 COP",
+    "descuento_pct": 55,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61ebGsJXvZL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0G528X63Z?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:05:26.863513-05:00",
+    "categoria": null,
+    "titulo": "WellLeo irrigador oral inalámbrico recargable de 300 ml, con 5 modos y 5 puntas",
+    "precio": "~$29.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61ltKPyZQLL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0DKX7ZSM3?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:06:37.413505-05:00",
+    "categoria": "tecnologia",
+    "titulo": "JOYROOM Adaptador AUX Bluetooth 6.0 para coche con cancelación de ruido.",
+    "precio": "~$36.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61xQc0VGkML._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0BWRN986Y?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:07:45.710575-05:00",
+    "categoria": null,
+    "titulo": "Mini bomba de neumáticos eléctrica para bicicleta, inflado rápido hasta 150 PSI,",
+    "precio": "~$32.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71S-kvTloEL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0FF4HW185?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:08:53.617792-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Phomemo D30, máquina etiquetadora Bluetooth mini con cinta.",
+    "precio": "~$32.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/51xCw9RKssL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B08HV3MPFD?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-19T22:15:26.497938-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares inalámbricos Bluetooth 6.0 con clip de oreja abierta X8.",
+    "precio": "~$65.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61lw2AQiylL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GXXN4PDK?tag=benatechs00-20"
   }
 ]
