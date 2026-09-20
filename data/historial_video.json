@@ -1228,5 +1228,25 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/71xtD08wYmL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0HG12YSV6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T16:00:50.746515-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Kit de blanqueamiento dental con luz LED, incluye 5 bolígrafos de gel blanqueado",
+    "precio": "~$38.200 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/823833dd31c563df19ba4755bd186d3a83d56e4bd6c2962d02cede5e400b1edb.webp",
+    "link": "https://www.amazon.com/dp/B0GHDTC7XV?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T16:02:05.323511-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Nautica Zapatillas deportivas casual para hombre, ligeras, con cordones, para ca",
+    "precio": "~$92.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/4800b467fa8fdeda97303ea10e34d716a5d34daa90a49821f2d5f262f3af88f9.webp",
+    "link": "https://www.amazon.com/dp/B0FTZXJT66?tag=benatechs00-20"
   }
 ]
