@@ -168,5 +168,65 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b422c83fc6de55ee66e813f22e2c0244e598e6bd13062296c0cd05c013f8e69b.webp",
     "link": "https://www.amazon.com/dp/B0FGJBRBGP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T14:00:56.628018-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente militar con batería de 100 días",
+    "precio": "~$122.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/88d777012c52d79e59b8c727c344a1d77cb8f7aa607fc3fb5b10c8997be65d0b.webp",
+    "link": "https://www.amazon.com/dp/B0HF7ZM3XH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T14:03:33.420920-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Proyector Mini Inteligente 1080P nativo con WiFi y Bluetooth.",
+    "precio": "~$131.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/360e60f686a318055cd5f2fe602f9dd6bc2a78bb5e06277dff065571886a62a1.webp",
+    "link": "https://www.amazon.com/dp/B0HFW17ZPY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T15:01:58.372724-05:00",
+    "categoria": null,
+    "titulo": "Tarjeta MiLi Wallet Finder seguimiento billetera",
+    "precio": "~$40.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/79d3031f0e63b6ff916bd2eaaf4fea39029d09285dd07a35499145863f54b6da.webp",
+    "link": "https://www.amazon.com/dp/B0HDCCWHFP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T15:03:09.080140-05:00",
+    "categoria": null,
+    "titulo": "Minorsonic AIO Enfriador de CPU, 360 mm, bomba cerámica 3000 RPM",
+    "precio": "~$162.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/2eb5481da22212b3e3b582cfc138b933790d0aa065e12860f3f18003554d57bd.webp",
+    "link": "https://www.amazon.com/dp/B0FHW333V3?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T15:04:18.551398-05:00",
+    "categoria": null,
+    "titulo": "Máquina de coser pequeña para principiantes, kit portátil para telas ligeras.",
+    "precio": "~$196.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71xtD08wYmL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0HG12YSV6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T16:00:50.746515-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Kit de blanqueamiento dental con luz LED, incluye 5 bolígrafos de gel blanqueado",
+    "precio": "~$38.200 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/823833dd31c563df19ba4755bd186d3a83d56e4bd6c2962d02cede5e400b1edb.webp",
+    "link": "https://www.amazon.com/dp/B0GHDTC7XV?tag=benatechs00-20"
   }
 ]

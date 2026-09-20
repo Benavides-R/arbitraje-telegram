@@ -1248,5 +1248,35 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/4800b467fa8fdeda97303ea10e34d716a5d34daa90a49821f2d5f262f3af88f9.webp",
     "link": "https://www.amazon.com/dp/B0FTZXJT66?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T18:00:50.903002-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Audífonos NUBWO Wireless Gaming Headset con conexión dual 2",
+    "precio": "~$65.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f96e53cb41e6f83cbdaefa04f069ff6a4efe19171ce55e6e903b25c3e0e8d427.webp",
+    "link": "https://www.amazon.com/dp/B0GYWH5PYQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T18:02:07.334080-05:00",
+    "categoria": null,
+    "titulo": "KOIOS Procesador de alimentos de 500 W con 2 cuencos de 8 tazas y 2 cuchillas de",
+    "precio": "~$92.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71VgnBf7bML._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0D96DKGL4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T18:03:20.463696-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares Ivrydas Bluetooth 6.0 con cancelación de ruido, -35 dB ANC, tiempo d",
+    "precio": "~$69.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/701844a1470dc34806f35ccb81fa300f2bc7e48c4b36f9497d9f962e250eb1f2.webp",
+    "link": "https://www.amazon.com/dp/B0H44Y2KWL?tag=benatechs00-20"
   }
 ]
