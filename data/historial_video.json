@@ -1748,5 +1748,35 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/25f43c56b66695dfde88a0cf0598bea0cd82fd966009e14784d39e53d245ab14.webp",
     "link": "https://www.amazon.com/dp/B0GQTCBV78?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T17:01:18.621625-05:00",
+    "categoria": "tecnologia",
+    "titulo": "WD 5TB My Passport, disco duro externo portátil, negro, compatible con USB 3.1US",
+    "precio": "~$842.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e692e6933966564dd0b384a99b07ec4343d96f8c71997148d7fc0a15ea0a4bb4.webp",
+    "link": "https://www.amazon.com/dp/B07VP5X239?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T17:02:32.534108-05:00",
+    "categoria": null,
+    "titulo": "Báscula digital alta precisión",
+    "precio": "~$16.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61d-BFyEFlL._SX522_.jpg",
+    "link": "https://www.amazon.com/dp/B0GY7JYMG9?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T17:03:44.643461-05:00",
+    "categoria": null,
+    "titulo": "Revlon Secador de pelo compacto de 1875 W, diseño ligero.",
+    "precio": "~$49.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b800811b4ec437ec12d086ee32db3ad0f9be4cbefb5b5e85d8b542385362b945.webp",
+    "link": "https://www.amazon.com/dp/B003TQPRGY?tag=benatechs00-20"
   }
 ]
