@@ -1708,5 +1708,35 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71CT4h6bDSL._SX466_.jpg",
     "link": "https://www.amazon.com/dp/B086PKMZ21?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T14:00:51.974776-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Paquete de 5 pantalones cortos deportivos para hombre, secado rápido, con bolsil",
+    "precio": "~$56.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/713bf+sUQVL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0CRHF41F7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T14:02:10.980623-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Acer KB220Q H2bi - Monitor de 21.5 (54.6 cm) Full HD (1920 x 1080) sin marco, so",
+    "precio": "~$230.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61S+-hUR7iL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FPRDTVMD?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T14:03:24.515069-05:00",
+    "categoria": null,
+    "titulo": "Máquina selladora al vacío de alimentos LSA Apparel, 75 kPa, cortador integrado,",
+    "precio": "~$65.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/829b8a8f4bf70f25ca4e8cba82143a93c90cf31dd964f5f12faadc78dd75c8da.webp",
+    "link": "https://www.amazon.com/dp/B0HG1R1ZXF?tag=benatechs00-20"
   }
 ]
