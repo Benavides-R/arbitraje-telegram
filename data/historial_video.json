@@ -1668,5 +1668,45 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/713HctxIT3L._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0FZG17LHJ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T12:01:14.327860-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Báscula digital de cocina 11 libras con pantalla LCD",
+    "precio": "~$23.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71TV+iWbGlL._SX466_.jpg",
+    "link": "https://www.amazon.com/dp/B08CZDYNF7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T12:02:27.528573-05:00",
+    "categoria": null,
+    "titulo": "Oxímetro de pulso con lecturas rápidas y",
+    "precio": "~$19.700 COP",
+    "descuento_pct": 40,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61DW-k+9WVL._SX466_.jpg",
+    "link": "https://www.amazon.com/dp/B0GSFJD59K?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T12:03:39.022291-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Pack de 4 camisetas de hombre con cuello en V",
+    "precio": "~$39.400 COP",
+    "descuento_pct": 66,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71XajedGPDL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0G3Q2C7M5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T12:09:00.971869-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares Razer BlackShark V2 X sonido envolvente THX 7.1",
+    "precio": "~$131.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71CT4h6bDSL._SX466_.jpg",
+    "link": "https://www.amazon.com/dp/B086PKMZ21?tag=benatechs00-20"
   }
 ]
