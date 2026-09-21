@@ -1568,5 +1568,105 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/61wIzqN5aHL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0GH7X9FGS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:00:46.598604-05:00",
+    "categoria": null,
+    "titulo": "Radio meteorológica de emergencia con pilas de 5000 mAh y 18500 mWh, con manivel",
+    "precio": "~$64.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/81dpxnT3gWL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0CZ3QQMNW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:02:03.196807-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Mochila SPEEDPARK de Senderismo 40L impermeable con cubierta para lluvia",
+    "precio": "~$50.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71uiCGtynYL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0993K4VB7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:03:10.593326-05:00",
+    "categoria": null,
+    "titulo": "Champú Head & Shoulders Classic Clean anticaspa 1% piritiona de zinc",
+    "precio": "~$36.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71IEcc2N5iL._SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0B96LXQ49?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:04:19.942082-05:00",
+    "categoria": null,
+    "titulo": "Comedero VOLUAS automático para dos gatos",
+    "precio": "~$77.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/619LYLi7QKL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0H8DFGZ9L?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:05:30.007585-05:00",
+    "categoria": null,
+    "titulo": "Microscopio portátil para niños, mini y divertido",
+    "precio": "~$42.400 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71k7ANs5-0L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H5Q6C1QR?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:06:39.380138-05:00",
+    "categoria": null,
+    "titulo": "Micrófono YIEBV CGM45 24‑bit/192 kHz",
+    "precio": "~$114.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61Gya4w9gQL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0H2DTTB11?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:07:59.869091-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Google Pixel 10a con batería 30 horas y entrenador de cámara",
+    "precio": "~$1.720.200 COP",
+    "descuento_pct": 13,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/821b085801d79578192473bd089f8114dae0bb375328e3e26da840e30805251a.webp",
+    "link": "https://www.amazon.com/dp/B0GHRKBNQF?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:09:11.697223-05:00",
+    "categoria": "tecnologia",
+    "titulo": "SSD SSK MP1401 M.2 NVMe 1 TB",
+    "precio": "~$590.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/8978013723b50bf2b6fb7cac8db27457db778f1f5b523775d1c49e736ade7740.webp",
+    "link": "https://www.amazon.com/dp/B0GVYDBDR9?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:10:40.303782-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Localizador UGREEN Finder Duo Air pack de 4",
+    "precio": "~$93.500 COP",
+    "descuento_pct": 16,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/617bRi2T2LL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0FRLWSGPW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T11:11:44.020251-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mochila de viaje para laptop (25L)",
+    "precio": "~$55.800 COP",
+    "descuento_pct": 29,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/713HctxIT3L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FZG17LHJ?tag=benatechs00-20"
   }
 ]
