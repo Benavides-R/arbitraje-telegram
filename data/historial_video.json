@@ -1378,5 +1378,55 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71FGKwXntoL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0GY9R8NYL?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T22:00:47.010589-05:00",
+    "categoria": null,
+    "titulo": "Cortadora de barba eléctrica para hombres YGZ",
+    "precio": "~$41.100 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61icqJVbT6L._SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H6W613MY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T22:04:00.295503-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cerradura inteligente Biquole con huella dactilar y app, sin llave",
+    "precio": "~$131.300 COP",
+    "descuento_pct": 20,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61Rib-hE18L._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0F9KBGRCQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T22:05:05.706248-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor portátil Yxk de 16 pulgadas, resolución 1200P, 144Hz, tecnología IPS y H",
+    "precio": "~$197.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71FFM8vqmIL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H4V1MDSP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T22:06:12.993790-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Baseus Bass BC1 Auriculares de oreja abierta con clip, sonido potente y llamadas",
+    "precio": "~$65.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/31KuIY8nITL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GT4X4X13?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T22:07:16.487860-05:00",
+    "categoria": null,
+    "titulo": "THINKWORK Martillo de seguridad de coche, herramienta de escape de emergencia co",
+    "precio": "~$26.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61U+0ts7HbL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B09B7HYX5Z?tag=benatechs00-20"
   }
 ]
