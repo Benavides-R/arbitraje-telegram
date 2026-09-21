@@ -1738,5 +1738,15 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/829b8a8f4bf70f25ca4e8cba82143a93c90cf31dd964f5f12faadc78dd75c8da.webp",
     "link": "https://www.amazon.com/dp/B0HG1R1ZXF?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T15:00:56.939864-05:00",
+    "categoria": null,
+    "titulo": "C4 Plus Mini PC con procesador Ryzen 5 3501U, 8GB de RAM DDR4 y 256GB de almacen",
+    "precio": "~$613.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/25f43c56b66695dfde88a0cf0598bea0cd82fd966009e14784d39e53d245ab14.webp",
+    "link": "https://www.amazon.com/dp/B0GQTCBV78?tag=benatechs00-20"
   }
 ]
