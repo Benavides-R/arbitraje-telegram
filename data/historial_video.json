@@ -1298,5 +1298,45 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71fmQEoF1fL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0CF3LHQSM?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T20:01:37.211115-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente para mujer con llamadas y batería",
+    "precio": "~$233.100 COP",
+    "descuento_pct": 29,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81WyxIHv0sL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0HFHYDH3L?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T20:02:41.854161-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Audífonos Baseus Bowie MC1 Pro, ultraligeros con SuperBass 2.0",
+    "precio": "~$121.500 COP",
+    "descuento_pct": 26,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/51LDfbYpFcL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0F8BSD87S?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T20:04:31.541371-05:00",
+    "categoria": "tecnologia",
+    "titulo": "TOZO Auriculares inalámbricos A1, Bluetooth 5.3, diseño ligero para el oído.",
+    "precio": "~$46.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81+4jNKVFgL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B09FT58QQP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T20:05:35.702805-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Skullcandy Smokin Buds, auriculares inalámbricos con aislamiento de ruido.",
+    "precio": "~$49.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61c6QxO8GVL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DWVHDM7B?tag=benatechs00-20"
   }
 ]
