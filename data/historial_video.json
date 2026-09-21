@@ -1468,5 +1468,105 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/71RcRHF0vyL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0FKGHJ21V?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:00:58.877839-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Altavoz Bluetooth portátil resistente al agua con potente sonido estéreo",
+    "precio": "~$42.400 COP",
+    "descuento_pct": 56,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f3ca09fa6398b6e36f7358992e860f5c90d37938cd8e62df21acd48a167ca166.webp",
+    "link": "https://www.amazon.com/dp/B0HFJJN6LH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:02:12.532552-05:00",
+    "categoria": null,
+    "titulo": "Estación 7 en 1 inalámbrica",
+    "precio": "~$53.700 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/94c9c316ce857e5ce1d2bdd06bd5c44f1b8ccb4adefdc00414a96f4dcddb88b4.webp",
+    "link": "https://www.amazon.com/dp/B0H6WV6YH3?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:03:24.090305-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Combo teclado y mouse inalámbricos, azul degradado, teclas redondas USB 2.4G",
+    "precio": "~$66.300 COP",
+    "descuento_pct": 45,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61aUAg8iVVL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0G6D9WW21?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:04:44.037662-05:00",
+    "categoria": null,
+    "titulo": "Procesador de alimentos para bebés de 10 oz con 8 cuchillas y cuenco de vidrio s",
+    "precio": "~$51.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71s+cdspl8L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0HB99H8WD?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:05:56.450280-05:00",
+    "categoria": null,
+    "titulo": "Limpiador de vapor de mano portátil con 18 piezas, calentamiento en 12 segundos,",
+    "precio": "~$107.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71v5L6L1IcL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0GVYMMQMT?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:07:10.901438-05:00",
+    "categoria": null,
+    "titulo": "Secura Molinillo de café eléctrico con rebabas cónicas y 18 ajustes de molienda,",
+    "precio": "~$115.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61aV0Y3NerL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0932VTK1K?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:08:28.111808-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "MOSFiATA Hammocks - Hamaca portátil para acampar de 250 kg, con tela y correas d",
+    "precio": "~$59.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/81HxG8GhzHL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B091CF67BV?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:09:39.249646-05:00",
+    "categoria": null,
+    "titulo": "MelodySusie Kit de uñas de gel con lámpara UV inalámbrica P-ART06G recargable.",
+    "precio": "~$26.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/719MflkhxfL._SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FCMC3NGK?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:10:58.931283-05:00",
+    "categoria": null,
+    "titulo": "Recortadora RICAF kit 4 en 1 con carga rápida",
+    "precio": "~$33.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71bqGqPQnxL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0GSZ58LR1?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T10:12:07.587248-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Levoit Ventilador de torre para dormitorio, ventilador de escritorio.",
+    "precio": "~$131.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61wIzqN5aHL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0GH7X9FGS?tag=benatechs00-20"
   }
 ]
