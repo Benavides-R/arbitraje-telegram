@@ -1278,5 +1278,25 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/701844a1470dc34806f35ccb81fa300f2bc7e48c4b36f9497d9f962e250eb1f2.webp",
     "link": "https://www.amazon.com/dp/B0H44Y2KWL?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T19:03:34.836782-05:00",
+    "categoria": null,
+    "titulo": "AstroAI Medidor digital de presión de neumáticos con inflador, mandril de aire d",
+    "precio": "~$42.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71htdGAkASL._AC_SY879_.jpg",
+    "link": "https://www.amazon.com/dp/B07D3PVBJ4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T19:04:48.427125-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares Razer BlackShark V2 HyperSpeed inalámbricos",
+    "precio": "~$263.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71fmQEoF1fL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0CF3LHQSM?tag=benatechs00-20"
   }
 ]
