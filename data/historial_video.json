@@ -1338,5 +1338,45 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/61c6QxO8GVL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0DWVHDM7B?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T21:03:02.731944-05:00",
+    "categoria": "tecnologia",
+    "titulo": "KOORUI Monitor de computadora de 24 (61 cm) Full HD 1920 x 1080p 100Hz VA, con H",
+    "precio": "~$263.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81dL-e6kh5L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B09VD9P2Q3?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T21:04:07.594540-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor portátil KQC de 15.6 (38.1 cm) con pantalla IPS FHD 1080P, conexión USB-",
+    "precio": "~$131.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71J0y+YwvSL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FPRJHL63?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T21:05:10.245608-05:00",
+    "categoria": "tecnologia",
+    "titulo": "SSD Samsung 990 EVO Plus 2TB",
+    "precio": "~$1.186.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61nq7N0igEL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DHLCRF91?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T21:06:35.223144-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor AOC de 27 (68.6 cm) QHD 320Hz Mini-LED HDR1000.",
+    "precio": "~$988.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71FGKwXntoL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GY9R8NYL?tag=benatechs00-20"
   }
 ]
