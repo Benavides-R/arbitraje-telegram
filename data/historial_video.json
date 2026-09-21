@@ -1448,5 +1448,25 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/61st4ujfPRL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0DMZWD4JP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T00:02:41.946569-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares Bluetooth 6S plegables con micrófono, 40 horas de reproducción",
+    "precio": "~$65.700 COP",
+    "descuento_pct": 27,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/41a3GAUN+KL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0BFDKN6YZ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T00:03:46.015529-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de tablero 4K delantera y trasera con WiFi 5G, 3 canales y tarjeta de 64",
+    "precio": "~$184.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71RcRHF0vyL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0FKGHJ21V?tag=benatechs00-20"
   }
 ]
