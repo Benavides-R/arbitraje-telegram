@@ -36,7 +36,7 @@ from telethon.sessions import StringSession
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
-    PALABRAS_AUTO_PERMITIDAS, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
+    PALABRAS_AUTO_PERMITIDAS, PRECIO_MAXIMO_AUTO_COP, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
     CUOTA_POR_CANAL, HORAS_BLOQUEO_DUPLICADO,
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
@@ -253,17 +253,31 @@ def extraer_precio(texto_original, link):
          salvedad de que amazon.com siempre es USD salvo que el texto diga
          lo contrario, como en el caso de arriba).
     """
-    match = re.search(r"[\$💰]\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
+    # Si el canal menciona el total CON envío (ej. "Total + envío: $1.331.267
+    # COP"), se prefiere ese sobre el precio base -- si no, se le mostraría
+    # a la gente un precio que no incluye lo que realmente van a pagar.
+    match_envio = re.search(
+        r"(?:total\s*\+?\s*env[ií]o|env[ií]o\s*incluido|total\s*con\s*env[ií]o)\s*:?\s*"
+        r"([\$💰]\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?)",
+        texto_original, re.IGNORECASE,
+    )
+    match = match_envio or re.search(r"[\$💰]\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?", texto_original)
     if not match:
         return None
+
+    # Cuando matcheó "Total + envío", el precio real está en el grupo 1
+    # (el match completo incluye la etiqueta "Total + envío:", que no es
+    # parte del precio); si no, el match ya ES el precio.
+    texto_precio = match.group(1) if match_envio else match.group(0)
+    fin_precio = match.end(1) if match_envio else match.end()
 
     # Se normaliza siempre a "$" para mostrar consistente, sin importar si
     # el canal usó "$" o "💰" (ej. Clubgratis) -- el resto del sistema
     # (badge de imagen, Oferta Radar) espera el símbolo "$".
-    precio = "$" + re.sub(r"^[\$💰]\s?", "", match.group(0)).strip()
+    precio = "$" + re.sub(r"^[\$💰]\s?", "", texto_precio).strip()
 
     # ¿El texto ya trae la moneda pegada justo después del precio?
-    resto = texto_original[match.end():match.end() + 6]
+    resto = texto_original[fin_precio:fin_precio + 6]
     moneda_explicita = re.match(r"\s*(COP|USD|MXN|JPY|PEN|ARS|CLP)\b", resto)
     if moneda_explicita:
         return _convertir_a_cop(precio, moneda_explicita.group(1))
@@ -742,8 +756,10 @@ def procesar_mensaje(oferta_id, texto):
 
     titulo_normalizado = _sin_tildes(titulo.lower())
     oferta_requiere_casillero = requiere_casillero(texto)
+    precio_numero = re.sub(r"[^\d]", "", precio.split(",")[0]) if precio else ""
+    precio_dentro_del_tope = precio_numero.isdigit() and int(precio_numero) <= PRECIO_MAXIMO_AUTO_COP
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
-            and not oferta_requiere_casillero \
+            and not oferta_requiere_casillero and precio_dentro_del_tope \
             and any(palabra in titulo_normalizado for palabra in PALABRAS_AUTO_PERMITIDAS):
         # Título y precio ya están garantizados en este punto (si faltaba
         # alguno, se descartó arriba) -- con imagen también presente, la

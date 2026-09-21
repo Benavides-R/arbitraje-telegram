@@ -44,6 +44,11 @@ TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
 # Ahora funciona como WHITELIST: solo si el título contiene una de estas
 # palabras Y está completa (imagen+título+precio), se auto-publica. Todo lo
 # demás (aunque esté completo) se manda a revisión manual -- control total.
+# Tope de precio para auto-publicar (en COP) -- si una oferta de la
+# whitelist supera este monto, ya no se publica sola por más que el título
+# matchee una palabra permitida; se manda a revisión manual igual.
+PRECIO_MAXIMO_AUTO_COP = 199900
+
 PALABRAS_AUTO_PERMITIDAS = [
     "camara", "camara de seguridad", "seguridad", "alarma", "cerradura",
     "sensor", "timbre inteligente", "rastreador", "localizador", "gps",
