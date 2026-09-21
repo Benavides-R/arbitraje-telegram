@@ -1,145 +1,305 @@
 {
   "candidatas": [
     {
-      "fecha": "2026-09-20T09:03:10.381934-05:00",
-      "categoria": null,
-      "titulo": "Vaporizador G10 portátil",
+      "fecha": "2026-09-21T12:03:39.022291-05:00",
+      "categoria": "ropa_calzado",
+      "titulo": "Pack de 4 camisetas de hombre con cuello en V",
+      "precio": "~$39.400 COP",
+      "descuento_pct": 66,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/71XajedGPDL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0G3Q2C7M5?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:00:58.877839-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Altavoz Bluetooth portátil resistente al agua con potente sonido estéreo",
       "precio": "~$42.400 COP",
-      "descuento_pct": 67,
+      "descuento_pct": 56,
       "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0d5b2850d31f517ba48643c5e13d7a7881fe52f0be26c71c566be106019ab864.webp",
-      "link": "https://www.amazon.com/dp/B0HJHRSBPX?tag=benatechs00-20"
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f3ca09fa6398b6e36f7358992e860f5c90d37938cd8e62df21acd48a167ca166.webp",
+      "link": "https://www.amazon.com/dp/B0HFJJN6LH?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-20T09:00:44.225346-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Licuadora KOIOS 1000 W",
-      "precio": "~$81.400 COP",
-      "descuento_pct": 65,
-      "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/57ae2cd8ee821ee29ec0476439c97ac74c70e8711b330acc718561d5a623c7d5.webp",
-      "link": "https://www.amazon.com/dp/B0GZP3WXDL?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-20T09:01:55.814984-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Mando inalámbrico Xbox Forza Horizon 6 Edición limitada, Bluetooth USB-C",
-      "precio": "~$244.300 COP",
-      "descuento_pct": 17,
-      "tiene_cupon": false,
-      "imagen": "https://m.media-amazon.com/images/I/71C2B89d9dL._SX466_.jpg",
-      "link": "https://www.amazon.com/dp/B0GS3Z1X2Q?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-20T09:04:20.274262-05:00",
+      "fecha": "2026-09-21T10:02:12.532552-05:00",
       "categoria": null,
-      "titulo": "Condones Durex RED extra sensibles",
-      "precio": "~$44.800 COP",
+      "titulo": "Estación 7 en 1 inalámbrica",
+      "precio": "~$53.700 COP",
+      "descuento_pct": 50,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/94c9c316ce857e5ce1d2bdd06bd5c44f1b8ccb4adefdc00414a96f4dcddb88b4.webp",
+      "link": "https://www.amazon.com/dp/B0H6WV6YH3?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T11:05:30.007585-05:00",
+      "categoria": null,
+      "titulo": "Microscopio portátil para niños, mini y divertido",
+      "precio": "~$42.400 COP",
+      "descuento_pct": 50,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/71k7ANs5-0L._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0H5Q6C1QR?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:03:24.090305-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Combo teclado y mouse inalámbricos, azul degradado, teclas redondas USB 2.4G",
+      "precio": "~$66.300 COP",
+      "descuento_pct": 45,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/61aUAg8iVVL._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0G6D9WW21?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T12:02:27.528573-05:00",
+      "categoria": null,
+      "titulo": "Oxímetro de pulso con lecturas rápidas y",
+      "precio": "~$19.700 COP",
+      "descuento_pct": 40,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/61DW-k+9WVL._SX466_.jpg",
+      "link": "https://www.amazon.com/dp/B0GSFJD59K?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T11:11:44.020251-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Mochila de viaje para laptop (25L)",
+      "precio": "~$55.800 COP",
+      "descuento_pct": 29,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/713HctxIT3L._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0FZG17LHJ?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T00:02:41.946569-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Auriculares Bluetooth 6S plegables con micrófono, 40 horas de reproducción",
+      "precio": "~$65.700 COP",
+      "descuento_pct": 27,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/41a3GAUN+KL._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0BFDKN6YZ?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T11:10:40.303782-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Localizador UGREEN Finder Duo Air pack de 4",
+      "precio": "~$93.500 COP",
+      "descuento_pct": 16,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/617bRi2T2LL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0FRLWSGPW?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T11:07:59.869091-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Google Pixel 10a con batería 30 horas y entrenador de cámara",
+      "precio": "~$1.720.200 COP",
+      "descuento_pct": 13,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/821b085801d79578192473bd089f8114dae0bb375328e3e26da840e30805251a.webp",
+      "link": "https://www.amazon.com/dp/B0GHRKBNQF?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T00:03:46.015529-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Cámara de tablero 4K delantera y trasera con WiFi 5G, 3 canales y tarjeta de 64",
+      "precio": "~$184.600 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/71RcRHF0vyL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0FKGHJ21V?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:04:44.037662-05:00",
+      "categoria": null,
+      "titulo": "Procesador de alimentos para bebés de 10 oz con 8 cuchillas y cuenco de vidrio s",
+      "precio": "~$51.900 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/71s+cdspl8L._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0HB99H8WD?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:05:56.450280-05:00",
+      "categoria": null,
+      "titulo": "Limpiador de vapor de mano portátil con 18 piezas, calentamiento en 12 segundos,",
+      "precio": "~$107.900 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/71v5L6L1IcL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0GVYMMQMT?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:07:10.901438-05:00",
+      "categoria": null,
+      "titulo": "Secura Molinillo de café eléctrico con rebabas cónicas y 18 ajustes de molienda,",
+      "precio": "~$115.400 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/61aV0Y3NerL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0932VTK1K?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:08:28.111808-05:00",
+      "categoria": "ropa_calzado",
+      "titulo": "MOSFiATA Hammocks - Hamaca portátil para acampar de 250 kg, con tela y correas d",
+      "precio": "~$59.800 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/81HxG8GhzHL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B091CF67BV?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:09:39.249646-05:00",
+      "categoria": null,
+      "titulo": "MelodySusie Kit de uñas de gel con lámpara UV inalámbrica P-ART06G recargable.",
+      "precio": "~$26.400 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/719MflkhxfL._SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0FCMC3NGK?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:10:58.931283-05:00",
+      "categoria": null,
+      "titulo": "Recortadora RICAF kit 4 en 1 con carga rápida",
+      "precio": "~$33.000 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/71bqGqPQnxL._AC_SX569_.jpg",
+      "link": "https://www.amazon.com/dp/B0GSZ58LR1?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T10:12:07.587248-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Levoit Ventilador de torre para dormitorio, ventilador de escritorio.",
+      "precio": "~$131.700 COP",
       "descuento_pct": null,
       "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/787fef96ea3e826d4b7ae23b187d4630c67917d10af078dcba55981f38b609d0.webp",
-      "link": "https://www.amazon.com/dp/B0759N57BX?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/61wIzqN5aHL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0GH7X9FGS?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-20T14:00:56.628018-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Reloj inteligente militar con batería de 100 días",
-      "precio": "~$122.000 COP",
+      "fecha": "2026-09-21T11:00:46.598604-05:00",
+      "categoria": null,
+      "titulo": "Radio meteorológica de emergencia con pilas de 5000 mAh y 18500 mWh, con manivel",
+      "precio": "~$64.100 COP",
       "descuento_pct": null,
       "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/88d777012c52d79e59b8c727c344a1d77cb8f7aa607fc3fb5b10c8997be65d0b.webp",
-      "link": "https://www.amazon.com/dp/B0HF7ZM3XH?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/81dpxnT3gWL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0CZ3QQMNW?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-20T14:02:09.789516-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Plancha plana de titanio 2 en 1 con calentamiento rápido, 1 pulgada, 5 ajustes d",
-      "precio": "~$28.000 COP",
+      "fecha": "2026-09-21T11:02:03.196807-05:00",
+      "categoria": "ropa_calzado",
+      "titulo": "Mochila SPEEDPARK de Senderismo 40L impermeable con cubierta para lluvia",
+      "precio": "~$50.400 COP",
       "descuento_pct": null,
       "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c4d2b74fe3295401da67f18c0653a19b402e8ea8917af07578062635bb1db1c6.webp",
-      "link": "https://www.amazon.com/dp/B0FF48VKML?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/71uiCGtynYL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0993K4VB7?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-20T14:03:33.420920-05:00",
+      "fecha": "2026-09-21T11:03:10.593326-05:00",
+      "categoria": null,
+      "titulo": "Champú Head & Shoulders Classic Clean anticaspa 1% piritiona de zinc",
+      "precio": "~$36.700 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/71IEcc2N5iL._SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0B96LXQ49?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T11:04:19.942082-05:00",
+      "categoria": null,
+      "titulo": "Comedero VOLUAS automático para dos gatos",
+      "precio": "~$77.500 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/619LYLi7QKL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0H8DFGZ9L?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T11:06:39.380138-05:00",
+      "categoria": null,
+      "titulo": "Micrófono YIEBV CGM45 24‑bit/192 kHz",
+      "precio": "~$114.900 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/61Gya4w9gQL._AC_SX569_.jpg",
+      "link": "https://www.amazon.com/dp/B0H2DTTB11?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T11:09:11.697223-05:00",
       "categoria": "tecnologia",
-      "titulo": "Proyector Mini Inteligente 1080P nativo con WiFi y Bluetooth.",
+      "titulo": "SSD SSK MP1401 M.2 NVMe 1 TB",
+      "precio": "~$590.900 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/8978013723b50bf2b6fb7cac8db27457db778f1f5b523775d1c49e736ade7740.webp",
+      "link": "https://www.amazon.com/dp/B0GVYDBDR9?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T12:01:14.327860-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Báscula digital de cocina 11 libras con pantalla LCD",
+      "precio": "~$23.900 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://m.media-amazon.com/images/I/71TV+iWbGlL._SX466_.jpg",
+      "link": "https://www.amazon.com/dp/B08CZDYNF7?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T12:09:00.971869-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Auriculares Razer BlackShark V2 X sonido envolvente THX 7.1",
       "precio": "~$131.800 COP",
       "descuento_pct": null,
       "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/360e60f686a318055cd5f2fe602f9dd6bc2a78bb5e06277dff065571886a62a1.webp",
-      "link": "https://www.amazon.com/dp/B0HFW17ZPY?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/71CT4h6bDSL._SX466_.jpg",
+      "link": "https://www.amazon.com/dp/B086PKMZ21?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-20T14:06:39.188803-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Auriculares de conducción ósea abiertos para correr, duración de 12 horas.",
-      "precio": "~$56.100 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://m.media-amazon.com/images/I/61OReAuXfnL._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0H5VQGGFJ?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-20T15:00:45.677055-05:00",
-      "categoria": null,
-      "titulo": "NZXT Kraken Core 360 RGB - Enfriador de CPU AIO de 35.9 cm - Negro",
-      "precio": "~$329.600 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://m.media-amazon.com/images/I/51Utzq0h5HL._SX466_.jpg",
-      "link": "https://www.amazon.com/dp/B0FLTZ2SHM?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-20T15:01:58.372724-05:00",
-      "categoria": null,
-      "titulo": "Tarjeta MiLi Wallet Finder seguimiento billetera",
-      "precio": "~$40.700 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/79d3031f0e63b6ff916bd2eaaf4fea39029d09285dd07a35499145863f54b6da.webp",
-      "link": "https://www.amazon.com/dp/B0HDCCWHFP?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-20T15:03:09.080140-05:00",
-      "categoria": null,
-      "titulo": "Minorsonic AIO Enfriador de CPU, 360 mm, bomba cerámica 3000 RPM",
-      "precio": "~$162.800 COP",
-      "descuento_pct": null,
-      "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/2eb5481da22212b3e3b582cfc138b933790d0aa065e12860f3f18003554d57bd.webp",
-      "link": "https://www.amazon.com/dp/B0FHW333V3?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-20T15:04:18.551398-05:00",
-      "categoria": null,
-      "titulo": "Máquina de coser pequeña para principiantes, kit portátil para telas ligeras.",
-      "precio": "~$196.300 COP",
-      "descuento_pct": null,
-      "tiene_cupon": true,
-      "imagen": "https://m.media-amazon.com/images/I/71xtD08wYmL._AC_SX679_.jpg",
-      "link": "https://www.amazon.com/dp/B0HG12YSV6?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-20T16:00:50.746515-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Kit de blanqueamiento dental con luz LED, incluye 5 bolígrafos de gel blanqueado",
-      "precio": "~$38.200 COP",
-      "descuento_pct": null,
-      "tiene_cupon": true,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/823833dd31c563df19ba4755bd186d3a83d56e4bd6c2962d02cede5e400b1edb.webp",
-      "link": "https://www.amazon.com/dp/B0GHDTC7XV?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-20T16:02:05.323511-05:00",
+      "fecha": "2026-09-21T14:00:51.974776-05:00",
       "categoria": "ropa_calzado",
-      "titulo": "Nautica Zapatillas deportivas casual para hombre, ligeras, con cordones, para ca",
-      "precio": "~$92.300 COP",
+      "titulo": "Paquete de 5 pantalones cortos deportivos para hombre, secado rápido, con bolsil",
+      "precio": "~$56.400 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://m.media-amazon.com/images/I/713bf+sUQVL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0CRHF41F7?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T14:02:10.980623-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Acer KB220Q H2bi - Monitor de 21.5 (54.6 cm) Full HD (1920 x 1080) sin marco, so",
+      "precio": "~$230.700 COP",
       "descuento_pct": null,
       "tiene_cupon": false,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/4800b467fa8fdeda97303ea10e34d716a5d34daa90a49821f2d5f262f3af88f9.webp",
-      "link": "https://www.amazon.com/dp/B0FTZXJT66?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/61S+-hUR7iL._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0FPRDTVMD?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T14:03:24.515069-05:00",
+      "categoria": null,
+      "titulo": "Máquina selladora al vacío de alimentos LSA Apparel, 75 kPa, cortador integrado,",
+      "precio": "~$65.900 COP",
+      "descuento_pct": null,
+      "tiene_cupon": true,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/829b8a8f4bf70f25ca4e8cba82143a93c90cf31dd964f5f12faadc78dd75c8da.webp",
+      "link": "https://www.amazon.com/dp/B0HG1R1ZXF?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-21T15:00:56.939864-05:00",
+      "categoria": null,
+      "titulo": "C4 Plus Mini PC con procesador Ryzen 5 3501U, 8GB de RAM DDR4 y 256GB de almacen",
+      "precio": "~$613.000 COP",
+      "descuento_pct": null,
+      "tiene_cupon": false,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/25f43c56b66695dfde88a0cf0598bea0cd82fd966009e14784d39e53d245ab14.webp",
+      "link": "https://www.amazon.com/dp/B0GQTCBV78?tag=benatechs00-20"
     }
   ],
-  "enviado": 1789941615.7040944
+  "enviado": 1790028017.9355633
 }
