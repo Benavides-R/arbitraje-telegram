@@ -1428,5 +1428,25 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/61U+0ts7HbL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B09B7HYX5Z?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T23:01:33.801532-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Luces solares exteriores con sensor de movimiento, 120 LED",
+    "precio": "~$101.800 COP",
+    "descuento_pct": 28,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/710KOgOmeXL._AC_SX679_PIbundle-6,TopRight,0,0_SH20_.jpg",
+    "link": "https://www.amazon.com/dp/B0G523KP6J?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-20T23:03:42.767831-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares UGREEN HiTune S3 con Bluetooth 5.4 y clip",
+    "precio": "~$59.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61st4ujfPRL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DMZWD4JP?tag=benatechs00-20"
   }
 ]
