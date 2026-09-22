@@ -308,5 +308,85 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/25f43c56b66695dfde88a0cf0598bea0cd82fd966009e14784d39e53d245ab14.webp",
     "link": "https://www.amazon.com/dp/B0GQTCBV78?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T09:06:08.015961-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de seguridad interior 4MP 2K, pack de 2 WiFi 2.45GHz",
+    "precio": "~$65.800 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/712j3HXjflL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0CR32CPRF?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:06:53.615290-05:00",
+    "categoria": null,
+    "titulo": "Rizador Quico Salon-Waves 1 1/4 pulgadas",
+    "precio": "~$59.200 COP",
+    "descuento_pct": 48,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61vrBi2cwRL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0G3NWFKJW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:00:53.544319-05:00",
+    "categoria": null,
+    "titulo": "Vabaso Lonchera eléctrica calentador de alimentos para coche",
+    "precio": "~$48.800 COP",
+    "descuento_pct": 43,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71hrUWYT1wL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0CBC3T1SX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T10:05:09.706382-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Estabilizador cardán de 3 ejes para iPhone con barra extensible",
+    "precio": "~$99.600 COP",
+    "descuento_pct": 40,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c64769bacbc2d71a3c8edd962bae1de934e2106a8880ad7a1a0dc1447a13f3c2.webp",
+    "link": "https://www.amazon.com/dp/B0FCF61KC2?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T09:02:23.781118-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mini refrigerador Antarctic Star 4 L 6 latas portátil con luz gaming",
+    "precio": "~$106.600 COP",
+    "descuento_pct": 10,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71eBDd+TCyL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0F5W2H5BZ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:11:43.202511-05:00",
+    "categoria": null,
+    "titulo": "Inflador de neumáticos, compresor de aire portátil y bomba de aire.",
+    "precio": "~$39.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/51iWorRyi6L._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0H7H415Z5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T15:04:41.470826-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Gafas Inteligentes, Gafas de Audio con Altavoz Bluetooth, Lentes de Lectura con Control de Voz y Oreja Abierta",
+    "precio": "~$28.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/810fc133afe81ddc92d20f89965ae9e91097f2fb25937fc65053873ddc90e294.webp",
+    "link": "https://www.amazon.com/dp/B07RRG3PNG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T16:01:04.058898-05:00",
+    "categoria": null,
+    "titulo": "WellLeo Irrigador bucal inalámbrico de 300 ml, recargable con 5 modos y 5 puntas",
+    "precio": "~$29.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/312edb1428ff2454a34069a134940d0a15b7c4e6cbffbeb6ae462696f0960f3a.webp",
+    "link": "https://www.amazon.com/dp/B0DKXG29LC?tag=benatechs00-20"
   }
 ]
