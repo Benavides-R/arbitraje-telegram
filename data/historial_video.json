@@ -1998,5 +1998,85 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c64769bacbc2d71a3c8edd962bae1de934e2106a8880ad7a1a0dc1447a13f3c2.webp",
     "link": "https://www.amazon.com/dp/B0FCF61KC2?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:00:53.544319-05:00",
+    "categoria": null,
+    "titulo": "Vabaso Lonchera eléctrica calentador de alimentos para coche",
+    "precio": "~$48.800 COP",
+    "descuento_pct": 43,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71hrUWYT1wL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0CBC3T1SX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:02:11.697735-05:00",
+    "categoria": null,
+    "titulo": "Reloj Invicta Resistente a Golpes Gris, BlancoDorado",
+    "precio": "~$55.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61OVQ9W8uhL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0DJDHB7XW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:03:24.749744-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Invicta Digital Essentials Men 2.087 in ABS Black Not Applicable dial Electrónic",
+    "precio": "~$54.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71S1B6TyZzL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0DZF3SZ9B?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:04:35.859252-05:00",
+    "categoria": null,
+    "titulo": "Invicta Digital Essentials Reloj digital verde militar",
+    "precio": "~$49.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71SrlN-5UUL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0DZF6MXZJ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:05:44.062972-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Reloj resistente a los golpes con correa verde y esfera gris",
+    "precio": "~$49.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61QQBeZb2GL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0DJDHNR6M?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:06:53.615290-05:00",
+    "categoria": null,
+    "titulo": "Rizador Quico Salon-Waves 1 1/4 pulgadas",
+    "precio": "~$59.200 COP",
+    "descuento_pct": 48,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61vrBi2cwRL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0G3NWFKJW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:08:03.344394-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Altavoz Bluetooth portátil pequeño IPX7 impermeable, 15h reproducción",
+    "precio": "~$32.900 COP",
+    "descuento_pct": 58,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/7189GzD6Y0L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DHNXX6DX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T11:11:43.202511-05:00",
+    "categoria": null,
+    "titulo": "Inflador de neumáticos, compresor de aire portátil y bomba de aire.",
+    "precio": "~$39.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/51iWorRyi6L._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0H7H415Z5?tag=benatechs00-20"
   }
 ]
