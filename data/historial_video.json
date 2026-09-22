@@ -2178,5 +2178,25 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/312edb1428ff2454a34069a134940d0a15b7c4e6cbffbeb6ae462696f0960f3a.webp",
     "link": "https://www.amazon.com/dp/B0DKXG29LC?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T17:01:00.705441-05:00",
+    "categoria": null,
+    "titulo": "Limpiador ultrasónico Xbeauty para retenedores, 48kHz",
+    "precio": "~$81.600 COP",
+    "descuento_pct": 38,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e2efa5bd97a66f7fccf729ec06089cdba37fd1e3e930cc4eeac16aba3e733de9.webp",
+    "link": "https://www.amazon.com/dp/B0GQH6Q7TN?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T17:02:20.801828-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Tablet TABWEE 10\" con teclado",
+    "precio": "~$329.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/624a5f10fe887d5b331a4a4801499db8cf1817040cd690a353907aaaafcd4527.webp",
+    "link": "https://www.amazon.com/dp/B0GF2338DK?tag=benatechs00-20"
   }
 ]
