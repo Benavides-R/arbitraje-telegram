@@ -1958,5 +1958,45 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/712j3HXjflL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0CR32CPRF?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T10:00:56.503061-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Reebok Power Fury - Tenis deportivos para hombre.",
+    "precio": "~$163.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/4b4d5cac11024649fb2f3ad40b8f7fea42d7af6747018da97544c074952f3516.webp",
+    "link": "https://www.amazon.com/dp/B0H1NLR67J?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T10:02:28.814126-05:00",
+    "categoria": null,
+    "titulo": "Invicta Reloj Digital Essentials resistente a los golpes Blanco",
+    "precio": "~$49.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71b8-NZVePL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0DZDXNHJD?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T10:04:02.038392-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámaras de seguridad inalámbricas 2K con visión nocturna a color",
+    "precio": "~$70.800 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": null,
+    "link": "https://www.amazon.com/dp/B0GK96RHP1?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T10:05:09.706382-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Estabilizador cardán de 3 ejes para iPhone con barra extensible",
+    "precio": "~$99.600 COP",
+    "descuento_pct": 40,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c64769bacbc2d71a3c8edd962bae1de934e2106a8880ad7a1a0dc1447a13f3c2.webp",
+    "link": "https://www.amazon.com/dp/B0FCF61KC2?tag=benatechs00-20"
   }
 ]
