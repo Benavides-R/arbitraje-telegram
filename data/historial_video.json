@@ -2168,5 +2168,15 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/810fc133afe81ddc92d20f89965ae9e91097f2fb25937fc65053873ddc90e294.webp",
     "link": "https://www.amazon.com/dp/B07RRG3PNG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T16:01:04.058898-05:00",
+    "categoria": null,
+    "titulo": "WellLeo Irrigador bucal inalámbrico de 300 ml, recargable con 5 modos y 5 puntas",
+    "precio": "~$29.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/312edb1428ff2454a34069a134940d0a15b7c4e6cbffbeb6ae462696f0960f3a.webp",
+    "link": "https://www.amazon.com/dp/B0DKXG29LC?tag=benatechs00-20"
   }
 ]
