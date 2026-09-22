@@ -1918,5 +1918,45 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/61RcDCeLmiL._AC_SX569_.jpg",
     "link": "https://www.amazon.com/dp/B0FPBJLS6H?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T09:01:12.734248-05:00",
+    "categoria": null,
+    "titulo": "Taza Iron Flask 40 oz aislada",
+    "precio": "~$26.300 COP",
+    "descuento_pct": 53,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61rHBqFUAQL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0C4ZZBD71?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T09:02:23.781118-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mini refrigerador Antarctic Star 4 L 6 latas portátil con luz gaming",
+    "precio": "~$106.600 COP",
+    "descuento_pct": 10,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71eBDd+TCyL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0F5W2H5BZ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T09:03:47.254882-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cargadores súper rápidos 45W tipo C para Samsung Galaxy, pack 2",
+    "precio": "~$26.300 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/d2f8ff0de2da49b3e9557656907d5a55006679722e98809d39dfcc4682b934c4.webp",
+    "link": "https://www.amazon.com/dp/B0BYYV2DTH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T09:06:08.015961-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de seguridad interior 4MP 2K, pack de 2 WiFi 2.45GHz",
+    "precio": "~$65.800 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/712j3HXjflL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0CR32CPRF?tag=benatechs00-20"
   }
 ]
