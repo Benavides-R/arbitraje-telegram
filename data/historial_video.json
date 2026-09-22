@@ -1778,5 +1778,25 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b800811b4ec437ec12d086ee32db3ad0f9be4cbefb5b5e85d8b542385362b945.webp",
     "link": "https://www.amazon.com/dp/B003TQPRGY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T19:02:51.271889-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara YOTON interior 2K con conectividad 5G/2",
+    "precio": "~$65.800 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61n4erHGcQL._AC_SX425_PIbundle-2,TopRight,0,0_SH20_.jpg",
+    "link": "https://www.amazon.com/dp/B0GRFWGQHN?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T19:03:55.914453-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Panel solar de 4 W para cámaras de anillo con cable de 3 m",
+    "precio": "~$37.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/716aMcUOKkL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0HDNP4H3N?tag=benatechs00-20"
   }
 ]
