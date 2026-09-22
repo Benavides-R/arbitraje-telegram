@@ -1878,5 +1878,45 @@
     "tiene_cupon": false,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/10db38661f7821c95c136cdc199e3d13c763e7ad2fb27958cd82627d13b14c0b.webp",
     "link": "https://www.amazon.com/dp/B0GRBKSWCS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T07:00:48.878022-05:00",
+    "categoria": null,
+    "titulo": "Afeitadora recargable con 3 velocidades",
+    "precio": "~$41.100 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61PNvYLNL1L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0D2LT4Z1S?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T07:01:58.823672-05:00",
+    "categoria": null,
+    "titulo": "Fiambrera eléctrica calentable 80W, 1.5L acero inoxidable",
+    "precio": "~$65.800 COP",
+    "descuento_pct": 33,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71uoufRFv2L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0D6V7LC21?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T07:03:06.292682-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Reebok Energen Run 4 - Tenis de correr para hombre, talla 6.5 a 14.",
+    "precio": "~$181.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81mfi8FBI+L._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0FFF8V79V?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T07:04:31.132255-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Recortadora de barba inalámbrica con pantalla LCD y recargable",
+    "precio": "~$29.600 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/61RcDCeLmiL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0FPBJLS6H?tag=benatechs00-20"
   }
 ]
