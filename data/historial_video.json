@@ -2128,5 +2128,45 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/101e3f43089520fad80b9665a84372b864d4161046d9e64d51720340bcded71c.webp",
     "link": "https://www.amazon.com/dp/B0GC66WBFH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T15:00:51.824609-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Zapatillas de deporte adidas Mujeres Duramo Sl en color gris.",
+    "precio": "~$134.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/6182TMn8YuL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0BHPVP2KN?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T15:02:10.298948-05:00",
+    "categoria": null,
+    "titulo": "Máquina para hacer yogur con 8 frascos y control de temperatura 68-127",
+    "precio": "~$79.000 COP",
+    "descuento_pct": 40,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/3def531888f5c1d1f1a068e84be1d60aa9c8ca38ea859792b6247a2fea83dc2a.webp",
+    "link": "https://www.amazon.com/dp/B0HFVKKYJG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T15:03:27.100799-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Etekcity Báscula digital de peso corporal con pantalla LCD azul, vidrio templado",
+    "precio": "~$55.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61c4W23PbhL._SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B01HI1W1V4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T15:04:41.470826-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Gafas Inteligentes, Gafas de Audio con Altavoz Bluetooth, Lentes de Lectura con Control de Voz y Oreja Abierta",
+    "precio": "~$28.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/810fc133afe81ddc92d20f89965ae9e91097f2fb25937fc65053873ddc90e294.webp",
+    "link": "https://www.amazon.com/dp/B07RRG3PNG?tag=benatechs00-20"
   }
 ]
