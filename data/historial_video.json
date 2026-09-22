@@ -1798,5 +1798,85 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/716aMcUOKkL._AC_SX569_.jpg",
     "link": "https://www.amazon.com/dp/B0HDNP4H3N?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T22:00:51.844635-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Garmin vívoactive 5 reloj inteligente GPS AMOLED 11 días batería marfil",
+    "precio": "~$597.400 COP",
+    "descuento_pct": 39,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/598f29f21fd2ceae5cfc5e256af06ee7eefb71a1e70fced12558f475e906ea2b.webp",
+    "link": "https://www.amazon.com/dp/B0CG6NBJ61?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T22:02:03.101355-05:00",
+    "categoria": null,
+    "titulo": "Paquete de 2 entrenadores de fuerza de agarre de mano con contador y resistencia",
+    "precio": "~$23.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/09dbcdebde823a068587932be66a8426ee50572cec987b3f96d33cb2aec09d03.webp",
+    "link": "https://www.amazon.com/dp/B0DSC9BDMG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T22:03:11.314467-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Zapatillas Reebok Rapid Strike entrenamiento y caminatas",
+    "precio": "~$181.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71OZllnwAfL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0G5C6KBPF?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T22:04:21.426388-05:00",
+    "categoria": null,
+    "titulo": "Invengo Fuente de agua para gatos de acero inoxidable de 3.2L (108 oz), automáti",
+    "precio": "~$55.700 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b256dd979e23a335bb7bbd80ea2a665f103e5f0fc6c002bd4b9e88f4aad93426.webp",
+    "link": "https://www.amazon.com/dp/B0FP2CBYL8?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T22:05:35.032523-05:00",
+    "categoria": "tecnologia",
+    "titulo": "JUOVI Altavoz Bluetooth portátil con clip, impermeable IP68, conectividad Blueto",
+    "precio": "~$39.600 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/06ccbe84741facc76b164a2e54d684568ffa806286ce977d5cfd8b35b1b24d29.webp",
+    "link": "https://www.amazon.com/dp/B0FHK5763J?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T22:06:45.777099-05:00",
+    "categoria": "tecnologia",
+    "titulo": "BassBloom Roar 3 Altavoz Bluetooth portátil con sonido de 20 W, IPX6 impermeable",
+    "precio": "~$49.400 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/86e9824844397bc4c9ec2e54a2d0513073ab5a1fdeb65ac95367acce96fecd67.webp",
+    "link": "https://www.amazon.com/dp/B0GS99FG9P?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T22:07:57.331856-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Ventilador de escritorio USB RANVOO de 8.27 (21 cm) de altura.",
+    "precio": "~$43.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a18623df775b85dc1573e7d3f646ac5350c3520e6a7d4bacf09a281cd6f58fc4.webp",
+    "link": "https://www.amazon.com/dp/B0DZLZ2GVY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-21T22:09:14.653751-05:00",
+    "categoria": "tecnologia",
+    "titulo": "YOTON Cámara interior 2K, monitor para bebés y mascotas con conectividad Wi-Fi 5",
+    "precio": "~$33.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/10db38661f7821c95c136cdc199e3d13c763e7ad2fb27958cd82627d13b14c0b.webp",
+    "link": "https://www.amazon.com/dp/B0GRBKSWCS?tag=benatechs00-20"
   }
 ]
