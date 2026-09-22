@@ -2078,5 +2078,25 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/51iWorRyi6L._AC_SX569_.jpg",
     "link": "https://www.amazon.com/dp/B0H7H415Z5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T12:00:54.671323-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Altavoz TECKNET Bluetooth portátil",
+    "precio": "~$39.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81O5vtdqdeL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FK4ZJTPS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T12:02:06.395727-05:00",
+    "categoria": null,
+    "titulo": "Regleta HANYCONY 8 salidas 4 puertos USB",
+    "precio": "~$39.500 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61q9hmplGFL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B092J8LPWR?tag=benatechs00-20"
   }
 ]
