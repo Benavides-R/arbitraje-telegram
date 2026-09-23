@@ -2558,5 +2558,25 @@
     "cupon": "2BJZD4X8",
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/490eb388f952157b324910b320cb18c732df8afd2533b2b4b883b220367babc8.webp",
     "link": "https://www.amazon.com/dp/B0HFZCD3B6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T16:00:50.803252-05:00",
+    "categoria": null,
+    "titulo": "K-Swiss Proto Trainer para hombre, calzado deportivo.",
+    "precio": "~$79.500 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/81wmuiLI5mL._AC_SX695_.jpg",
+    "link": "https://www.amazon.com/dp/B0D9DZ78W3?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T16:03:31.379028-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mochila Taygeer de viaje para laptop",
+    "precio": "~$79.500 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/61mBPzS4IeL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0CR9JFD7S?smid=AAXYC7AYUX0D7&tag=benatechs00-20"
   }
 ]
