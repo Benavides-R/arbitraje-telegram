@@ -388,5 +388,75 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/312edb1428ff2454a34069a134940d0a15b7c4e6cbffbeb6ae462696f0960f3a.webp",
     "link": "https://www.amazon.com/dp/B0DKXG29LC?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:02:09.030283-05:00",
+    "categoria": null,
+    "titulo": "Concentrador USB 4 puertos 5 Gbps de alta velocidad",
+    "precio": "~$13.300 COP",
+    "descuento_pct": 80,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/51S0eiND96L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DH19MM9W?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:00:52.385879-05:00",
+    "categoria": null,
+    "titulo": "Billetera delgada de metal con clip RFID",
+    "precio": "~$15.000 COP",
+    "descuento_pct": 72,
+    "cupon": "GIULRN8E",
+    "imagen": "https://m.media-amazon.com/images/I/71fzK8w-XpL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0F4XWKHJR?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:03:20.907835-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Ratón vertical inalámbrico ergonómico con Bluetooth 5.0",
+    "precio": "~$30.600 COP",
+    "descuento_pct": 60,
+    "cupon": "8L47QL2L",
+    "imagen": "https://m.media-amazon.com/images/I/61qE9AmBFRL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GK95S8ST?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:08:09.989418-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Barra de Luz LED RGB con Sincronización Musical y Control Remoto",
+    "precio": "~$33.200 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/51iuieCuxSL._AC_SX679_PIbundle-2,TopRight,0,0_SH20_.jpg",
+    "link": "https://www.amazon.com/dp/B0DXDTF512?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T13:03:24.908950-05:00",
+    "categoria": null,
+    "titulo": "Cubo Mágico Gigante 3x3 de 18 cm, rompecabezas sensorial 3D con combinación de c",
+    "precio": "~$59.700 COP",
+    "descuento_pct": null,
+    "cupon": "NVIVJC46",
+    "imagen": "https://m.media-amazon.com/images/I/71cbEibwrML._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B09L77YZZQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T14:08:42.679021-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Impresora térmica de etiquetas de envío 4x6 Bluetooth Label Maker para pequeñas",
+    "precio": "~$94.600 COP",
+    "descuento_pct": null,
+    "cupon": "O8H5V3U3",
+    "imagen": "https://m.media-amazon.com/images/I/71GAy6t6WeL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DX6RVJF7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T15:02:33.242011-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares de traducción AI bmanl, con capacidad de traducción en tiempo real e",
+    "precio": "~$49.700 COP",
+    "descuento_pct": null,
+    "cupon": "2BJZD4X8",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/490eb388f952157b324910b320cb18c732df8afd2533b2b4b883b220367babc8.webp",
+    "link": "https://www.amazon.com/dp/B0HFZCD3B6?tag=benatechs00-20"
   }
 ]

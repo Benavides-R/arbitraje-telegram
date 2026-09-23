@@ -2618,5 +2618,45 @@
     "cupon": "4X9OYSUZ",
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/d4be99d4ff31c97d6a31d3d9706c961b2076d28f5454c60c9e807539b615f0f1.webp",
     "link": "https://www.amazon.com/dp/B0FCRVN5K8?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T18:00:56.755714-05:00",
+    "categoria": null,
+    "titulo": "JBL Flip 7 altavoces portátiles impermeables, par azul",
+    "precio": "~$663.400 COP",
+    "descuento_pct": 33,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/16f4689940509fa2598b007235d50475e22cdf2298720986ebacedb99da3343d.webp",
+    "link": "https://www.amazon.com/dp/B0FTT4XMV4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T18:02:11.827450-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Robot aspirador y trapeador Tikom, 5000 Pa, 150 min, control remoto",
+    "precio": "~$328.600 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e978dbc20b8d06d3e16f20c881876ec1c5b86116efaf12d1202e2bfbe5f71b90.webp",
+    "link": "https://www.amazon.com/dp/B0DV53XDDJ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T18:03:23.424784-05:00",
+    "categoria": null,
+    "titulo": "DUCK PATO Aspirador inalámbrico de mano para cama, color morado.",
+    "precio": "~$165.700 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b49ed18b5fc1e24adb538818bb7a5abcbc6328dd4836fcd833898ec0b54eb670.webp",
+    "link": "https://www.amazon.com/dp/B0H8X3YYJF?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T18:04:34.318185-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor curvo ZZA de 24.5 (62.2 cm) FHD (1920 x 1080) con pantalla VA, 240Hz144H",
+    "precio": "~$393.000 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/53a1ba6380b5e337aa49369f7cbd69cbcb2f65abf12494f338ad03556388a70a.webp",
+    "link": "https://www.amazon.com/dp/B0FM3NTR1W?tag=benatechs00-20"
   }
 ]
