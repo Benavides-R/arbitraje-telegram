@@ -2238,5 +2238,85 @@
     "tiene_cupon": true,
     "imagen": "https://m.media-amazon.com/images/I/71MIlb-r81L._AC_SX569_.jpg",
     "link": "https://www.amazon.com/dp/B0HHQFWNMR?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T21:00:58.513308-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Ventilador turbo portátil de mano, alta velocidad y pilas",
+    "precio": "~$19.900 COP",
+    "descuento_pct": 40,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/704cc0fed9a6ee553bead06b9e0e9253e033416737c973da7ccb94f0e1c5ae2b.webp",
+    "link": "https://www.amazon.com/dp/B0GC7FWVJ5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T21:02:08.539179-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Fazoxo cámara de seguridad inalámbrica 2K para exterior",
+    "precio": "~$89.600 COP",
+    "descuento_pct": 10,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/2610774716a94b53f9c15163b05dd34471aaf0d31d064960fb76ed5bc33b17f3.webp",
+    "link": "https://www.amazon.com/dp/B0FWRCCNHH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T21:03:18.878105-05:00",
+    "categoria": null,
+    "titulo": "Pasta dental Colgate Optic White Advanced con peróxido",
+    "precio": "~$43.200 COP",
+    "descuento_pct": 13,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/8b023b29db009ce280d26a8aa151326f47c703d6a1bda051f297a162c059a3ad.webp",
+    "link": "https://www.amazon.com/dp/B082F1Q1T9?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T21:04:39.676648-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de seguridad interior 2K con giro 360",
+    "precio": "~$33.200 COP",
+    "descuento_pct": 23,
+    "tiene_cupon": false,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/2be0cf79c85a4b6660077fbb18e958f838c44c8ab7e81b52b6a98761212b170c.webp",
+    "link": "https://www.amazon.com/dp/B0CBBT5RMP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T21:06:01.598696-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares TOZO A1 Bluetooth 5.3",
+    "precio": "~$46.400 COP",
+    "descuento_pct": 30,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/81+4jNKVFgL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B09FT58QQP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T21:07:05.004362-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Soporte para laptop elevador ajustable para escritorio",
+    "precio": "~$43.100 COP",
+    "descuento_pct": 13,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71jN1Dli1kL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0B29BZGF2?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T21:14:21.990462-05:00",
+    "categoria": "tecnologia",
+    "titulo": "WolfLawS X3 60H Auriculares Inalámbricos para Xbox Series XS y Xbox One.",
+    "precio": "~$66.300 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/712I4s4Qk2L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0HF85BP2L?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T21:19:42.692997-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Protector de lente de cámara de vidrio para iPhone 18 Pro Max.",
+    "precio": "~$23.100 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71MYAO-s0OL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0H9Z7B8QQ?tag=benatechs00-20"
   }
 ]
