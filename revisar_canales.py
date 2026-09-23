@@ -104,7 +104,19 @@ def limpiar_link_tienda(link, dominio):
 
         asin = match.group(1).upper()
         netloc = urlsplit(link).netloc
-        return f"https://{netloc}/dp/{asin}"
+        link_limpio = f"https://{netloc}/dp/{asin}"
+
+        # Si el link original ya apunta a un vendedor específico (parámetro
+        # "smid"), lo conservamos. Sin esto, al dejar solo el ASIN Amazon
+        # arma el link con el "buy box" por defecto, que puede ser un
+        # vendedor distinto -- y ahí es cuando sale "este producto no se
+        # puede enviar a tu dirección" aunque el vendedor original sí envíe.
+        query_original = dict(parse_qsl(urlsplit(link).query))
+        smid = query_original.get("smid")
+        if smid:
+            link_limpio = _agregar_parametro_url(link_limpio, "smid", smid)
+
+        return link_limpio
 
     # Otras tiendas: por ahora se dejan tal cual (se puede limpiar cada una
     # cuando conectemos su afiliado específico).
@@ -563,6 +575,18 @@ def reescribir_texto(texto_original, link):
         lineas.append(" | ".join(badges))
     lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
     lineas.append(f"⚡ Ver oferta: {link}")
+
+    # Si el canal original menciona Prime, anexamos la invitación a la
+    # prueba gratis con nuestro tag -- comisión extra sin costo para el
+    # comprador, y aplica solo cuando de verdad hay mención de Prime.
+    if "✅ Prime" in badges:
+        id_afiliado_amazon = TIENDAS.get("amazon.", {}).get("id_afiliado")
+        if id_afiliado_amazon:
+            lineas.append(
+                f"🅿️ Prueba gratis de Prime: "
+                f"https://www.amazon.com/tryprimefree?tag={id_afiliado_amazon}"
+            )
+
     lineas.append("")
     lineas.append("⚠️ La oferta puede expirar en cualquier momento.")
     lineas.append("#ad " + " ".join(hashtags))
