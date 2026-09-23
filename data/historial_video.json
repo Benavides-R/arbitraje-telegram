@@ -2198,5 +2198,45 @@
     "tiene_cupon": true,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/624a5f10fe887d5b331a4a4801499db8cf1817040cd690a353907aaaafcd4527.webp",
     "link": "https://www.amazon.com/dp/B0GF2338DK?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T19:00:55.536785-05:00",
+    "categoria": null,
+    "titulo": "Inflador de neumáticos portátil recargable con medidor de presión digital",
+    "precio": "~$39.500 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/94c6c63bb216a3986c84b39e3a75663dd41a3d80abb82a1d06a26c4708e09848.webp",
+    "link": "https://www.amazon.com/dp/B0FX5FCCCG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T19:02:08.125048-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Micrófono inalámbrico mini USB-C para iPhone y PC",
+    "precio": "~$41.100 COP",
+    "descuento_pct": 50,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a565766c70aa307e007ca3034564ea629d3f4b9668470fe90862cf0f32afe50d.webp",
+    "link": "https://www.amazon.com/dp/B0H2D4XQXS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T19:03:18.133846-05:00",
+    "categoria": null,
+    "titulo": "Mini bomba de neumáticos eléctrica para bicicleta, inflado rápido hasta 150 PSI,",
+    "precio": "~$33.000 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ee50201f57f79ca06fd594a6ee13e47e53ebba3c2b18640af12196a8e51bfa99.webp",
+    "link": "https://www.amazon.com/dp/B0FF4HW185?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T19:11:34.365016-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cerradura inteligente con teclado y manija, entrada sin llave WiFi, control por",
+    "precio": "~$126.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": true,
+    "imagen": "https://m.media-amazon.com/images/I/71MIlb-r81L._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0HHQFWNMR?tag=benatechs00-20"
   }
 ]
