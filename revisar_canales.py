@@ -369,19 +369,50 @@ def _convertir_a_cop(precio_texto, moneda):
 
 def extraer_badges(texto_original):
     """
-    Detecta menciones de envío gratis o Prime en el texto ORIGINAL del
-    canal (no se verifica con Amazon en vivo, solo se refleja lo que el
-    canal ya escribió). Devuelve una lista de textos cortos para mostrar.
+    Detecta el estado de envío y otras etiquetas mencionadas en el texto
+    ORIGINAL del canal (no se verifica con Amazon en vivo, solo se refleja
+    lo que el canal ya escribió).
+
+    El envío es UNA sola etiqueta -- son situaciones que se excluyen entre
+    sí (no puede requerir casillero Y tener envío gratis directo a la vez).
+    Aparte, "Oferta Relámpago" sí puede sumarse junto con cualquier tipo de
+    envío, porque son cosas independientes.
     """
     badges = []
     texto_normalizado = _sin_tildes(texto_original.lower())
-    if re.search(r"envio\s*gratis|free\s*shipping|envio\s*gratuito", texto_normalizado):
-        badges.append("🚚 Envío gratis")
-    if re.search(r"\bprime\b", texto_normalizado):
-        badges.append("✅ Prime")
+
     if re.search(r"\bcasillero(s)?\b", texto_normalizado):
-        badges.append("📦 Requiere casillero")
+        badges.append("📦 Requiere Casillero USA")
+    elif re.search(r"envio\s*gratis|free\s*shipping|envio\s*gratuito", texto_normalizado):
+        # "con Prime" solo si Prime aparece pegado a la mención de envío
+        # gratis -- si "Prime" aparece en otra parte del texto por otro
+        # motivo, no lo contamos como envío gratis POR Prime.
+        con_prime = re.search(
+            r"envio\s*gratis.{0,15}prime|prime.{0,15}envio\s*gratis", texto_normalizado
+        )
+        elegible = re.search(
+            r"elegible|puede\s*calificar|al\s*superar|minimo\s*de\s*compra|pedidos?\s*superiores?",
+            texto_normalizado,
+        )
+        if con_prime:
+            badges.append("🅿️ ¡Envío Gratis Con PRIME!")
+        elif elegible:
+            badges.append("🚚 ¡Elegible para envío GRATIS!")
+        else:
+            badges.append("🚚 ¡Envío GRATIS!")
+
+    if re.search(r"oferta\s*rel[aá]mpago|lightning\s*deal", texto_normalizado):
+        badges.append("⚡️¡Oferta Relámpago!")
+
     return badges
+
+
+def menciona_prime(texto_original):
+    """True si el canal menciona 'Prime' en cualquier parte del texto --
+    se usa aparte para decidir si se anexa el link de prueba gratis de
+    Prime, sin importar si el envío gratis quedó etiquetado como 'con
+    Prime' o si Prime se mencionó por otro motivo."""
+    return bool(re.search(r"\bprime\b", _sin_tildes(texto_original.lower())))
 
 
 def requiere_casillero(texto_original):
@@ -613,7 +644,7 @@ def reescribir_texto(texto_original, link):
     # Si el canal original menciona Prime, anexamos la invitación a la
     # prueba gratis con nuestro tag -- comisión extra sin costo para el
     # comprador, y aplica solo cuando de verdad hay mención de Prime.
-    if "✅ Prime" in badges:
+    if menciona_prime(texto_original):
         id_afiliado_amazon = TIENDAS.get("amazon.", {}).get("id_afiliado")
         if id_afiliado_amazon:
             lineas.append("")
