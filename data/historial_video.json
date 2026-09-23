@@ -2468,5 +2468,25 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/718+9ATV8tL._AC_SX695_.jpg",
     "link": "https://www.amazon.com/dp/B091MCMXPS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T13:02:21.443587-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara GNCC de seguridad interior 1080P audio bidireccional visión nocturna IR",
+    "precio": "~$33.100 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/61oRvKCgLwL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0G69ZLQ21?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T13:03:24.908950-05:00",
+    "categoria": null,
+    "titulo": "Cubo Mágico Gigante 3x3 de 18 cm, rompecabezas sensorial 3D con combinación de c",
+    "precio": "~$59.700 COP",
+    "descuento_pct": null,
+    "cupon": "NVIVJC46",
+    "imagen": "https://m.media-amazon.com/images/I/71cbEibwrML._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B09L77YZZQ?tag=benatechs00-20"
   }
 ]
