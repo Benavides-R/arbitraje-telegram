@@ -2488,5 +2488,55 @@
     "cupon": "NVIVJC46",
     "imagen": "https://m.media-amazon.com/images/I/71cbEibwrML._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B09L77YZZQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T14:00:50.270042-05:00",
+    "categoria": null,
+    "titulo": "PUMA Paquete de 4 calzoncillos tipo bóxer de entrenamiento para hombre.",
+    "precio": "~$49.700 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e0380a7ef8f7741b015d0be090c095a5c5b8205c065d318631c1679d68f3162f.webp",
+    "link": "https://www.amazon.com/dp/B0GTN3YPNY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T14:02:01.390730-05:00",
+    "categoria": null,
+    "titulo": "K-Swiss Entrenador Helio para mujer, calzado deportivo.",
+    "precio": "~$99.400 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71a2w7MDr2L._AC_SX695_.jpg",
+    "link": "https://www.amazon.com/dp/B0D973NYZT?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T14:03:09.403035-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "PUMA Zapatillas Court Classic Vulc para hombre.",
+    "precio": "~$132.500 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71L2hCPXmlL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0DDTWHLV9?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T14:04:17.437791-05:00",
+    "categoria": "tecnologia",
+    "titulo": "KPEP Smart Watch para hombres y mujeres con pantalla de 2.01 y función de llamad",
+    "precio": "~$99.400 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/81BwjRcSbCL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H7H6RSZQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T14:08:42.679021-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Impresora térmica de etiquetas de envío 4x6 Bluetooth Label Maker para pequeñas",
+    "precio": "~$94.600 COP",
+    "descuento_pct": null,
+    "cupon": "O8H5V3U3",
+    "imagen": "https://m.media-amazon.com/images/I/71GAy6t6WeL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DX6RVJF7?tag=benatechs00-20"
   }
 ]
