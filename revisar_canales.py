@@ -498,38 +498,61 @@ def _titulo_de_respaldo(texto_original):
 
 
 CATEGORIAS_HASHTAGS = {
-    # categoría: (palabras clave a buscar, hashtags a usar)
-    "audio": (["audifono", "auricular", "bluetooth", "altavoz", "parlante", "speaker", "earbuds"],
+    # categoría: (palabras clave a buscar -- sin tildes, se comparan como
+    # palabra completa, no como substring --, hashtags a usar)
+    "audio": (["audifono", "audifonos", "auricular", "auriculares", "bluetooth", "altavoz",
+               "parlante", "speaker", "earbuds", "audifonos inalambricos", "soundbar",
+               "barra de sonido"],
               ["#Audio", "#Tecnologia"]),
-    "gaming": (["gamer", "gaming", "consola", "playstation", "xbox", "nintendo", "mando", "teclado gamer"],
+    "gaming": (["gamer", "gaming", "consola", "playstation", "ps5", "ps4", "xbox",
+                "nintendo", "switch", "control de mando", "mando de juego", "joystick",
+                "teclado gamer", "silla gamer", "videojuego", "videojuegos"],
                ["#Gaming", "#Videojuegos"]),
-    "computo": (["laptop", "portatil", "monitor", "teclado", "mouse", "ram", "memoria", "ssd", "disco duro",
-                 "tarjeta grafica", "procesador", "tablet"],
+    "computo": (["laptop", "portatil", "computador", "computadora", "pc", "monitor",
+                 "teclado", "mouse", "raton", "ram", "memoria ram", "ssd", "disco duro",
+                 "disco externo", "tarjeta grafica", "procesador", "tablet", "ipad",
+                 "webcam", "router", "hub usb", "cargador laptop"],
                 ["#Tecnologia", "#PCGamer"]),
-    "seguridad": (["camara", "seguridad", "alarma", "cerradura", "sensor", "timbre inteligente",
-                   "rastreador", "localizador"],
+    "seguridad": (["camara", "camaras", "camara de seguridad", "camara espia",
+                   "videovigilancia", "seguridad", "alarma", "cerradura",
+                   "cerradura inteligente", "sensor", "timbre inteligente",
+                   "rastreador", "localizador", "gps", "detector de humo"],
                   ["#Seguridad", "#Tecnologia"]),
-    "hogar": (["cocina", "hogar", "electrodomestico", "aspiradora", "licuadora", "freidora", "olla",
-               "organizador", "decoracion"],
+    "hogar": (["cocina", "hogar", "electrodomestico", "aspiradora", "licuadora", "freidora",
+               "freidora de aire", "olla", "organizador", "decoracion", "ventilador",
+               "purificador de aire", "bombillo inteligente"],
               ["#Hogar", "#Cocina"]),
-    "belleza": (["maquillaje", "skincare", "perfume", "crema facial", "secador", "cuidado personal"],
+    "belleza": (["maquillaje", "skincare", "perfume", "crema facial", "secador",
+                 "plancha de cabello", "cuidado personal", "cepillo electrico"],
                 ["#Belleza", "#CuidadoPersonal"]),
-    "fitness": (["proteina", "gimnasio", "fitness", "banda elastica", "mancuerna", "ejercicio"],
+    "fitness": (["proteina", "gimnasio", "fitness", "banda elastica", "mancuerna",
+                 "ejercicio", "cuerda para saltar", "esterilla", "yoga"],
                 ["#Fitness", "#Salud"]),
-    "moda": (["ropa", "zapato", "zapatilla", "camisa", "pantalon", "vestido", "accesorio moda", "reloj",
-              "bolso", "mochila"],
+    "calzado": (["zapato", "zapatos", "zapatilla", "zapatillas", "tenis", "tennis",
+                 "sneaker", "sneakers", "calzado deportivo", "botas"],
+                ["#Zapatillas", "#Moda"]),
+    "moda": (["ropa", "camisa", "camiseta", "pantalon", "vestido", "chaqueta",
+              "accesorio moda", "reloj", "reloj inteligente", "smartwatch", "bolso",
+              "mochila", "gafas de sol", "gorra"],
              ["#Moda", "#Estilo"]),
-    "mascotas": (["mascota", "perro", "gato", "cachorro", "comedero", "correa"],
+    "mascotas": (["mascota", "perro", "gato", "cachorro", "comedero", "correa",
+                  "arenero", "transportadora mascota"],
                  ["#Mascotas", "#PetLovers"]),
-    "juguetes": (["juguete", "muñeca", "lego", "peluche", "juego de mesa"],
+    "juguetes": (["juguete", "juguetes", "muñeca", "lego", "peluche", "juego de mesa",
+                  "drone", "dron"],
                  ["#Juguetes", "#Niños"]),
-    "oficina": (["oficina", "papeleria", "escritorio", "silla oficina", "impresora"],
+    "oficina": (["oficina", "papeleria", "escritorio", "silla oficina", "silla ergonomica",
+                 "impresora", "proyector"],
                 ["#Oficina", "#Productividad"]),
-    "herramientas": (["herramienta", "taladro", "destornillador", "llave", "kit herramientas", "inflador", "compresor"],
+    "herramientas": (["herramienta", "herramientas", "taladro", "destornillador", "llave",
+                      "kit de herramientas", "inflador", "inflador de aire", "compresor",
+                      "compresor de aire", "soldador", "multimetro", "pistola de calor"],
                       ["#Herramientas", "#Hogar"]),
-    "automotriz": (["carro", "auto", "vehiculo", "accesorio carro", "cargador auto", "gps vehicular"],
+    "automotriz": (["carro", "auto", "vehiculo", "accesorio carro", "cargador auto",
+                    "gps vehicular", "camara de reversa", "limpiaparabrisas",
+                    "compresor de aire para carro"],
                     ["#Automotriz", "#Carros"]),
-    "bebes": (["bebe", "pañal", "coche bebe", "silla auto bebe", "biberon"],
+    "bebes": (["bebe", "pañal", "coche bebe", "silla auto bebe", "biberon", "monitor bebe"],
               ["#Bebes", "#Maternidad"]),
 }
 
@@ -537,14 +560,25 @@ CATEGORIAS_HASHTAGS = {
 def generar_hashtags(titulo, texto_original):
     """
     Revisa el título y el texto original buscando palabras clave de
-    categoría, y arma 2-3 hashtags relevantes -- si no matchea ninguna
-    categoría, usa unos genéricos para no dejar el post sin hashtags.
+    categoría (sin tildes y como palabra completa, no como substring
+    suelto -- así "cámara" matchea igual que "camara", y "mando" no
+    matchea por error dentro de "comando"). Si el texto tiene palabras
+    clave de varias categorías, se queda con la que tuvo más coincidencias
+    -- no con la primera que aparezca en el diccionario -- para elegir la
+    más relevante. Si no matchea ninguna categoría, usa unos genéricos
+    para no dejar el post sin hashtags.
     """
-    base = f"{titulo or ''} {texto_original}".lower()
+    base = _sin_tildes(f"{titulo or ''} {texto_original}".lower())
+
+    mejor_hashtags = None
+    mejor_cantidad = 0
     for _categoria, (palabras, hashtags) in CATEGORIAS_HASHTAGS.items():
-        if any(palabra in base for palabra in palabras):
-            return hashtags
-    return ["#Ofertas", "#Descuentos"]
+        cantidad = sum(1 for palabra in palabras if re.search(rf"\b{re.escape(palabra)}\b", base))
+        if cantidad > mejor_cantidad:
+            mejor_cantidad = cantidad
+            mejor_hashtags = hashtags
+
+    return mejor_hashtags or ["#Ofertas", "#Descuentos"]
 
 
 def reescribir_texto(texto_original, link):
