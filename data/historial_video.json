@@ -2418,5 +2418,55 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/51iuieCuxSL._AC_SX679_PIbundle-2,TopRight,0,0_SH20_.jpg",
     "link": "https://www.amazon.com/dp/B0DXDTF512?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T11:00:48.569678-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Reebok camiseta básica de algodón para niño, paquete de 2, manga corta y cuello",
+    "precio": "~$29.700 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/61NrEINA0iL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0CZ7MX95R?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T11:02:00.251431-05:00",
+    "categoria": null,
+    "titulo": "Reloj OLEVS para hombre, cronógrafo analógico de cara grande.",
+    "precio": "~$82.000 COP",
+    "descuento_pct": null,
+    "cupon": "5SYONUBY",
+    "imagen": "https://m.media-amazon.com/images/I/71EDeIwcPPL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0FPLL1QM4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T11:03:12.050652-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Zapatos de running adidas Duramo para hombre, BlancoNegro",
+    "precio": "~$156.800 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/41LsRNkJ7RL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B09Y8CR3G4?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T11:04:26.337349-05:00",
+    "categoria": "tecnologia",
+    "titulo": "GNCC cámara de seguridad interior de 2.4 GHz, resolución 1080P, paquete de 2 uni",
+    "precio": "~$65.400 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e9fc74490d3fe40cf04eade0bc224a44247b76998d259c44109319bc7f2a17be.webp",
+    "link": "https://www.amazon.com/dp/B0FD3V47BH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T11:05:33.540325-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Zapatillas de running adidas Duramo SL 2.0 para mujer.",
+    "precio": "~$135.100 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/718+9ATV8tL._AC_SX695_.jpg",
+    "link": "https://www.amazon.com/dp/B091MCMXPS?tag=benatechs00-20"
   }
 ]
