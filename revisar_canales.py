@@ -609,7 +609,6 @@ def reescribir_texto(texto_original, link):
         lineas.append(" | ".join(badges))
     lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
     lineas.append(f"⚡ Ver oferta: {link}")
-    lineas.append("")
 
     # Si el canal original menciona Prime, anexamos la invitación a la
     # prueba gratis con nuestro tag -- comisión extra sin costo para el
@@ -617,6 +616,7 @@ def reescribir_texto(texto_original, link):
     if "✅ Prime" in badges:
         id_afiliado_amazon = TIENDAS.get("amazon.", {}).get("id_afiliado")
         if id_afiliado_amazon:
+            lineas.append("")
             lineas.append(
                 f"🅿️ Prueba gratis de Prime: "
                 f"https://www.amazon.com/tryprimefree?tag={id_afiliado_amazon}"
