@@ -2578,5 +2578,45 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/61mBPzS4IeL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0CR9JFD7S?smid=AAXYC7AYUX0D7&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T17:00:55.272354-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente TORJALPH, pantalla táctil de 1.83 (IP68), compatible con iPhon",
+    "precio": "~$66.300 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/bb3738b1b18507764019859441c9b5c4826abb423cbc5638e6346699b96cbaa5.webp",
+    "link": "https://www.amazon.com/dp/B09TR2NNJS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T17:02:08.442079-05:00",
+    "categoria": "tecnologia",
+    "titulo": "wegear Cámara web Full HD 1080p para PC, laptop y escritorio, con micrófonos dua",
+    "precio": "~$41.500 COP",
+    "descuento_pct": null,
+    "cupon": "PDIX63BA",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/87a80b54d1fbe1da666cc118840474058d3577a35e9c90646757ddd86cb3d550.webp",
+    "link": "https://www.amazon.com/dp/B0GXKSHK2Q?smid=A3GCS82NQ4ID6T&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T17:03:21.493700-05:00",
+    "categoria": null,
+    "titulo": "FIT KING Masajeador de Piernas para Circulación y Alivio del Dolor, incluye 2 ex",
+    "precio": "~$129.300 COP",
+    "descuento_pct": null,
+    "cupon": "JOU6LN4H",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/15c69b74e2083a7e65a9c471596f04854b823d904ac2606c73245c923d990ca1.webp",
+    "link": "https://www.amazon.com/dp/B07P3JJ2YK?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T17:04:41.417152-05:00",
+    "categoria": null,
+    "titulo": "Inflador de neumáticos portátil de 150 PSI, compresor de aire eléctrico inalámbr",
+    "precio": "~$49.700 COP",
+    "descuento_pct": null,
+    "cupon": "4X9OYSUZ",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/d4be99d4ff31c97d6a31d3d9706c961b2076d28f5454c60c9e807539b615f0f1.webp",
+    "link": "https://www.amazon.com/dp/B0FCRVN5K8?tag=benatechs00-20"
   }
 ]
