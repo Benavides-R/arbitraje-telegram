@@ -2318,5 +2318,35 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71MYAO-s0OL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0H9Z7B8QQ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T22:01:18.779880-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mochila de viaje para laptop para hombres",
+    "precio": "~$79.600 COP",
+    "descuento_pct": 40,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61mBPzS4IeL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0CR9JFD7S?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T22:03:24.689487-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares inalámbricos Bluetooth 5.4 con hasta 48 horas de reproducción",
+    "precio": "~$46.500 COP",
+    "descuento_pct": 53,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/61Ax4z3qjpL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GWJFL5WJ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-22T22:08:48.864593-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Floriogra Auriculares de protección auditiva Bluetooth 6.0 con batería recargabl",
+    "precio": "~$98.900 COP",
+    "descuento_pct": null,
+    "tiene_cupon": false,
+    "imagen": "https://m.media-amazon.com/images/I/71RrORGS4JL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H6MZ483W?tag=benatechs00-20"
   }
 ]
