@@ -2538,5 +2538,25 @@
     "cupon": "O8H5V3U3",
     "imagen": "https://m.media-amazon.com/images/I/71GAy6t6WeL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0DX6RVJF7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T15:01:17.560211-05:00",
+    "categoria": null,
+    "titulo": "Billetera minimalista NapaWalli de cuero con clip magnético RFID",
+    "precio": "~$16.600 COP",
+    "descuento_pct": 50,
+    "cupon": "JMXD4OKD",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/2dee683df0a6b6e9ac56cb716b0bb590258728a25caba686da422b9b69f5f47f.webp",
+    "link": "https://www.amazon.com/dp/B07359W3PC?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T15:02:33.242011-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares de traducción AI bmanl, con capacidad de traducción en tiempo real e",
+    "precio": "~$49.700 COP",
+    "descuento_pct": null,
+    "cupon": "2BJZD4X8",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/490eb388f952157b324910b320cb18c732df8afd2533b2b4b883b220367babc8.webp",
+    "link": "https://www.amazon.com/dp/B0HFZCD3B6?tag=benatechs00-20"
   }
 ]
