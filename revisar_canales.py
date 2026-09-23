@@ -609,6 +609,7 @@ def reescribir_texto(texto_original, link):
         lineas.append(" | ".join(badges))
     lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
     lineas.append(f"⚡ Ver oferta: {link}")
+    lineas.append("")
 
     # Si el canal original menciona Prime, anexamos la invitación a la
     # prueba gratis con nuestro tag -- comisión extra sin costo para el
