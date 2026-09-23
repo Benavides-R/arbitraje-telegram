@@ -2348,5 +2348,75 @@
     "tiene_cupon": false,
     "imagen": "https://m.media-amazon.com/images/I/71RrORGS4JL._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0H6MZ483W?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:00:52.385879-05:00",
+    "categoria": null,
+    "titulo": "Billetera delgada de metal con clip RFID",
+    "precio": "~$15.000 COP",
+    "descuento_pct": 72,
+    "cupon": "GIULRN8E",
+    "imagen": "https://m.media-amazon.com/images/I/71fzK8w-XpL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0F4XWKHJR?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:02:09.030283-05:00",
+    "categoria": null,
+    "titulo": "Concentrador USB 4 puertos 5 Gbps de alta velocidad",
+    "precio": "~$13.300 COP",
+    "descuento_pct": 80,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/51S0eiND96L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0DH19MM9W?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:03:20.907835-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Ratón vertical inalámbrico ergonómico con Bluetooth 5.0",
+    "precio": "~$30.600 COP",
+    "descuento_pct": 60,
+    "cupon": "8L47QL2L",
+    "imagen": "https://m.media-amazon.com/images/I/61qE9AmBFRL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GK95S8ST?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:04:30.795390-05:00",
+    "categoria": null,
+    "titulo": "Recortadora de pelo de nariz recargable profesional 3 en 1, impermeable IPX7",
+    "precio": "~$24.900 COP",
+    "descuento_pct": 56,
+    "cupon": "PUXXTD26",
+    "imagen": "https://m.media-amazon.com/images/I/713BWHQjyrL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0GX6JFLM7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:05:40.993553-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Tigeridea Zapatillas de deporte para mujer, modelo casual con cordones.",
+    "precio": "~$65.100 COP",
+    "descuento_pct": null,
+    "cupon": "58OGRQX7",
+    "imagen": "https://m.media-amazon.com/images/I/81xN23+GbCL._AC_SY695_.jpg",
+    "link": "https://www.amazon.com/dp/B0GV2DGDH5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:07:00.832059-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Correa retráctil de 16 pies (4.88 m) para perros medianos hasta 30 kg, con dispe",
+    "precio": "~$37.900 COP",
+    "descuento_pct": null,
+    "cupon": "2026PDTW",
+    "imagen": "https://m.media-amazon.com/images/I/71CcdGUVJIL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0GS55C2LP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T10:08:09.989418-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Barra de Luz LED RGB con Sincronización Musical y Control Remoto",
+    "precio": "~$33.200 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/51iuieCuxSL._AC_SX679_PIbundle-2,TopRight,0,0_SH20_.jpg",
+    "link": "https://www.amazon.com/dp/B0DXDTF512?tag=benatechs00-20"
   }
 ]
