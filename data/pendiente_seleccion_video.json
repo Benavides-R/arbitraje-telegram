@@ -1,235 +1,205 @@
 {
   "candidatas": [
     {
-      "fecha": "2026-09-23T10:02:09.030283-05:00",
-      "categoria": null,
-      "titulo": "Concentrador USB 4 puertos 5 Gbps de alta velocidad",
-      "precio": "~$13.300 COP",
-      "descuento_pct": 80,
-      "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/51S0eiND96L._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0DH19MM9W?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T10:00:52.385879-05:00",
-      "categoria": null,
-      "titulo": "Billetera delgada de metal con clip RFID",
-      "precio": "~$15.000 COP",
-      "descuento_pct": 72,
-      "cupon": "GIULRN8E",
-      "imagen": "https://m.media-amazon.com/images/I/71fzK8w-XpL._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0F4XWKHJR?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T10:03:20.907835-05:00",
+      "fecha": "2026-09-24T11:03:35.258337-05:00",
       "categoria": "tecnologia",
-      "titulo": "Ratón vertical inalámbrico ergonómico con Bluetooth 5.0",
-      "precio": "~$30.600 COP",
+      "titulo": "Cámara para Niños con Impresión Instantánea y Video Digital HD 1080P",
+      "precio": "~$43.900 COP",
       "descuento_pct": 60,
-      "cupon": "8L47QL2L",
-      "imagen": "https://m.media-amazon.com/images/I/61qE9AmBFRL._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0GK95S8ST?tag=benatechs00-20"
+      "cupon": "BNQHRXAX",
+      "imagen": "https://m.media-amazon.com/images/I/718+lBwmHQL._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0FKGMWHYW?smid=A1VZ924J1ZSN8L&tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T10:04:30.795390-05:00",
-      "categoria": null,
-      "titulo": "Recortadora de pelo de nariz recargable profesional 3 en 1, impermeable IPX7",
-      "precio": "~$24.900 COP",
-      "descuento_pct": 56,
-      "cupon": "PUXXTD26",
-      "imagen": "https://m.media-amazon.com/images/I/713BWHQjyrL._AC_SX569_.jpg",
-      "link": "https://www.amazon.com/dp/B0GX6JFLM7?tag=benatechs00-20"
+      "fecha": "2026-09-24T12:04:58.185326-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Cámara de seguridad 2K panorámica WiFi para hogar con AI",
+      "precio": "~$38.200 COP",
+      "descuento_pct": 60,
+      "cupon": "KWYIS66X",
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7af9174bb20a6bd6d47d171e9a060422790ca28da3d1fc0fe8f0dead77edfed0.webp",
+      "link": "https://www.amazon.com/dp/B0FJQG43QL?smid=AADVSPWM5E5HS&tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T15:01:17.560211-05:00",
-      "categoria": null,
-      "titulo": "Billetera minimalista NapaWalli de cuero con clip magnético RFID",
-      "precio": "~$16.600 COP",
+      "fecha": "2026-09-24T13:01:35.732775-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Máscara de dormir con auriculares Bluetooth y seda de hielo.",
+      "precio": "~$99.700 COP",
+      "descuento_pct": 57,
+      "cupon": null,
+      "imagen": "https://m.media-amazon.com/images/I/71LFbRSfXRL._AC_SX569_.jpg",
+      "link": "https://www.amazon.com/dp/B0DHF962S8?smid=A38BE1A0UETPD7&tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T13:02:41.252996-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Mochila para laptop LOVEVOOK, antirrobo USB, impermeable, mujer",
+      "precio": "~$68.100 COP",
       "descuento_pct": 50,
-      "cupon": "JMXD4OKD",
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/2dee683df0a6b6e9ac56cb716b0bb590258728a25caba686da422b9b69f5f47f.webp",
-      "link": "https://www.amazon.com/dp/B07359W3PC?tag=benatechs00-20"
+      "cupon": "HR2UEDEA",
+      "imagen": "https://m.media-amazon.com/images/I/81D+eIDLYbL._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0CXCLQKZC?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T10:05:40.993553-05:00",
-      "categoria": "ropa_calzado",
-      "titulo": "Tigeridea Zapatillas de deporte para mujer, modelo casual con cordones.",
-      "precio": "~$65.100 COP",
-      "descuento_pct": null,
-      "cupon": "58OGRQX7",
-      "imagen": "https://m.media-amazon.com/images/I/81xN23+GbCL._AC_SY695_.jpg",
-      "link": "https://www.amazon.com/dp/B0GV2DGDH5?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T10:07:00.832059-05:00",
-      "categoria": "ropa_calzado",
-      "titulo": "Correa retráctil de 16 pies (4.88 m) para perros medianos hasta 30 kg, con dispe",
-      "precio": "~$37.900 COP",
-      "descuento_pct": null,
-      "cupon": "2026PDTW",
-      "imagen": "https://m.media-amazon.com/images/I/71CcdGUVJIL._AC_SX679_.jpg",
-      "link": "https://www.amazon.com/dp/B0GS55C2LP?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T10:08:09.989418-05:00",
+      "fecha": "2026-09-24T13:04:19.549553-05:00",
       "categoria": "tecnologia",
-      "titulo": "Barra de Luz LED RGB con Sincronización Musical y Control Remoto",
-      "precio": "~$33.200 COP",
-      "descuento_pct": null,
-      "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/51iuieCuxSL._AC_SX679_PIbundle-2,TopRight,0,0_SH20_.jpg",
-      "link": "https://www.amazon.com/dp/B0DXDTF512?tag=benatechs00-20"
+      "titulo": "Auriculares Bluetooth con cancelación de ruido, 132h de reproducción",
+      "precio": "~$77.700 COP",
+      "descuento_pct": 35,
+      "cupon": "DQK4T7VB",
+      "imagen": "https://m.media-amazon.com/images/I/612bWDW2mXL._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0GKNFRMT2?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T11:00:48.569678-05:00",
-      "categoria": "ropa_calzado",
-      "titulo": "Reebok camiseta básica de algodón para niño, paquete de 2, manga corta y cuello",
-      "precio": "~$29.700 COP",
-      "descuento_pct": null,
-      "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/61NrEINA0iL._AC_SX679_.jpg",
-      "link": "https://www.amazon.com/dp/B0CZ7MX95R?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T11:02:00.251431-05:00",
-      "categoria": null,
-      "titulo": "Reloj OLEVS para hombre, cronógrafo analógico de cara grande.",
-      "precio": "~$82.000 COP",
-      "descuento_pct": null,
-      "cupon": "5SYONUBY",
-      "imagen": "https://m.media-amazon.com/images/I/71EDeIwcPPL._AC_SY695_.jpg",
-      "link": "https://www.amazon.com/dp/B0FPLL1QM4?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T11:03:12.050652-05:00",
-      "categoria": "ropa_calzado",
-      "titulo": "Zapatos de running adidas Duramo para hombre, BlancoNegro",
-      "precio": "~$156.800 COP",
-      "descuento_pct": null,
-      "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/41LsRNkJ7RL._AC_SY695_.jpg",
-      "link": "https://www.amazon.com/dp/B09Y8CR3G4?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T11:04:26.337349-05:00",
+      "fecha": "2026-09-24T12:03:50.507986-05:00",
       "categoria": "tecnologia",
-      "titulo": "GNCC cámara de seguridad interior de 2.4 GHz, resolución 1080P, paquete de 2 uni",
-      "precio": "~$65.400 COP",
-      "descuento_pct": null,
+      "titulo": "Cámara de seguridad CASACOP 2K panorámica 355 detección inteligente audio bidire",
+      "precio": "~$69.800 COP",
+      "descuento_pct": 30,
       "cupon": null,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e9fc74490d3fe40cf04eade0bc224a44247b76998d259c44109319bc7f2a17be.webp",
-      "link": "https://www.amazon.com/dp/B0FD3V47BH?tag=benatechs00-20"
+      "imagen": null,
+      "link": "https://www.amazon.com/dp/B0G2LNM6ST?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T11:05:33.540325-05:00",
-      "categoria": "ropa_calzado",
-      "titulo": "Zapatillas de running adidas Duramo SL 2.0 para mujer.",
-      "precio": "~$135.100 COP",
+      "fecha": "2026-09-24T08:00:48.073024-05:00",
+      "categoria": null,
+      "titulo": "tenlamp Micrófono USB para juegos, transmisión y podcast.",
+      "precio": "~$100.200 COP",
       "descuento_pct": null,
       "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/718+9ATV8tL._AC_SX695_.jpg",
-      "link": "https://www.amazon.com/dp/B091MCMXPS?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/71s8DyMrBIL._AC_SX569_.jpg",
+      "link": "https://www.amazon.com/dp/B0GVSC9LZS?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T13:02:21.443587-05:00",
+      "fecha": "2026-09-24T08:01:56.466063-05:00",
       "categoria": "tecnologia",
-      "titulo": "Cámara GNCC de seguridad interior 1080P audio bidireccional visión nocturna IR",
-      "precio": "~$33.100 COP",
+      "titulo": "Monitor ZZA 24\" FHD 1080P",
+      "precio": "~$364.700 COP",
       "descuento_pct": null,
       "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/61oRvKCgLwL._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0G69ZLQ21?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/71Sw9njfI2L._AC_SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B0FH52MNYL?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T13:03:24.908950-05:00",
+      "fecha": "2026-09-24T09:01:00.001102-05:00",
       "categoria": null,
-      "titulo": "Cubo Mágico Gigante 3x3 de 18 cm, rompecabezas sensorial 3D con combinación de c",
-      "precio": "~$59.700 COP",
-      "descuento_pct": null,
-      "cupon": "NVIVJC46",
-      "imagen": "https://m.media-amazon.com/images/I/71cbEibwrML._AC_SX679_.jpg",
-      "link": "https://www.amazon.com/dp/B09L77YZZQ?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T14:00:50.270042-05:00",
-      "categoria": null,
-      "titulo": "PUMA Paquete de 4 calzoncillos tipo bóxer de entrenamiento para hombre.",
-      "precio": "~$49.700 COP",
-      "descuento_pct": null,
-      "cupon": null,
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e0380a7ef8f7741b015d0be090c095a5c5b8205c065d318631c1679d68f3162f.webp",
-      "link": "https://www.amazon.com/dp/B0GTN3YPNY?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T14:02:01.390730-05:00",
-      "categoria": null,
-      "titulo": "K-Swiss Entrenador Helio para mujer, calzado deportivo.",
+      "titulo": "Limpiador de vapor Bestbuy8, 1500W, 6 niveles de vapor, tanque de 42 oz (1.24 L)",
       "precio": "~$99.400 COP",
       "descuento_pct": null,
-      "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/71a2w7MDr2L._AC_SX695_.jpg",
-      "link": "https://www.amazon.com/dp/B0D973NYZT?tag=benatechs00-20"
+      "cupon": "UOSWVNXJ",
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7483cb2eddf507446de84570156331f63a51e401b6fde4e9a27ecf258e679e4f.webp",
+      "link": "https://www.amazon.com/dp/B0FMJX3SK5?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T14:03:09.403035-05:00",
-      "categoria": "ropa_calzado",
-      "titulo": "PUMA Zapatillas Court Classic Vulc para hombre.",
-      "precio": "~$132.500 COP",
-      "descuento_pct": null,
-      "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/71L2hCPXmlL._AC_SY695_.jpg",
-      "link": "https://www.amazon.com/dp/B0DDTWHLV9?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T14:04:17.437791-05:00",
+      "fecha": "2026-09-24T10:01:25.295777-05:00",
       "categoria": "tecnologia",
-      "titulo": "KPEP Smart Watch para hombres y mujeres con pantalla de 2.01 y función de llamad",
-      "precio": "~$99.400 COP",
+      "titulo": "Cámara web 1080P con micrófono, USB HD, gran angular, corrección de luz automáti",
+      "precio": "~$46.400 COP",
       "descuento_pct": null,
-      "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/81BwjRcSbCL._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0H7H6RSZQ?tag=benatechs00-20"
+      "cupon": "HSPOW8VZ",
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a853cd259ae1fba240b0f263f1cb76cbd3d476432a1348748c537a5555f5f6de.webp",
+      "link": "https://www.amazon.com/dp/B0H2L4Y6CW?tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T14:08:42.679021-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Impresora térmica de etiquetas de envío 4x6 Bluetooth Label Maker para pequeñas",
-      "precio": "~$94.600 COP",
-      "descuento_pct": null,
-      "cupon": "O8H5V3U3",
-      "imagen": "https://m.media-amazon.com/images/I/71GAy6t6WeL._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0DX6RVJF7?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T15:02:33.242011-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Auriculares de traducción AI bmanl, con capacidad de traducción en tiempo real e",
-      "precio": "~$49.700 COP",
-      "descuento_pct": null,
-      "cupon": "2BJZD4X8",
-      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/490eb388f952157b324910b320cb18c732df8afd2533b2b4b883b220367babc8.webp",
-      "link": "https://www.amazon.com/dp/B0HFZCD3B6?tag=benatechs00-20"
-    },
-    {
-      "fecha": "2026-09-23T16:00:50.803252-05:00",
+      "fecha": "2026-09-24T11:00:48.926127-05:00",
       "categoria": null,
-      "titulo": "K-Swiss Proto Trainer para hombre, calzado deportivo.",
-      "precio": "~$79.500 COP",
+      "titulo": "Gillette Antitranspirante y Desodorante para Hombres",
+      "precio": "~$5.800 COP",
       "descuento_pct": null,
       "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/81wmuiLI5mL._AC_SX695_.jpg",
-      "link": "https://www.amazon.com/dp/B0D9DZ78W3?tag=benatechs00-20"
+      "imagen": "https://m.media-amazon.com/images/I/61E-RvtNwwL._SX425_.jpg",
+      "link": "https://www.amazon.com/dp/B01HVZKDXA?smid=A2XZ7JICGUQ1CX&tag=benatechs00-20"
     },
     {
-      "fecha": "2026-09-23T16:03:31.379028-05:00",
-      "categoria": "tecnologia",
-      "titulo": "Mochila Taygeer de viaje para laptop",
-      "precio": "~$79.500 COP",
+      "fecha": "2026-09-24T11:02:06.746584-05:00",
+      "categoria": null,
+      "titulo": "Champú Johnsons Baby humectante de pies a cabeza",
+      "precio": "~$14.900 COP",
       "descuento_pct": null,
       "cupon": null,
-      "imagen": "https://m.media-amazon.com/images/I/61mBPzS4IeL._AC_SX425_.jpg",
-      "link": "https://www.amazon.com/dp/B0CR9JFD7S?smid=AAXYC7AYUX0D7&tag=benatechs00-20"
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c39fab87b4e3b3d3f7b399bb80d479e487eb0b17144487c7950d3c209ecd29f6.webp",
+      "link": "https://www.amazon.com/dp/B0G271745X?smid=A2XZ7JICGUQ1CX&tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T12:01:06.411452-05:00",
+      "categoria": null,
+      "titulo": "Loción Lubriderm con vitamina B5 473 ml",
+      "precio": "~$31.500 COP",
+      "descuento_pct": null,
+      "cupon": null,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/02f680e43703aabcf4f5d73b7aeb9fcdc4fa0e8e4c117c7c24b6d7cd2edf9f35.webp",
+      "link": "https://www.amazon.com/dp/B01N453FO6?smid=A2XZ7JICGUQ1CX&tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T12:02:25.678557-05:00",
+      "categoria": null,
+      "titulo": "Loción corporal Lubriderm humectante diario sin fragancia",
+      "precio": "~$56.500 COP",
+      "descuento_pct": null,
+      "cupon": null,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/fc6f856fde80855a8666827654ea7e56a78f9151efe0c06294ab6ea17dd588d3.webp",
+      "link": "https://www.amazon.com/dp/B01N6EMD32?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T12:06:05.386636-05:00",
+      "categoria": "ropa_calzado",
+      "titulo": "Capa de disfraz de Halloween para perro y gato, sudadera con capucha suave, incl",
+      "precio": "~$33.400 COP",
+      "descuento_pct": null,
+      "cupon": null,
+      "imagen": "https://m.media-amazon.com/images/I/71TA+I4IklL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0D8KZLXQB?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T12:07:30.053938-05:00",
+      "categoria": "tecnologia",
+      "titulo": "KOORUI Monitor de 24 (61 cm) FHD 165 Hz, IPS, 1 ms, colores sRGB 99%, Adaptive S",
+      "precio": "~$398.300 COP",
+      "descuento_pct": null,
+      "cupon": null,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ec1377dc7bcc27c0818b3651ab58401c08d5569e3b529104122b5f130663685a.webp",
+      "link": "https://www.amazon.com/dp/B0BCDD4KTK?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T12:08:42.512917-05:00",
+      "categoria": "tecnologia",
+      "titulo": "KOORUI Monitor curvo ultraancho WQHD 34401440 de 34 (86 cm), 180Hz, 1ms (MPRT),",
+      "precio": "~$1.216.900 COP",
+      "descuento_pct": null,
+      "cupon": null,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f6c68bdc3e1ce24dbcf3ce9131fd387594b0117d230f50b147c5c47121595c0a.webp",
+      "link": "https://www.amazon.com/dp/B0C4P2KB9K?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T12:10:01.673459-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Controlador inalámbrico NealGamefy con luz LED y vibración",
+      "precio": "~$66.900 COP",
+      "descuento_pct": null,
+      "cupon": null,
+      "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ab86b56d04a6a4b40c02d0c99a142077e082652652e0d7ba0aa928a2c19d7838.webp",
+      "link": "https://www.amazon.com/dp/B0DNZ73PTW?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T14:00:53.899135-05:00",
+      "categoria": "ropa_calzado",
+      "titulo": "K-Swiss Tenis de correr suaves para hombre, ligeros, para entrenamiento cruzado",
+      "precio": "~$96.500 COP",
+      "descuento_pct": null,
+      "cupon": "OQDVD1IJ",
+      "imagen": "https://m.media-amazon.com/images/I/719p38TxoRL._AC_SY695_.jpg",
+      "link": "https://www.amazon.com/dp/B0GRFNTFG1?tag=benatechs00-20"
+    },
+    {
+      "fecha": "2026-09-24T16:03:30.167659-05:00",
+      "categoria": "tecnologia",
+      "titulo": "Soporte de cámara RC SUCKER con ventosa eléctrica de 6 (15.24 cm), fabricado en",
+      "precio": "~$138.700 COP",
+      "descuento_pct": null,
+      "cupon": null,
+      "imagen": "https://m.media-amazon.com/images/I/61C9oNfBNHL._AC_SX679_.jpg",
+      "link": "https://www.amazon.com/dp/B0GHNLTTDZ?tag=benatechs00-20"
     }
   ],
-  "enviado": 1790200819.6958086
+  "enviado": 1790287223.1015196
 }
