@@ -2758,5 +2758,25 @@
     "cupon": "NAS5YQRT",
     "imagen": "https://m.media-amazon.com/images/I/61sfe4CICTL._SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0FMJWLR2X?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T08:00:48.073024-05:00",
+    "categoria": null,
+    "titulo": "tenlamp Micrófono USB para juegos, transmisión y podcast.",
+    "precio": "~$100.200 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71s8DyMrBIL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0GVSC9LZS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T08:01:56.466063-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor ZZA 24\" FHD 1080P",
+    "precio": "~$364.700 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71Sw9njfI2L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FH52MNYL?tag=benatechs00-20"
   }
 ]
