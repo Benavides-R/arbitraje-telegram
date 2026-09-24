@@ -458,5 +458,65 @@
     "cupon": "2BJZD4X8",
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/490eb388f952157b324910b320cb18c732df8afd2533b2b4b883b220367babc8.webp",
     "link": "https://www.amazon.com/dp/B0HFZCD3B6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T11:03:35.258337-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara para Niños con Impresión Instantánea y Video Digital HD 1080P",
+    "precio": "~$43.900 COP",
+    "descuento_pct": 60,
+    "cupon": "BNQHRXAX",
+    "imagen": "https://m.media-amazon.com/images/I/718+lBwmHQL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FKGMWHYW?smid=A1VZ924J1ZSN8L&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T12:04:58.185326-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de seguridad 2K panorámica WiFi para hogar con AI",
+    "precio": "~$38.200 COP",
+    "descuento_pct": 60,
+    "cupon": "KWYIS66X",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7af9174bb20a6bd6d47d171e9a060422790ca28da3d1fc0fe8f0dead77edfed0.webp",
+    "link": "https://www.amazon.com/dp/B0FJQG43QL?smid=AADVSPWM5E5HS&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T13:01:35.732775-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Máscara de dormir con auriculares Bluetooth y seda de hielo.",
+    "precio": "~$99.700 COP",
+    "descuento_pct": 57,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71LFbRSfXRL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0DHF962S8?smid=A38BE1A0UETPD7&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T09:01:00.001102-05:00",
+    "categoria": null,
+    "titulo": "Limpiador de vapor Bestbuy8, 1500W, 6 niveles de vapor, tanque de 42 oz (1.24 L)",
+    "precio": "~$99.400 COP",
+    "descuento_pct": null,
+    "cupon": "UOSWVNXJ",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7483cb2eddf507446de84570156331f63a51e401b6fde4e9a27ecf258e679e4f.webp",
+    "link": "https://www.amazon.com/dp/B0FMJX3SK5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T12:10:01.673459-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Controlador inalámbrico NealGamefy con luz LED y vibración",
+    "precio": "~$66.900 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ab86b56d04a6a4b40c02d0c99a142077e082652652e0d7ba0aa928a2c19d7838.webp",
+    "link": "https://www.amazon.com/dp/B0DNZ73PTW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T16:03:30.167659-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Soporte de cámara RC SUCKER con ventosa eléctrica de 6 (15.24 cm), fabricado en",
+    "precio": "~$138.700 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/61C9oNfBNHL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0GHNLTTDZ?tag=benatechs00-20"
   }
 ]
