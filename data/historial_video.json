@@ -2658,5 +2658,15 @@
     "cupon": null,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/53a1ba6380b5e337aa49369f7cbd69cbcb2f65abf12494f338ad03556388a70a.webp",
     "link": "https://www.amazon.com/dp/B0FM3NTR1W?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T19:03:21.316133-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Paquete de 2 auriculares USB C con cable para Samsung Galaxy y iPhone 1716.",
+    "precio": "~$25.100 COP",
+    "descuento_pct": null,
+    "cupon": "IU2YNDH7",
+    "imagen": "https://m.media-amazon.com/images/I/71rTQqCnA1L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GQT348HX?tag=benatechs00-20"
   }
 ]
