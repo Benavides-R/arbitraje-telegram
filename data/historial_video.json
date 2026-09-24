@@ -2798,5 +2798,35 @@
     "cupon": "HSPOW8VZ",
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/a853cd259ae1fba240b0f263f1cb76cbd3d476432a1348748c537a5555f5f6de.webp",
     "link": "https://www.amazon.com/dp/B0H2L4Y6CW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T11:00:48.926127-05:00",
+    "categoria": null,
+    "titulo": "Gillette Antitranspirante y Desodorante para Hombres",
+    "precio": "~$5.800 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/61E-RvtNwwL._SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B01HVZKDXA?smid=A2XZ7JICGUQ1CX&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T11:02:06.746584-05:00",
+    "categoria": null,
+    "titulo": "Champú Johnsons Baby humectante de pies a cabeza",
+    "precio": "~$14.900 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c39fab87b4e3b3d3f7b399bb80d479e487eb0b17144487c7950d3c209ecd29f6.webp",
+    "link": "https://www.amazon.com/dp/B0G271745X?smid=A2XZ7JICGUQ1CX&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T11:03:35.258337-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara para Niños con Impresión Instantánea y Video Digital HD 1080P",
+    "precio": "~$43.900 COP",
+    "descuento_pct": 60,
+    "cupon": "BNQHRXAX",
+    "imagen": "https://m.media-amazon.com/images/I/718+lBwmHQL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0FKGMWHYW?smid=A1VZ924J1ZSN8L&tag=benatechs00-20"
   }
 ]
