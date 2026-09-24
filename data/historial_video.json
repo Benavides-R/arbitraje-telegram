@@ -2668,5 +2668,95 @@
     "cupon": "IU2YNDH7",
     "imagen": "https://m.media-amazon.com/images/I/71rTQqCnA1L._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0GQT348HX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:00:54.916927-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Altavoz Bluetooth estéreo HD 20W portátil IPX4",
+    "precio": "~$43.200 COP",
+    "descuento_pct": 57,
+    "cupon": "E38LX97S",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/c74db71e5f4c30e975b17b10f866fe452de385c95c738c9c22bdbd7c37ee059f.webp",
+    "link": "https://www.amazon.com/dp/B0HFSJSNW1?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:02:06.529104-05:00",
+    "categoria": null,
+    "titulo": "Juego destornilladores magnéticos 60 en 1 con mango T desmontable",
+    "precio": "~$54.800 COP",
+    "descuento_pct": 50,
+    "cupon": "S2WP36Q9",
+    "imagen": "https://m.media-amazon.com/images/I/81yygDVWmtL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0GZ2FSW2Z?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:03:21.680972-05:00",
+    "categoria": null,
+    "titulo": "Sellador de bolsas recargable con cortador magnético, portátil",
+    "precio": "~$32.900 COP",
+    "descuento_pct": 34,
+    "cupon": "WR932GFD",
+    "imagen": "https://m.media-amazon.com/images/I/61NoxE3nTeL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0H65CM4LZ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:04:34.892903-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Havit Bluetooth Shower Speaker, bocina portátil inalámbrica, resistente al agua",
+    "precio": "~$54.700 COP",
+    "descuento_pct": null,
+    "cupon": "NIXHVY7E",
+    "imagen": "https://m.media-amazon.com/images/I/71G-Isq-WbL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GVJNZ835?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:05:43.436466-05:00",
+    "categoria": null,
+    "titulo": "Linterna magnética recargable de alto lúmenes 9 modos",
+    "precio": "~$41.500 COP",
+    "descuento_pct": 50,
+    "cupon": "BA3VJ4AQ",
+    "imagen": "https://m.media-amazon.com/images/I/71a4+yIjO8L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0DJP5NRT7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:06:52.156315-05:00",
+    "categoria": null,
+    "titulo": "Secador de pelo iónico profesional 1800W con boquillas y difusor",
+    "precio": "~$48.000 COP",
+    "descuento_pct": 30,
+    "cupon": "MTMAP8GS",
+    "imagen": "https://m.media-amazon.com/images/I/615HSYJ4y8L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0C3M9WBQF?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:07:58.970045-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Pantalla inalámbrica para coche, 7 pulgadas con Android Auto",
+    "precio": "~$123.300 COP",
+    "descuento_pct": 39,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71t4SxwQ1JL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0HHRYGTYX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:09:09.839490-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Vanzon Altavoces Bluetooth, altavoz inalámbrico portátil impermeable IPX7.",
+    "precio": "~$59.700 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/7109fwRm2vL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0HH99GV6D?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-23T21:10:18.035916-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Taladro de uñas eléctrico E-File Machine, 45,000 RPM, con cable y pantalla LED.",
+    "precio": "~$66.800 COP",
+    "descuento_pct": null,
+    "cupon": "NAS5YQRT",
+    "imagen": "https://m.media-amazon.com/images/I/61sfe4CICTL._SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0FMJWLR2X?tag=benatechs00-20"
   }
 ]
