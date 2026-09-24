@@ -2908,5 +2908,35 @@
     "cupon": null,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ab86b56d04a6a4b40c02d0c99a142077e082652652e0d7ba0aa928a2c19d7838.webp",
     "link": "https://www.amazon.com/dp/B0DNZ73PTW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T13:01:35.732775-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Máscara de dormir con auriculares Bluetooth y seda de hielo.",
+    "precio": "~$99.700 COP",
+    "descuento_pct": 57,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71LFbRSfXRL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0DHF962S8?smid=A38BE1A0UETPD7&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T13:02:41.252996-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mochila para laptop LOVEVOOK, antirrobo USB, impermeable, mujer",
+    "precio": "~$68.100 COP",
+    "descuento_pct": 50,
+    "cupon": "HR2UEDEA",
+    "imagen": "https://m.media-amazon.com/images/I/81D+eIDLYbL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0CXCLQKZC?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T13:04:19.549553-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Auriculares Bluetooth con cancelación de ruido, 132h de reproducción",
+    "precio": "~$77.700 COP",
+    "descuento_pct": 35,
+    "cupon": "DQK4T7VB",
+    "imagen": "https://m.media-amazon.com/images/I/612bWDW2mXL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0GKNFRMT2?tag=benatechs00-20"
   }
 ]
