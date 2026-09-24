@@ -2958,5 +2958,45 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/61C9oNfBNHL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0GHNLTTDZ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T17:00:59.358321-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Báscula de alimentos inteligente con calculadora nutricional y aplicación",
+    "precio": "~$43.500 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f80597a562336c3e0e76070709dcecddbcd87a94c24b2d24fba7552188db7b88.webp",
+    "link": "https://www.amazon.com/dp/B0GJ5S55J6?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T17:02:10.981917-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Plancha alisadora de cabello CrazyMar de 2 con tecnología infrarroja, pantalla L",
+    "precio": "~$83.600 COP",
+    "descuento_pct": null,
+    "cupon": "A364HDR4",
+    "imagen": "https://m.media-amazon.com/images/I/7163zeFGGLL._AC_SX569_.jpg",
+    "link": "https://www.amazon.com/dp/B0H1Q7HHB1?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T17:03:40.467944-05:00",
+    "categoria": null,
+    "titulo": "Freidora Chefman 4 en 1 3.5 cuartos",
+    "precio": "~$150.400 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/81549d8cb6170c9e9b0c3f23ac92e8da70c636d52aaf36904c1acd01c0926935.webp",
+    "link": "https://www.amazon.com/dp/B0GSCCXMR8?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T17:04:52.415462-05:00",
+    "categoria": "tecnologia",
+    "titulo": "CHEFMAN Freidora de aire mini de 2 cuartos (1.89 L) con canasta antiadherente y",
+    "precio": "~$133.700 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71rj5PBTfZL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0DC11YH4J?tag=benatechs00-20"
   }
 ]
