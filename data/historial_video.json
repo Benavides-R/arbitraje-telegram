@@ -2778,5 +2778,15 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/71Sw9njfI2L._AC_SX425_.jpg",
     "link": "https://www.amazon.com/dp/B0FH52MNYL?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T09:01:00.001102-05:00",
+    "categoria": null,
+    "titulo": "Limpiador de vapor Bestbuy8, 1500W, 6 niveles de vapor, tanque de 42 oz (1.24 L)",
+    "precio": "~$99.400 COP",
+    "descuento_pct": null,
+    "cupon": "UOSWVNXJ",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7483cb2eddf507446de84570156331f63a51e401b6fde4e9a27ecf258e679e4f.webp",
+    "link": "https://www.amazon.com/dp/B0FMJX3SK5?tag=benatechs00-20"
   }
 ]
