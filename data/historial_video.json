@@ -3048,5 +3048,65 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/61QwyAYSHBL._SX466_.jpg",
     "link": "https://www.amazon.com/dp/B08ZNQN1FP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T12:01:03.948506-05:00",
+    "categoria": null,
+    "titulo": "JBL Flip 7 altavoces portátiles impermeables, par azul",
+    "precio": "~$688.000 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/5e0d83e91905a0204d7f7eb56b40268cc41d20151b044ae113df6eeb6d945414.webp",
+    "link": "https://www.amazon.com/dp/B0FTT8K591?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T12:02:23.255767-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Zapatillas DREAM PAIRS",
+    "precio": "~$60.400 COP",
+    "descuento_pct": 15,
+    "cupon": "7TWJIT1Q",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b4bbec90cdf961ac793948bc99fc1c12ef8f482f534a28e5d39774f8c56dc67a.webp",
+    "link": "https://www.amazon.com/dp/B0DS1SJFG9?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T12:03:34.736877-05:00",
+    "categoria": null,
+    "titulo": "Camión Monster Truck RC 4WD alta velocidad",
+    "precio": "~$46.900 COP",
+    "descuento_pct": 50,
+    "cupon": "BTY587M5",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/f98305488ada3d7feb8dc82ba55f3de8714aa1ddc1baed1f86fda224d965d65e.webp",
+    "link": "https://www.amazon.com/dp/B0FVVDWVJ9?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T12:04:47.691876-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Teclado y mouse inalámbricos silenciosos, tamaño completo, batería larga duració",
+    "precio": "~$33.900 COP",
+    "descuento_pct": 62,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7531cf05e4440c932575edacd21733f70dd31c5c6d8a7f2f52021037f371bcea.webp",
+    "link": "https://www.amazon.com/dp/B0G5PWDRC2?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T12:05:59.113990-05:00",
+    "categoria": "tecnologia",
+    "titulo": "MNN Monitor portátil de 15.6 (39.6 cm) FHD 1080P, USB C y HDMI, pantalla IPS ult",
+    "precio": "~$146.500 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b1c9dd0a0ad93be5a8125d4db9795b48fd29e832a34ffeef04fbdfe955d69077.webp",
+    "link": "https://www.amazon.com/dp/B0B9NNWXVP?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T12:09:01.713761-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Mini proyector 4K portátil, soporte Full HD 1080P.",
+    "precio": "~$78.100 COP",
+    "descuento_pct": null,
+    "cupon": "LWU94TGJ",
+    "imagen": "https://m.media-amazon.com/images/I/81klqAmzW7L._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0HJ29C5YD?tag=benatechs00-20"
   }
 ]

@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0FTT8K591",
+      "product": "JBL Flip 7 altavoces portátiles impermeables, par azul",
+      "rating": null,
+      "reviews": null,
+      "price": 688000,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0FTT8K591?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0FTT8K591",
+      "imageUrl": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/5e0d83e91905a0204d7f7eb56b40268cc41d20151b044ae113df6eeb6d945414.webp",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1790355674.4045806
+  }
+]
