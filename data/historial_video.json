@@ -3028,5 +3028,25 @@
     "cupon": null,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/439fda1855d920058178231fd11f872d7960255c217654b17192eda6cb8a7eec.webp",
     "link": "https://www.amazon.com/dp/B0DNTD1V62?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T08:01:02.949573-05:00",
+    "categoria": null,
+    "titulo": "Controlador Inalámbrico Xbox (2025) – Pulse Red, compatible con Xbox, Windows, A",
+    "precio": "~$180.500 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/61sd2AasR-L._SX466_.jpg",
+    "link": "https://www.amazon.com/dp/B0F1HDBJKH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T08:02:14.002671-05:00",
+    "categoria": null,
+    "titulo": "Controlador inalámbrico Xbox Core – Electric Volt para Series XS, One, Windows P",
+    "precio": "~$186.800 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/61QwyAYSHBL._SX466_.jpg",
+    "link": "https://www.amazon.com/dp/B08ZNQN1FP?tag=benatechs00-20"
   }
 ]
