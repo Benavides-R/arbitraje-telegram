@@ -3008,5 +3008,25 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/71SXBS0qThL._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0GWTXJNQL?smid=ANA1U5W05QWYL&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T21:00:53.972555-05:00",
+    "categoria": null,
+    "titulo": "Portable Tire Inflator Air Compressor for Car Bike Motorcycle",
+    "precio": "~$56.500 COP",
+    "descuento_pct": 53,
+    "cupon": "LC4TCIO4",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ba5cc3ea645d25eb1003edd269ecc43b249410988b91e941562e5f4d5e1169e8.webp",
+    "link": "https://www.amazon.com/dp/B0H8Y7JPSZ?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-24T21:02:11.843008-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Impresora térmica portátil inalámbrica, compatible con papel A4 y Bluetooth.",
+    "precio": "~$203.700 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/439fda1855d920058178231fd11f872d7960255c217654b17192eda6cb8a7eec.webp",
+    "link": "https://www.amazon.com/dp/B0DNTD1V62?tag=benatechs00-20"
   }
 ]
