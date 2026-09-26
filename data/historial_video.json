@@ -3318,5 +3318,55 @@
     "cupon": null,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e26c1b85452912c896869d80533bba8125850e4eb330eb17d98b31abf0b9cfd4.webp",
     "link": "https://www.amazon.com/dp/B0GGB1DY78?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T12:00:56.663730-05:00",
+    "categoria": null,
+    "titulo": "FLEXTAILGEAR inflador de neumáticos portátil eléctrico",
+    "precio": "~$37.200 COP",
+    "descuento_pct": 50,
+    "cupon": "ICBCONSB",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/b522d8fb05c928bb38680d9bed123c02310c32e4fbc74f44a39f9ccf89108fbe.webp",
+    "link": "https://www.amazon.com/dp/B0FX5FCCCG?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T12:02:06.186592-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Magcubic HY300PRO Mini proyector portátil con WiFi y Bluetooth, soporte 4K, Keys",
+    "precio": "~$156.200 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/dbc8f20f251008218da96329a6cd2136e5b7264a8d2838fb0310df84be89104c.webp",
+    "link": "https://www.amazon.com/dp/B0DP2D2238?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T12:03:29.206145-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Samsung Galaxy Tab A11 2026, tablet Android de 8.7 (22 cm) con 64GB de almacenam",
+    "precio": "~$486.100 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/74b9321466d5753b0d489720ad291d6304e3f266db09949c91c027fa1d0da495.webp",
+    "link": "https://www.amazon.com/dp/B0FNNRLMVW?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T12:04:35.941092-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Ventilador portátil ZLYM con enfriador de hielo, 5 velocidades, batería recargab",
+    "precio": "~$24.300 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": null,
+    "link": "https://www.amazon.com/dp/B0GWZH2ZQS?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T12:05:42.815776-05:00",
+    "categoria": "tecnologia",
+    "titulo": "SERVOMASTER Aspiradora de mano inalámbrica mini portátil",
+    "precio": "~$43.900 COP",
+    "descuento_pct": 35,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/87af38a50686fdf211cf4e9a1d1a7df7c1f9034b9f30b4f3ca323988402d6085.webp",
+    "link": "https://www.amazon.com/dp/B0FNR8GHWY?tag=benatechs00-20"
   }
 ]
