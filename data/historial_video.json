@@ -3368,5 +3368,85 @@
     "cupon": null,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/87af38a50686fdf211cf4e9a1d1a7df7c1f9034b9f30b4f3ca323988402d6085.webp",
     "link": "https://www.amazon.com/dp/B0FNR8GHWY?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T16:00:51.872953-05:00",
+    "categoria": "ropa_calzado",
+    "titulo": "Mochila escolar informal camuflaje para niños y niñas, adecuada para viajes al a",
+    "precio": "~$52.100 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/6162DhkvH7L._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B096LDBNGM?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T16:02:04.250812-05:00",
+    "categoria": null,
+    "titulo": "Funda impermeable StrtChrg para motocicleta, con agujeros de bloqueo y diseño re",
+    "precio": "~$34.400 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/518ZwzSSaML._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0HFCGTBBB?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T16:03:18.693677-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Altavoces Bluetooth portátiles deportivos, impermeables IPX5 con sonido HD",
+    "precio": "~$67.600 COP",
+    "descuento_pct": 75,
+    "cupon": "IYTLKEQ2",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/e189ce32acbba58cafa871d62c673ff2b4047a0d9a77be065039461080355cfc.webp",
+    "link": "https://www.amazon.com/dp/B0FP98NBBT?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T16:04:42.490141-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Brightever Tira de luces LED para exteriores con control remoto",
+    "precio": "~$64.200 COP",
+    "descuento_pct": 53,
+    "cupon": "U150V1SO",
+    "imagen": "https://m.media-amazon.com/images/I/71YBpppLNmL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0FWCLGWJ8?smid=A1BP1GHEHJ5VWI&tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T16:05:55.478143-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Monitor Acer KB272 de 27 pulgadas FHD IPS",
+    "precio": "~$343.800 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/0776fc94e5779115108c784433ac76a2c884032448dbc7de3f901fb32cee6e70.webp",
+    "link": "https://www.amazon.com/dp/B0D9MK23S7?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T16:07:12.654049-05:00",
+    "categoria": null,
+    "titulo": "Controlador inalámbrico 8Bitdo Ultimate 2C para PC y Android - Color púrpura.",
+    "precio": "~$83.300 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/09b845e17eab97543522b9bc9b228401ba9248a399752e26bf098886fede451f.webp",
+    "link": "https://www.amazon.com/dp/B0D6BGS5TH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T16:08:24.057691-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Reloj inteligente para niños con monitor de salud",
+    "precio": "~$64.200 COP",
+    "descuento_pct": 50,
+    "cupon": "XPF65DDR",
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/7161ba10372e28006580000fe89fa44c08981b976ee0a38e329fe5adfe3e76b9.webp",
+    "link": "https://www.amazon.com/dp/B0H6B3DJ69?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T16:09:33.077628-05:00",
+    "categoria": null,
+    "titulo": "Controlador CRKD ATOM+ Mini Inalámbrico",
+    "precio": "~$86.800 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ffec666779fc9822d9ce9f3d0b42891ae700c02d96bc7adc793f623e30a5c058.webp",
+    "link": "https://www.amazon.com/dp/B0GTWRK971?tag=benatechs00-20"
   }
 ]
