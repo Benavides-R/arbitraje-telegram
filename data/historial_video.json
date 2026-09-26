@@ -3228,5 +3228,25 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/71Mc2cnMp-L._AC_SX679_PIbundle-4,TopRight,0,0_SH20_.jpg",
     "link": "https://www.amazon.com/dp/B0GFNLX4GX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T21:01:03.427255-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Gikktdr Pantalla Carplay inalámbrica 11.5 con cámara 4K",
+    "precio": "~$253.900 COP",
+    "descuento_pct": 50,
+    "cupon": "PBOEVA4B",
+    "imagen": "https://m.media-amazon.com/images/I/71k3T466CDL._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B0H68STGB1?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-25T21:02:16.874118-05:00",
+    "categoria": "tecnologia",
+    "titulo": "ROPVACNIC Robot aspirador y trapeador combinado con succión de 5200 Pa, con ajus",
+    "precio": "~$243.100 COP",
+    "descuento_pct": null,
+    "cupon": "IF6PH8F4",
+    "imagen": "https://m.media-amazon.com/images/I/518+BuiWh6L._AC_.jpg",
+    "link": "https://www.amazon.com/dp/B0GDXV2KJ4?tag=benatechs00-20"
   }
 ]
