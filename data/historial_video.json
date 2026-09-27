@@ -3448,5 +3448,15 @@
     "cupon": null,
     "imagen": "https://csolztnyryppkihezbql.supabase.co/storage/v1/object/public/ofertas-images/ofertas/ffec666779fc9822d9ce9f3d0b42891ae700c02d96bc7adc793f623e30a5c058.webp",
     "link": "https://www.amazon.com/dp/B0GTWRK971?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-26T23:01:23.994162-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Tewiky Cámara Web Full HD con micrófono integrado y trípode giratorio, video 108",
+    "precio": "~$52.900 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71dvYKkHCML._AC_SX425_.jpg",
+    "link": "https://www.amazon.com/dp/B08VJ25PL1?tag=benatechs00-20"
   }
 ]
