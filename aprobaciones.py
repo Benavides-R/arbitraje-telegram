@@ -21,7 +21,6 @@ from pathlib import Path
 from config import ADMIN_CHAT_ID
 from procesar_oferta import preparar_imagen_con_logo, aplicar_logo_a_bytes
 from estadisticas import registrar_publicacion
-from resumen_video import enviar_candidatas_para_elegir, procesar_respuesta_seleccion
 
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
@@ -251,32 +250,6 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
 
         # Caso 2: respondiste con una foto a un mensaje de revisión
         msg = update.get("message")
-
-        # Caso video A: pediste la lista de candidatas para elegir.
-        if (
-            msg and "text" in msg
-            and str(msg.get("chat", {}).get("id")) == str(ADMIN_CHAT_ID)
-            and msg["text"].strip().lower() in ("/elegir", "elegir", "elegir videos")
-        ):
-            print("[VIDEO] Comando /elegir recibido, mandando candidatas")
-            try:
-                enviar_candidatas_para_elegir()
-            except Exception as e:
-                print(f"[WARN] No se pudo mandar la selección de video: {e}")
-            continue
-
-        # Caso video B: le respondiste con números a una tanda de candidatas
-        # ya enviada (ej. "1,3,5") -- se procesa aparte y no sigue de largo
-        # como si fuera otra cosa (una URL manual, una aprobación, etc.).
-        if (
-            msg and "text" in msg
-            and str(msg.get("chat", {}).get("id")) == str(ADMIN_CHAT_ID)
-        ):
-            try:
-                if procesar_respuesta_seleccion(msg["text"]):
-                    continue
-            except Exception as e:
-                print(f"[WARN] No se pudo procesar la respuesta de selección de video: {e}")
 
         # Caso 0: mensaje NUEVO (no respuesta) del admin con una URL --
         # oferta manual tuya, se procesa con el mismo pipeline de las

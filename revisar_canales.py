@@ -46,7 +46,6 @@ from publicar_facebook import publicar_facebook
 from oferta_radar import enviar_a_oferta_radar, reintentar_pendientes
 from supabase_storage import subir_a_supabase
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
-from resumen_video import registrar_oferta_para_video
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
 from estadisticas import verificar_y_enviar_reporte
 from aliexpress_afiliado import generar_link_afiliado_aliexpress
@@ -740,11 +739,6 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
 
     publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
     publicar_facebook(texto_nuevo, imagen_bytes)
-
-    try:
-        registrar_oferta_para_video(texto_original, texto_nuevo, url_imagen, url_oferta_radar)
-    except Exception as e:
-        print(f"[VIDEO] No se pudo registrar en el historial de video: {e}")
 
     if not USAR_BRIDGE_OFERTA_RADAR:
         # Modo normal (sin bridge): Oferta Radar se crea DESPUÉS de publicar,
