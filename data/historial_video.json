@@ -3468,5 +3468,35 @@
     "cupon": null,
     "imagen": "https://m.media-amazon.com/images/I/71Lt-qu5x1L._AC_SX679_.jpg",
     "link": "https://www.amazon.com/dp/B0GV3LWRW5?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-27T14:00:56.097783-05:00",
+    "categoria": null,
+    "titulo": "Vabaso lonchera eléctrica de 1.5L, calentador de alimentos con contenedor extraí",
+    "precio": "~$54.900 COP",
+    "descuento_pct": null,
+    "cupon": "2VX1EDL7",
+    "imagen": "https://m.media-amazon.com/images/I/71hrUWYT1wL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0CBC3T1SX?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-27T14:02:07.225798-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara TESFOT 4K mejorada 2026 64 MP con WiFi y pantalla abatible de 180°",
+    "precio": "~$206.200 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/81t8T7J4pUL._AC_SX425_PIbundle-2,TopRight,0,0_SH20_.jpg",
+    "link": "https://www.amazon.com/dp/B0G51J8KDH?tag=benatechs00-20"
+  },
+  {
+    "fecha": "2026-09-27T14:04:12.969015-05:00",
+    "categoria": "tecnologia",
+    "titulo": "Cámara de tablero 3 canales 1080P con grabación bucle y tarjeta 32 GB",
+    "precio": "~$141.000 COP",
+    "descuento_pct": null,
+    "cupon": null,
+    "imagen": "https://m.media-amazon.com/images/I/71i-jjvDJLL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0DDPRLZ2F?tag=benatechs00-20"
   }
 ]
