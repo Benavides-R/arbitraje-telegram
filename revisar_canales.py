@@ -524,7 +524,20 @@ def _titulo_de_respaldo(texto_original):
             candidatas.append(limpia)
     if not candidatas:
         return None
-    return max(candidatas, key=len)[:80].strip()
+    return _truncar_en_palabra(max(candidatas, key=len), 80)
+
+
+def _truncar_en_palabra(texto, maximo):
+    """Recorta a lo sumo a `maximo` caracteres, pero nunca a mitad de una
+    palabra -- retrocede hasta el último espacio completo antes del
+    límite, para que el título siempre termine en una palabra coherente."""
+    if len(texto) <= maximo:
+        return texto.strip()
+    recorte = texto[:maximo]
+    ultimo_espacio = recorte.rfind(" ")
+    if ultimo_espacio > 20:  # evita dejar un título absurdamente corto
+        recorte = recorte[:ultimo_espacio]
+    return recorte.strip()
 
 
 CATEGORIAS_HASHTAGS = {
