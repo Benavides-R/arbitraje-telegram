@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0CFFFSFFN",
+      "product": "UGREEN - Cable HDMI 8K 2.1",
+      "rating": null,
+      "reviews": null,
+      "price": 34600,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0CFFFSFFN?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0CFFFSFFN",
+      "imageUrl": "https://m.media-amazon.com/images/I/71zjZ-AM8ZL._AC_SX679_.jpg",
+      "category": "Ofertas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1790946069.0434864
+  }
+]
