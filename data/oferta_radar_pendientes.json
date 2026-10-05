@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0BZXVFJNT",
+      "product": "Tenis Under Armour Charged Surge 4 para hombre",
+      "rating": null,
+      "reviews": null,
+      "price": 152800,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0BZXVFJNT?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0BZXVFJNT",
+      "imageUrl": "https://m.media-amazon.com/images/I/51W8GBSclSL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1791223326.838133
+  }
+]
