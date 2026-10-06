@@ -169,7 +169,16 @@ def generar_link_afiliado(link, dominio):
     return link
 
 
-def _llamar_groq(prompt, reintentos=3):
+# Si Groq responde 429 (rate limit) se apaga POR EL RESTO de la corrida:
+# esperar y reintentar solo enfría la cola sin cambiar el resultado, porque
+# el límite casi siempre es diario/minuto y nos deja igual de bloqueados.
+_GROQ_BLOQUEADO = False
+
+
+def _llamar_groq(prompt):
+    global _GROQ_BLOQUEADO
+    if _GROQ_BLOQUEADO:
+        return None  # ya nos tumbaron una vez: sin llamada, sin espera, sin reintentos
     try:
         response = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",
@@ -181,15 +190,12 @@ def _llamar_groq(prompt, reintentos=3):
             },
             timeout=30,
         )
-        if response.status_code == 429 and reintentos > 0:
-            # Límite de peticiones de Groq -- si la espera que pide es larga
-            # (típico de un límite diario, no por minuto), no vale la pena
-            # bloquear toda la corrida por eso: esperamos máximo 15s y si
-            # sigue sin dejar, se cae al fallback (Anthropic o texto plano).
-            espera = min(max(int(response.headers.get("retry-after", 12)), 12), 15)
-            print(f"[INFO] Groq con rate limit, esperando {espera}s antes de reintentar")
-            time.sleep(espera)
-            return _llamar_groq(prompt, reintentos=reintentos - 1)
+        if response.status_code == 429:
+            _GROQ_BLOQUEADO = True
+            print("[INFO] Groq devolvió 429 (rate limit) -- se desactiva Groq "
+                  "por el resto de esta corrida y seguimos con respaldo local")
+            registrar_fallo("Groq")
+            return None
         response.raise_for_status()
         return response.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
@@ -444,9 +450,15 @@ def extraer_calificacion(texto_original):
 
 
 def _extraer_titulo(texto_original):
-    """Le pide a la IA SOLO el nombre corto del producto (más liviano y
-    rápido que pedir una descripción completa, y menos propenso al límite
-    de peticiones de Groq)."""
+    """Saca el nombre del producto SIN IA siempre que se pueda: los canales
+    ya lo traen ordenado, así que la línea del producto (o la que sigue al
+    precio) se usa directo. La IA queda SOLO de respaldo cuando el mensaje
+    no trae ninguna de esas dos señales -- eso elimina casi todas las
+    llamadas, la espera entre llamadas y los 429 de Groq."""
+    canal = _titulo_del_canal(texto_original)
+    if canal:
+        return canal
+
     prompt = (
         "Extrae ÚNICAMENTE el nombre real del producto de este mensaje de "
         "oferta de Telegram, en español, máximo 14 palabras. "
@@ -467,9 +479,10 @@ def _extraer_titulo(texto_original):
         f"Mensaje original:\n{texto_original}"
     )
     resultado = None
-    if GROQ_API_KEY:
+    if GROQ_API_KEY and not _GROQ_BLOQUEADO:
         resultado = _llamar_groq(prompt)
-        time.sleep(2)  # respiro entre llamadas para no pegarle al límite por minuto
+        if not _GROQ_BLOQUEADO:
+            time.sleep(2)  # respiro entre llamadas para no pegarle al límite por minuto
     if not resultado and ANTHROPIC_API_KEY:
         resultado = _llamar_anthropic(prompt)
     if resultado:
@@ -504,7 +517,9 @@ def _extraer_titulo(texto_original):
 # con precios y porcentajes ("60% Off 11.98 Elegible para ENVÍO GRATIS").
 _RE_TITULO_BASURA = re.compile(
     r"oferta\s*rel[aá]mpago|oferta\s*imperdible|env[ií]o\s*gratis|"
-    r"m[aá]s\s*vendido|oferta\s*flash|precio\s*m[ií]nimo\s*hist[oó]rico|"
+    r"env[ií]o\s+incluido|env[ií]o\s+de\s+\d|impuestos\s+incluidos|"
+    r"requiere\s+prime|regalad|m[aá]s\s*vendido|oferta\s*flash|"
+    r"precio\s*m[ií]nimo\s*hist[oó]rico|"
     r"elegible\s*para|\d+\s*%\s*off|off\s*\d|^\s*\d+\s*%",
     re.IGNORECASE,
 )
@@ -514,26 +529,110 @@ def _es_titulo_basura(texto):
     return bool(_RE_TITULO_BASURA.search(texto.strip()))
 
 
+# Líneas que son campos o llamados del canal (cupón, precio, "ir a", link
+# de compra, avisos...), NUNCA el nombre del producto. Se comprueban sobre
+# la línea EN BRUTO (con sus emojis), porque al quitar los emojis frases
+# como "⚠️ La oferta puede expirar..." quedarían sin su marca visible.
+_RE_LINEA_ETIQUETA = re.compile(
+    r"^(?:\W)*"
+    r"(?:cup[oó]n|c[oó]digo|code|calificaci[oó]n|precio|aportes|ir\s+a|"
+    r"compra(?:r)?(?:\s+aqu[ií])?|ver\s+oferta|enlace|agregar\s+cup[oó]n|"
+    r"la\s+oferta\s+puede|oferta\s+puede\s+expirar|unete|únete)\b",
+    re.IGNORECASE,
+)
+
+
+def _es_linea_etiqueta(texto):
+    return bool(_RE_LINEA_ETIQUETA.match(texto.strip()))
+
+
+def _limpiar_candidata(texto_bruto):
+    """Normaliza una línea candidata a título. Devuelve None si no sirve
+    (etiqueta/campo del canal, código de cupón suelto, muy corta o texto
+    promocional)."""
+    if _es_linea_etiqueta(texto_bruto):
+        return None
+    limpia = re.sub(r"https?://\S+", "", texto_bruto).strip()
+    limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()'\u2019+/–—-]", "", limpia).strip()
+    limpia = re.sub(r"\s+", " ", limpia)
+    limpia = re.sub(r"^\s*(?:producto|oferta)\s*:?\s*", "", limpia, flags=re.IGNORECASE).strip()
+    if len(limpia) < 8 or _es_titulo_basura(limpia):
+        return None
+    # Palabra única TODO EN MAYÚSCULAS = código/canal ("BANCOLMARTES"),
+    # no el nombre de un producto -- un nombre real tiene espacios o
+    # mayúsculas y minúsculas mezcladas.
+    if " " not in limpia and limpia.isupper():
+        return None
+    # Los canales traen títulos algo largos (p.ej. televisores): se respeta
+    # casi todo (160) y solo se corta en palabra para no dejar el final a
+    # media palabra.
+    return _truncar_en_palabra(limpia, 160)
+
+
+def _titulo_del_canal(texto_original):
+    """Título sin IA: los canales ya traen el producto ordenado.
+    1) Línea '📦 Producto: ...' (ElPromoHunter, Clubgratis).
+    2) La línea de texto real que sigue a la del precio (ReviuDescuentos:
+       'Por sólo ✅$14.99' -> nombre del producto).
+    Devuelve None si ninguna de las dos señales existe, para que recién
+    ahí se use la IA como respaldo."""
+    lineas = [l.strip() for l in texto_original.splitlines()]
+
+    for linea in lineas:
+        match = re.match(r"^(?:📦\s*)?producto\s*:\s*(.+)$", linea, re.IGNORECASE)
+        if match:
+            candidata = _limpiar_candidata(match.group(1))
+            if candidata:
+                return candidata
+
+    for i, linea in enumerate(lineas):
+        if not _es_linea_precio(linea):
+            continue
+        # Se miran las 5 líneas siguientes por si entre el precio y el
+        # nombre se coló una línea de badge/cupón/link (se salta, no corta).
+        for siguiente in lineas[i + 1:i + 6]:
+            if not siguiente or siguiente.startswith("#"):
+                continue
+            candidata = _limpiar_candidata(siguiente)
+            if candidata:
+                return candidata
+
+    return None
+
+
+def _es_linea_precio(texto):
+    """Línea que en los canales encabeza/baja el precio: '$27.00', '💰179',
+    'precio incluye envío', 'Precio: $324.971 COP', 'Por sólo ✅$14.99'."""
+    return bool(re.search(
+        r"💰|precio\s*:|\$\s*[\d.,]+|✅\s*\$|por\s+s[oó]lo",
+        texto, re.IGNORECASE,
+    ))
+
+
 def _titulo_de_respaldo(texto_original):
-    """Título sin IA: de todas las líneas con texto real del mensaje
-    (saltándose banners/badges, links y hashtags), se elige la MÁS LARGA
-    -- el nombre del producto casi siempre es la frase más descriptiva del
-    mensaje, no necesariamente la primera línea (muchos canales ponen
-    badges de descuento/envío antes del nombre real)."""
+    """Título sin IA y sin señal de canal: de todas las líneas con texto real
+    del mensaje se elige la MÁS LARGA, pero ignorando las líneas que son
+    campos/llamados del canal (Cupón, Código, Calificación, Precio, Aportes,
+    "Ir a", Compra, avisos ⚠️...) -- antes esas líneas competían por ser las
+    más largas y a veces se colaban como si fueran el producto."""
     candidatas = []
     for linea in texto_original.splitlines():
         bruta = linea.strip()
         if not bruta or bruta.startswith("#"):
             continue  # línea de puros hashtags, no es el título
+        if _es_linea_etiqueta(bruta):
+            continue  # campo del canal (cupón/precio/compra/aviso), no el producto
         limpia = re.sub(r"https?://\S+", "", bruta).strip()
-        limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()–-]", "", limpia).strip()
+        limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()'\u2019+/–—-]", "", limpia).strip()
         limpia = re.sub(r"^\s*amazon\.?\s*", "", limpia, flags=re.IGNORECASE).strip()
-        limpia = re.sub(r"^\s*producto\s*:?\s*", "", limpia, flags=re.IGNORECASE).strip()
-        if len(limpia) >= 8 and not _es_titulo_basura(limpia):
+        limpia = re.sub(r"^\s*(?:producto|oferta)\s*:?\s*", "", limpia, flags=re.IGNORECASE).strip()
+        if len(limpia) >= 8 and not _es_titulo_basura(limpia) and not _es_linea_etiqueta(limpia):
+            if " " not in limpia and limpia.isupper():
+                continue  # palabra única en mayúsculas = código, no producto
             candidatas.append(limpia)
     if not candidatas:
         return None
-    return _truncar_en_palabra(max(candidatas, key=len), 80)
+    return _truncar_en_palabra(max(candidatas, key=len), 160)
 
 
 def _truncar_en_palabra(texto, maximo):
