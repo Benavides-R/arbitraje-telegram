@@ -223,41 +223,41 @@ def _llamar_anthropic(prompt):
 
 def extraer_cupon(texto_original):
     """
-    Busca TODOS los cupones/códigos de descuento del mensaje original
-    (CUPÓN:, CÓDIGO:, CODE:) y devuelve una lista (sin repetidos, máx. 3).
-    Sirve para ofertas con dos cupones, ej. "CUPÓN: 4S5E3EJP" más
-    "CÓDIGO: BANCOLMARTES". Filtra los casos donde el canal dice
-    explícitamente que no hace falta cupón, y también frases descriptivas
-    que no son un código real (ej. "cupón seleccionable en la página").
+    Busca TODOS los cupones/códigos de descuento del mensaje original y
+    devuelve una lista (sin repetidos, máx. 4). Soporta:
+      - Líneas separadas: "CUPÓN: 4S5E3EJP" y "CÓDIGO: BANCOLMARTES"
+      - Varios en la misma línea separados por + , / o " y ":
+        "Cupón: Seleccionable 29% + BANCOLMARTES + TSOJTTYU"
+    Cada parte se valida: un código real es un token sin espacios
+    (letras/números/guiones) y también se acepta el cupón seleccionable con
+    porcentaje ("Seleccionable 29%"). Frases descriptivas sin porcentaje
+    (ej. "cupón seleccionable en la página") y los "no necesita" se descartan.
     Si no hay ninguno válido, devuelve una lista vacía.
     """
     negativos = {"no necesita", "ninguno", "no aplica", "sin cupon", "no requiere", "no aplica ninguno"}
     codigos = []
     vistos = set()
-    for match in re.finditer(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]{2,25})", texto_original, re.IGNORECASE):
-        candidato = match.group(1).strip()
-        candidato = re.sub(r"[^\w\s-]", "", candidato).strip()  # quita emojis/puntuación
+    for match in re.finditer(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]+)", texto_original, re.IGNORECASE):
+        for parte in re.split(r"\s*(?:\+|,|/|\by\b)\s*", match.group(1)):
+            candidato = re.sub(r"[^\w\s%-]", "", parte).strip()  # quita emojis/puntuación
 
-        if not candidato or candidato.lower() in negativos:
-            continue
+            if not candidato or candidato.lower() in negativos:
+                continue
 
-        # Un código real no tiene espacios (es un token tipo "2TQYIBPW" o
-        # "AHORRA10") -- si trae espacios, es una frase descriptiva del canal
-        # origen ("cupón seleccionable", "aplica en el carrito", etc.), no un
-        # código utilizable, así que se descarta.
-        if " " in candidato:
-            continue
+            es_codigo = bool(re.match(r"^[A-Za-z0-9-]{3,20}$", candidato))
+            es_seleccionable = bool(re.match(r"^seleccionable\s+\d{1,2}\s*%$", candidato, re.IGNORECASE))
+            if not (es_codigo or es_seleccionable):
+                continue  # frase descriptiva, no un cupón utilizable
 
-        # Debe verse como un código: solo letras/números/guiones, largo razonable.
-        if not re.match(r"^[A-Za-z0-9-]{3,20}$", candidato):
-            continue
+            if es_seleccionable:
+                candidato = "Seleccionable " + re.sub(r"\D", "", candidato) + "%"
 
-        if candidato.upper() in vistos:
-            continue
-        vistos.add(candidato.upper())
-        codigos.append(candidato)
-        if len(codigos) >= 3:
-            break
+            if candidato.upper() in vistos:
+                continue
+            vistos.add(candidato.upper())
+            codigos.append(candidato)
+            if len(codigos) >= 4:
+                return codigos
 
     return codigos
 
@@ -661,7 +661,13 @@ def reescribir_texto(texto_original, link):
         lineas.append(" | ".join(badges))
     # Uno o varios cupones: cada código va en su propio <code> (se copia por
     # separado al tocarlo), unidos por " + " en la misma línea.
-    lineas.append(f"🏷️ Cupón: {' + '.join('<code>' + html.escape(c) + '</code>' for c in cupon) if cupon else '¡No necesita!'}")
+    # Los códigos van en <code> (se copian con un toque); "Seleccionable 29%"
+    # va como texto normal porque no se copia, se activa en la página.
+    _partes_cupon = [
+        ("<code>" + html.escape(c) + "</code>") if re.match(r"^[A-Za-z0-9-]{3,20}$", c) else html.escape(c)
+        for c in cupon
+    ]
+    lineas.append(f"🏷️ Cupón: {' + '.join(_partes_cupon) if cupon else '¡No necesita!'}")
     lineas.append(f"⚡ Ver oferta: {link}")
 
     # Si el canal original menciona Prime, anexamos la invitación a la

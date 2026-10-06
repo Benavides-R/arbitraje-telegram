@@ -102,9 +102,12 @@ def _extraer_datos_de_texto(texto_nuevo):
 
     m = _RE_CUPON_LINEA.search(texto_nuevo)
     if m:
-        codigos = [html.unescape(c).strip() for c in _RE_CODIGOS_EN_LINEA.findall(m.group(0))]
-        if codigos:
-            datos["coupon"] = " + ".join(codigos)[:80]  # varios cupones juntos
+        # Toma el texto completo de la línea (códigos + "Seleccionable 29%"),
+        # sin las etiquetas <code>, para que lleguen todos juntos a la página.
+        resto = re.sub(r"🏷️?\s*Cupón:", "", m.group(0))
+        resto = html.unescape(re.sub(r"</?code>", "", resto)).strip()
+        if resto and "no necesita" not in resto.lower():
+            datos["coupon"] = resto[:80]
     # si no hay <code>...</code>, coupon se queda en None (-> null en el JSON)
 
     m = _RE_LINK.search(texto_nuevo)
