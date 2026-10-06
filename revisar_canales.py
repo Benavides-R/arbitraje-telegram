@@ -223,34 +223,43 @@ def _llamar_anthropic(prompt):
 
 def extraer_cupon(texto_original):
     """
-    Busca un cupón/código de descuento en el mensaje original con patrones
-    comunes (CODE:, Cupón:, Código:). Filtra los casos donde el canal dice
+    Busca TODOS los cupones/códigos de descuento del mensaje original
+    (CUPÓN:, CÓDIGO:, CODE:) y devuelve una lista (sin repetidos, máx. 3).
+    Sirve para ofertas con dos cupones, ej. "CUPÓN: 4S5E3EJP" más
+    "CÓDIGO: BANCOLMARTES". Filtra los casos donde el canal dice
     explícitamente que no hace falta cupón, y también frases descriptivas
     que no son un código real (ej. "cupón seleccionable en la página").
+    Si no hay ninguno válido, devuelve una lista vacía.
     """
-    match = re.search(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]{2,25})", texto_original, re.IGNORECASE)
-    if not match:
-        return None
-
-    candidato = match.group(1).strip()
-    candidato = re.sub(r"[^\w\s-]", "", candidato).strip()  # quita emojis/puntuación
-
     negativos = {"no necesita", "ninguno", "no aplica", "sin cupon", "no requiere", "no aplica ninguno"}
-    if not candidato or candidato.lower() in negativos:
-        return None
+    codigos = []
+    vistos = set()
+    for match in re.finditer(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]{2,25})", texto_original, re.IGNORECASE):
+        candidato = match.group(1).strip()
+        candidato = re.sub(r"[^\w\s-]", "", candidato).strip()  # quita emojis/puntuación
 
-    # Un código real no tiene espacios (es un token tipo "2TQYIBPW" o
-    # "AHORRA10") -- si trae espacios, es una frase descriptiva del canal
-    # origen ("cupón seleccionable", "aplica en el carrito", etc.), no un
-    # código utilizable, así que se descarta.
-    if " " in candidato:
-        return None
+        if not candidato or candidato.lower() in negativos:
+            continue
 
-    # Debe verse como un código: solo letras/números/guiones, largo razonable.
-    if not re.match(r"^[A-Za-z0-9-]{3,20}$", candidato):
-        return None
+        # Un código real no tiene espacios (es un token tipo "2TQYIBPW" o
+        # "AHORRA10") -- si trae espacios, es una frase descriptiva del canal
+        # origen ("cupón seleccionable", "aplica en el carrito", etc.), no un
+        # código utilizable, así que se descarta.
+        if " " in candidato:
+            continue
 
-    return candidato
+        # Debe verse como un código: solo letras/números/guiones, largo razonable.
+        if not re.match(r"^[A-Za-z0-9-]{3,20}$", candidato):
+            continue
+
+        if candidato.upper() in vistos:
+            continue
+        vistos.add(candidato.upper())
+        codigos.append(candidato)
+        if len(codigos) >= 3:
+            break
+
+    return codigos
 
 
 def extraer_precio(texto_original, link):
@@ -650,7 +659,9 @@ def reescribir_texto(texto_original, link):
         lineas.append(f"💸 Precio: {html.escape(precio)}")
     if badges:
         lineas.append(" | ".join(badges))
-    lineas.append(f"🏷️ Cupón: {'<code>' + html.escape(cupon) + '</code>' if cupon else '¡No necesita!'}")
+    # Uno o varios cupones: cada código va en su propio <code> (se copia por
+    # separado al tocarlo), unidos por " + " en la misma línea.
+    lineas.append(f"🏷️ Cupón: {' + '.join('<code>' + html.escape(c) + '</code>' for c in cupon) if cupon else '¡No necesita!'}")
     lineas.append(f"⚡ Ver oferta: {link}")
 
     # Si el canal original menciona Prime, anexamos la invitación a la

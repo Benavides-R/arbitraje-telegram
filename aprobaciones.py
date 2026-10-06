@@ -371,7 +371,9 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
             elif texto_lower.startswith(("cupon:", "cupón:", "codigo:", "código:")):
                 nuevo_valor = texto_respuesta.split(":", 1)[-1].strip()
                 patron = r"🏷️ Cupón: .*"
-                reemplazo = f"🏷️ Cupón: <code>{nuevo_valor}</code>" if nuevo_valor.lower() not in {"no", "ninguno", "no necesita"} else "🏷️ Cupón: ¡No necesita!"
+                # Acepta uno o varios cupones separados por "+" o ",".
+                _codigos = [c.strip() for c in re.split(r"[+,]", nuevo_valor) if c.strip()]
+                reemplazo = ("🏷️ Cupón: " + " + ".join(f"<code>{c}</code>" for c in _codigos)) if _codigos and nuevo_valor.lower() not in {"no", "ninguno", "no necesita"} else "🏷️ Cupón: ¡No necesita!"
                 etiqueta = "Cupón"
             elif texto_lower.startswith(("link:", "url:", "enlace:")):
                 nuevo_valor = texto_respuesta.split(":", 1)[-1].strip()

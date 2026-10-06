@@ -31,7 +31,8 @@ MAX_INTENTOS = 5  # después de esto, se deja de reintentar (probablemente el da
 _RE_PRODUCTO = re.compile(r"📦\s*<b>Producto:</b>\s*(.+)")
 _RE_CALIFICACION = re.compile(r"⭐️?\s*Calificación:\s*([\d.,]+)\s*\(([\d.,]+)\)")
 _RE_PRECIO = re.compile(r"💸\s*Precio:\s*([^\n🔻(]+)")
-_RE_CUPON_CON_CODIGO = re.compile(r"🏷️?\s*Cupón:\s*<code>(.+?)</code>")
+_RE_CUPON_LINEA = re.compile(r"🏷️?\s*Cupón:[^\n]*")
+_RE_CODIGOS_EN_LINEA = re.compile(r"<code>(.+?)</code>")
 _RE_LINK = re.compile(r"⚡\s*Ver oferta:\s*(\S+)")
 _RE_HASHTAGS = re.compile(r"#ad\s+(.+)")
 _RE_ASIN_EN_LINK = re.compile(r"/dp/([A-Za-z0-9]{10})", re.IGNORECASE)
@@ -99,9 +100,11 @@ def _extraer_datos_de_texto(texto_nuevo):
     if m:
         datos["price"], datos["currency"] = _parsear_precio(html.unescape(m.group(1)))
 
-    m = _RE_CUPON_CON_CODIGO.search(texto_nuevo)
+    m = _RE_CUPON_LINEA.search(texto_nuevo)
     if m:
-        datos["coupon"] = html.unescape(m.group(1)).strip()[:80]
+        codigos = [html.unescape(c).strip() for c in _RE_CODIGOS_EN_LINEA.findall(m.group(0))]
+        if codigos:
+            datos["coupon"] = " + ".join(codigos)[:80]  # varios cupones juntos
     # si no hay <code>...</code>, coupon se queda en None (-> null en el JSON)
 
     m = _RE_LINK.search(texto_nuevo)
