@@ -280,10 +280,12 @@ def extraer_precio(texto_original, link):
          lo contrario, como en el caso de arriba).
     """
     # Si el canal menciona el total CON envío (ej. "Total + envío: $1.331.267
-    # COP"), se prefiere ese sobre el precio base -- si no, se le mostraría
-    # a la gente un precio que no incluye lo que realmente van a pagar.
+    # COP" o "Total + importación: $879.066 COP"), se prefiere ese sobre el
+    # precio base -- si no, se le mostraría a la gente un precio que no
+    # incluye lo que realmente van a pagar. OJO: nunca se SUMA nada aquí,
+    # el total ya viene sumado del canal (sumar de nuevo sería doble conteo).
     match_envio = re.search(
-        r"(?:total\s*\+?\s*env[ií]o|env[ií]o\s*incluido|total\s*con\s*env[ií]o)\s*:?\s*"
+        r"(?:total\s*\+?\s*(?:env[ií]o|importaci[oó]n)|env[ií]o\s*incluido|total\s*con\s*env[ií]o)\s*:?\s*"
         r"([\$💰]\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?)",
         texto_original, re.IGNORECASE,
     )
