@@ -967,7 +967,9 @@ def procesar_mensaje(oferta_id, texto):
         print(f"[SKIP] {oferta_id}: sin {faltante}, no cumple el mínimo, se descarta")
         return
 
-    url_imagen = extraer_imagen_producto(link_con_afiliado)
+    # La imagen se pide con el link LIMPIO (sin tag de afiliado): ninguna
+    # petición automática del script debe contar como clic nuestro.
+    url_imagen = extraer_imagen_producto(link_limpio)
 
     titulo_normalizado = _sin_tildes(titulo.lower())
     oferta_requiere_casillero = requiere_casillero(texto)
