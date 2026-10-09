@@ -52,6 +52,30 @@ def _guardar_offset(offset):
     OFFSET_FILE.write_text(str(offset))
 
 
+def _quitar_tag_de_url(url):
+    """Saca el parámetro 'tag' de la query de UNA url, sin tocar ni
+    re-codificar el resto de parámetros (importante: nunca reescribir otros
+    parámetros, que en algunos links van firmados)."""
+    base, hash_, fragmento = url.partition("#")
+    ruta, sep, query = base.partition("?")
+    if not sep:
+        return url
+    querystring = [p for p in query.split("&") if not p.lower().startswith("tag=")]
+    limpio = ruta + ("?" + "&".join(querystring) if querystring else "")
+    if hash_:
+        limpio += "#" + fragmento
+    return limpio
+
+
+def quitar_tag_afiliado(texto):
+    """Quita el parámetro 'tag' (el tag de afiliado de Amazon) de los links
+    SOLO para mostrarlos en el mensaje de revisión: así, cuando tú abres el
+    link para revisar la oferta, ese clic NO se cuenta como venta/referido en
+    el reporte de afiliado. El texto que se guarda y se publica al aprobar
+    conserva su tag intacto (esa sí es la venta legítima)."""
+    return re.sub(r"https?://\S+", lambda m: _quitar_tag_de_url(m.group(0)), texto)
+
+
 def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None):
     """Manda la oferta candidata al chat del admin, con botones para decidir.
     Guarda el message_id del envío, para poder detectar después si le
@@ -78,10 +102,16 @@ def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None):
     encabezado = "🕵️ <b>Oferta pendiente de revisión</b>\n\n"
     imagen_bytes = preparar_imagen_con_logo(url_imagen) if url_imagen else None
 
+    # En el mensaje que ves tú, los links van SIN el tag de afiliado (tus
+    # clics de revisión no engañan el reporte de ventas). En `pendientes` se
+    # guardó el `texto` original CON tag: al aprobar se publica ese, así que
+    # la venta real sí queda atribuida.
+    texto_visible = quitar_tag_afiliado(texto)
+
     if imagen_bytes:
-        cuerpo_texto = encabezado + texto + pie
+        cuerpo_texto = encabezado + texto_visible + pie
     else:
-        cuerpo_texto = (encabezado + texto + "\n\n📸 <i>Sin imagen -- puedes responder a "
+        cuerpo_texto = (encabezado + texto_visible + "\n\n📸 <i>Sin imagen -- puedes responder a "
                          "este mensaje con una foto tuya para usarla en su lugar.</i>" + pie)
 
     # Telegram limita el "caption" de una foto a 1024 caracteres -- los links
