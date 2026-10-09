@@ -1076,6 +1076,14 @@ def main():
                         ofertas_de_este_canal += 1
                 ultimo_evaluado = msg.id
 
+            # IMPORTANTE: NO reescribir la copia `estado` cargada al inicio de
+            # `main()` -- durante esta corrida otras rutas ya actualizaron el
+            # archivo con datos nuevos (p. ej. `_marcar_asin_publicado` guarda
+            # los ASIN publicados, y `_publicar` suma pendientes para el canal
+            # gratis). Guardar la copia vieja tal cual PISABA esos cambios y
+            # dejaba sin efecto el bloqueo de duplicados por ASIN. Se refresca
+            # el archivo y solo se fusiona la clave de este canal.
+            estado = cargar_estado()
             estado[canal] = ultimo_evaluado
             guardar_estado(estado)
 
