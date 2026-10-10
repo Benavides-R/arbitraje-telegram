@@ -36,6 +36,12 @@ _RE_CODIGOS_EN_LINEA = re.compile(r"<code>(.+?)</code>")
 _RE_LINK = re.compile(r"⚡\s*Ver oferta:\s*(\S+)")
 _RE_HASHTAGS = re.compile(r"#ad\s+(.+)")
 _RE_ASIN_EN_LINK = re.compile(r"/dp/([A-Za-z0-9]{10})", re.IGNORECASE)
+# Insignias de envío -- mismas que arma extraer_badges() en
+# revisar_canales.py (tolerantes a mayúsculas y tildes).
+_RE_SHIPPING_PRIME = re.compile(r"env[ií]o\s*gratis\s*con\s*prime", re.IGNORECASE)
+_RE_SHIPPING_ELEGIBLE = re.compile(r"elegible\s+para\s+env[ií]o\s*gratis", re.IGNORECASE)
+_RE_SHIPPING_GRATIS = re.compile(r"env[ií]o\s*gratis", re.IGNORECASE)
+_RE_SHIPPING_CASILLERO = re.compile(r"requiere\s+casillero", re.IGNORECASE)
 
 
 def _parsear_precio(precio_texto):
@@ -78,7 +84,7 @@ def _extraer_datos_de_texto(texto_nuevo):
         "product": None, "rating": None, "reviews": None,
         "price": None, "currency": None, "coupon": None,
         "affiliateUrl": None, "amazonUrl": None, "externalId": None,
-        "category": None,
+        "category": None, "shipping": None, "isPrime": False,
     }
 
     m = _RE_PRODUCTO.search(texto_nuevo)
@@ -126,6 +132,20 @@ def _extraer_datos_de_texto(texto_nuevo):
     if m:
         primer_tag = m.group(1).strip().split()[0]
         datos["category"] = primer_tag.lstrip("#")[:50]
+
+    # Insignia de envío. El orden importa: "Envío Gratis Con PRIME" y
+    # "Elegible para envío GRATIS" también contienen "Envío Gratis", así
+    # que hay que probar los específicos antes que el genérico. Si no hay
+    # ninguna insignia, se queda en None (no se inventa envío).
+    if _RE_SHIPPING_PRIME.search(texto_nuevo):
+        datos["shipping"] = "prime"
+    elif _RE_SHIPPING_ELEGIBLE.search(texto_nuevo):
+        datos["shipping"] = "elegible"
+    elif _RE_SHIPPING_GRATIS.search(texto_nuevo):
+        datos["shipping"] = "gratis"
+    elif _RE_SHIPPING_CASILLERO.search(texto_nuevo):
+        datos["shipping"] = "casillero"
+    datos["isPrime"] = datos["shipping"] == "prime"
 
     return datos
 
@@ -249,6 +269,8 @@ def enviar_a_oferta_radar(texto_nuevo, url_imagen):
         "imageUrl": url_imagen,
         "category": datos["category"] or "Ofertas",
         "coupon": datos["coupon"],
+        "shipping": datos["shipping"],
+        "isPrime": datos["isPrime"],
         "source": "github",
         "approved": True,
     }
