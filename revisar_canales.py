@@ -44,6 +44,10 @@ from config import (
 from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
 from publicar_facebook import publicar_facebook
 from oferta_radar import enviar_a_oferta_radar, reintentar_pendientes
+from badges import (
+    BADGE_ENVIO_CASILLERO, BADGE_ENVIO_PRIME, BADGE_ENVIO_ELEGIBLE,
+    BADGE_ENVIO_GRATIS, BADGE_RELAMPAGO,
+)
 from supabase_storage import subir_a_supabase
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
@@ -398,7 +402,7 @@ def extraer_badges(texto_original):
     texto_normalizado = _sin_tildes(texto_original.lower())
 
     if re.search(r"\bcasillero(s)?\b", texto_normalizado):
-        badges.append("📦 Requiere Casillero USA")
+        badges.append(BADGE_ENVIO_CASILLERO)
     elif re.search(r"envio\s*gratis|free\s*shipping|envio\s*gratuito", texto_normalizado):
         # "con Prime" solo si Prime aparece pegado a la mención de envío
         # gratis -- si "Prime" aparece en otra parte del texto por otro
@@ -411,14 +415,14 @@ def extraer_badges(texto_original):
             texto_normalizado,
         )
         if con_prime:
-            badges.append("🅿️ ¡Envío Gratis Con PRIME!")
+            badges.append(BADGE_ENVIO_PRIME)
         elif elegible:
-            badges.append("🚚 ¡Elegible para envío GRATIS!")
+            badges.append(BADGE_ENVIO_ELEGIBLE)
         else:
-            badges.append("🚚 ¡Envío GRATIS!")
+            badges.append(BADGE_ENVIO_GRATIS)
 
     if re.search(r"oferta\s*rel[aá]mpago|lightning\s*deal", texto_normalizado):
-        badges.append("⚡️¡Oferta Relámpago!")
+        badges.append(BADGE_RELAMPAGO)
 
     return badges
 

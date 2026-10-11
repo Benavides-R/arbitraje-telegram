@@ -21,10 +21,13 @@ import requests
 from pathlib import Path
 
 from config import OFERTA_RADAR_API_KEY, OFERTA_RADAR_URL
+from badges import detectar_envio
 
 TIMEOUT_SEGUNDOS = 20
 COLA_FILE = Path(__file__).parent / "data" / "oferta_radar_pendientes.json"
 MAX_INTENTOS = 5  # después de esto, se deja de reintentar (probablemente el dato está mal, no es un problema pasajero)
+COLA_MAX_ITEMS = 50  # tope de la cola de reintentos: si Oferta Radar cae varios días, no crece sin límite
+COLA_MAX_DIAS = 7  # a los N días una oferta ya no vale la pena reintentar
 
 # Mismo formato que arma reescribir_texto() en revisar_canales.py -- si ese
 # formato cambia algún día, estos patrones hay que actualizarlos junto con él.
@@ -36,12 +39,6 @@ _RE_CODIGOS_EN_LINEA = re.compile(r"<code>(.+?)</code>")
 _RE_LINK = re.compile(r"⚡\s*Ver oferta:\s*(\S+)")
 _RE_HASHTAGS = re.compile(r"#ad\s+(.+)")
 _RE_ASIN_EN_LINK = re.compile(r"/dp/([A-Za-z0-9]{10})", re.IGNORECASE)
-# Insignias de envío -- mismas que arma extraer_badges() en
-# revisar_canales.py (tolerantes a mayúsculas y tildes).
-_RE_SHIPPING_PRIME = re.compile(r"env[ií]o\s*gratis\s*con\s*prime", re.IGNORECASE)
-_RE_SHIPPING_ELEGIBLE = re.compile(r"elegible\s+para\s+env[ií]o\s*gratis", re.IGNORECASE)
-_RE_SHIPPING_GRATIS = re.compile(r"env[ií]o\s*gratis", re.IGNORECASE)
-_RE_SHIPPING_CASILLERO = re.compile(r"requiere\s+casillero", re.IGNORECASE)
 
 
 def _parsear_precio(precio_texto):
@@ -75,6 +72,17 @@ def _parsear_precio(precio_texto):
     return numero, moneda
 
 
+def _truncar_titulo(titulo, limite=160):
+    """Corta en el límite de la API sin dejar palabras a medias (antes
+    era un [:limite-3] que podía cortar en medio de una palabra)."""
+    if len(titulo) <= limite:
+        return titulo
+    corte = titulo[:limite - 3].rstrip()
+    con_espacio = corte.rsplit(" ", 1)[0].rstrip()
+    # si el título es una sola palabra enorme, no hay espacio donde cortar
+    return (con_espacio or corte) + "..."
+
+
 def _extraer_datos_de_texto(texto_nuevo):
     """Lee de vuelta los campos estructurados del mensaje final ya
     aprobado (el mismo que se publicó en Telegram/Facebook) -- así se
@@ -92,7 +100,7 @@ def _extraer_datos_de_texto(texto_nuevo):
         titulo_completo = html.unescape(m.group(1)).strip()
         # Oferta Radar tiene un límite de 160 caracteres para el título --
         # si se pasa, la API respondía con error 500 y la oferta se perdía.
-        datos["product"] = titulo_completo if len(titulo_completo) <= 160 else titulo_completo[:157].rstrip() + "..."
+        datos["product"] = _truncar_titulo(titulo_completo)
 
     m = _RE_CALIFICACION.search(texto_nuevo)
     if m:
@@ -133,18 +141,10 @@ def _extraer_datos_de_texto(texto_nuevo):
         primer_tag = m.group(1).strip().split()[0]
         datos["category"] = primer_tag.lstrip("#")[:50]
 
-    # Insignia de envío. El orden importa: "Envío Gratis Con PRIME" y
-    # "Elegible para envío GRATIS" también contienen "Envío Gratis", así
-    # que hay que probar los específicos antes que el genérico. Si no hay
-    # ninguna insignia, se queda en None (no se inventa envío).
-    if _RE_SHIPPING_PRIME.search(texto_nuevo):
-        datos["shipping"] = "prime"
-    elif _RE_SHIPPING_ELEGIBLE.search(texto_nuevo):
-        datos["shipping"] = "elegible"
-    elif _RE_SHIPPING_GRATIS.search(texto_nuevo):
-        datos["shipping"] = "gratis"
-    elif _RE_SHIPPING_CASILLERO.search(texto_nuevo):
-        datos["shipping"] = "casillero"
+    # Insignia de envío: detectar_envio() viene de badges.py, la misma
+    # fuente que escribe la insignia en el mensaje -- si no hay ninguna,
+    # queda en None (no se inventa envío).
+    datos["shipping"] = detectar_envio(texto_nuevo)
     datos["isPrime"] = datos["shipping"] == "prime"
 
     return datos
@@ -159,9 +159,31 @@ def _cargar_cola():
     return []
 
 
+def _recortar_cola(cola):
+    """Descarta lo que ya no conviene reintentar: lo que pasó de
+    COLA_MAX_DIAS y, si aún queda demasiado, lo más viejo -- así una
+    caída larga de Oferta Radar no hace crecer la cola sin límite
+    (cada corrida reintentaría todas, una por una)."""
+    ahora = time.time()
+    vigentes = []
+    descartadas = 0
+    for item in cola:
+        if ahora - item.get("guardado", ahora) > COLA_MAX_DIAS * 86400:
+            descartadas += 1
+        else:
+            vigentes.append(item)
+    if len(vigentes) > COLA_MAX_ITEMS:
+        vigentes.sort(key=lambda i: i.get("guardado", 0), reverse=True)  # más nuevas primero
+        descartadas += len(vigentes) - COLA_MAX_ITEMS
+        vigentes = vigentes[:COLA_MAX_ITEMS]
+    if descartadas:
+        print(f"[Oferta Radar] Cola recortada: {descartadas} oferta(s) descartadas (viejas o cola llena)")
+    return vigentes
+
+
 def _guardar_cola(cola):
     COLA_FILE.parent.mkdir(parents=True, exist_ok=True)
-    COLA_FILE.write_text(json.dumps(cola, indent=2, ensure_ascii=False))
+    COLA_FILE.write_text(json.dumps(_recortar_cola(cola), indent=2, ensure_ascii=False))
 
 
 def _enviar_payload(payload):
@@ -220,6 +242,12 @@ def reintentar_pendientes():
     if not OFERTA_RADAR_API_KEY or not OFERTA_RADAR_URL:
         return
     cola = _cargar_cola()
+    if not cola:
+        return
+    recortada = _recortar_cola(cola)
+    if len(recortada) != len(cola):
+        _guardar_cola(recortada)  # limpia el archivo aunque hoy no se reintente nada
+    cola = recortada
     if not cola:
         return
 
