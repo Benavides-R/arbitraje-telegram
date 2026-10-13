@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0C3B51KDJ",
+      "product": "Cargador de coche JOYROOM súper rápido de 175 W",
+      "rating": null,
+      "reviews": null,
+      "price": 41600,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0C3B51KDJ?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0C3B51KDJ",
+      "imageUrl": "https://m.media-amazon.com/images/I/71VP+wSUMjL._AC_SX522_.jpg",
+      "category": "Ofertas",
+      "coupon": "JOYROOM007",
+      "shipping": "elegible",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1791918049.513332
+  }
+]
