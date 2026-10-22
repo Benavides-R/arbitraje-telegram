@@ -1,13 +1,14 @@
 {
   "conteo_por_canal": {
-    "Clubgratis": 8,
-    "ReviuDescuentos": 20,
-    "ElPromoHunter": 23,
+    "Clubgratis": 9,
+    "ReviuDescuentos": 21,
+    "ElPromoHunter": 27,
     "Manual": 1
   },
   "ultimo_reporte": "2026-10-18",
   "imagenes_origen": {
-    "fallo": 21,
-    "navegador": 4
+    "fallo": 46,
+    "navegador": 5,
+    "html": 2
   }
 }

@@ -1,0 +1,50 @@
+[
+  {
+    "fecha": "2026-10-22T12:01:07-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Quican Reloj inteligente para rastreo de actividad para hombres y mujeres.",
+    "precio": "~$72.300 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": false
+  },
+  {
+    "fecha": "2026-10-22T12:02:19-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "MARTCOLOR Juego de herramientas para el hogar de 58 piezas, kit de mano rojo con estuche de almacenamiento.",
+    "precio": "~$59.700 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T12:03:45-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Billetera de cuero con clip, capacidad para 10-12 tarjetas y bloqueo RFID",
+    "precio": "~$15.700 COP",
+    "categoria": "#Amazon #Billetera",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T12:04:52-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Columbia para hombre Transverse Hike Impermeable",
+    "precio": "~$181.700 COP",
+    "categoria": "#calzado #senderismo",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T12:05:59-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "GameSir Nova Lite 2 Controlador Inalámbrico para PC con Sticks de Efecto Hall",
+    "precio": "~$86.200 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T12:07:22-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "GIGABYTE GeForce RTX 5060 WINDFORCE OC 8G, tarjeta gráfica con 8 GB GDDR7 y refrigeración.",
+    "precio": "~$1.823.600 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  }
+]
