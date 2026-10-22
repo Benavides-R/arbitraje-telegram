@@ -230,6 +230,10 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
         return
 
     pendientes = _cargar_pendientes()
+    # Línea base de claves al INICIO de la corrida -- sirve para identificar
+    # más abajo qué claves son NUEVAS (creadas en disco por esta misma
+    # corrida) sin revivir las que ya se aprobaron/descartaron en ella.
+    pendientes_base = set(pendientes)
     max_update_id = offset - 1
     hubo_cambios_pendientes = False
 
@@ -301,10 +305,15 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
             except Exception as e:
                 print(f"[WARN] No se pudo procesar la URL manual: {e}")
             # manual_func (vía enviar_para_revision) ya guardó la oferta nueva
-            # en disco por su cuenta -- se refresca esta copia en memoria para
-            # que el guardado final de esta función no la sobreescriba con
-            # una versión vieja que todavía no la tiene.
-            pendientes = _cargar_pendientes()
+            # en disco por su cuenta -- se trae SOLO esa clave nueva a esta
+            # copia en memoria. Antes se recargaba el archivo entero aquí, y
+            # eso restauraba las ofertas aprobadas/descartadas EN ESTA MISMA
+            # corrida (se habían quitado arriba pero todavía no se habían
+            # guardado): una aprobada volvía a la cola y su botón viejo
+            # volvía a poder publicarla (duplicado).
+            for oid_nuevo, datos_nuevos in _cargar_pendientes().items():
+                if oid_nuevo not in pendientes_base:
+                    pendientes[oid_nuevo] = datos_nuevos
             continue
 
         if msg and "photo" in msg and "reply_to_message" in msg:
