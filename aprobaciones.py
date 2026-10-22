@@ -31,13 +31,16 @@ OFFSET_FILE = Path(__file__).parent / "data" / "ultimo_update_id.txt"
 
 def _cargar_pendientes():
     if PENDIENTES_FILE.exists():
-        return json.loads(PENDIENTES_FILE.read_text())
+        # encoding explícito: sin él, Windows leería con cp1252 y truena con
+        # los emojis (💸 📸) del texto; en Actions (Linux) daba igual, pero
+        # así es robusto en cualquier plataforma.
+        return json.loads(PENDIENTES_FILE.read_text(encoding="utf-8"))
     return {}
 
 
 def _guardar_pendientes(pendientes):
     PENDIENTES_FILE.parent.mkdir(parents=True, exist_ok=True)
-    PENDIENTES_FILE.write_text(json.dumps(pendientes, indent=2, ensure_ascii=False))
+    PENDIENTES_FILE.write_text(json.dumps(pendientes, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def _cargar_offset():
@@ -326,6 +329,7 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                 _avisar_no_encontrada()
                 continue
 
+            guardada = False
             try:
                 file_id = msg["photo"][-1]["file_id"]  # la de mayor resolución
                 imagen_original = _descargar_archivo_telegram(file_id)
@@ -343,12 +347,31 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                         imagen_original
                     ).decode()
                     hubo_cambios_pendientes = True
+                    # (A) Persistir la foto YA, no al final de la corrida --
+                    # entre este punto y el guardado final pasaban 5-20 min
+                    # de memoria volátil: si la corrida moría ahí (crash,
+                    # timeout), la foto se perdía y la oferta salía sin ella.
+                    _guardar_pendientes(pendientes)
+                    guardada = True
                     requests.post(f"{API}/sendMessage", data={
                         "chat_id": ADMIN_CHAT_ID,
                         "text": "📸 Imagen actualizada para esa oferta. Toca Publicar cuando quieras.",
                     }, timeout=15)
             except Exception as e:
                 print(f"[WARN] No se pudo procesar la foto manual: {e}")
+            if not guardada:
+                # (B) Antes esto fallaba en silencio (solo un WARN en los logs
+                # de Actions) y el admin aprobaba creyendo que su foto quedó
+                # guardada -- terminaba en publicación SIN imagen. Ahora avisa
+                # en el chat para que la reenvíe ANTES de tocar Publicar.
+                try:
+                    requests.post(f"{API}/sendMessage", data={
+                        "chat_id": ADMIN_CHAT_ID,
+                        "text": ("⚠️ No pude guardar tu foto de esa oferta -- vuelve a responder "
+                                 "al mensaje de revisión con tu foto y espera el 📸 antes de publicar."),
+                    }, timeout=15)
+                except Exception:
+                    pass
             continue
 
         # Caso 3: respondiste con una PALABRA (alternativa a los botones, por
