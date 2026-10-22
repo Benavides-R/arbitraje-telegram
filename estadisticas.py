@@ -73,7 +73,8 @@ def _registrar_aprobacion_detalle(canal, texto, con_imagen):
 
 def registrar_imagen_origen(origen):
     """Conteo de dónde terminó saliendo la foto del producto:
-    "html" (requests simple), "navegador" (Playwright) o "fallo" -- para
+    "html" (requests simple), "navegador" (Playwright), "captcha" (Amazon
+    respondió con su desafío de robot -- bloqueo por IP) o "fallo" -- para
     monitorear la variación diaria de la extracción (históricamente iba
     de 0% a 94% según el día)."""
     datos = _cargar()

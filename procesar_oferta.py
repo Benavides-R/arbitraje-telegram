@@ -19,8 +19,9 @@ from estadisticas import registrar_imagen_origen
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-    )
+        "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "es-US,es;q=0.9,en;q=0.8",
 }
 
 
@@ -139,35 +140,55 @@ def _imagen_desde_galeria_amazon(html_texto):
     return mejor_url
 
 
+def _es_captcha_amazon(texto_html):
+    """True cuando la respuesta de Amazon es su desafío "no eres un robot"
+    en vez de la página del producto (bloqueo por IP -- típico desde las
+    IPs de GitHub Actions). Sirve para contarlo aparte en las estadísticas:
+    si domina "captcha", el problema es la IP y ningún truco de navegador
+    lo arregla; si domina "fallo", sí vale la pena seguir afinando."""
+    bajo = texto_html.lower()
+    return any(m in bajo for m in (
+        "validatecaptcha", "cvf_captcha", "api-services-support@amazon",
+        "type the characters you see", "not a robot", "no es un robot",
+    ))
+
+
 def _extraer_por_html(url_tienda):
     """Intento A→C sobre el HTML que el servidor devuelve tal cual (sin
     navegador): og:image, JSON-LD y galería de Amazon. Rápido y es lo que
-    más funciona cuando Amazon no bloquea la IP."""
+    más funciona cuando Amazon no bloquea la IP. Devuelve (imagen, captcha):
+    captcha=True cuando respondieron con el desafío de robot."""
     try:
         resp = requests.get(url_tienda, headers=HEADERS, timeout=15)
         texto_html = resp.text
 
+        if _es_captcha_amazon(texto_html):
+            print(f"[CAPTCHA] Amazon devolvió el desafío de robot ({url_tienda})")
+            return None, True
+
         match = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', texto_html)
         if match and _es_imagen_valida(match.group(1)):
-            return match.group(1)
+            return match.group(1), False
 
         candidato = _imagen_desde_json_ld(texto_html)
         if candidato:
-            return candidato
+            return candidato, False
 
         candidato = _imagen_desde_galeria_amazon(texto_html)
         if candidato:
-            return candidato
+            return candidato, False
     except Exception as e:
         print(f"[WARN] Request simple para imagen falló ({url_tienda}): {e}")
-    return None
+    return None, False
 
 
 def _extraer_por_navegador(url_tienda):
     """Intento D con navegador headless (último recurso). Devuelve
-    (imagen, hubo_error): hubo_error=True cuando la excepción vino de la
-    infraestructura del navegador (chromium no arrancó, timeout, ...),
-    que es el único caso donde reintentarlo merece la pena."""
+    (imagen, hubo_error, captcha): hubo_error=True cuando la excepción vino
+    de la infraestructura del navegador (chromium no arrancó, timeout, ...),
+    que es el único caso donde reintentarlo merece la pena; captcha=True
+    cuando Amazon mostró su desafío de robot (bloqueo por IP -- reintentar
+    no sirve, hay que cambiar de IP o usar la API oficial)."""
     try:
         from playwright.sync_api import sync_playwright
 
@@ -176,13 +197,33 @@ def _extraer_por_navegador(url_tienda):
                 headless=True,
                 args=["--disable-blink-features=AutomationControlled"],
             )
+            # UA alineado a la versión REAL de chromium instalado: si el UA
+            # dice otra versión que los client-hints (sec-ch-ua), Amazon lo
+            # toma como señal de automatización de una sola mirada.
+            version_mayor = (browser.version or "").split(".")[0] or "140"
+            ua_navegador = (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                f"(KHTML, like Gecko) Chrome/{version_mayor}.0.0.0 Safari/537.36"
+            )
             page = browser.new_page(
-                extra_http_headers=HEADERS,
+                user_agent=ua_navegador,
+                extra_http_headers={**HEADERS, "User-Agent": ua_navegador},
                 viewport={"width": 1366, "height": 900},
                 locale="es-US",
             )
+            # Sin esto, navigator.webdriver=true delata el navegador
+            # automatizado en las pruebas de bot de Amazon.
+            page.add_init_script(
+                "Object.defineProperty(navigator, 'webdriver', {get: () => undefined});"
+            )
             page.goto(url_tienda, timeout=30000, wait_until="load")
             page.wait_for_timeout(2500)
+
+            html_render = page.content()
+            if _es_captcha_amazon(html_render):
+                print(f"[CAPTCHA] El navegador recibió el desafío de robot ({url_tienda})")
+                browser.close()
+                return None, False, True
 
             contenido = None
             elemento = page.query_selector('meta[property="og:image"]')
@@ -194,7 +235,6 @@ def _extraer_por_navegador(url_tienda):
             if not contenido:
                 # Con la página ya renderizada por JS, reintenta B y C sobre
                 # el HTML final (a veces solo aparecen después de cargar).
-                html_render = page.content()
                 contenido = _imagen_desde_json_ld(html_render) or _imagen_desde_galeria_amazon(html_render)
 
             if not contenido:
@@ -207,10 +247,10 @@ def _extraer_por_navegador(url_tienda):
                             break
 
             browser.close()
-            return contenido, False
+            return contenido, False, False
     except Exception as e:
         print(f"[WARN] No se pudo extraer imagen con navegador ({url_tienda}): {e}")
-        return None, True
+        return None, True, False
 
 
 def extraer_imagen_producto(url_tienda):
@@ -232,34 +272,41 @@ def extraer_imagen_producto(url_tienda):
     0% a 94% según el día). El navegador solo se relanza si antes ERRO
     (infraestructura caída), no si simplemente no halló imagen.
 
-    Cada resultado queda registrado en estadísticas (html / navegador /
-    fallo) vía registrar_imagen_origen, para poder medir la tasa de éxito
-    día a día.
+    Cada resultado queda registrado en estadísticas: html / navegador /
+    captcha (Amazon devolvió el desafío "no eres un robot" -- bloqueo por
+    IP) / fallo, para poder medir la tasa de éxito día a día y saber si el
+    cuello de botella es la IP o el navegador.
     """
-    imagen = _extraer_por_html(url_tienda)
+    vio_captcha = False
+
+    imagen, captcha = _extraer_por_html(url_tienda)
     if imagen:
         _registrar_origen_seguro("html")
         return imagen
+    vio_captcha = vio_captcha or captcha
 
-    imagen, error_navegador = _extraer_por_navegador(url_tienda)
+    imagen, error_navegador, captcha = _extraer_por_navegador(url_tienda)
     if imagen:
         _registrar_origen_seguro("navegador")
         return imagen
+    vio_captcha = vio_captcha or captcha
 
     # Reintento del par completo tras una pausa corta.
     time.sleep(5)
-    imagen = _extraer_por_html(url_tienda)
+    imagen, captcha = _extraer_por_html(url_tienda)
     if imagen:
         _registrar_origen_seguro("html")
         return imagen
+    vio_captcha = vio_captcha or captcha
 
     if error_navegador:
-        imagen, _ = _extraer_por_navegador(url_tienda)
+        imagen, _, captcha = _extraer_por_navegador(url_tienda)
         if imagen:
             _registrar_origen_seguro("navegador")
             return imagen
+        vio_captcha = vio_captcha or captcha
 
-    _registrar_origen_seguro("fallo")
+    _registrar_origen_seguro("captcha" if vio_captcha else "fallo")
     return None
 
 

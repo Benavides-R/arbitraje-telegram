@@ -77,6 +77,12 @@ PALABRAS_AUTO_PERMITIDAS = [
     # --- expansión 1: accesorios personales y herramientas ---
     "mochila", "reloj", "gafas de sol", "guantes",
     "herramienta", "taladro", "bateria", "memoria",
+    # --- expansión 2: cubre ~55 ofertas foto+precio que estaban varadas ---
+    "portatil", "telefono", "bluetooth", "inalambrico", "recargable",
+    "karaoke", "juego", "pieza", "paquete", "acero", "sarten",
+    "cuchillo", "toalla", "edredon", "manta", "organizador",
+    "facial", "cabello", "cepillo", "serum",
+    "halloween", "navidad", "regalo", "invierno",
 ]
 
 # Buscador de ofertas directo de AliExpress (sin depender de canales de
