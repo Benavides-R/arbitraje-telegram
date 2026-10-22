@@ -46,5 +46,61 @@
     "precio": "~$1.823.600 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T14:00:52-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Invengo Fuente de agua para gatos de acero inoxidable 3.2L.",
+    "precio": "~$65.600 COP",
+    "categoria": "#mascotas",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T14:01:59-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Sartén de cerámica de 5 piezas, incluye sartenes antiadherentes de 20 cm, 23 cm y 28 cm.",
+    "precio": "~$185.600 COP",
+    "categoria": "#tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T14:03:10-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "XIAOMI Reloj Inteligente Redmi 5 Active",
+    "precio": "~$143.200 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T14:04:46-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Ratón inalámbrico recargable con clic silencioso y 6 botones",
+    "precio": "~$23.100 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T14:05:56-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Auriculares inalámbricos Bluetooth compatibles con iPhone y Samsung Galaxy.",
+    "precio": "~$28.200 COP",
+    "categoria": "#Celulares #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T14:07:10-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Microscopio digital portátil 1000X con pantalla IPS de 2 pulgadas",
+    "precio": "~$88.900 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T14:08:24-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Monitor AOC de 24 (61 cm) FHD 180Hz VA HDR Ready para juegos.",
+    "precio": "~$370.400 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
