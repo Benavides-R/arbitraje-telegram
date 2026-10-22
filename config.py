@@ -83,6 +83,10 @@ PALABRAS_AUTO_PERMITIDAS = [
     "cuchillo", "toalla", "edredon", "manta", "organizador",
     "facial", "cabello", "cepillo", "serum",
     "halloween", "navidad", "regalo", "invierno",
+    # --- expansión 3: marcas deportivas top (talla/calidad más predecible) ---
+    "nike", "adidas", "puma", "reebok", "balance", "garmin",
+    "columbia", "under armour", "saucony", "fila", "champion",
+    "jordan", "asics",
 ]
 
 # Buscador de ofertas directo de AliExpress (sin depender de canales de
