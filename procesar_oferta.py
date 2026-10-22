@@ -9,10 +9,12 @@ import re
 import io
 import json
 import html
+import time
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
 from config import DOMINIOS_TIENDA_FINAL, LOGO_PATH, REDES_SOCIALES_LINEAS
+from estadisticas import registrar_imagen_origen
 
 HEADERS = {
     "User-Agent": (
@@ -137,27 +139,10 @@ def _imagen_desde_galeria_amazon(html_texto):
     return mejor_url
 
 
-def extraer_imagen_producto(url_tienda):
-    """
-    Extrae la URL de la foto oficial del producto, probando varias fuentes
-    en orden (A→D), todas sacadas de la MISMA página del producto -- nunca
-    se busca una imagen en Google/Pexels/Pixabay ni en ningún sitio externo,
-    así que lo que se encuentra siempre pertenece de verdad a esa oferta,
-    o si no se encuentra nada confiable, se devuelve None (va a revisión
-    manual en vez de arriesgar una imagen que no corresponde):
-      A) meta og:image
-      B) JSON-LD (schema.org/Product)
-      C) galería embebida de Amazon (data-a-dynamic-image), la de mayor resolución
-      D) selectores HTML de la imagen principal (con navegador, último recurso)
-
-    Primero intenta con un request simple (rápido). Amazon en particular
-    suele bloquear ese request simple (lo detecta como bot) -- en ese caso
-    reintenta con navegador headless con más señales de "navegador real".
-    Nota: Amazon bloquea agresivamente los IPs de servidores en la nube
-    (incluido GitHub Actions), así que esto puede seguir fallando para
-    varios productos incluso con este intento -- es una limitación conocida
-    del scraping gratuito, no un bug puntual.
-    """
+def _extraer_por_html(url_tienda):
+    """Intento A→C sobre el HTML que el servidor devuelve tal cual (sin
+    navegador): og:image, JSON-LD y galería de Amazon. Rápido y es lo que
+    más funciona cuando Amazon no bloquea la IP."""
     try:
         resp = requests.get(url_tienda, headers=HEADERS, timeout=15)
         texto_html = resp.text
@@ -175,7 +160,14 @@ def extraer_imagen_producto(url_tienda):
             return candidato
     except Exception as e:
         print(f"[WARN] Request simple para imagen falló ({url_tienda}): {e}")
+    return None
 
+
+def _extraer_por_navegador(url_tienda):
+    """Intento D con navegador headless (último recurso). Devuelve
+    (imagen, hubo_error): hubo_error=True cuando la excepción vino de la
+    infraestructura del navegador (chromium no arrancó, timeout, ...),
+    que es el único caso donde reintentarlo merece la pena."""
     try:
         from playwright.sync_api import sync_playwright
 
@@ -215,10 +207,69 @@ def extraer_imagen_producto(url_tienda):
                             break
 
             browser.close()
-            return contenido
+            return contenido, False
     except Exception as e:
         print(f"[WARN] No se pudo extraer imagen con navegador ({url_tienda}): {e}")
-        return None
+        return None, True
+
+
+def extraer_imagen_producto(url_tienda):
+    """
+    Extrae la URL de la foto oficial del producto, probando varias fuentes
+    en orden (A→D), todas sacadas de la MISMA página del producto -- nunca
+    se busca una imagen en Google/Pexels/Pixabay ni en ningún sitio externo,
+    así que lo que se encuentra siempre pertenece de verdad a esa oferta,
+    o si no se encuentra nada confiable, se devuelve None (va a revisión
+    manual en vez de arriesgar una imagen que no corresponde):
+      A) meta og:image
+      B) JSON-LD (schema.org/Product)
+      C) galería embebida de Amazon (data-a-dynamic-image), la de mayor resolución
+      D) selectores HTML de la imagen principal (con navegador, último recurso)
+
+    Si el primer par (HTML simple → navegador) falla, espera 5s y repite --
+    hay días donde GitHub Actions/Amazon bloquea el primer intento de forma
+    transitoria y el reintento sí pasa (la extracción histórica variaba de
+    0% a 94% según el día). El navegador solo se relanza si antes ERRO
+    (infraestructura caída), no si simplemente no halló imagen.
+
+    Cada resultado queda registrado en estadísticas (html / navegador /
+    fallo) vía registrar_imagen_origen, para poder medir la tasa de éxito
+    día a día.
+    """
+    imagen = _extraer_por_html(url_tienda)
+    if imagen:
+        _registrar_origen_seguro("html")
+        return imagen
+
+    imagen, error_navegador = _extraer_por_navegador(url_tienda)
+    if imagen:
+        _registrar_origen_seguro("navegador")
+        return imagen
+
+    # Reintento del par completo tras una pausa corta.
+    time.sleep(5)
+    imagen = _extraer_por_html(url_tienda)
+    if imagen:
+        _registrar_origen_seguro("html")
+        return imagen
+
+    if error_navegador:
+        imagen, _ = _extraer_por_navegador(url_tienda)
+        if imagen:
+            _registrar_origen_seguro("navegador")
+            return imagen
+
+    _registrar_origen_seguro("fallo")
+    return None
+
+
+def _registrar_origen_seguro(origen):
+    """La métrica de extracción NUNCA debe tumbar la oferta -- si el
+    archivo de estadísticas falla, se ignora silenciosamente."""
+    try:
+        registrar_imagen_origen(origen)
+    except Exception:
+        pass
 
 
 

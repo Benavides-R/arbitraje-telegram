@@ -264,7 +264,11 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                         imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
                     publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
                                    texto_original=oferta.get("texto_original"))
-                    registrar_publicacion(oferta_id.split(":", 1)[0])
+                    registrar_publicacion(
+                        oferta_id.split(":", 1)[0],
+                        texto=oferta["texto"],
+                        con_imagen=bool(oferta.get("url_imagen") or oferta.get("imagen_base64")),
+                    )
                     time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
                 except Exception as e:
                     # Si UNA oferta falla al publicar, no se debe perder el
@@ -371,7 +375,11 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                             imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
                         publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
                                        texto_original=oferta.get("texto_original"))
-                        registrar_publicacion(oferta_id_encontrada.split(":", 1)[0])
+                        registrar_publicacion(
+                            oferta_id_encontrada.split(":", 1)[0],
+                            texto=oferta["texto"],
+                            con_imagen=bool(oferta.get("url_imagen") or oferta.get("imagen_base64")),
+                        )
                         time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
                     except Exception as e:
                         print(f"[ERROR] Falló publicar {oferta_id_encontrada}, se sigue con las demás: {e}")

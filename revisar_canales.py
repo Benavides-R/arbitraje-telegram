@@ -36,6 +36,7 @@ from telethon.sessions import StringSession
 from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
+    TIENDAS_IGNORADAS,
     PALABRAS_AUTO_PERMITIDAS, PRECIO_MAXIMO_AUTO_COP, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
     CUOTA_POR_CANAL, HORAS_BLOQUEO_DUPLICADO,
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
@@ -663,13 +664,18 @@ CATEGORIAS_HASHTAGS = {
               ["#Audio", "#Tecnologia"]),
     "gaming": (["gamer", "gaming", "consola", "playstation", "ps5", "ps4", "xbox",
                 "nintendo", "switch", "control de mando", "mando de juego", "joystick",
-                "teclado gamer", "silla gamer", "videojuego", "videojuegos"],
+                "teclado gamer", "silla gamer", "videojuego", "videojuegos",
+                "grand theft auto", "gta"],
                ["#Gaming", "#Videojuegos"]),
     "computo": (["laptop", "portatil", "computador", "computadora", "pc", "monitor",
                  "teclado", "mouse", "raton", "ram", "memoria ram", "ssd", "disco duro",
                  "disco externo", "tarjeta grafica", "procesador", "tablet", "ipad",
                  "webcam", "router", "hub usb", "cargador laptop"],
                 ["#Tecnologia", "#PCGamer"]),
+    "celulares": (["celular", "iphone", "samsung galaxy", "galaxy",
+                   "funda celular", "funda para celular", "mica", "carcasa",
+                   "cargador celular", "carga inalambrica", "power bank"],
+                  ["#Celulares", "#Tecnologia"]),
     "seguridad": (["camara", "camaras", "camara de seguridad", "camara espia",
                    "videovigilancia", "seguridad", "alarma", "cerradura",
                    "cerradura inteligente", "sensor", "timbre inteligente",
@@ -683,8 +689,11 @@ CATEGORIAS_HASHTAGS = {
                  "plancha de cabello", "cuidado personal", "cepillo electrico"],
                 ["#Belleza", "#CuidadoPersonal"]),
     "fitness": (["proteina", "gimnasio", "fitness", "banda elastica", "mancuerna",
-                 "ejercicio", "cuerda para saltar", "esterilla", "yoga"],
-                ["#Fitness", "#Salud"]),
+                "ejercicio", "cuerda para saltar", "esterilla", "yoga"],
+               ["#Fitness", "#Salud"]),
+    "deportes": (["futbol", "futbol americano", "balon", "baloncesto", "basket",
+                  "basquetbol", "raqueta", "badminton", "bicicleta", "ciclismo"],
+                 ["#Deportes", "#Deporte"]),
     "calzado": (["zapato", "zapatos", "zapatilla", "zapatillas", "tenis", "tennis",
                  "sneaker", "sneakers", "calzado deportivo", "botas"],
                 ["#Zapatillas", "#Moda"]),
@@ -705,7 +714,10 @@ CATEGORIAS_HASHTAGS = {
                       "kit de herramientas", "inflador", "inflador de aire", "compresor",
                       "compresor de aire", "soldador", "multimetro", "pistola de calor"],
                       ["#Herramientas", "#Hogar"]),
-    "automotriz": (["carro", "auto", "vehiculo", "accesorio carro", "cargador auto",
+    # OJO: "auto" NO va suelto en la lista -- matcheaba dentro de marcas como
+    # "Grand Theft Auto" y mandaba controles de juego a #Carros. Solo frases
+    # con contexto ("cargador auto", "accesorio carro", ...).
+    "automotriz": (["carro", "vehiculo", "accesorio carro", "cargador auto",
                     "gps vehicular", "camara de reversa", "limpiaparabrisas",
                     "compresor de aire para carro"],
                     ["#Automotriz", "#Carros"]),
@@ -722,8 +734,8 @@ def generar_hashtags(titulo, texto_original):
     matchea por error dentro de "comando"). Si el texto tiene palabras
     clave de varias categorías, se queda con la que tuvo más coincidencias
     -- no con la primera que aparezca en el diccionario -- para elegir la
-    más relevante. Si no matchea ninguna categoría, usa unos genéricos
-    para no dejar el post sin hashtags.
+    más relevante. Si no matchea ninguna categoría, se reusan los hashtags
+    del mensaje original (máximo 2); si ese tampoco trae, genéricos.
     """
     base = _sin_tildes(f"{titulo or ''} {texto_original}".lower())
 
@@ -735,7 +747,26 @@ def generar_hashtags(titulo, texto_original):
             mejor_cantidad = cantidad
             mejor_hashtags = hashtags
 
-    return mejor_hashtags or ["#Ofertas", "#Descuentos"]
+    if mejor_hashtags:
+        return mejor_hashtags
+
+    # Sin categoría propia: se reusan los hashtags que trajo el mensaje
+    # original del canal (ej. "#deportes", "#Amazon") en vez de caer
+    # siempre en los genéricos. Se ignoran "#ad" y duplicados, máximo 2.
+    originales = re.findall(r"#(\w+)", texto_original or "")
+    elegidos, vistos = [], set()
+    for tag in originales:
+        clave = tag.lower()
+        if clave == "ad" or clave in vistos:
+            continue
+        vistos.add(clave)
+        elegidos.append(f"#{tag}")
+        if len(elegidos) == 2:
+            break
+    if elegidos:
+        return elegidos
+
+    return ["#Ofertas", "#Descuentos"]
 
 
 def reescribir_texto(texto_original, link):
@@ -909,7 +940,16 @@ def publicar_pendientes_gratis():
     guardar_estado(estado)
 
 
-def procesar_mensaje(oferta_id, texto):
+def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
+    """FASE 1: todos los filtros y la extracción (link, afiliado, texto,
+    imagen) SIN decidir todavía nada. Devuelve el pedido preparado (dict)
+    para que finalizar_oferta() ejecute la decisión después -- así el
+    escaneo puede juntar TODAS las ofertas de la corrida y mandar a
+    revisión primero las que traen foto.
+
+    asins_en_vuelo (opcional): conjunto de ASINs ya preparados EN ESTA
+    corrida, para no procesar dos veces el mismo producto aunque aparezca
+    en dos mensajes antes de que el primero se publique."""
     links_en_mensaje = extraer_links(texto)
     if not links_en_mensaje:
         return
@@ -932,6 +972,10 @@ def procesar_mensaje(oferta_id, texto):
         print("[SKIP] No se pudo resolver un link de tienda válido")
         return
 
+    if dominio in TIENDAS_IGNORADAS:
+        print(f"[SKIP] {oferta_id}: tienda {dominio} está en TIENDAS_IGNORADAS, se descarta sin gastar tiempo")
+        return
+
     link_limpio = limpiar_link_tienda(link_final, dominio)
     if not link_limpio:
         print(f"[SKIP] Link de {dominio} inválido o roto, se descarta")
@@ -949,6 +993,9 @@ def procesar_mensaje(oferta_id, texto):
         m_asin = re.search(r"/dp/([A-Z0-9]{10})", link_limpio)
         if m_asin:
             asin = m_asin.group(1)
+            if asins_en_vuelo is not None and asin in asins_en_vuelo:
+                print(f"[SKIP] {oferta_id}: producto {asin} ya preparado en esta corrida, se descarta")
+                return None
             ultimos = cargar_estado().get("ultimos_publicados_asin", {})
             visto_en = ultimos.get(asin)
             if visto_en and (time.time() - visto_en) < HORAS_BLOQUEO_DUPLICADO * 3600:
@@ -975,21 +1022,50 @@ def procesar_mensaje(oferta_id, texto):
     # petición automática del script debe contar como clic nuestro.
     url_imagen = extraer_imagen_producto(link_limpio)
 
-    titulo_normalizado = _sin_tildes(titulo.lower())
-    oferta_requiere_casillero = requiere_casillero(texto)
+    if asins_en_vuelo is not None and asin:
+        asins_en_vuelo.add(asin)
+
+    return {
+        "oferta_id": oferta_id,
+        "texto": texto,               # texto original del canal
+        "texto_nuevo": texto_nuevo,   # mensaje armado listo para publicar
+        "url_imagen": url_imagen,
+        "dominio": dominio,
+        "asin": asin,
+        "titulo_normalizado": _sin_tildes(titulo.lower()),
+        "requiere_casillero": requiere_casillero(texto),
+        "precio_dentro_del_tope": _precio_dentro_del_tope(precio),
+    }
+
+
+def _precio_dentro_del_tope(precio):
     precio_numero = re.sub(r"[^\d]", "", precio.split(",")[0]) if precio else ""
-    precio_dentro_del_tope = precio_numero.isdigit() and int(precio_numero) <= PRECIO_MAXIMO_AUTO_COP
+    return precio_numero.isdigit() and int(precio_numero) <= PRECIO_MAXIMO_AUTO_COP
+
+
+def finalizar_oferta(prep):
+    """FASE 2: decide y ejecuta lo que preparó preparar_oferta() --
+    se publica sola, se manda a revisión, o se publica directo. Corre
+    DESPUÉS de tener todas las ofertas de la corrida, para poder mandar
+    a revisión primero las que traen foto."""
+    oferta_id = prep["oferta_id"]
+    texto = prep["texto"]
+    texto_nuevo = prep["texto_nuevo"]
+    url_imagen = prep["url_imagen"]
+    dominio = prep["dominio"]
+    asin = prep["asin"]
+
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
-            and not oferta_requiere_casillero and precio_dentro_del_tope \
-            and any(palabra in titulo_normalizado for palabra in PALABRAS_AUTO_PERMITIDAS):
-        # Título y precio ya están garantizados en este punto (si faltaba
-        # alguno, se descartó arriba) -- con imagen también presente, la
+            and not prep["requiere_casillero"] and prep["precio_dentro_del_tope"] \
+            and any(palabra in prep["titulo_normalizado"] for palabra in PALABRAS_AUTO_PERMITIDAS):
+        # Título y precio ya están garantizados en la fase 1 (si faltaba
+        # alguno, se descartó ahí) -- con imagen también presente, la
         # oferta está completa y se publica sola, sin pasar por revisión.
         print(f"[OFERTA] {dominio} -> completa (imagen+título+precio), publicando automático ({oferta_id})")
         _marcar_asin_publicado(asin)
         publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
     elif MODO_REVISION:
-        motivo = "requiere casillero" if oferta_requiere_casillero \
+        motivo = "requiere casillero" if prep["requiere_casillero"] \
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL else "sin imagen"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
         _marcar_asin_publicado(asin)
@@ -999,6 +1075,16 @@ def procesar_mensaje(oferta_id, texto):
         _marcar_asin_publicado(asin)
         publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
     return True  # sí contó como oferta procesada, para el tope por corrida
+
+
+def procesar_mensaje(oferta_id, texto):
+    """Prepara y finaliza en UN solo paso. La ruta manual (URL que manda
+    el admin al bot) sigue usando esta; el escaneo de canales usa las dos
+    fases por separado para poder ordenar la cola por foto."""
+    prep = preparar_oferta(oferta_id, texto)
+    if not prep:
+        return None
+    return finalizar_oferta(prep)
 
 
 def main():
@@ -1030,8 +1116,12 @@ def main():
     # 2. Revisa canales por mensajes nuevos, respetando el tope por corrida
     # Cada canal tiene su propia cuota (CUOTA_POR_CANAL) -- los que más
     # rinden reciben más cupo, en vez de repartir parejo entre todos.
+    # Solo se PREPARA durante el escaneo; la decisión/publicación corre
+    # después (fase 2, más abajo) para poder ordenar la cola por foto.
     estado = cargar_estado()
     ofertas_procesadas = 0
+    preparadas = []
+    asins_en_vuelo = set()
 
     with TelegramClient(
         StringSession(SESSION), API_ID, API_HASH,
@@ -1077,7 +1167,9 @@ def main():
                     continue
                 if msg.raw_text:
                     oferta_id = f"{canal}:{msg.id}"
-                    if procesar_mensaje(oferta_id, msg.raw_text):
+                    prep = preparar_oferta(oferta_id, msg.raw_text, asins_en_vuelo)
+                    if prep:
+                        preparadas.append(prep)
                         ofertas_procesadas += 1
                         ofertas_de_este_canal += 1
                 ultimo_evaluado = msg.id
@@ -1092,6 +1184,21 @@ def main():
             estado = cargar_estado()
             estado[canal] = ultimo_evaluado
             guardar_estado(estado)
+
+    # 2.5 FASE 2: se ejecutan las decisiones en orden -- PRIMERO las que
+    # traen foto (es lo que más se revisa en el chat del admin), y al final
+    # las sin foto (que igual se mandan marcadas como tales). Si una falla,
+    # no tumba el resto de la corrida.
+    preparadas.sort(key=lambda p: p["url_imagen"] is None)
+    con_foto = sum(1 for p in preparadas if p["url_imagen"])
+    print(f"[INFO] Fase 2: {len(preparadas)} oferta(s) preparadas "
+          f"({con_foto} con foto, {len(preparadas) - con_foto} sin foto) -- "
+          f"primero las con foto")
+    for prep in preparadas:
+        try:
+            finalizar_oferta(prep)
+        except Exception as e:
+            print(f"[ERROR] Falló finalizar {prep['oferta_id']}, se sigue con las demás: {e}")
 
     # 3. Publica lo que ya cumplió el tiempo de espera para el canal gratis
     publicar_pendientes_gratis()

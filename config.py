@@ -37,6 +37,12 @@ AUTO_PUBLICAR_SI_COMPLETA = True
 # lo corrijas a mano antes de publicar (ej. sin afiliado activo todavía).
 TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
 
+# Ofertas que se DESCARTAN al instante: ni a revisión ni a auto-publicación
+# (se saltan apenas se detecta el dominio). Ahorra tiempo de revisión con
+# tiendas que hoy no publicas. Para reactivar una tienda más adelante,
+# simplemente quítala de esta lista -- sus entradas en TIENDAS siguen ahí.
+TIENDAS_IGNORADAS = ["temu.com", "aliexpress.com"]
+
 # Palabras que, si aparecen en el título, mandan la oferta a revisión manual
 # aunque venga "completa" (imagen+título+precio) -- ropa/calzado varía mucho
 # en talla/calidad, y todo lo relacionado a mujer se revisa aparte, mejor
@@ -47,14 +53,30 @@ TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
 # Tope de precio para auto-publicar (en COP) -- si una oferta de la
 # whitelist supera este monto, ya no se publica sola por más que el título
 # matchee una palabra permitida; se manda a revisión manual igual.
-PRECIO_MAXIMO_AUTO_COP = 199900
+PRECIO_MAXIMO_AUTO_COP = 400000
 
+# El banco de palabras se fue expandiendo a propósito (ensayo gradual):
+# mientras MÁS palabras hay aquí, MÁS ofertas completas se publican solas.
+# Agrega/quita palabras tú mismo para ir probando qué funciona -- nunca se
+# publica sola ni una oferta cuyo título no matchee ninguna de estas.
 PALABRAS_AUTO_PERMITIDAS = [
+    # --- banco original (tecnología/seguridad) ---
     "camara", "camara de seguridad", "seguridad", "alarma", "cerradura",
     "sensor", "timbre inteligente", "rastreador", "localizador", "gps",
     "tablet", "inflador", "compresor", "drone", "dron",
     "audifono", "auricular", "smartwatch", "reloj inteligente", "laptop",
     "monitor", "disco duro", "ssd", "router", "proyector", "impresora",
+    # --- expansión 1: audio/cámaras/gadgets de escritorio ---
+    "cable", "cargador", "cargador rapido", "power bank", "altavoz",
+    "soundbar", "teclado", "mouse", "webcam", "audifonos inalambricos",
+    "audifonos gamer", "diadema", "camara deportiva", "lupa",
+    "termometro", "balanza",
+    # --- expansión 1: gadgets "wow" de hogar ---
+    "ventilador", "purificador de aire", "bombillo", "lampara", "led",
+    "aspiradora", "freidora de aire", "foco",
+    # --- expansión 1: accesorios personales y herramientas ---
+    "mochila", "reloj", "gafas de sol", "guantes",
+    "herramienta", "taladro", "bateria", "memoria",
 ]
 
 # Buscador de ofertas directo de AliExpress (sin depender de canales de
@@ -151,7 +173,10 @@ MAX_OFERTAS_POR_CORRIDA = 31
 CUOTA_POR_CANAL = {
     "ElPromoHunter": 15,
     "ReviuDescuentos": 12,
-    "Clubgratis": 4,
+    # Clubgratis subió de 4 a 8: es el canal con mejor rendimiento por
+    # oferta (8 de las últimas 48 aprobaciones, con la menor cantidad de
+    # ofertas enviadas a revisión).
+    "Clubgratis": 8,
 }
 
 # Si el mismo producto de Amazon (mismo ASIN) ya se publicó hace menos de
