@@ -142,5 +142,45 @@
     "precio": "~$131.700 COP",
     "categoria": "#Zapatillas #Moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T18:01:09-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Cámara Instantánea Selfie para Niños 1080P Portátil",
+    "precio": "~$118.500 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T18:02:18-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Molinillo eléctrico de sal y pimienta",
+    "precio": "~$32.900 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T18:03:27-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Cloarks Cámara de seguridad panorámica 2K interior WiFi",
+    "precio": "~$148.100 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T18:04:36-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Android Tableta 11 pulgadas con teclado y accesorios",
+    "precio": "~$383.600 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T18:05:53-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "iTJQ Mini proyector 1080P portátil inteligente con WiFi",
+    "precio": "~$138.200 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
