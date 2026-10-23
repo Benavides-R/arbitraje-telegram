@@ -1,27 +1,6 @@
 [
   {
     "payload": {
-      "externalId": "B0D96N3K22",
-      "product": "Reebok Chaqueta de forro polar para mujer, abrigo con capucha y bolsillos.",
-      "rating": 4.5,
-      "reviews": 538,
-      "price": 78400,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0D96N3K22?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0D96N3K22",
-      "imageUrl": "https://m.media-amazon.com/images/I/61jFfPPYuzL._AC_SX679_.jpg",
-      "category": "Moda",
-      "coupon": null,
-      "shipping": "elegible",
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 3,
-    "guardado": 1792718314.0580304
-  },
-  {
-    "payload": {
       "externalId": "B0DT1J5SFW",
       "product": "Tenis de correr Under Armour Charged+ Assert 11 para hombre.",
       "rating": 4.6,
@@ -38,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1792724704.3316274
   }
 ]
