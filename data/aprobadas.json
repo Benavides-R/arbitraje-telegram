@@ -182,5 +182,37 @@
     "precio": "~$138.200 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T19:00:47-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Skechers Men&#x27;s Go Walk Glide Step 2.0 Vic Sneaker, calzado deportivo para hombre.",
+    "precio": "~$195.600 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T19:02:06-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Hanes EcoSmart Sudadera de forro polar",
+    "precio": "~$36.500 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T19:03:18-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Pignynt Proyector 4K Google TV portátil",
+    "precio": "~$230.400 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T19:04:28-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Trapeador de vapor 12 en 1 desmontable",
+    "precio": "~$171.800 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
