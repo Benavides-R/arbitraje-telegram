@@ -262,5 +262,13 @@
     "precio": "~$292.800 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-23T14:01:01-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Solati Recortadora de barba y cortadora de pelo inalámbrica",
+    "precio": "~$33.000 COP",
+    "categoria": "#Amazon #Prime",
+    "con_imagen": true
   }
 ]
