@@ -246,5 +246,13 @@
     "precio": "~$400.700 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-23T10:00:55-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Grand Theft Auto VI The Album (Amazon Exclusive)",
+    "precio": "~$165.100 COP",
+    "categoria": "#Gaming #Videojuegos",
+    "con_imagen": true
   }
 ]
