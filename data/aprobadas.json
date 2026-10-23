@@ -230,5 +230,21 @@
     "precio": "~$65.800 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-23T07:00:49-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Monitor Sceptre FHD LED de 27 (68.58 cm) con 75Hz, 2x HDMI, VGA y altavoces integrados.",
+    "precio": "~$409.300 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-23T07:01:59-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Escritorio pequeño Pamray de 47 (119 cm) con 5 cajones para estudio y escritura.",
+    "precio": "~$400.700 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
