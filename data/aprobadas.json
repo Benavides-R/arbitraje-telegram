@@ -214,5 +214,21 @@
     "precio": "~$171.800 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T20:08:40-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "shnn calcetines tobilleros mujer 15 pares",
+    "precio": "~$29.600 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-22T20:09:50-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Monitor de bebé con cámara, visión nocturna y alcance de 292 m",
+    "precio": "~$65.800 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
