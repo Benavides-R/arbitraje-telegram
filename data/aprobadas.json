@@ -254,5 +254,13 @@
     "precio": "~$165.100 COP",
     "categoria": "#Gaming #Videojuegos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-23T12:01:00-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "AMD Ryzen 5 5500 - Procesador de escritorio de 6 núcleos y 12 hilos con enfriador Wraith Stealth.",
+    "precio": "~$292.800 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
