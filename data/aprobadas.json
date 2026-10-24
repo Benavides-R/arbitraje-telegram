@@ -270,5 +270,37 @@
     "precio": "~$33.000 COP",
     "categoria": "#Amazon #Prime",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T11:00:53-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Nautica Tenis casuales con cordones para hombre, tenis clásicos de caña baja, Iker de chocolate",
+    "precio": "~$131.900 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T11:02:01-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Garmin vívoactive 5, reloj inteligente GPS de salud y fitness, pantalla AMOLED, color marfil",
+    "precio": "~$629.900 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T11:03:17-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "U.S. Polo Assn. Zapatillas de vestir semiformales casuales para hombre.",
+    "precio": "~$125.000 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T11:04:34-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Wentronic Y02 Wireless Active Noise Cancelling Headphones",
+    "precio": "~$113.900 COP",
+    "categoria": "#Amazon #Prime",
+    "con_imagen": true
   }
 ]
