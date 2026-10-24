@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0D96LZBYD",
+      "product": "New Balance Zapatillas de correr Fresh Foam 520 v9 para hombre",
+      "rating": null,
+      "reviews": null,
+      "price": 197900,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0D96LZBYD?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0D96LZBYD",
+      "imageUrl": "https://m.media-amazon.com/images/I/51aHmpDqMSL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1792814736.5947604
+  }
+]
