@@ -302,5 +302,13 @@
     "precio": "~$113.900 COP",
     "categoria": "#Amazon #Prime",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T14:01:02-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "U.S. Polo Assn tenis de vestir semiformales hombre",
+    "precio": "~$124.300 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
   }
 ]
