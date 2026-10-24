@@ -310,5 +310,21 @@
     "precio": "~$124.300 COP",
     "categoria": "#Zapatillas #Moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T17:01:23-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Limpiador ultrasónico de joyas de 50 kHz y 14,2 fl oz",
+    "precio": "~$115.400 COP",
+    "categoria": "#Amazon #OfertaPrime",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T17:02:44-05:00",
+    "canal": "Clubgratis",
+    "titulo": "KTC Monitor para juegos 27M1 de 27 pulgadas, 200Hz oc 210Hz Monitor 1440P Monitores IPS rápidos, 2K QHD con capó de blindaje, sincronización adaptativa, 130%",
+    "precio": "~$712.800 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
