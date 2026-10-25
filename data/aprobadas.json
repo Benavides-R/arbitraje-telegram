@@ -326,5 +326,21 @@
     "precio": "~$712.800 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T20:00:59-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "BOOJO 7 pantalones cortos deportivos para hombre",
+    "precio": "~$100.300 COP",
+    "categoria": "#Amazon #ModaHombre",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-24T20:02:07-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Regleta de protección contra sobretensiones de 10 pies con 8 tomas de CA y 6 puertos USB (2 USB C).",
+    "precio": "~$51.600 COP",
+    "categoria": "#salud",
+    "con_imagen": true
   }
 ]
