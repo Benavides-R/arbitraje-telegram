@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B08S45JQ7L",
+      "product": "Reebok calzoncillos tipo bóxer para hombre, paquete de 4 unidades.",
+      "rating": 4.7,
+      "reviews": 2441,
+      "price": 58900,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B08S45JQ7L?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B08S45JQ7L",
+      "imageUrl": "https://m.media-amazon.com/images/I/711v+OZiXHL._AC_SX679_.jpg",
+      "category": "moda",
+      "coupon": null,
+      "shipping": "elegible",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1792951437.1594815
+  }
+]
