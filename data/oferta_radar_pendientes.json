@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0FZW8FF4K",
+      "product": "Camiseta de manga larga Champion para hombre, ajuste estándar, logo Script C, disponible en tallas regulares y grandes.",
+      "rating": 4.6,
+      "reviews": 19314,
+      "price": 37700,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0FZW8FF4K?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0FZW8FF4K",
+      "imageUrl": "https://m.media-amazon.com/images/I/71TmRjazPxL._AC_SY879_.jpg",
+      "category": "Moda",
+      "coupon": null,
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1792962439.5238612
+  }
+]
