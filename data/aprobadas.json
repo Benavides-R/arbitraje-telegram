@@ -438,5 +438,13 @@
     "precio": "~$65.400 COP",
     "categoria": "#Seguridad #Tecnologia",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T17:26:10-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Nivea Loción Bomba esencialmente enriquecido 16,9 onza (muy seco Piel) (500ml)",
+    "precio": "~$15.800 COP",
+    "categoria": "#Belleza #LocionCorporal",
+    "con_imagen": true
   }
 ]

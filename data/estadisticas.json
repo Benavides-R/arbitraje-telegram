@@ -2,22 +2,22 @@
   "conteo_por_canal": {
     "ElPromoHunter": 7,
     "ReviuDescuentos": 4,
-    "Clubgratis": 1
+    "Clubgratis": 2
   },
   "ultimo_reporte": "2026-10-25",
   "imagenes_origen": {
-    "fallo": 88,
+    "fallo": 89,
     "navegador": 65,
-    "html": 516,
-    "captcha": 908
+    "html": 522,
+    "captcha": 925
   },
   "tiempo_navegador": {
-    "segundos": 309.1,
-    "intentos": 94
+    "segundos": 363.8,
+    "intentos": 112
   },
   "auto_publicadas": {
     "ReviuDescuentos": 5,
     "ElPromoHunter": 10,
-    "Clubgratis": 2
+    "Clubgratis": 4
   }
 }
