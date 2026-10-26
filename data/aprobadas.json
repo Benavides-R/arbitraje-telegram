@@ -342,5 +342,21 @@
     "precio": "~$51.600 COP",
     "categoria": "#salud",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-25T19:00:59-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "ILM Cascos de motocross para adultos, modelo 128S, aprobado por DOT, color negro mate.",
+    "precio": "~$220.900 COP",
+    "categoria": "#moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-25T19:02:09-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Vacmaster Mini Portable Carpet and Upholstery Cleaner",
+    "precio": "~$219.300 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
