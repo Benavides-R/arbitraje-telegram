@@ -14,7 +14,7 @@ import requests
 from PIL import Image, ImageDraw, ImageFont
 
 from config import DOMINIOS_TIENDA_FINAL, LOGO_PATH, REDES_SOCIALES_LINEAS
-from estadisticas import registrar_imagen_origen
+from estadisticas import registrar_imagen_origen, registrar_tiempo_navegador
 
 HEADERS = {
     "User-Agent": (
@@ -189,6 +189,7 @@ def _extraer_por_navegador(url_tienda):
     que es el único caso donde reintentarlo merece la pena; captcha=True
     cuando Amazon mostró su desafío de robot (bloqueo por IP -- reintentar
     no sirve, hay que cambiar de IP o usar la API oficial)."""
+    inicio = time.time()
     try:
         from playwright.sync_api import sync_playwright
 
@@ -251,6 +252,10 @@ def _extraer_por_navegador(url_tienda):
     except Exception as e:
         print(f"[WARN] No se pudo extraer imagen con navegador ({url_tienda}): {e}")
         return None, True, False
+    finally:
+        # Métrica de duración: cuánto tiempo real consume el navegador por
+        # corrida -- alimenta la decisión de si conviene saltarlo/simplificarlo.
+        registrar_tiempo_navegador(time.time() - inicio)
 
 
 def extraer_imagen_producto(url_tienda):
@@ -273,21 +278,26 @@ def extraer_imagen_producto(url_tienda):
     (infraestructura caída), no si simplemente no halló imagen.
 
     Cada resultado queda registrado en estadísticas: html / navegador /
+    navegador_tras_captcha (el navegador ganó DESPUÉS de que el HTML ligero
+    ya dio captcha -- el dato que mide cuánto costaría saltárselo) /
     captcha (Amazon devolvió el desafío "no eres un robot" -- bloqueo por
-    IP) / fallo, para poder medir la tasa de éxito día a día y saber si el
-    cuello de botella es la IP o el navegador.
+    IP) / fallo, más los segundos totales consumidos por el navegador
+    (tiempo_navegador), para poder medir la tasa de éxito día a día y
+    decidir con números si el cuello de botella es la IP o el navegador.
     """
-    vio_captcha = False
+    vio_captcha = False        # cualquier intento (bucket final)
+    captcha_en_html = False    # solo el HTML ligero (costo de la opción "A")
 
     imagen, captcha = _extraer_por_html(url_tienda)
     if imagen:
         _registrar_origen_seguro("html")
         return imagen
     vio_captcha = vio_captcha or captcha
+    captcha_en_html = captcha_en_html or captcha
 
     imagen, error_navegador, captcha = _extraer_por_navegador(url_tienda)
     if imagen:
-        _registrar_origen_seguro("navegador")
+        _registrar_origen_seguro("navegador_tras_captcha" if captcha_en_html else "navegador")
         return imagen
     vio_captcha = vio_captcha or captcha
 
@@ -298,11 +308,12 @@ def extraer_imagen_producto(url_tienda):
         _registrar_origen_seguro("html")
         return imagen
     vio_captcha = vio_captcha or captcha
+    captcha_en_html = captcha_en_html or captcha
 
     if error_navegador:
         imagen, _, captcha = _extraer_por_navegador(url_tienda)
         if imagen:
-            _registrar_origen_seguro("navegador")
+            _registrar_origen_seguro("navegador_tras_captcha" if captcha_en_html else "navegador")
             return imagen
         vio_captcha = vio_captcha or captcha
 

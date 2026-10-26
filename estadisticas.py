@@ -25,13 +25,13 @@ ZONA_COLOMBIA = timezone(timedelta(hours=-5))
 
 def _cargar():
     if ARCHIVO.exists():
-        return json.loads(ARCHIVO.read_text())
+        return json.loads(ARCHIVO.read_text(encoding="utf-8"))
     return {"conteo_por_canal": {}, "ultimo_reporte": None}
 
 
 def _guardar(datos):
     ARCHIVO.parent.mkdir(parents=True, exist_ok=True)
-    ARCHIVO.write_text(json.dumps(datos, indent=2, ensure_ascii=False))
+    ARCHIVO.write_text(json.dumps(datos, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def registrar_publicacion(canal, texto=None, con_imagen=None):
@@ -65,23 +65,56 @@ def _registrar_aprobacion_detalle(canal, texto, con_imagen):
     }
     registros = []
     if APROBADAS_FILE.exists():
-        registros = json.loads(APROBADAS_FILE.read_text())
+        registros = json.loads(APROBADAS_FILE.read_text(encoding="utf-8"))
     registros.append(registro)
     APROBADAS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    APROBADAS_FILE.write_text(json.dumps(registros, indent=2, ensure_ascii=False))
+    APROBADAS_FILE.write_text(json.dumps(registros, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def registrar_imagen_origen(origen):
     """Conteo de dónde terminó saliendo la foto del producto:
-    "html" (requests simple), "navegador" (Playwright), "captcha" (Amazon
-    respondió con su desafío de robot -- bloqueo por IP) o "fallo" -- para
-    monitorear la variación diaria de la extracción (históricamente iba
-    de 0% a 94% según el día)."""
+    "html" (requests simple), "navegador" (Playwright), "navegador_tras_captcha"
+    (el navegador ganó DESPUÉS de que el HTML ligero ya dio captcha -- el dato
+    que decide si vale la pena saltárselo), "captcha" (Amazon respondió con su
+    desafío de robot -- bloqueo por IP) o "fallo" -- para monitorear la
+    variación diaria de la extracción (históricamente iba de 0% a 94% según
+    el día)."""
     datos = _cargar()
     imagenes = datos.get("imagenes_origen", {})
     imagenes[origen] = imagenes.get(origen, 0) + 1
     datos["imagenes_origen"] = imagenes
     _guardar(datos)
+
+
+def registrar_auto_publicacion(canal):
+    """Publicación AUTOMÁTICA (completa, sin tu aprobación) -- contador
+    SEPARADO de conteo_por_canal (que son solo aprobaciones manuales tuyas),
+    para poder medir de verdad cuánto genera el bot solo. Se resetea junto
+    con el reporte semanal. Nunca lanza error: no debe tumbar una
+    publicación."""
+    try:
+        datos = _cargar()
+        autos = datos.get("auto_publicadas", {})
+        autos[canal] = autos.get(canal, 0) + 1
+        datos["auto_publicadas"] = autos
+        _guardar(datos)
+    except Exception as e:
+        print(f"[WARN] No se registró la publicación automática: {e}")
+
+
+def registrar_tiempo_navegador(segundos):
+    """Acumula cuántos segundos de corrida se van en intentos de navegador
+    (Playwright) y cuántos intentos hubo -- para decidir con números si
+    compensa saltarlo cuando el HTML ya dio captcha. Nunca lanza error."""
+    try:
+        datos = _cargar()
+        tiempo = datos.get("tiempo_navegador", {"segundos": 0.0, "intentos": 0})
+        tiempo["segundos"] = round(tiempo.get("segundos", 0.0) + segundos, 1)
+        tiempo["intentos"] = tiempo.get("intentos", 0) + 1
+        datos["tiempo_navegador"] = tiempo
+        _guardar(datos)
+    except Exception as e:
+        print(f"[WARN] No se registró el tiempo de navegador: {e}")
 
 
 def verificar_y_enviar_reporte(enviar_mensaje_func):
@@ -97,17 +130,25 @@ def verificar_y_enviar_reporte(enviar_mensaje_func):
         return  # ya se mandó hoy, no repetir en cada corrida del domingo
 
     conteo = datos.get("conteo_por_canal", {})
+    autos = datos.get("auto_publicadas", {})
     total = sum(conteo.values())
-    if total == 0:
+    total_auto = sum(autos.values())
+    if total == 0 and total_auto == 0:
         texto = "📊 Reporte semanal: no se publicó ninguna oferta esta semana."
     else:
-        lineas = [f"📊 Reporte semanal -- {total} ofertas publicadas:"]
+        lineas = [f"📊 Reporte semanal -- {total + total_auto} ofertas "
+                  f"({total} manuales + {total_auto} automáticas):"]
         for canal, cantidad in sorted(conteo.items(), key=lambda x: -x[1]):
-            lineas.append(f"• {canal}: {cantidad}")
+            lineas.append(f"• {canal}: {cantidad} manuales"
+                          + (f" + {autos.get(canal, 0)} automáticas" if autos.get(canal) else ""))
+        for canal, cantidad in sorted(autos.items(), key=lambda x: -x[1]):
+            if canal not in conteo:
+                lineas.append(f"• {canal}: {cantidad} automáticas")
         texto = "\n".join(lineas)
 
     enviar_mensaje_func(texto)
 
     datos["conteo_por_canal"] = {}
+    datos["auto_publicadas"] = {}
     datos["ultimo_reporte"] = hoy
     _guardar(datos)

@@ -52,7 +52,7 @@ from badges import (
 from supabase_storage import subir_a_supabase
 from aprobaciones import enviar_para_revision, revisar_actividad_admin
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
-from estadisticas import verificar_y_enviar_reporte
+from estadisticas import verificar_y_enviar_reporte, registrar_auto_publicacion
 from aliexpress_afiliado import generar_link_afiliado_aliexpress
 from aliexpress_ofertas import obtener_ofertas_calientes, construir_texto
 
@@ -1064,6 +1064,7 @@ def finalizar_oferta(prep):
         print(f"[OFERTA] {dominio} -> completa (imagen+título+precio), publicando automático ({oferta_id})")
         _marcar_asin_publicado(asin)
         publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
+        registrar_auto_publicacion(oferta_id.split(":", 1)[0])
     elif MODO_REVISION:
         motivo = "requiere casillero" if prep["requiere_casillero"] \
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL else "sin imagen"
@@ -1074,6 +1075,7 @@ def finalizar_oferta(prep):
         print(f"[OFERTA] {dominio} -> publicando directo")
         _marcar_asin_publicado(asin)
         publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
+        registrar_auto_publicacion(oferta_id.split(":", 1)[0])
     return True  # sí contó como oferta procesada, para el tope por corrida
 
 
