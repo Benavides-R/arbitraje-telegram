@@ -5,9 +5,17 @@
   },
   "ultimo_reporte": "2026-10-25",
   "imagenes_origen": {
-    "fallo": 86,
-    "navegador": 56,
-    "html": 494,
-    "captcha": 825
+    "fallo": 87,
+    "navegador": 58,
+    "html": 499,
+    "captcha": 844
+  },
+  "tiempo_navegador": {
+    "segundos": 72.7,
+    "intentos": 22
+  },
+  "auto_publicadas": {
+    "ReviuDescuentos": 2,
+    "ElPromoHunter": 2
   }
 }
