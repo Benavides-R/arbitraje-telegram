@@ -390,5 +390,53 @@
     "precio": "~$177.000 COP",
     "categoria": "#moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T16:00:53-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Altavoz portátil JBL Flip 7 impermeable, incluye un par (negro).",
+    "precio": "~$654.200 COP",
+    "categoria": "#Audio #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T16:02:01-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Gluckelk Correa retráctil para perro 10 pies",
+    "precio": "~$28.000 COP",
+    "categoria": "#Mascotas #PetLovers",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T16:03:15-05:00",
+    "canal": "Clubgratis",
+    "titulo": "RUIQIAI Android 15 Tablet 10 pulgadas 2 en 1 con teclado",
+    "precio": "~$197.900 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T16:04:33-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Cámara de seguridad interior 3K con giro de 360 y seguimiento de movimiento",
+    "precio": "~$59.200 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T16:05:44-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Cámara de seguridad interior 1080p Pan/Tilt con seguimiento de movimiento",
+    "precio": "~$69.000 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T16:06:56-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "owltron Cámara de seguridad interior 2K 3MP para vigilancia.",
+    "precio": "~$65.400 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
   }
 ]
