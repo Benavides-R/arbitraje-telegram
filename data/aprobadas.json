@@ -446,5 +446,13 @@
     "precio": "~$15.800 COP",
     "categoria": "#Belleza #LocionCorporal",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T18:03:47-05:00",
+    "canal": "Manual",
+    "titulo": "Bálsamo Labial ChapStick Classic Cherry con hidratación de 24 horas",
+    "precio": "~$13.200 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
   }
 ]
