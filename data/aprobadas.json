@@ -358,5 +358,37 @@
     "precio": "~$219.300 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T09:00:54-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Skechers Glide Step Vortex Avalin para hombre, calzado deportivo con suela de amortiguación.",
+    "precio": "~$183.300 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T09:02:03-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Skechers Tenis Go Walk Max para hombre, con amortiguación Flex Raf.",
+    "precio": "~$196.400 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T09:03:13-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Skechers Glide Step Vortex Avalin para hombre, calzado deportivo.",
+    "precio": "~$186.200 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T09:04:49-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Skechers Slip-ins Go Walk Flex Hands Up para hombre, calzado cómodo y ligero.",
+    "precio": "~$177.000 COP",
+    "categoria": "#moda",
+    "con_imagen": true
   }
 ]

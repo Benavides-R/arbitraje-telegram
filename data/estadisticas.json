@@ -1,6 +1,6 @@
 {
   "conteo_por_canal": {
-    "ElPromoHunter": 1,
+    "ElPromoHunter": 5,
     "ReviuDescuentos": 1
   },
   "ultimo_reporte": "2026-10-25",
@@ -8,6 +8,6 @@
     "fallo": 85,
     "navegador": 52,
     "html": 465,
-    "captcha": 757
+    "captcha": 761
   }
 }
