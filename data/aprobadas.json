@@ -454,5 +454,21 @@
     "precio": "~$13.200 COP",
     "categoria": "#Ofertas #Descuentos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T19:09:43-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Escritorio pequeño para computadora de juegos de 48 (122 cm) con luces LED.",
+    "precio": "~$582.100 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-26T19:10:50-05:00",
+    "canal": "Clubgratis",
+    "titulo": "KARL LAGERFELD Bandolera Maybelle para mujer, negro/piedra, talla única",
+    "precio": "~$226.300 COP",
+    "categoria": "#Bandolera #Equipaje",
+    "con_imagen": true
   }
 ]
