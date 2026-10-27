@@ -486,5 +486,37 @@
     "precio": "~$134.500 COP",
     "categoria": "#Zapatillas #Moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-27T14:01:01-05:00",
+    "canal": "Manual",
+    "titulo": "Set de tren eléctrico navideño con 2 trenes",
+    "precio": "~$161.700 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": false
+  },
+  {
+    "fecha": "2026-10-27T14:02:27-05:00",
+    "canal": "Manual",
+    "titulo": "Masajeador eléctrico de pies para neuropatía",
+    "precio": "~$130.900 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-27T14:03:38-05:00",
+    "canal": "Manual",
+    "titulo": "Cámara de seguridad para vidrio y ventana",
+    "precio": "~$115.000 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-27T14:05:01-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Afeitadora eléctrica 7D para cabeza hombres calvos",
+    "precio": "~$65.500 COP",
+    "categoria": "#Amazon #Cuidado",
+    "con_imagen": true
   }
 ]
