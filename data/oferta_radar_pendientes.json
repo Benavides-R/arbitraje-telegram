@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0FM8FF9FZ",
+      "product": "POWCAN Botella de agua aislada de 24 oz, acero inoxidable, con boquilla de botón y popote abatible.",
+      "rating": 4.6,
+      "reviews": 946,
+      "price": 34100,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0FM8FF9FZ?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0FM8FF9FZ",
+      "imageUrl": "https://m.media-amazon.com/images/I/51ChFD4A1sL._AC_SX679_.jpg",
+      "category": "Hogar",
+      "coupon": "T6LPLQN0",
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793074190.9046266
+  }
+]
