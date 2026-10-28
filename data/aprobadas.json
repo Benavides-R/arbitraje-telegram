@@ -566,5 +566,21 @@
     "precio": "~$382.600 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-28T16:01:06-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Estación de carga inalámbrica 3 en 1 para iPhone, Watch y AirPods",
+    "precio": "~$75.000 COP",
+    "categoria": "#Celulares #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-28T16:02:17-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Cabezal de ducha doble magnético, alta presión y ángulo ajustable",
+    "precio": "~$120.800 COP",
+    "categoria": "#Amazon #Cabezal",
+    "con_imagen": true
   }
 ]
