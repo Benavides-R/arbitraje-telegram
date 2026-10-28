@@ -8,14 +8,14 @@
   "ultimo_reporte": "2026-10-25",
   "imagenes_origen": {
     "fallo": 108,
-    "navegador": 93,
-    "html": 667,
-    "captcha": 1463,
+    "navegador": 94,
+    "html": 668,
+    "captcha": 1488,
     "navegador_tras_captcha": 19
   },
   "tiempo_navegador": {
-    "segundos": 2361.2,
-    "intentos": 717
+    "segundos": 2445.0,
+    "intentos": 743
   },
   "auto_publicadas": {
     "ReviuDescuentos": 44,
