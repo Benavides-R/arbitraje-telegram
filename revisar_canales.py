@@ -37,7 +37,7 @@ from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
     TIENDAS_IGNORADAS,
-    PALABRAS_AUTO_PERMITIDAS, PRECIO_MAXIMO_AUTO_COP, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
+    PALABRAS_AUTO_PERMITIDAS, PALABRAS_NO_AUTO, PRECIO_MAXIMO_AUTO_COP, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
     CUOTA_POR_CANAL, HORAS_BLOQUEO_DUPLICADO,
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
@@ -1055,8 +1055,13 @@ def finalizar_oferta(prep):
     dominio = prep["dominio"]
     asin = prep["asin"]
 
+    # Lista negra: aunque tenga foto+precio+palabra permitida, si el título
+    # trae ropa interior/lencería (decisión del admin) nunca publica sola.
+    hay_prohibida = any(mala in prep["titulo_normalizado"] for mala in PALABRAS_NO_AUTO)
+
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
             and not prep["requiere_casillero"] and prep["precio_dentro_del_tope"] \
+            and not hay_prohibida \
             and any(palabra in prep["titulo_normalizado"] for palabra in PALABRAS_AUTO_PERMITIDAS):
         # Título y precio ya están garantizados en la fase 1 (si faltaba
         # alguno, se descartó ahí) -- con imagen también presente, la
@@ -1067,7 +1072,8 @@ def finalizar_oferta(prep):
         registrar_auto_publicacion(oferta_id.split(":", 1)[0])
     elif MODO_REVISION:
         motivo = "requiere casillero" if prep["requiere_casillero"] \
-            else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL else "sin imagen"
+            else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL \
+            else "lista negra (lencería)" if hay_prohibida else "sin imagen"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
         _marcar_asin_publicado(asin)
         enviar_para_revision(oferta_id, texto_nuevo, url_imagen, texto_original=texto)

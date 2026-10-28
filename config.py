@@ -87,6 +87,27 @@ PALABRAS_AUTO_PERMITIDAS = [
     "nike", "adidas", "puma", "reebok", "balance", "garmin",
     "columbia", "under armour", "saucony", "fila", "champion",
     "jordan", "asics",
+    # --- expansión 4 (2026-10-25): minería de TUS aprobaciones manuales ---
+    # Top de los títulos que aprobabas a mano estando completos (foto+precio)
+    # pero que no matcheaban ninguna palabra; impacto medido en la cola real.
+    # Género: la que más desbloquea de todas ("X para hombre/mujer").
+    "hombre", "mujer",
+    # Ropa/accesorios que se repetían en aprobadas y en la cola:
+    "sudadera", "tenis", "capucha", "sueter", "zapatillas", "calcetines",
+    "camisa", "pantalones", "polo", "calzado", "ninos", "cuero",
+    "collar", "hanes", "skechers", "nautica", "tommy",
+    # Tech/futuro: poco en la cola hoy, pero salen seguido en aprobadas:
+    "rtx", "geforce", "grafica", "escritorio", "billetera", "rfid",
+    "usb", "molinillo", "controlador", "echo", "microscopio",
+]
+
+# Lista negra: aunque el título matchee una palabra permitida, si contiene
+# ALGUNA de estas va SIEMPRE a revisión manual (decisión del admin: la
+# ropa interior/lencería de dama nunca se publica sola). Se compara sobre
+# el título ya normalizado (sin tildes, minúsculas).
+PALABRAS_NO_AUTO = [
+    "braga", "panti", "brasier", "brassiere", "lenceria",
+    "sujetador", "ropa interior", "calzoncillo",
 ]
 
 # Buscador de ofertas directo de AliExpress (sin depender de canales de
