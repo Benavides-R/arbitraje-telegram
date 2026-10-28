@@ -542,5 +542,13 @@
     "precio": "~$39.000 COP",
     "categoria": "#Amazon #Regleta",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-27T19:34:26-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Cámara de seguridad dual de lente 6MP para exteriores.",
+    "precio": "~$101.200 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
   }
 ]
