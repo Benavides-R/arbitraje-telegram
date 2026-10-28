@@ -550,5 +550,21 @@
     "precio": "~$101.200 COP",
     "categoria": "#Seguridad #Tecnologia",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-27T22:01:01-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Máquina selladora al vacío para alimentos secos/húmedos, con cortador integrado y manguera de succión externa.",
+    "precio": "~$65.900 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-27T22:02:09-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "GIGASTONE Game TURBO Kit de 16 GB (2 x 8 GB) DDR4 3200 MHz, compatible con Intel XMP 2.0 y AMD Ryzen.",
+    "precio": "~$382.600 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
