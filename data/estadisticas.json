@@ -3,19 +3,19 @@
     "ElPromoHunter": 13,
     "ReviuDescuentos": 10,
     "Clubgratis": 4,
-    "Manual": 4
+    "Manual": 8
   },
   "ultimo_reporte": "2026-10-25",
   "imagenes_origen": {
     "fallo": 110,
-    "navegador": 101,
+    "navegador": 102,
     "html": 680,
-    "captcha": 1555,
+    "captcha": 1581,
     "navegador_tras_captcha": 20
   },
   "tiempo_navegador": {
-    "segundos": 2697.1,
-    "intentos": 820
+    "segundos": 2785.5,
+    "intentos": 847
   },
   "auto_publicadas": {
     "ReviuDescuentos": 52,

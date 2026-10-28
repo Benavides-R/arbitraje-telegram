@@ -590,5 +590,37 @@
     "precio": "~$98.900 COP",
     "categoria": "#automotriz",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-28T17:01:03-05:00",
+    "canal": "Manual",
+    "titulo": "Pistola para pintar eléctrica Shark600",
+    "precio": "~$124.500 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-28T17:02:36-05:00",
+    "canal": "Manual",
+    "titulo": "Plancha de vapor portátil para ropa (110V)",
+    "precio": "~$83.000 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-28T17:03:45-05:00",
+    "canal": "Manual",
+    "titulo": "Selladora al vacío de alimentos 4-en-1 (75kPa)",
+    "precio": "~$49.800 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-28T17:04:55-05:00",
+    "canal": "Manual",
+    "titulo": "Audífonos inalámbricos ultra pequeños para dormir con cancelación de ruido (ANC)",
+    "precio": "~$59.700 COP",
+    "categoria": "#Audio #Tecnologia",
+    "con_imagen": true
   }
 ]
