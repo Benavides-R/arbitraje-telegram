@@ -99,6 +99,24 @@ PALABRAS_AUTO_PERMITIDAS = [
     # Tech/futuro: poco en la cola hoy, pero salen seguido en aprobadas:
     "rtx", "geforce", "grafica", "escritorio", "billetera", "rfid",
     "usb", "molinillo", "controlador", "echo", "microscopio",
+    # --- expansión 5 (2026-10-28): lo que el admin quiere publicar ---
+    # Televisores (categoría que pidió y es "lo mejor de lo mejor"):
+    "tv", "smart tv", "fire tv", "televisor",
+    "hisense", "tcl", "roku", "samsung", "philips", "sony",
+    # Zapatos/calzado de marcas y tipos:
+    "zapatos", "sandalias", "botas", "botines", "mocasines",
+    "chanclas", "crocs", "converse", "vans",
+    # Cuidado personal -- marcas que pidió:
+    "medicube", "cerave", "dove", "johnson", "listerine", "colgate",
+    "gillette", "nivea", "palmolive", "pantene", "schick", "eucerin",
+    "neutrogena", "cetaphil", "vaseline", "oral-b", "oral b",
+    "sensodyne", "chapstick",
+    # Cuidado personal -- categorías (para las que no son marca):
+    "crema", "shampoo", "champu", "acondicionador", "jabon",
+    "desodorante", "locion", "balsamo", "pasta dental", "enjuague",
+    "protector solar", "hidratante", "limpiador", "suero",
+    # Bolsos:
+    "bolso", "bandolera",
 ]
 
 # Lista negra: aunque el título matchee una palabra permitida, si contiene

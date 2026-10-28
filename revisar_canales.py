@@ -193,7 +193,7 @@ def _llamar_groq(prompt):
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 300,
             },
-            timeout=30,
+            timeout=12,
         )
         if response.status_code == 429:
             _GROQ_BLOQUEADO = True
@@ -223,7 +223,7 @@ def _llamar_anthropic(prompt):
                 "max_tokens": 300,
                 "messages": [{"role": "user", "content": prompt}],
             },
-            timeout=30,
+            timeout=12,
         )
         response.raise_for_status()
         return response.json()["content"][0]["text"].strip()
@@ -489,7 +489,7 @@ def _extraer_titulo(texto_original):
     if GROQ_API_KEY and not _GROQ_BLOQUEADO:
         resultado = _llamar_groq(prompt)
         if not _GROQ_BLOQUEADO:
-            time.sleep(2)  # respiro entre llamadas para no pegarle al límite por minuto
+            time.sleep(0.8)  # respiro entre llamadas para no pegarle al límite por minuto
     if not resultado and ANTHROPIC_API_KEY:
         resultado = _llamar_anthropic(prompt)
     if resultado:

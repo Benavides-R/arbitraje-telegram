@@ -41,7 +41,7 @@ def resolver_link_final(url):
     """
     # Intento 1: redirect simple por HTTP
     try:
-        resp = requests.get(url, headers=HEADERS, timeout=15, allow_redirects=True)
+        resp = requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True)
         if es_tienda_final(resp.url):
             return resp.url
     except Exception as e:
@@ -271,11 +271,14 @@ def extraer_imagen_producto(url_tienda):
       C) galería embebida de Amazon (data-a-dynamic-image), la de mayor resolución
       D) selectores HTML de la imagen principal (con navegador, último recurso)
 
-    Si el primer par (HTML simple → navegador) falla, espera 5s y repite --
-    hay días donde GitHub Actions/Amazon bloquea el primer intento de forma
-    transitoria y el reintento sí pasa (la extracción histórica variaba de
-    0% a 94% según el día). El navegador solo se relanza si antes ERRO
-    (infraestructura caída), no si simplemente no halló imagen.
+    Si el primer par (HTML simple → navegador) falla SIN captcha en el
+    HTML, espera 5s y repite -- hay días donde el primer intento se
+    bloquea de forma transitoria y el reintento sí pasa (la extracción
+    histórica variaba de 0% a 94% según el día). Si el HTML ya dio
+    captcha, NO se reintenta: repetir 5s después casi nunca gana (la
+    captcha es por IP y dura minutos) y solo alargaba la corrida. El
+    navegador solo se relanza si antes ERRO (infraestructura caída), no
+    si simplemente no halló imagen.
 
     Cada resultado queda registrado en estadísticas: html / navegador /
     navegador_tras_captcha (el navegador ganó DESPUÉS de que el HTML ligero
@@ -301,14 +304,19 @@ def extraer_imagen_producto(url_tienda):
         return imagen
     vio_captcha = vio_captcha or captcha
 
-    # Reintento del par completo tras una pausa corta.
-    time.sleep(5)
-    imagen, captcha = _extraer_por_html(url_tienda)
-    if imagen:
-        _registrar_origen_seguro("html")
-        return imagen
-    vio_captcha = vio_captcha or captcha
-    captcha_en_html = captcha_en_html or captcha
+    # Reintento del par completo tras una pausa corta -- SOLO si el HTML
+    # ligero no dio captcha. Si Amazon ya retó ese request, repetirlo 5s
+    # después casi nunca gana (la captcha es por IP y dura minutos); solo
+    # alarga la corrida. Si fue el navegador el retado (no el HTML), el
+    # reintento SÍ vale la pena y se hace igual que antes.
+    if not captcha_en_html:
+        time.sleep(5)
+        imagen, captcha = _extraer_por_html(url_tienda)
+        if imagen:
+            _registrar_origen_seguro("html")
+            return imagen
+        vio_captcha = vio_captcha or captcha
+        captcha_en_html = captcha_en_html or captcha
 
     if error_navegador:
         imagen, _, captcha = _extraer_por_navegador(url_tienda)
