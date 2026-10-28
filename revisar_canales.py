@@ -79,9 +79,10 @@ def guardar_estado(estado):
 
 
 def _marcar_asin_publicado(asin):
-    """Registra el ASIN como publicado/enviado ahora mismo, para el bloqueo
-    de duplicados. Se llama solo cuando la oferta SÍ se va a publicar o
-    mandar a revisión, nunca antes."""
+    """Registra el ASIN como USADO (publicado de verdad: auto-publicación o
+    ✅ del admin), para el bloqueo de duplicados de HORAS_BLOQUEO_DUPLICADO.
+    Mandar una oferta a revisión NO marca nada: si no se publica, el mismo
+    producto puede volver a aparecer cuando quiera."""
     if not asin:
         return
     estado_dup = cargar_estado()
@@ -90,6 +91,16 @@ def _marcar_asin_publicado(asin):
     corte = time.time() - HORAS_BLOQUEO_DUPLICADO * 3600 * 2
     estado_dup["ultimos_publicados_asin"] = {a: t for a, t in ultimos.items() if t > corte}
     guardar_estado(estado_dup)
+
+
+def _asin_ya_publicado(asin):
+    """True si el ASIN se publicó hace menos de HORAS_BLOQUEO_DUPLICADO.
+    Se usa antes de publicar una oferta aprobada a mano, para no duplicar
+    el mismo producto si te llegaron dos copias a la cola."""
+    if not asin:
+        return False
+    visto_en = cargar_estado().get("ultimos_publicados_asin", {}).get(asin)
+    return bool(visto_en) and (time.time() - visto_en) < HORAS_BLOQUEO_DUPLICADO * 3600
 
 
 def limpiar_link_tienda(link, dominio):
@@ -1075,8 +1086,9 @@ def finalizar_oferta(prep):
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL \
             else "lista negra (lencería)" if hay_prohibida else "sin imagen"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
-        _marcar_asin_publicado(asin)
-        enviar_para_revision(oferta_id, texto_nuevo, url_imagen, texto_original=texto)
+        # Mandar a revisión NO marca el ASIN: si no se publica, el producto
+        # queda libre para volver a aparecer cuando quiera.
+        enviar_para_revision(oferta_id, texto_nuevo, url_imagen, texto_original=texto, asin=asin)
     else:
         print(f"[OFERTA] {dominio} -> publicando directo")
         _marcar_asin_publicado(asin)
@@ -1101,7 +1113,12 @@ def main():
     reintentar_pendientes()
 
     # 1. Revisa si el admin aprobó/descartó ofertas, o mandó una foto propia
-    revisar_actividad_admin(publicar_oferta_completa, manual_func=procesar_mensaje)
+    revisar_actividad_admin(
+        publicar_oferta_completa,
+        manual_func=procesar_mensaje,
+        marcar_publicado_func=_marcar_asin_publicado,
+        asin_publicado_func=_asin_ya_publicado,
+    )
 
     # 1.5 Ofertas directas de AliExpress -- siempre a revisión manual,
     # nunca automático, aunque vengan completas (contenido nuevo sin validar).

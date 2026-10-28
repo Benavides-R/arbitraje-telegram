@@ -79,10 +79,12 @@ def quitar_tag_afiliado(texto):
     return re.sub(r"https?://\S+", lambda m: _quitar_tag_de_url(m.group(0)), texto)
 
 
-def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None):
+def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None, asin=None):
     """Manda la oferta candidata al chat del admin, con botones para decidir.
     Guarda el message_id del envío, para poder detectar después si le
-    respondes con una foto propia."""
+    respondes con una foto propia. Guarda también el ASIN: solo se marcará
+    como "usado" (bloqueo 12h) si la oferta termina PUBLICADA (✅), no al
+    mandarla a revisión."""
     if not ADMIN_CHAT_ID:
         print("[WARN] MODO_REVISION activo pero ADMIN_CHAT_ID no está configurado -- se descarta")
         return
@@ -90,7 +92,7 @@ def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None):
     pendientes = _cargar_pendientes()
     pendientes[oferta_id] = {
         "texto": texto, "url_imagen": url_imagen, "creado": time.time(),
-        "texto_original": texto_original,
+        "texto_original": texto_original, "asin": asin,
     }
     _guardar_pendientes(pendientes)
 
@@ -194,7 +196,7 @@ def _avisar_no_encontrada():
         pass
 
 
-def revisar_actividad_admin(publicar_func, manual_func=None):
+def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_func=None, asin_publicado_func=None):
     """
     Revisa en un solo paso: (1) si aprobaste/descartaste alguna oferta con
     los botones, (2) si respondiste a alguna oferta con una foto propia, y
@@ -206,6 +208,10 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
     la función real de publicación -- se llama solo cuando apruebas.
     `imagen_original_bytes` (sin logo) solo viene poblado cuando subiste la
     foto a mano; se usa para Oferta Radar/Storage, nunca para Telegram/FB.
+    `marcar_publicado_func(asin)` se llama SOLO cuando la oferta se publica
+    de verdad (✅) -- así el bloqueo de 12h es únicamente por publicación.
+    `asin_publicado_func(asin)` devuelve True si ese producto ya se publicó
+    hace menos de 12h: evita publicar dos copias de la misma oferta.
     """
     offset = _cargar_offset()
     try:
@@ -261,6 +267,20 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                 continue
 
             if accion == "aprobar":
+                asin = oferta.get("asin")
+                # Anti-duplicado: si el mismo producto ya se publicó hace
+                # menos de 12h (p. ej. te llegaron dos copias de la misma
+                # oferta), esta segunda copia NO se publica.
+                if asin_publicado_func and asin_publicado_func(asin):
+                    print(f"[REVISION] {oferta_id}: ASIN {asin} ya publicado hace <12h, se evita duplicado")
+                    try:
+                        requests.post(f"{API}/sendMessage", data={
+                            "chat_id": ADMIN_CHAT_ID,
+                            "text": "⚠️ No se publicó: ese mismo producto ya salió hace menos de 12h (duplicado evitado).",
+                        }, timeout=15)
+                    except Exception:
+                        pass
+                    continue
                 print(f"[REVISION] Aprobada por admin: {oferta_id}")
                 try:
                     imagen_bytes = None
@@ -271,6 +291,10 @@ def revisar_actividad_admin(publicar_func, manual_func=None):
                         imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
                     publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
                                    texto_original=oferta.get("texto_original"))
+                    # El ASIN se marca como USADO recién aquí: la oferta ya
+                    # salió de verdad. Si publicar falla, no se marca.
+                    if marcar_publicado_func:
+                        marcar_publicado_func(asin)
                     registrar_publicacion(
                         oferta_id.split(":", 1)[0],
                         texto=oferta["texto"],
