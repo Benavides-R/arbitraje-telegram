@@ -7,15 +7,15 @@
   },
   "ultimo_reporte": "2026-10-25",
   "imagenes_origen": {
-    "fallo": 95,
+    "fallo": 103,
     "navegador": 93,
     "html": 664,
-    "captcha": 1405,
-    "navegador_tras_captcha": 14
+    "captcha": 1416,
+    "navegador_tras_captcha": 15
   },
   "tiempo_navegador": {
-    "segundos": 2107.8,
-    "intentos": 641
+    "segundos": 2171.5,
+    "intentos": 661
   },
   "auto_publicadas": {
     "ReviuDescuentos": 38,
