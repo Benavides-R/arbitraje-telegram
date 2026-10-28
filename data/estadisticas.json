@@ -10,16 +10,16 @@
     "fallo": 95,
     "navegador": 93,
     "html": 664,
-    "captcha": 1400,
-    "navegador_tras_captcha": 12
+    "captcha": 1405,
+    "navegador_tras_captcha": 14
   },
   "tiempo_navegador": {
-    "segundos": 2081.8,
-    "intentos": 634
+    "segundos": 2107.8,
+    "intentos": 641
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 37,
+    "ReviuDescuentos": 38,
     "ElPromoHunter": 58,
-    "Clubgratis": 27
+    "Clubgratis": 28
   }
 }
