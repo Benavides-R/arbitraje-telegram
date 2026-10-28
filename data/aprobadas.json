@@ -582,5 +582,13 @@
     "precio": "~$120.800 COP",
     "categoria": "#Amazon #Cabezal",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-28T16:23:53-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Auto de control remoto AsyPlaer 114, velocidad de 30 km/h, camión RC todo terreno de 2.4 GHz.",
+    "precio": "~$98.900 COP",
+    "categoria": "#automotriz",
+    "con_imagen": true
   }
 ]
