@@ -662,5 +662,21 @@
     "precio": "~$89.600 COP",
     "categoria": "#moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-29T16:01:03-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Masajeador térmico con 3 niveles de calor y vibración",
+    "precio": "~$119.500 COP",
+    "categoria": "#Amazon #Masajeador",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-29T16:02:10-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "TOLOCO Pistola de masaje de tejido profundo con 10 cabezales y motor silencioso.",
+    "precio": "~$130.400 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
