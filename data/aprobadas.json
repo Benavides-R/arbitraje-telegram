@@ -678,5 +678,13 @@
     "precio": "~$130.400 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-29T17:00:52-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "ROPVACNIC Robot aspirador y trapeador combinado, succión de 5200 Pa, carga automática, evita obstáculos.",
+    "precio": "~$325.900 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
