@@ -630,5 +630,29 @@
     "precio": "~$65.200 COP",
     "categoria": "#Amazon #Mascotas",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-29T12:00:52-05:00",
+    "canal": "Clubgratis",
+    "titulo": "STANLEY IceFlow 2.0 - Vaso con pajita, 30 onzas, color esmeralda narciso",
+    "precio": "~$85.700 COP",
+    "categoria": "#AlAireLibre #Hidratación",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-29T12:02:09-05:00",
+    "canal": "Clubgratis",
+    "titulo": "AshGlen - Mini waflera doble, plancha de cerámica belga, color blanco",
+    "precio": "~$65.300 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-29T12:03:26-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Hisense Smart Roku TV 40 pulgadas FHD 1080p",
+    "precio": "~$737.700 COP",
+    "categoria": "#Amazon #Tecnologia",
+    "con_imagen": true
   }
 ]
