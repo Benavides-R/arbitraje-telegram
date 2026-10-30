@@ -9,16 +9,16 @@
   "imagenes_origen": {
     "fallo": 114,
     "navegador": 118,
-    "html": 788,
-    "captcha": 2025,
+    "html": 793,
+    "captcha": 2032,
     "navegador_tras_captcha": 50
   },
   "tiempo_navegador": {
-    "segundos": 4432.9,
-    "intentos": 1341
+    "segundos": 4454.3,
+    "intentos": 1348
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 99,
+    "ReviuDescuentos": 103,
     "ElPromoHunter": 116,
     "Clubgratis": 53,
     "Manual": 1
