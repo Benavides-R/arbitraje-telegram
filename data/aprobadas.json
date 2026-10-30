@@ -686,5 +686,29 @@
     "precio": "~$325.900 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-30T11:01:13-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Coche de control remoto, araña que transforma los coches RC.",
+    "precio": "~$41.000 COP",
+    "categoria": "#automotriz",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-30T11:02:21-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "PAPIFEED Comedero automático para gatos, dispensador de alimentos de 6 L con conexión WiFi.",
+    "precio": "~$91.900 COP",
+    "categoria": "#Mascotas #PetLovers",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-30T11:03:30-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Pandora Anillo de plata de ley con corazones anudados, tamaño 4.5, sin caja",
+    "precio": "~$126.100 COP",
+    "categoria": "#Joyas #Anillos",
+    "con_imagen": true
   }
 ]
