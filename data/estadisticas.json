@@ -10,12 +10,12 @@
     "fallo": 114,
     "navegador": 118,
     "html": 788,
-    "captcha": 2023,
+    "captcha": 2025,
     "navegador_tras_captcha": 50
   },
   "tiempo_navegador": {
-    "segundos": 4426.4,
-    "intentos": 1339
+    "segundos": 4432.9,
+    "intentos": 1341
   },
   "auto_publicadas": {
     "ReviuDescuentos": 99,
