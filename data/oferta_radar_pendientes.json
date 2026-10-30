@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0F34494WY",
+      "product": "Under Armour Tenis de correr Charged Assert 11 para mujer.",
+      "rating": 4.5,
+      "reviews": 992,
+      "price": 213300,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0F34494WY?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0F34494WY",
+      "imageUrl": "https://m.media-amazon.com/images/I/515jUAlbc7L._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793383818.356319
+  }
+]
