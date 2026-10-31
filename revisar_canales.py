@@ -42,7 +42,10 @@ from config import (
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
 )
-from procesar_oferta import resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo
+from procesar_oferta import (
+    resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo,
+    HEADERS, _es_imagen_valida,
+)
 from publicar_facebook import publicar_facebook
 from oferta_radar import enviar_a_oferta_radar, reintentar_pendientes
 from badges import (
@@ -65,6 +68,22 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 
 RETRASO_GRATIS_SEGUNDOS = 15 * 60  # ventaja del canal VIP sobre el gratis
 ESTADO_FILE = Path(__file__).parent / "data" / "ultimo_id.json"
+
+# Imagen manual: la extensión de Chrome agrega al mensaje una línea
+# "imagen: <url>". Si esa imagen se puede descargar, se usa tal cual y NO se
+# abre la página de Amazon (desde GitHub Actions casi siempre da captcha).
+# Si falta o no descarga, todo sigue exactamente como antes.
+_RE_IMAGEN_MANUAL = re.compile(r"(?im)^\s*(?:imagen|image|foto)\s*:\s*(https?://\S+)")
+
+
+def _imagen_descargable(url):
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=15, stream=True)
+        ok = r.status_code == 200 and r.headers.get("Content-Type", "").startswith("image/")
+        r.close()
+        return ok
+    except Exception:
+        return False
 
 
 def cargar_estado():
@@ -961,7 +980,11 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
     asins_en_vuelo (opcional): conjunto de ASINs ya preparados EN ESTA
     corrida, para no procesar dos veces el mismo producto aunque aparezca
     en dos mensajes antes de que el primero se publique."""
-    links_en_mensaje = extraer_links(texto)
+    m_img = _RE_IMAGEN_MANUAL.search(texto)
+    url_imagen_manual = m_img.group(1) if m_img else None
+    # El link de la imagen (media-amazon.com) se saca de la lista: su dominio
+    # contiene "amazon." y se confundiría con el link de la tienda.
+    links_en_mensaje = [l for l in extraer_links(texto) if l != url_imagen_manual]
     if not links_en_mensaje:
         return
 
@@ -1031,7 +1054,10 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
 
     # La imagen se pide con el link LIMPIO (sin tag de afiliado): ninguna
     # petición automática del script debe contar como clic nuestro.
-    url_imagen = extraer_imagen_producto(link_limpio)
+    if url_imagen_manual and _es_imagen_valida(url_imagen_manual) and _imagen_descargable(url_imagen_manual):
+        url_imagen = url_imagen_manual
+    else:
+        url_imagen = extraer_imagen_producto(link_limpio)
 
     if asins_en_vuelo is not None and asin:
         asins_en_vuelo.add(asin)

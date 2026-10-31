@@ -25,6 +25,11 @@ from estadisticas import registrar_publicacion
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
+# Link que parece una imagen (.jpg/.png/.webp o del servidor de imágenes de Amazon)
+_RE_LINK_IMAGEN = re.compile(
+    r"https?://(?:\S*media-amazon\.com/images/\S+|\S*?\.(?:jpe?g|png|webp)\b\S*)", re.IGNORECASE
+)
+
 PENDIENTES_FILE = Path(__file__).parent / "data" / "pendientes_revision.json"
 OFFSET_FILE = Path(__file__).parent / "data" / "ultimo_update_id.txt"
 
@@ -397,6 +402,40 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
                 except Exception:
                     pass
             continue
+
+        # Caso 2b: respondiste con un LINK DE IMAGEN (ej. el que copia la
+        # extensión de Chrome) a una oferta de revisión que llegó sin foto.
+        # Se descarga (desde el servidor de imágenes, no la página del
+        # producto: no da captcha), se comprueba y queda como imagen de la
+        # oferta; el logo y el precio se ponen al publicar, como siempre.
+        if msg and "text" in msg and "reply_to_message" in msg:
+            m_img = _RE_LINK_IMAGEN.search(msg["text"])
+            if m_img:
+                respondido_id = msg["reply_to_message"]["message_id"]
+                oferta_id_encontrada = next(
+                    (oid for oid, datos in pendientes.items() if datos.get("message_id") == respondido_id),
+                    None,
+                )
+                if not oferta_id_encontrada:
+                    _avisar_no_encontrada()
+                    continue
+                url_img = m_img.group(0)
+                aviso = "⚠️ No pude descargar esa imagen -- revisa el link o responde con una foto."
+                try:
+                    m = re.search(r"💸 Precio: (.+)", pendientes[oferta_id_encontrada]["texto"])
+                    precio_badge = m.group(1).strip().lstrip("~").strip() if m else None
+                    if preparar_imagen_con_logo(url_img, precio_texto=precio_badge):
+                        pendientes[oferta_id_encontrada]["url_imagen"] = url_img
+                        hubo_cambios_pendientes = True
+                        _guardar_pendientes(pendientes)
+                        aviso = "📸 Imagen actualizada para esa oferta. Toca Publicar cuando quieras."
+                except Exception as e:
+                    print(f"[WARN] No se pudo procesar el link de imagen: {e}")
+                try:
+                    requests.post(f"{API}/sendMessage", data={"chat_id": ADMIN_CHAT_ID, "text": aviso}, timeout=15)
+                except Exception:
+                    pass
+                continue
 
         # Caso 3: respondiste con una PALABRA (alternativa a los botones, por
         # si el botón falla) -- "si"/"publicar"/"aprobar" para publicar,
