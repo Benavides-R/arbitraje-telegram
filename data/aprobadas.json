@@ -726,5 +726,13 @@
     "precio": "~$31.500 COP",
     "categoria": "#Amazon #Anillo",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-31T09:01:07-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Freidora de aire Ninja XL con MaxCrisp, 6.5 cuartos, 6 en 1, gris",
+    "precio": "~$472.500 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
