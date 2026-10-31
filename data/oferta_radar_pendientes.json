@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0HFMPWN77",
+      "product": "Juego de cubiertos de 24 piezas para 4 personas, incluye cuchillos, tenedores y cucharas de acero inoxidable.",
+      "rating": 4.3,
+      "reviews": 5055,
+      "price": 59200,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0HFMPWN77?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0HFMPWN77",
+      "imageUrl": "https://m.media-amazon.com/images/I/71LWDxXT+6L._AC_SX679_.jpg",
+      "category": "Hogar",
+      "coupon": null,
+      "shipping": "elegible",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793480960.5622573
+  }
+]
