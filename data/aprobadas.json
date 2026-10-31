@@ -734,5 +734,29 @@
     "precio": "~$472.500 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-31T13:01:08-05:00",
+    "canal": "Manual",
+    "titulo": "Mini PC C3 Intel Core i3-5005U, 8G RAM 512G SSD",
+    "precio": "~$557.800 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-31T13:03:19-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Jancane Amplificador de señal WiFi Extensor largo alcance",
+    "precio": "~$29.500 COP",
+    "categoria": "#Amazon #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-31T13:04:35-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Ratón vertical ergonómico inalámbrico recargable, 3 modos de conexión",
+    "precio": "~$37.800 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
