@@ -710,5 +710,21 @@
     "precio": "~$126.100 COP",
     "categoria": "#Joyas #Anillos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-30T20:00:53-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Shiatsu 3D Deep Tissue Masajeador de cuello y espalda con calor.",
+    "precio": "~$98.400 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-30T20:02:04-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Anillos apilables chapados en oro de 18 quilates, resistentes al agua",
+    "precio": "~$31.500 COP",
+    "categoria": "#Amazon #Anillo",
+    "con_imagen": true
   }
 ]
