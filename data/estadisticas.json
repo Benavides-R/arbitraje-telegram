@@ -1,26 +1,16 @@
 {
-  "conteo_por_canal": {
-    "ElPromoHunter": 19,
-    "ReviuDescuentos": 18,
-    "Clubgratis": 8,
-    "Manual": 9
-  },
-  "ultimo_reporte": "2026-10-25",
+  "conteo_por_canal": {},
+  "ultimo_reporte": "2026-11-01",
   "imagenes_origen": {
     "fallo": 114,
-    "navegador": 154,
-    "html": 985,
-    "captcha": 2480,
+    "navegador": 156,
+    "html": 993,
+    "captcha": 2487,
     "navegador_tras_captcha": 57
   },
   "tiempo_navegador": {
-    "segundos": 6071.3,
-    "intentos": 1839
+    "segundos": 6103.1,
+    "intentos": 1848
   },
-  "auto_publicadas": {
-    "ReviuDescuentos": 184,
-    "ElPromoHunter": 206,
-    "Clubgratis": 75,
-    "Manual": 7
-  }
+  "auto_publicadas": {}
 }
