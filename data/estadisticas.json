@@ -1,16 +1,20 @@
 {
-  "conteo_por_canal": {},
+  "conteo_por_canal": {
+    "ReviuDescuentos": 1
+  },
   "ultimo_reporte": "2026-11-01",
   "imagenes_origen": {
     "fallo": 114,
     "navegador": 156,
-    "html": 993,
-    "captcha": 2489,
+    "html": 996,
+    "captcha": 2491,
     "navegador_tras_captcha": 57
   },
   "tiempo_navegador": {
-    "segundos": 6109.5,
-    "intentos": 1850
+    "segundos": 6116.5,
+    "intentos": 1852
   },
-  "auto_publicadas": {}
+  "auto_publicadas": {
+    "ReviuDescuentos": 2
+  }
 }

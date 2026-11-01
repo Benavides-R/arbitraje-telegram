@@ -774,5 +774,13 @@
     "precio": "~$130.000 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-01T12:00:55-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Monitor gaming Sceptre 22 pulgadas FHD 144Hz con altavoces",
+    "precio": "~$206.700 COP",
+    "categoria": "#Gaming #Videojuegos",
+    "con_imagen": false
   }
 ]
