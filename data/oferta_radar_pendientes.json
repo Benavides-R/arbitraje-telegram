@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0DQ8PF3RN",
+      "product": "Puma Zapatillas St Miler para hombre, calzado deportivo para uso diario.",
+      "rating": 4.3,
+      "reviews": 1377,
+      "price": 178400,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0DQ8PF3RN?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0DQ8PF3RN",
+      "imageUrl": "https://m.media-amazon.com/images/I/81SRNX8PHGL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793506434.1179426
+  },
+  {
+    "payload": {
+      "externalId": "B0BCFHH3YR",
+      "product": "Puma Hombre Iconic Suede Low ASTM Sd, calzado de seguridad con diseño bajo.",
+      "rating": 4.3,
+      "reviews": 688,
+      "price": 167100,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0BCFHH3YR?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0BCFHH3YR",
+      "imageUrl": "https://m.media-amazon.com/images/I/712t2M2ylOL._AC_SX695_.jpg",
+      "category": "Seguridad",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793506624.996441
+  }
+]
