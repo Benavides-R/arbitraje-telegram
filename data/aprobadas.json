@@ -758,5 +758,21 @@
     "precio": "~$37.800 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-31T21:00:53-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "UGREEN Tracker Tags Duo Air 4-Pack",
+    "precio": "~$93.500 COP",
+    "categoria": "#Amazon #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-10-31T21:02:02-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Minthouz Calentador Torre Cerámico PTC 1500W Interior",
+    "precio": "~$130.000 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
