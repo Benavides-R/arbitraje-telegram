@@ -5,12 +5,12 @@
     "fallo": 114,
     "navegador": 156,
     "html": 993,
-    "captcha": 2487,
+    "captcha": 2489,
     "navegador_tras_captcha": 57
   },
   "tiempo_navegador": {
-    "segundos": 6103.1,
-    "intentos": 1848
+    "segundos": 6109.5,
+    "intentos": 1850
   },
   "auto_publicadas": {}
 }
