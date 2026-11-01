@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0DK5V16LD",
+      "product": "Puma Zapatos deportivos Tazon 6 para mujer.",
+      "rating": 4.4,
+      "reviews": 20709,
+      "price": 152400,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0DK5V16LD?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0DK5V16LD",
+      "imageUrl": "https://m.media-amazon.com/images/I/51yjhJ8byWL._AC_SS345_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793563690.4307396
+  }
+]
