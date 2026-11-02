@@ -782,5 +782,45 @@
     "precio": "~$206.700 COP",
     "categoria": "#Gaming #Videojuegos",
     "con_imagen": false
+  },
+  {
+    "fecha": "2026-11-02T14:01:14-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Lavadora a presión inalámbrica plegable, lavadora de mano eléctrica.",
+    "precio": "~$233.900 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-02T14:02:51-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "STANLEY Flowstate botella de agua 20 onzas cuarzo rosa",
+    "precio": "~$99.400 COP",
+    "categoria": "#Amazon #Botellas",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-02T14:04:07-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "TP-Link Extensor WiFi AC1200 Banda Dual RE315",
+    "precio": "~$76.100 COP",
+    "categoria": "#Amazon #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-02T14:05:20-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "HXTech Mini procesador de alimentos 4 tazas",
+    "precio": "~$65.600 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-02T14:06:56-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Garmin vívoactive 5, reloj inteligente GPS de salud y fitness, pantalla AMOLED, hasta 11 días de batería, color marfil",
+    "precio": "~$629.000 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
   }
 ]
