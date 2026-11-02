@@ -5,14 +5,14 @@
   "ultimo_reporte": "2026-11-01",
   "imagenes_origen": {
     "fallo": 114,
-    "navegador": 171,
+    "navegador": 172,
     "html": 1049,
-    "captcha": 2624,
+    "captcha": 2626,
     "navegador_tras_captcha": 57
   },
   "tiempo_navegador": {
-    "segundos": 6608.9,
-    "intentos": 2000
+    "segundos": 6620.5,
+    "intentos": 2003
   },
   "auto_publicadas": {
     "ReviuDescuentos": 31,
