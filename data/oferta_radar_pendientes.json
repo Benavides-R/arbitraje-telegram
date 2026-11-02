@@ -17,7 +17,28 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 2,
+    "intentos": 3,
     "guardado": 1793643397.167034
+  },
+  {
+    "payload": {
+      "externalId": "B0FP59JRZX",
+      "product": "Pantuflas tipo mocasín KENMITDY para hombre, de espuma viscoelástica con forro polar y suela de goma.",
+      "rating": 4.6,
+      "reviews": 221,
+      "price": 39700,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0FP59JRZX?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0FP59JRZX",
+      "imageUrl": "https://m.media-amazon.com/images/I/81T9DrDU+3L._AC_SY695_.jpg",
+      "category": "moda",
+      "coupon": "KD90F5GC",
+      "shipping": "elegible",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793650307.4839416
   }
 ]

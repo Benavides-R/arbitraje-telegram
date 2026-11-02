@@ -8,17 +8,17 @@
   "imagenes_origen": {
     "fallo": 114,
     "navegador": 186,
-    "html": 1078,
-    "captcha": 2664,
+    "html": 1087,
+    "captcha": 2682,
     "navegador_tras_captcha": 57
   },
   "tiempo_navegador": {
-    "segundos": 6803.6,
-    "intentos": 2055
+    "segundos": 6858.6,
+    "intentos": 2073
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 42,
-    "ElPromoHunter": 34,
+    "ReviuDescuentos": 46,
+    "ElPromoHunter": 38,
     "Clubgratis": 1
   }
 }
