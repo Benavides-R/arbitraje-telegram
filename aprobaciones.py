@@ -121,8 +121,9 @@ def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None, asin
     if imagen_bytes:
         cuerpo_texto = encabezado + texto_visible + pie
     else:
-        cuerpo_texto = (encabezado + texto_visible + "\n\n📸 <i>Sin imagen -- puedes responder a "
-                         "este mensaje con una foto tuya para usarla en su lugar.</i>" + pie)
+        cuerpo_texto = (encabezado + texto_visible + "\n\n📸 <i>Sin imagen -- responde a "
+                         "este mensaje con una foto tuya, o pega el link de la imagen "
+                         "(el que copia la extensión de Chrome) y la uso.</i>" + pie)
 
     # Telegram limita el "caption" de una foto a 1024 caracteres -- los links
     # de afiliado de AliExpress son muy largos y lo pueden superar. Si pasa,

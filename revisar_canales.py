@@ -982,9 +982,13 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
     en dos mensajes antes de que el primero se publique."""
     m_img = _RE_IMAGEN_MANUAL.search(texto)
     url_imagen_manual = m_img.group(1) if m_img else None
+    # La línea "imagen: <url>" es una instrucción para el bot, no parte de la
+    # oferta: se quita antes de analizar el texto (título con IA, precio,
+    # hashtags) para que esa URL no se cuele en el post publicado.
+    texto_analisis = _RE_IMAGEN_MANUAL.sub("", texto)
     # El link de la imagen (media-amazon.com) se saca de la lista: su dominio
     # contiene "amazon." y se confundiría con el link de la tienda.
-    links_en_mensaje = [l for l in extraer_links(texto) if l != url_imagen_manual]
+    links_en_mensaje = [l for l in extraer_links(texto_analisis) if l != url_imagen_manual]
     if not links_en_mensaje:
         return
 
@@ -1042,7 +1046,7 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
     if not link_con_afiliado:
         print(f"[SKIP] {oferta_id}: no se pudo generar link de afiliado propio, se descarta")
         return
-    texto_nuevo, titulo, precio = reescribir_texto(texto, link_con_afiliado)
+    texto_nuevo, titulo, precio = reescribir_texto(texto_analisis, link_con_afiliado)
 
     # Filtro de mínimos: si no se pudo sacar título o precio, no vale la
     # pena mandarla a revisión -- el link (link_con_afiliado) ya está
@@ -1070,7 +1074,7 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
         "dominio": dominio,
         "asin": asin,
         "titulo_normalizado": _sin_tildes(titulo.lower()),
-        "requiere_casillero": requiere_casillero(texto),
+        "requiere_casillero": requiere_casillero(texto_analisis),
         "precio_dentro_del_tope": _precio_dentro_del_tope(precio),
     }
 
