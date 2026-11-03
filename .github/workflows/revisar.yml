@@ -57,23 +57,45 @@ jobs:
         run: |
           git config user.name "bot-arbitraje"
           git config user.email "bot@arbitraje.local"
-          git add data/ultimo_id.json data/pendientes_revision.json data/ultimo_update_id.txt data/estadisticas.json
-          [ -f data/aprobadas.json ] && git add data/aprobadas.json || true
-          [ -f data/oferta_radar_pendientes.json ] && git add data/oferta_radar_pendientes.json || true
-          [ -f data/facebook_contador.json ] && git add data/facebook_contador.json || true
-          git diff --quiet && git diff --staged --quiet || git commit -m "Actualiza estado"
 
-          # Si mientras corría el script alguien más subió cambios al repo
-          # (ej. editar un archivo a mano en GitHub), el push directo se
-          # rechaza -- se reintenta trayendo esos cambios primero, hasta
-          # 3 veces, en vez de perder el estado de esta corrida.
+          # Esta corrida arrancó con el commit que había al dispararse, y
+          # mientras corría (10-20 min) otra corrida pudo subir su estado.
+          # Hacer "git pull --rebase" en ese caso SIEMPRE choca: los JSON de
+          # estado se reescriben completos, así que git no puede mezclarlos y
+          # la corrida entera fallaba perdiendo su estado (y repitiendo
+          # ofertas en la siguiente).
+          #
+          # Solución: se parte del commit más nuevo del remoto (reset --mixed,
+          # que no toca los archivos ya escritos en disco) y se pone encima
+          # SOLO el estado de esta corrida. Nunca hay merge de JSON, nunca hay
+          # conflicto, y si alguien subió código mientras corría, ese código
+          # se conserva (no se revierte). Si otro push gana la carrera, se
+          # reintenta igual.
+          guardar_estado() {
+            git fetch origin main --quiet
+            git reset --mixed origin/main
+            git add data/ultimo_id.json data/pendientes_revision.json \
+                    data/ultimo_update_id.txt data/estadisticas.json
+            for archivo in data/aprobadas.json data/oferta_radar_pendientes.json \
+                           data/facebook_contador.json; do
+              if [ -f "$archivo" ]; then git add "$archivo"; fi
+            done
+            if git diff --cached --quiet; then
+              echo "Sin cambios de estado que guardar."
+              return 0
+            fi
+            git commit -m "Actualiza estado"
+            git push origin HEAD:main
+          }
+
           intento=0
           while [ $intento -lt 3 ]; do
-            if git push; then
-              break
+            if guardar_estado; then
+              exit 0
             fi
             intento=$((intento + 1))
-            echo "Push rechazado (cambios remotos nuevos) -- reintentando ($intento/3)..."
-            git pull --rebase origin main
-            sleep 3
+            echo "Push rechazado -- reintentando ($intento/3)..."
+            sleep 5
           done
+          echo "::error::No se pudo guardar el estado tras 3 intentos"
+          exit 1

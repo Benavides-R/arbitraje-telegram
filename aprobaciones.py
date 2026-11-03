@@ -258,6 +258,32 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
         callback = update.get("callback_query")
         if callback and "data" in callback and ":" in callback["data"]:
             accion, oferta_id = callback["data"].split(":", 1)
+
+            oferta = pendientes.pop(oferta_id, None)
+            hubo_cambios_pendientes = True
+            if not oferta:
+                # La oferta ya no está en la cola: o ya se publicó/descartó,
+                # o se perdió su registro (p. ej. una corrida que falló al
+                # guardar el estado). Antes se respondía "Publicado ✅" y no
+                # se publicaba nada: eso confundía. Ahora se avisa claro.
+                print(f"[REVISION] {oferta_id}: no está en la cola, no se publica")
+                try:
+                    requests.post(f"{API}/answerCallbackQuery", data={
+                        "callback_query_id": callback["id"],
+                        "text": "⚠️ Esa oferta ya no está en la cola",
+                    }, timeout=15)
+                except Exception as e:
+                    print(f"[WARN] No se pudo responder al botón: {e}")
+                try:
+                    requests.post(f"{API}/sendMessage", data={
+                        "chat_id": ADMIN_CHAT_ID,
+                        "text": "⚠️ Esa oferta ya no está en la cola del bot, así que NO se publicó. "
+                                "Si la quieres, mándamela de nuevo.",
+                    }, timeout=15)
+                except Exception:
+                    pass
+                continue
+
             try:
                 requests.post(f"{API}/answerCallbackQuery", data={
                     "callback_query_id": callback["id"],
@@ -265,11 +291,6 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
                 }, timeout=15)
             except Exception as e:
                 print(f"[WARN] No se pudo responder al botón: {e}")
-
-            oferta = pendientes.pop(oferta_id, None)
-            hubo_cambios_pendientes = True
-            if not oferta:
-                continue
 
             if accion == "aprobar":
                 asin = oferta.get("asin")
