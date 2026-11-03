@@ -830,5 +830,21 @@
     "precio": "~$33.200 COP",
     "categoria": "#Amazon #Bancolombia",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-03T10:01:58-05:00",
+    "canal": "Manual",
+    "titulo": "Inflador de neumáticos portátil de 150 PSI con medidor digital",
+    "precio": "~$24.100 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-03T10:03:38-05:00",
+    "canal": "Manual",
+    "titulo": "Hisense Televisor Smart VIDAA FHD de 40 (101,6 cm) clase QD4 Series Hi-QLED.",
+    "precio": "~$692.200 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
   }
 ]
