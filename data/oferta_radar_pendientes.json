@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0HHJPFHS4",
+      "product": "Oraolo Auriculares de oreja abierta, sonido potente de controladores grandes de 0.63 pulgadas, auriculares Bluetooth 5.4 de oreja abierta con micrófono de",
+      "rating": null,
+      "reviews": null,
+      "price": 6.46,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.ca/dp/B0HHJPFHS4?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.ca/dp/B0HHJPFHS4",
+      "imageUrl": "https://m.media-amazon.com/images/I/41g1rommHLL._AC_SX679_.jpg",
+      "category": "Audio",
+      "coupon": null,
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793714720.4776235
+  }
+]

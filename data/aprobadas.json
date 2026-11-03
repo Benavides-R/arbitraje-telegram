@@ -822,5 +822,13 @@
     "precio": "~$629.000 COP",
     "categoria": "#Moda #Estilo",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-03T08:43:10-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Saldo de Amazon",
+    "precio": "~$33.200 COP",
+    "categoria": "#Amazon #Bancolombia",
+    "con_imagen": true
   }
 ]
