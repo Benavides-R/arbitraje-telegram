@@ -846,5 +846,21 @@
     "precio": "~$692.200 COP",
     "categoria": "#Ofertas #Descuentos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-03T12:01:14-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Minthouz Calentador de espacio de cerámica PTC, calefactor eléctrico.",
+    "precio": "~$129.200 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-03T12:02:53-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Huuger Escritorio eléctrico grande de pie 55 x 28 pulgadas, altura ajustable, 27.6 pulgadas de profundidad.",
+    "precio": "~$678.500 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
