@@ -7,18 +7,18 @@
   "ultimo_reporte": "2026-11-01",
   "imagenes_origen": {
     "fallo": 114,
-    "navegador": 193,
-    "html": 1123,
-    "captcha": 2754,
+    "navegador": 195,
+    "html": 1131,
+    "captcha": 2775,
     "navegador_tras_captcha": 57
   },
   "tiempo_navegador": {
-    "segundos": 7129.6,
-    "intentos": 2152
+    "segundos": 7205.0,
+    "intentos": 2175
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 59,
-    "ElPromoHunter": 57,
-    "Clubgratis": 3
+    "ReviuDescuentos": 64,
+    "ElPromoHunter": 58,
+    "Clubgratis": 4
   }
 }
