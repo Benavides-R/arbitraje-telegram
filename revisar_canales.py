@@ -910,7 +910,10 @@ def _post_telegram(url, rebobinar=None, **kwargs):
     antes de cada reintento (si no, el segundo envío iría vacío)."""
     ultimo_error = None
     for intento in range(1, _INTENTOS_TELEGRAM + 1):
-        if intento > 1 and rebobinar:
+        # Se rebobina SIEMPRE, también en el primer intento: otro envío
+        # (ej. Facebook) pudo haber consumido el mismo buffer y Telegram
+        # rechazaría el archivo vacío con "file must be non-empty".
+        if rebobinar:
             try:
                 rebobinar()
             except Exception:
@@ -937,6 +940,23 @@ def _post_telegram(url, rebobinar=None, **kwargs):
     return None
 
 
+def _imagen_tiene_contenido(imagen_bytes):
+    """True si el buffer de imagen trae bytes de verdad. Evita mandarle a
+    Telegram un archivo vacío (error 400 'file must be non-empty')."""
+    if not imagen_bytes:
+        return False
+    try:
+        posicion = imagen_bytes.tell()
+        imagen_bytes.seek(0, 2)
+        tamano = imagen_bytes.tell()
+        imagen_bytes.seek(posicion)
+        return tamano > 0
+    except Exception:
+        # Si no se puede medir (objeto no buscable), se deja pasar: requests
+        # sí puede leerlo.
+        return True
+
+
 def publicar(chat_id, texto, imagen_bytes=None):
     """Publica en un canal de Telegram y devuelve True solo si Telegram
     confirmó el mensaje.
@@ -946,6 +966,10 @@ def publicar(chat_id, texto, imagen_bytes=None):
     salió y hay que poder reintentarla."""
     if not chat_id:
         return False
+
+    if imagen_bytes is not None and not _imagen_tiene_contenido(imagen_bytes):
+        print("[WARN] La imagen llegó vacía; se publica solo el texto.")
+        imagen_bytes = None
 
     rebobinar = (lambda: imagen_bytes.seek(0)) if imagen_bytes else None
     try:
@@ -957,7 +981,7 @@ def publicar(chat_id, texto, imagen_bytes=None):
                               rebobinar=rebobinar,
                               data={"chat_id": chat_id},
                               files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")},
-                              timeout=30) is None:
+                              timeout=60) is None:
                 # La foto falló, pero el texto (con el link de la oferta)
                 # todavía puede salir: eso sigue siendo una publicación.
                 print(f"[WARN] La foto no se publicó en el canal {chat_id}; se intenta el texto igual.")
@@ -969,7 +993,7 @@ def publicar(chat_id, texto, imagen_bytes=None):
                                   rebobinar=rebobinar,
                                   data={"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"},
                                   files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")},
-                                  timeout=30)
+                                  timeout=60)
         else:
             resp = _post_telegram(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
                                   json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"},

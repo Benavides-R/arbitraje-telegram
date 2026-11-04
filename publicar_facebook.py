@@ -77,6 +77,10 @@ def publicar_facebook(texto, imagen_bytes=None):
     try:
         if imagen_bytes:
             url = f"{GRAPH_API_BASE}/{FACEBOOK_PAGE_ID}/photos"
+            try:
+                imagen_bytes.seek(0)
+            except Exception:
+                pass
             files = {"source": ("oferta.jpg", imagen_bytes, "image/jpeg")}
             data = {"caption": texto, "access_token": FACEBOOK_PAGE_ACCESS_TOKEN}
             resp = requests.post(url, data=data, files=files, timeout=30)

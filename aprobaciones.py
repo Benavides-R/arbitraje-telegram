@@ -209,12 +209,12 @@ def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None, asin
                 "caption": cuerpo_texto,
                 "reply_markup": json.dumps(teclado),
                 "parse_mode": "HTML",
-            }, files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=30)
+            }, files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=60)
         else:
             if imagen_bytes:
                 imagen_bytes.seek(0)
                 requests.post(f"{API}/sendPhoto", data={"chat_id": ADMIN_CHAT_ID},
-                               files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=30)
+                               files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=60)
             respuesta = requests.post(f"{API}/sendMessage", data={
                 "chat_id": ADMIN_CHAT_ID,
                 "text": cuerpo_texto,
