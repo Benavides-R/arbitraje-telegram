@@ -902,5 +902,13 @@
     "precio": "~$73.500 COP",
     "categoria": "#Seguridad #Tecnologia",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T14:00:57-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Garmin vívoactive 5, Reloj inteligente de salud y fitness con GPS, pantalla AMOLED, hasta 11 días de batería, orquídea",
+    "precio": "~$567.900 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
   }
 ]
