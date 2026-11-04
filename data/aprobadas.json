@@ -870,5 +870,29 @@
     "precio": "~$99.500 COP",
     "categoria": "#Amazon #Tecnología",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T10:06:42-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "havit Bluetooth Shower Speaker IP67 Waterproof Portable",
+    "precio": "~$55.100 COP",
+    "categoria": "#Audio #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T10:07:50-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "AOCHUAN Smart XE estabilizador con enfoque y seguimiento de objetos para iPhone.",
+    "precio": "~$172.200 COP",
+    "categoria": "#Celulares #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T10:08:59-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Reloj inteligente Kriutefy con contador de pasos y monitor de calorías, impermeable IP68, compatible con iPhone y Android.",
+    "precio": "~$59.600 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
   }
 ]
