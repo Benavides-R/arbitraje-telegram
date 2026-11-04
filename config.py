@@ -82,7 +82,6 @@ PALABRAS_AUTO_PERMITIDAS = [
     "karaoke", "juego", "pieza", "paquete", "acero", "sarten",
     "cuchillo", "toalla", "edredon", "manta", "organizador",
     "facial", "cabello", "cepillo", "serum",
-    "halloween", "navidad", "regalo", "invierno",
     # --- expansión 3: marcas deportivas top (talla/calidad más predecible) ---
     "nike", "adidas", "puma", "reebok", "balance", "garmin",
     "columbia", "under armour", "saucony", "fila", "champion",
@@ -93,19 +92,19 @@ PALABRAS_AUTO_PERMITIDAS = [
     # Género: la que más desbloquea de todas ("X para hombre/mujer").
     "hombre", "mujer",
     # Ropa/accesorios que se repetían en aprobadas y en la cola:
-    "sudadera", "tenis", "capucha", "sueter", "zapatillas", "calcetines",
+    "sudadera", "tenis", "capucha", "sueter", "zapatillas",
     "camisa", "pantalones", "polo", "calzado", "ninos", "cuero",
     "collar", "hanes", "skechers", "nautica", "tommy",
     # Tech/futuro: poco en la cola hoy, pero salen seguido en aprobadas:
     "rtx", "geforce", "grafica", "escritorio", "billetera", "rfid",
-    "usb", "molinillo", "controlador", "echo", "microscopio",
+    "usb", "molinillo", "controlador", "microscopio",
     # --- expansión 5 (2026-10-28): lo que el admin quiere publicar ---
     # Televisores (categoría que pidió y es "lo mejor de lo mejor"):
     "tv", "smart tv", "fire tv", "televisor",
     "hisense", "tcl", "roku", "samsung", "philips", "sony",
-    # Zapatos/calzado de marcas y tipos:
-    "zapatos", "sandalias", "botas", "botines", "mocasines",
-    "chanclas", "crocs", "converse", "vans",
+    # Zapatos/calzado de marcas y tipos (se quitaron sandalias/botas/botines/
+    # mocasines/chanclas/crocs: no los quiere el admin):
+    "zapatos", "converse", "vans",
     # Cuidado personal -- marcas que pidió:
     "medicube", "cerave", "dove", "johnson", "listerine", "colgate",
     "gillette", "nivea", "palmolive", "pantene", "schick", "eucerin",
@@ -117,6 +116,19 @@ PALABRAS_AUTO_PERMITIDAS = [
     "protector solar", "hidratante", "limpiador", "suero",
     # Bolsos:
     "bolso", "bandolera",
+    # --- expansión 6 (2026-11-03): el nicho real, con el nombre que la
+    # gente usa en Colombia ("parlante", "celular") y no el técnico
+    # ("altavoz", "teléfono") -- antes se iban a revisión sin necesidad ---
+    "parlante", "bocina", "celular", "computador",
+    "consola", "playstation", "xbox", "nintendo", "control",
+    "silla gamer", "aire acondicionado", "colchon",
+    # Cocina y casa:
+    "cafetera", "licuadora", "olla", "vajilla", "secador",
+    # Herramientas y electricidad:
+    "afeitadora", "cortadora", "multimetro", "destornillador",
+    "extensor", "regulador",
+    # Hogar:
+    "videoportero", "videopuerto",
 ]
 
 # Lista negra: aunque el título matchee una palabra permitida, si contiene
@@ -126,6 +138,16 @@ PALABRAS_AUTO_PERMITIDAS = [
 PALABRAS_NO_AUTO = [
     "braga", "panti", "brasier", "brassiere", "lenceria",
     "sujetador", "ropa interior", "calzoncillo",
+    # Lencería que el admin tampoco quiere (2026-11-03). "encaje" cubre
+    # "pijama de encaje" y cualquier prenda con encaje.
+    "tanga", "body", "encaje",
+    # Salud, armas y segunda mano:
+    "vape", "cigarrillo", "suplemento", "pastillas", "medicamento",
+    "navaja", "cuchilla de afeitar",
+    "usado", "reacondicionado", "renewed",
+    # "consola" está en la lista blanca y matchea por substring:
+    # sin esto, un consolador se publicaría solo.
+    "consolador",
 ]
 
 # Buscador de ofertas directo de AliExpress (sin depender de canales de

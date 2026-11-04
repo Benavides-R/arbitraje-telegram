@@ -59,9 +59,12 @@ def _html_a_texto_plano(texto_html):
 
 
 def publicar_facebook(texto, imagen_bytes=None):
+    """Publica en la página de Facebook y devuelve True solo si Meta
+    confirmó el post. False = no salió (no configurado, error de red, o
+    respuesta con error)."""
     if not FACEBOOK_PAGE_ID or not FACEBOOK_PAGE_ACCESS_TOKEN:
         print("[SKIP] Facebook no configurado todavía")
-        return
+        return False
 
     transcurrido = _segundos_desde_ultimo_post()
     if transcurrido < FACEBOOK_SEGUNDOS_ENTRE_POSTS:
@@ -84,7 +87,20 @@ def publicar_facebook(texto, imagen_bytes=None):
 
         if resp.status_code != 200:
             print(f"[WARN] Facebook respondió con error: {resp.text}")
-        else:
-            _marcar_post_ahora()
+            return False
+
+        # La Graph API puede contestar 200 con {"error": {...}} (token
+        # vencido, permisos, etc.). Sin este chequeo el post se daba por
+        # bueno y el contador de ritmo avanzaba sin haber publicado nada.
+        try:
+            if resp.json().get("error"):
+                print(f"[WARN] Facebook rechazó el post: {resp.text}")
+                return False
+        except Exception:
+            pass
+
+        _marcar_post_ahora()
+        return True
     except Exception as e:
         print(f"[ERROR] Fallo al publicar en Facebook: {e}")
+        return False

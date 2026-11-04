@@ -53,7 +53,7 @@ from badges import (
     BADGE_ENVIO_GRATIS, BADGE_RELAMPAGO,
 )
 from supabase_storage import subir_a_supabase
-from aprobaciones import enviar_para_revision, revisar_actividad_admin
+from aprobaciones import enviar_para_revision, revisar_actividad_admin, limpiar_pendientes_viejos
 from alertas import registrar_fallo, avisar_si_hubo_fallos, avisar_corrida_caida, enviar_alerta
 from estadisticas import verificar_y_enviar_reporte, registrar_auto_publicacion
 from aliexpress_afiliado import generar_link_afiliado_aliexpress
@@ -855,40 +855,134 @@ def reescribir_texto(texto_original, link):
     return "\n".join(lineas), titulo, precio
 
 
+# Cuántos intentos hace una publicación en Telegram antes de darse por
+# perdida, y cuánto se espera entre uno y otro.
+_INTENTOS_TELEGRAM = 2
+_PAUSA_REINTENTO_SEG = 3
+
+
+def _telegram_confirmo(resp):
+    """True solo si Telegram contestó {"ok": true}. Un 200 con ok:false (o
+    una respuesta que no es JSON) cuenta como NO publicado."""
+    try:
+        return bool(resp.ok) and bool(resp.json().get("ok", False))
+    except Exception:
+        return False
+
+
+def _fallo_transitorio(resp=None, exc=None):
+    """Dice si vale la pena reintentar la publicación.
+
+    Solo se reintenta lo que puede salir bien al segundo intento:
+    - 5xx de Telegram (servidor saturado) y 429 (límite de ritmo).
+    - ConnectTimeout / ConnectionError: la petición NO llegó a salir.
+
+    NUNCA tras ReadTimeout: ahí la petición SÍ pudo haber llegado y
+    reintentar publicaría la oferta DOS VECES en el canal.
+    """
+    if resp is not None:
+        return resp.status_code == 429 or 500 <= resp.status_code < 600
+    if isinstance(exc, requests.exceptions.ConnectTimeout):
+        return True
+    if isinstance(exc, requests.exceptions.ConnectionError):
+        return True
+    return False
+
+
+def _espera_antes_de_reintentar(resp=None):
+    """Respeta el retry_after que manda Telegram; si no viene, una pausa
+    corta. Se topa a 30s para no colgar la corrida."""
+    if resp is not None:
+        try:
+            retry_after = resp.json().get("parameters", {}).get("retry_after")
+            if retry_after:
+                return min(float(retry_after), 30.0)
+        except Exception:
+            pass
+    return _PAUSA_REINTENTO_SEG
+
+
+def _post_telegram(url, rebobinar=None, **kwargs):
+    """POST a Telegram con reintentos acotados. Devuelve la respuesta que
+    confirmó el envío, o None si no se pudo publicar.
+
+    rebobinar: función opcional que vuelve al inicio el archivo de imagen
+    antes de cada reintento (si no, el segundo envío iría vacío)."""
+    ultimo_error = None
+    for intento in range(1, _INTENTOS_TELEGRAM + 1):
+        if intento > 1 and rebobinar:
+            try:
+                rebobinar()
+            except Exception:
+                pass
+        resp = None
+        try:
+            resp = requests.post(url, **kwargs)
+            if _telegram_confirmo(resp):
+                return resp
+            ultimo_error = f"Telegram rechazó la petición: {resp.text}"
+        except Exception as e:
+            ultimo_error = e
+            resp = None
+
+        if intento < _INTENTOS_TELEGRAM and _fallo_transitorio(resp=resp, exc=ultimo_error if resp is None else None):
+            espera = _espera_antes_de_reintentar(resp)
+            print(f"[WARN] Telegram falló (intento {intento}/{_INTENTOS_TELEGRAM}): {ultimo_error}. "
+                  f"Reintentando en {espera:.0f}s...")
+            time.sleep(espera)
+            continue
+        break
+
+    print(f"[WARN] No se pudo publicar en Telegram: {ultimo_error}")
+    return None
+
+
 def publicar(chat_id, texto, imagen_bytes=None):
+    """Publica en un canal de Telegram y devuelve True solo si Telegram
+    confirmó el mensaje.
+
+    El llamador DEBE revisar este valor antes de marcar el ASIN como
+    publicado o de registrar la oferta: si devuelve False, la oferta no
+    salió y hay que poder reintentarla."""
     if not chat_id:
-        return
+        return False
+
+    rebobinar = (lambda: imagen_bytes.seek(0)) if imagen_bytes else None
     try:
         if imagen_bytes and len(texto) > 1024:
             # El texto no cabe como caption de foto (links de afiliado muy
             # largos, ej. AliExpress) -- se manda la foto sola, y el texto
             # completo aparte, como mensaje normal (sin ese límite).
-            imagen_bytes.seek(0)
-            requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
-                           data={"chat_id": chat_id},
-                           files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}, timeout=30)
-            resp = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-                                  json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
+            if _post_telegram(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
+                              rebobinar=rebobinar,
+                              data={"chat_id": chat_id},
+                              files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")},
+                              timeout=30) is None:
+                # La foto falló, pero el texto (con el link de la oferta)
+                # todavía puede salir: eso sigue siendo una publicación.
+                print(f"[WARN] La foto no se publicó en el canal {chat_id}; se intenta el texto igual.")
+            resp = _post_telegram(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+                                  json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"},
+                                  timeout=15)
         elif imagen_bytes:
-            imagen_bytes.seek(0)
-            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
-            files = {"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")}
-            data = {"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"}
-            resp = requests.post(url, data=data, files=files, timeout=30)
+            resp = _post_telegram(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
+                                  rebobinar=rebobinar,
+                                  data={"chat_id": chat_id, "caption": texto, "parse_mode": "HTML"},
+                                  files={"photo": ("oferta.jpg", imagen_bytes, "image/jpeg")},
+                                  timeout=30)
         else:
-            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-            resp = requests.post(url, json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}, timeout=15)
-
-        # Antes esto no se revisaba: Telegram puede responder 200 o 4xx con
-        # {"ok": false, "description": "..."} (ej. el bot no es admin del
-        # canal) sin lanzar una excepción de red -- si no se chequea, el
-        # fallo queda invisible y parece que "no pasó nada".
-        if not resp.ok or not resp.json().get("ok", False):
-            print(f"[WARN] Telegram rechazó la publicación (chat {chat_id}): {resp.text}")
-            registrar_fallo("Publicar en Telegram")
+            resp = _post_telegram(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+                                  json={"chat_id": chat_id, "text": texto, "parse_mode": "HTML"},
+                                  timeout=15)
     except Exception as e:
         print(f"[WARN] No se pudo publicar en Telegram (chat {chat_id}): {e}")
         registrar_fallo("Publicar en Telegram")
+        return False
+
+    if resp is None:
+        registrar_fallo("Publicar en Telegram")
+        return False
+    return True
 
 
 def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, imagen_original_bytes=None,
@@ -905,7 +999,12 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
 
     texto_original (opcional): el mensaje tal cual lo escribió el canal,
     solo se usa para el historial de selección de video (leer el % de
-    descuento si lo mencionan) -- no afecta la publicación en sí."""
+    descuento si lo mencionan) -- no afecta la publicación en sí.
+
+    Devuelve True SOLO si la oferta salió de verdad en ese momento (VIP o
+    Facebook confirmaron, o el canal gratis cuando no hay VIP). El canal
+    gratis programado con retraso NO cuenta: todavía no se publicó. Quien
+    llame a esta función debe revisar el valor antes de bloquear el ASIN."""
     # Caso manual (foto subida por Telegram, sin URL propia): se sube a
     # Supabase UNA sola vez aquí, al principio, y se guarda en url_imagen
     # -- así el badge, Oferta Radar y el historial de video usan la misma
@@ -933,8 +1032,8 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
         if url_oferta_radar:
             texto_nuevo = re.sub(r"⚡ Ver oferta: \S+", f"⚡ Ver oferta: {url_oferta_radar}", texto_nuevo)
 
-    publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes)
-    publicar_facebook(texto_nuevo, imagen_bytes)
+    vip_ok = publicar(CANAL_DESTINO_VIP, texto_nuevo, imagen_bytes) if CANAL_DESTINO_VIP else False
+    fb_ok = publicar_facebook(texto_nuevo, imagen_bytes)
 
     if not USAR_BRIDGE_OFERTA_RADAR:
         # Modo normal (sin bridge): Oferta Radar se crea DESPUÉS de publicar,
@@ -946,15 +1045,20 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
 
     if not CANAL_DESTINO_VIP:
         # No hay canal VIP todavía -- no tiene sentido hacer esperar al
-        # canal gratis por un VIP que no existe, se publica ya mismo.
-        publicar(CANAL_DESTINO_GRATIS, texto_nuevo, imagen_bytes)
-        return
+        # canal gratis por un VIP que no existe, se publica ya mismo. Aquí
+        # el canal gratis SÍ confirma en el momento, así que cuenta.
+        gratis_ok = publicar(CANAL_DESTINO_GRATIS, texto_nuevo, imagen_bytes)
+        return bool(gratis_ok or fb_ok)
 
     pendientes_gratis = cargar_estado().get("pendientes_gratis", [])
     pendientes_gratis.append({"texto": texto_nuevo, "hora": time.time()})
     estado = cargar_estado()
     estado["pendientes_gratis"] = pendientes_gratis
     guardar_estado(estado)
+
+    # El canal gratis programado (15 min después) NO cuenta como
+    # confirmación: todavía no salió. Solo VIP o Facebook confirman aquí.
+    return bool(vip_ok or fb_ok)
 
 
 def publicar_pendientes_gratis():
@@ -970,7 +1074,7 @@ def publicar_pendientes_gratis():
     guardar_estado(estado)
 
 
-def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
+def preparar_oferta(oferta_id, texto, asins_en_vuelo=None, fecha_mensaje=None):
     """FASE 1: todos los filtros y la extracción (link, afiliado, texto,
     imagen) SIN decidir todavía nada. Devuelve el pedido preparado (dict)
     para que finalizar_oferta() ejecute la decisión después -- así el
@@ -979,7 +1083,11 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
 
     asins_en_vuelo (opcional): conjunto de ASINs ya preparados EN ESTA
     corrida, para no procesar dos veces el mismo producto aunque aparezca
-    en dos mensajes antes de que el primero se publique."""
+    en dos mensajes antes de que el primero se publique.
+
+    fecha_mensaje (opcional): cuándo se publicó el mensaje original en el
+    canal. Se guarda para volver a revisar la antigüedad justo antes de
+    publicar (entre el escaneo y la publicación pueden pasar minutos)."""
     m_img = _RE_IMAGEN_MANUAL.search(texto)
     url_imagen_manual = m_img.group(1) if m_img else None
     # La línea "imagen: <url>" es una instrucción para el bot, no parte de la
@@ -1076,6 +1184,7 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None):
         "titulo_normalizado": _sin_tildes(titulo.lower()),
         "requiere_casillero": requiere_casillero(texto_analisis),
         "precio_dentro_del_tope": _precio_dentro_del_tope(precio),
+        "fecha_mensaje": fecha_mensaje,
     }
 
 
@@ -1100,6 +1209,17 @@ def finalizar_oferta(prep):
     # trae ropa interior/lencería (decisión del admin) nunca publica sola.
     hay_prohibida = any(mala in prep["titulo_normalizado"] for mala in PALABRAS_NO_AUTO)
 
+    # Re-chequeo de antigüedad justo antes de publicar: la primera revisión
+    # fue al escanear el mensaje, y entre eso y este punto la oferta puede
+    # haber esperado en la cola. Una oferta vieja suele tener el precio ya
+    # vencido, así que no se publica sola. (No aplica a las aprobaciones
+    # manuales del admin: ahí decides tú.)
+    fecha_mensaje = prep.get("fecha_mensaje")
+    if fecha_mensaje and (datetime.now(timezone.utc) - fecha_mensaje) > timedelta(hours=MAX_ANTIGUEDAD_OFERTA_HORAS):
+        print(f"[SKIP] {oferta_id}: la oferta superó {MAX_ANTIGUEDAD_OFERTA_HORAS}h mientras esperaba, "
+              f"no se publica sola")
+        return True  # se procesó (se decidió descartarla), cuenta para el tope por corrida
+
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
             and not prep["requiere_casillero"] and prep["precio_dentro_del_tope"] \
             and not hay_prohibida \
@@ -1108,9 +1228,16 @@ def finalizar_oferta(prep):
         # alguno, se descartó ahí) -- con imagen también presente, la
         # oferta está completa y se publica sola, sin pasar por revisión.
         print(f"[OFERTA] {dominio} -> completa (imagen+título+precio), publicando automático ({oferta_id})")
-        _marcar_asin_publicado(asin)
-        publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
-        registrar_auto_publicacion(oferta_id.split(":", 1)[0])
+        publicado = publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
+        if publicado:
+            # El ASIN se bloquea SOLO después de confirmar que la oferta
+            # salió de verdad. Antes se marcaba antes de publicar: si la
+            # publicación fallaba, el producto quedaba bloqueado 12h sin
+            # haberse publicado nunca.
+            _marcar_asin_publicado(asin)
+            registrar_auto_publicacion(oferta_id.split(":", 1)[0])
+        else:
+            print(f"[WARN] {oferta_id}: no se pudo publicar; el ASIN {asin} NO se bloquea")
     elif MODO_REVISION:
         motivo = "requiere casillero" if prep["requiere_casillero"] \
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL \
@@ -1121,9 +1248,12 @@ def finalizar_oferta(prep):
         enviar_para_revision(oferta_id, texto_nuevo, url_imagen, texto_original=texto, asin=asin)
     else:
         print(f"[OFERTA] {dominio} -> publicando directo")
-        _marcar_asin_publicado(asin)
-        publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
-        registrar_auto_publicacion(oferta_id.split(":", 1)[0])
+        publicado = publicar_oferta_completa(texto_nuevo, url_imagen, texto_original=texto)
+        if publicado:
+            _marcar_asin_publicado(asin)
+            registrar_auto_publicacion(oferta_id.split(":", 1)[0])
+        else:
+            print(f"[WARN] {oferta_id}: no se pudo publicar; el ASIN {asin} NO se bloquea")
     return True  # sí contó como oferta procesada, para el tope por corrida
 
 
@@ -1138,7 +1268,12 @@ def procesar_mensaje(oferta_id, texto):
 
 
 def main():
-    # 0. Reintenta ofertas que fallaron al importar a Oferta Radar en
+    # 0. Limpia la cola de revisión: lo que lleva demasiado esperando ya no
+    # sirve (el cupón o el precio vencieron). Se hace UNA vez por corrida,
+    # antes de revisar respuestas del admin.
+    limpiar_pendientes_viejos()
+
+    # 0.1 Reintenta ofertas que fallaron al importar a Oferta Radar en
     # corridas anteriores (ej. errores 500 puntuales, caídas cortas).
     reintentar_pendientes()
 
@@ -1222,7 +1357,8 @@ def main():
                     continue
                 if msg.raw_text:
                     oferta_id = f"{canal}:{msg.id}"
-                    prep = preparar_oferta(oferta_id, msg.raw_text, asins_en_vuelo)
+                    prep = preparar_oferta(oferta_id, msg.raw_text, asins_en_vuelo,
+                                           fecha_mensaje=msg.date)
                     if prep:
                         preparadas.append(prep)
                         ofertas_procesadas += 1

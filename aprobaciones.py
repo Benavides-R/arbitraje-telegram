@@ -48,6 +48,75 @@ def _guardar_pendientes(pendientes):
     PENDIENTES_FILE.write_text(json.dumps(pendientes, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+# Cuánto dura una oferta en la cola de revisión antes de descartarse sola.
+# Con cupón dura menos: el código de descuento suele vencer rápido y una
+# oferta de hace 6h ya no le sirve a nadie. Sin cupón aguanta más (24h)
+# porque el precio todavía puede estar vigente.
+HORAS_PENDIENTE_CON_CUPON = 6
+HORAS_PENDIENTE_SIN_CUPON = 24
+
+# Mismo criterio que extraer_cupon() de revisar_canales.py, copiado aquí
+# porque ese módulo ya importa este (importarlo al revés sería circular).
+_RE_CUPON = re.compile(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]+)", re.IGNORECASE)
+_CUPON_NEGATIVOS = {
+    "no necesita", "ninguno", "no aplica", "sin cupon", "no requiere",
+    "no aplica ninguno",
+}
+
+
+def _pendiente_tenia_cupon(datos):
+    """True si la oferta original traía un cupón/código REAL (no la frase
+    'no necesita cupón'). Se mira el texto original del canal y el mensaje
+    ya armado, porque el armado repite la línea '🎟️ Cupón: ...'."""
+    texto = " ".join(
+        parte for parte in (datos.get("texto_original"), datos.get("texto")) if parte
+    )
+    for match in _RE_CUPON.finditer(texto):
+        for parte in re.split(r"\s*(?:\+|,|/|\by\b)\s*", match.group(1)):
+            candidato = re.sub(r"[^\w\s%-]", "", parte).strip()
+            if not candidato or candidato.lower() in _CUPON_NEGATIVOS:
+                continue
+            if re.match(r"^[A-Za-z0-9-]{3,20}$", candidato):
+                return True
+            if re.match(r"^seleccionable\s+\d{1,2}\s*%$", candidato, re.IGNORECASE):
+                return True
+    return False
+
+
+def limpiar_pendientes_viejos(ahora=None):
+    """Descarta de la cola de revisión lo que ya no sirve: las ofertas con
+    cupón que llevan más de 6h esperando y las demás que llevan más de 24h.
+    Devuelve cuántas se borraron. Solo escribe el archivo si de verdad borró
+    algo (no lo reescribe en cada corrida sin motivo)."""
+    pendientes = _cargar_pendientes()
+    if not pendientes:
+        return 0
+
+    ahora = time.time() if ahora is None else ahora
+    quedan = {}
+    con_cupon = sin_cupon = 0
+    for oferta_id, datos in pendientes.items():
+        horas = (ahora - (datos.get("creado") or 0)) / 3600
+        limite = HORAS_PENDIENTE_CON_CUPON if _pendiente_tenia_cupon(datos) \
+            else HORAS_PENDIENTE_SIN_CUPON
+        if horas >= limite:
+            if limite == HORAS_PENDIENTE_CON_CUPON:
+                con_cupon += 1
+            else:
+                sin_cupon += 1
+            continue
+        quedan[oferta_id] = datos
+
+    borrados = len(pendientes) - len(quedan)
+    if borrados:
+        _guardar_pendientes(quedan)
+        print(f"[INFO] Cola de revisión: {borrados} oferta(s) vieja(s) descartada(s) "
+              f"({con_cupon} con cupón de más de {HORAS_PENDIENTE_CON_CUPON}h, "
+              f"{sin_cupon} sin cupón de más de {HORAS_PENDIENTE_SIN_CUPON}h) -- "
+              f"quedan {len(quedan)}")
+    return borrados
+
+
 def _cargar_offset():
     if OFFSET_FILE.exists():
         contenido = OFFSET_FILE.read_text().strip()
@@ -211,7 +280,9 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
     mismo pipeline de las ofertas automáticas (extracción, imagen, envío a
     revisión, todo igual).
     `publicar_func(texto, url_imagen, imagen_bytes, imagen_original_bytes)` es
-    la función real de publicación -- se llama solo cuando apruebas.
+    la función real de publicación -- se llama solo cuando apruebas, y
+    DEVUELVE True/False (False = no salió). Si devuelve False no se marca el
+    ASIN ni se cuenta como publicada, y te avisa para que la reenvíes.
     `imagen_original_bytes` (sin logo) solo viene poblado cuando subiste la
     foto a mano; se usa para Oferta Radar/Storage, nunca para Telegram/FB.
     `marcar_publicado_func(asin)` se llama SOLO cuando la oferta se publica
@@ -316,8 +387,21 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
                         imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
                     if oferta.get("imagen_original_base64"):
                         imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
-                    publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
-                                   texto_original=oferta.get("texto_original"))
+                    publicado = publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
+                                              texto_original=oferta.get("texto_original"))
+                    if publicado is False:
+                        # No salió: NO se marca el ASIN ni se cuenta como
+                        # publicada, y se avisa para que la reenvíes.
+                        print(f"[WARN] {oferta_id}: no se pudo publicar, no se marca el ASIN")
+                        try:
+                            requests.post(f"{API}/sendMessage", data={
+                                "chat_id": ADMIN_CHAT_ID,
+                                "text": "⚠️ No se pudo publicar esa oferta. No se marcó como usada, "
+                                        "así que puedes volver a mandarla cuando quieras.",
+                            }, timeout=15)
+                        except Exception:
+                            pass
+                        continue
                     # El ASIN se marca como USADO recién aquí: la oferta ya
                     # salió de verdad. Si publicar falla, no se marca.
                     if marcar_publicado_func:
@@ -483,6 +567,7 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
                     continue
                 if palabra in aprobar_palabras:
                     print(f"[REVISION] Aprobada por texto: {oferta_id_encontrada}")
+                    publicada_ok = None
                     try:
                         imagen_bytes = None
                         imagen_original_bytes = None
@@ -490,22 +575,35 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
                             imagen_bytes = io.BytesIO(base64.b64decode(oferta["imagen_base64"]))
                         if oferta.get("imagen_original_base64"):
                             imagen_original_bytes = io.BytesIO(base64.b64decode(oferta["imagen_original_base64"]))
-                        publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
-                                       texto_original=oferta.get("texto_original"))
-                        registrar_publicacion(
-                            oferta_id_encontrada.split(":", 1)[0],
-                            texto=oferta["texto"],
-                            con_imagen=bool(oferta.get("url_imagen") or oferta.get("imagen_base64")),
-                        )
-                        time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
+                        publicada_ok = publicar_func(oferta["texto"], oferta.get("url_imagen"), imagen_bytes, imagen_original_bytes,
+                                                     texto_original=oferta.get("texto_original"))
+                        if publicada_ok is False:
+                            print(f"[WARN] {oferta_id_encontrada}: no se pudo publicar, no se marca el ASIN")
+                        else:
+                            # Solo si salió de verdad: se marca el ASIN (antes
+                            # esta vía ni siquiera lo marcaba) y se cuenta.
+                            if marcar_publicado_func:
+                                marcar_publicado_func(oferta.get("asin"))
+                            registrar_publicacion(
+                                oferta_id_encontrada.split(":", 1)[0],
+                                texto=oferta["texto"],
+                                con_imagen=bool(oferta.get("url_imagen") or oferta.get("imagen_base64")),
+                            )
+                            time.sleep(60)  # espacia publicaciones en Facebook si apruebas varias juntas
                     except Exception as e:
+                        publicada_ok = False
                         print(f"[ERROR] Falló publicar {oferta_id_encontrada}, se sigue con las demás: {e}")
                 else:
                     print(f"[REVISION] Descartada por texto: {oferta_id_encontrada}")
                 try:
+                    if palabra in aprobar_palabras:
+                        respuesta = "Listo ✅" if publicada_ok is not False else \
+                            "⚠️ No se pudo publicar. No se marcó como usada, puedes volver a mandarla."
+                    else:
+                        respuesta = "Descartada ❌"
                     requests.post(f"{API}/sendMessage", data={
                         "chat_id": ADMIN_CHAT_ID,
-                        "text": "Listo ✅" if palabra in aprobar_palabras else "Descartada ❌",
+                        "text": respuesta,
                     }, timeout=15)
                 except Exception:
                     pass
