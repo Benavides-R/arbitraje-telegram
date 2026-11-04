@@ -862,5 +862,13 @@
     "precio": "~$678.500 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-03T22:00:48-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Retro Wireless Plug and Play Game Console",
+    "precio": "~$99.500 COP",
+    "categoria": "#Amazon #Tecnología",
+    "con_imagen": true
   }
 ]
