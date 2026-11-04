@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B07N43QZBG",
+      "product": "Zapatillas Puma Court Point Vulc V2 unisex para adultos.",
+      "rating": 4.2,
+      "reviews": 7003,
+      "price": 167400,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B07N43QZBG?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B07N43QZBG",
+      "imageUrl": "https://m.media-amazon.com/images/I/71l81B7LifL._AC_SX695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793830670.882846
+  }
+]

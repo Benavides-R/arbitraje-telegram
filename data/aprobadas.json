@@ -910,5 +910,13 @@
     "precio": "~$567.900 COP",
     "categoria": "#Moda #Estilo",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T17:07:41-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "PAPIFEED Comedero automático WiFi para 2 gatos",
+    "precio": "~$100.200 COP",
+    "categoria": "#Mascotas #PetLovers",
+    "con_imagen": true
   }
 ]
