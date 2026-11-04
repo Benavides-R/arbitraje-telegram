@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0G1ZYKNJ1",
+      "product": "Skechers Go Run Consistent 3 Core Track para hombre, calzado deportivo.",
+      "rating": 4.6,
+      "reviews": 8,
+      "price": 167900,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0G1ZYKNJ1?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0G1ZYKNJ1",
+      "imageUrl": "https://m.media-amazon.com/images/I/81HhTHEyM+L._AC_SX695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793758211.9102678
+  }
+]
