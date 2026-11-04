@@ -122,6 +122,54 @@ def _asin_ya_publicado(asin):
     return bool(visto_en) and (time.time() - visto_en) < HORAS_BLOQUEO_DUPLICADO * 3600
 
 
+_AMAZON_DOMINIOS_US = {"amazon.com", "www.amazon.com", "smile.amazon.com"}
+
+
+def _es_amazon_us(netloc):
+    return (netloc or "").lower() in _AMAZON_DOMINIOS_US
+
+
+def _asin_existe_en_amazon_com(asin):
+    """Verifica si un ASIN existe de verdad en la tienda de EE.UU.
+
+    Devuelve True (existe), False (no existe) o None (no se pudo
+    confirmar: captcha, timeout, o Amazon redirigió a otra tienda).
+    El link de origen puede venir de amazon.ca/.co.jp/.co.uk solo porque
+    el servidor de GitHub está en otra ubicación; esto lo confirma contra
+    amazon.com antes de decidir, sin forzar ni descartar a ciegas."""
+    try:
+        resp = requests.get(f"https://www.amazon.com/dp/{asin}", headers=HEADERS,
+                            timeout=15, allow_redirects=True)
+    except Exception as e:
+        print(f"[WARN] No se pudo verificar el ASIN {asin} en amazon.com: {e}")
+        return None
+
+    if resp.status_code == 404:
+        return False
+    if resp.status_code != 200:
+        print(f"[WARN] amazon.com respondió {resp.status_code} al verificar {asin}")
+        return None
+
+    # Si Amazon redirigió a otra tienda (ca, co.jp, co.uk...), no se puede
+    # confirmar que el producto exista en la de EE.UU.
+    host_final = urlsplit(resp.url).netloc.lower()
+    if host_final not in _AMAZON_DOMINIOS_US:
+        print(f"[WARN] amazon.com redirigió a {host_final} al verificar {asin}; "
+              f"no se puede confirmar")
+        return None
+
+    texto = resp.text.lower()
+    if ("captcha" in texto or "introduce los caracteres" in texto
+            or "enter the characters you see below" in texto
+            or "api-services-support@amazon.com" in texto):
+        print(f"[WARN] amazon.com pidió captcha al verificar {asin}; no se puede confirmar")
+        return None
+    if ("documento no encontrado" in texto or "page not found" in texto
+            or "no encontramos la página" in texto):
+        return False
+    return True
+
+
 def limpiar_link_tienda(link, dominio):
     """
     Quita todo el 'ruido' de tracking que traía el link original (del canal
@@ -138,6 +186,24 @@ def limpiar_link_tienda(link, dominio):
 
         asin = match.group(1).upper()
         netloc = urlsplit(link).netloc
+
+        if not _es_amazon_us(netloc):
+            # Vino de otra tienda de Amazon (ca, co.jp, co.uk...). Muchas
+            # veces es solo el redirect por la IP del servidor de GitHub,
+            # no porque el producto no exista en EE.UU. Se verifica el
+            # ASIN en amazon.com antes de decidir.
+            existe = _asin_existe_en_amazon_com(asin)
+            if existe:
+                print(f"[INFO] {asin}: venía de {netloc}, existe en amazon.com -- se usa amazon.com")
+                netloc = "www.amazon.com"
+            elif existe is False:
+                print(f"[SKIP] {asin}: no existe en amazon.com (venía de {netloc}), se descarta")
+                return None
+            else:
+                print(f"[SKIP] {asin}: no se pudo verificar en amazon.com (venía de {netloc}), "
+                      f"se descarta para no publicar un link roto")
+                return None
+
         link_limpio = f"https://{netloc}/dp/{asin}"
 
         # Si el link original ya apunta a un vendedor específico (parámetro
@@ -341,7 +407,7 @@ def extraer_precio(texto_original, link):
 
     # ¿El texto ya trae la moneda pegada justo después del precio?
     resto = texto_original[fin_precio:fin_precio + 6]
-    moneda_explicita = re.match(r"\s*(COP|USD|MXN|JPY|PEN|ARS|CLP)\b", resto)
+    moneda_explicita = re.match(r"\s*(COP|USD|MXN|JPY|PEN|ARS|CLP|CAD|GBP)\b", resto)
     if moneda_explicita:
         return _convertir_a_cop(precio, moneda_explicita.group(1))
 
@@ -353,6 +419,10 @@ def extraer_precio(texto_original, link):
         return _convertir_a_cop(precio, "MXN")
     if netloc.endswith("amazon.co.jp"):
         return _convertir_a_cop(precio, "JPY")
+    if netloc.endswith("amazon.ca"):
+        return _convertir_a_cop(precio, "CAD")
+    if netloc.endswith("amazon.co.uk"):
+        return _convertir_a_cop(precio, "GBP")
     # Otros dominios (o cuando el canal ya vende en pesos colombianos):
     # se deja el símbolo tal cual, sin adivinar la moneda.
     return precio
