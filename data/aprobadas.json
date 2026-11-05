@@ -950,5 +950,21 @@
     "precio": "~$97.500 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-05T15:10:31-05:00",
+    "canal": "Manual",
+    "titulo": "Hisense Televisor Smart Roku de 32 pulgadas Class QD4SR Series Hi-QLED HD (32QD4HSR, modelo 2026) - Color Hi-QLED, Dolby Audio, compatible con Alexa, Full",
+    "precio": "~$510.800 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-05T15:11:42-05:00",
+    "canal": "Manual",
+    "titulo": "Everlasting Comfort Cojín de asiento para silla de oficina, cojín de coxis, almohada de ciática para sentarse (negro)",
+    "precio": "~$161.500 COP",
+    "categoria": "#Oficina #Productividad",
+    "con_imagen": true
   }
 ]
