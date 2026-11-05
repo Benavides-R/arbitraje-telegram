@@ -990,5 +990,21 @@
     "precio": "~$454.300 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-05T18:00:52-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "EMEET Cámara web C100 4K para PC con cubierta de privacidad.",
+    "precio": "~$100.600 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-05T18:02:06-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "HotFox Combo de teclado y mouse inalámbricos rojo burdeos.",
+    "precio": "~$66.900 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
