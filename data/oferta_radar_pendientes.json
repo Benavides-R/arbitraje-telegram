@@ -1,48 +1,6 @@
 [
   {
     "payload": {
-      "externalId": "B0FY389RBQ",
-      "product": "Zapatillas de correr Puma Flyer Lite 3/4 para mujer.",
-      "rating": 4.4,
-      "reviews": 488,
-      "price": 179100,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0FY389RBQ?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0FY389RBQ",
-      "imageUrl": "https://m.media-amazon.com/images/I/61dZPaNxTsL._AC_SY695_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": null,
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1793837742.1876967
-  },
-  {
-    "payload": {
-      "externalId": "B0FBRDB2RF",
-      "product": "Zapatillas PUMA Women's Careyna Street/Mia SD.",
-      "rating": 4.3,
-      "reviews": 319,
-      "price": 226500,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0FBRDB2RF?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0FBRDB2RF",
-      "imageUrl": "https://m.media-amazon.com/images/I/61GRhhG3BVL._AC_SY695_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": null,
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1793837994.151632
-  },
-  {
-    "payload": {
       "externalId": "B09VXYZ2DN",
       "product": "Zapatillas de running Adidas Galaxy 6 LIU99 para adultos unisex.",
       "rating": 4.0,
@@ -59,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 2,
+    "intentos": 3,
     "guardado": 1793844688.0948246
   }
 ]
