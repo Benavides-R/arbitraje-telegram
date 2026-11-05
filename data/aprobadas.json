@@ -966,5 +966,29 @@
     "precio": "~$161.500 COP",
     "categoria": "#Oficina #Productividad",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-05T16:00:46-05:00",
+    "canal": "Manual",
+    "titulo": "Freidora de aire Ninja XL con MaxCrisp, 6.5 cuartos de galón, 6 en 1, gris",
+    "precio": "~$487.300 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-05T16:01:54-05:00",
+    "canal": "Manual",
+    "titulo": "Terapia de luz roja de 5 colores para el cuerpo y la cara",
+    "precio": "~$131.300 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-05T16:03:05-05:00",
+    "canal": "Manual",
+    "titulo": "Sceptre - Monitor curvo para juegos de 27 pulgadas 1500R 100Hz HDMI X2 DisplayPort 1ms 100% sRGB, altavoces integrados, máquina negra 2026 (C275W-FW100T)",
+    "precio": "~$454.300 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
