@@ -1,27 +1,6 @@
 [
   {
     "payload": {
-      "externalId": "B07N43QZBG",
-      "product": "Zapatillas Puma Court Point Vulc V2 unisex para adultos.",
-      "rating": 4.2,
-      "reviews": 7003,
-      "price": 167400,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B07N43QZBG?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B07N43QZBG",
-      "imageUrl": "https://m.media-amazon.com/images/I/71l81B7LifL._AC_SX695_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": null,
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1793830670.882846
-  },
-  {
-    "payload": {
       "externalId": "B0FY389RBQ",
       "product": "Zapatillas de correr Puma Flyer Lite 3/4 para mujer.",
       "rating": 4.4,
@@ -38,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 2,
+    "intentos": 3,
     "guardado": 1793837742.1876967
   },
   {
@@ -59,7 +38,28 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 2,
+    "intentos": 3,
     "guardado": 1793837994.151632
+  },
+  {
+    "payload": {
+      "externalId": "B09VXYZ2DN",
+      "product": "Zapatillas de running Adidas Galaxy 6 LIU99 para adultos unisex.",
+      "rating": 4.0,
+      "reviews": 1822,
+      "price": 188000,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B09VXYZ2DN?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B09VXYZ2DN",
+      "imageUrl": "https://m.media-amazon.com/images/I/51xKQvl3S1L._AC_SY695_.jpg",
+      "category": "Celulares",
+      "coupon": null,
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793844688.0948246
   }
 ]
