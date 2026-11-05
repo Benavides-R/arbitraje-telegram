@@ -918,5 +918,37 @@
     "precio": "~$100.200 COP",
     "categoria": "#Mascotas #PetLovers",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T19:00:54-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Grownsy procesador y vaporera para alimentos de bebés",
+    "precio": "~$150.300 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T19:02:01-05:00",
+    "canal": "Clubgratis",
+    "titulo": "PUMA - Paquete de 5 calzoncillos deportivos tipo bóxer para hombre, negro Absorbe el sudor, estiramiento activo y sin etiquetas",
+    "precio": "~$63.200 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T19:03:13-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Laptop Ofive de 15,6 (39,6 cm) con Windows 11, procesador N4020, 4 GB de RAM y 128 GB eMMC.",
+    "precio": "~$918.400 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-04T19:04:21-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "STANLEY IceFlow 2.0 - Vaso con pajita, 30 oz (887 ml), color champán.",
+    "precio": "~$97.500 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
