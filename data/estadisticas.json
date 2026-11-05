@@ -9,13 +9,13 @@
   "imagenes_origen": {
     "fallo": 115,
     "navegador": 281,
-    "html": 1487,
-    "captcha": 3416,
+    "html": 1488,
+    "captcha": 3418,
     "navegador_tras_captcha": 58
   },
   "tiempo_navegador": {
-    "segundos": 9645.0,
-    "intentos": 2905
+    "segundos": 9654.7,
+    "intentos": 2907
   },
   "auto_publicadas": {
     "ReviuDescuentos": 196,
