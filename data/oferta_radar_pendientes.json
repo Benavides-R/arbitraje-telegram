@@ -1,23 +1,23 @@
 [
   {
     "payload": {
-      "externalId": "B0H94TJHZR",
-      "product": "Conjuntos de entrenamiento para mujer, ropa de fitness, conjuntos de 2.",
-      "rating": 4.1,
-      "reviews": 49,
-      "price": 66700,
+      "externalId": "B0CM7N1SMR",
+      "product": "Adidas Adizero Boston 12 Tenis de correr hombre",
+      "rating": null,
+      "reviews": null,
+      "price": 285200,
       "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0H94TJHZR?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0H94TJHZR",
-      "imageUrl": "https://m.media-amazon.com/images/I/71zHm+tCAzL._AC_SY879_.jpg",
-      "category": "Fitness",
+      "affiliateUrl": "https://www.amazon.com/dp/B0CM7N1SMR?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0CM7N1SMR",
+      "imageUrl": "https://m.media-amazon.com/images/I/71d2XcjjHaL._AC_SX695_.jpg",
+      "category": "Zapatillas",
       "coupon": null,
-      "shipping": "elegible",
+      "shipping": "gratis",
       "isPrime": false,
       "source": "github",
       "approved": true
     },
     "intentos": 1,
-    "guardado": 1793945338.8765368
+    "guardado": 1793948576.5699494
   }
 ]
