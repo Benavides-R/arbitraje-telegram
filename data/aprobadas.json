@@ -1014,5 +1014,13 @@
     "precio": "~$64.000 COP",
     "categoria": "#Amazon #Plancha",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-05T23:00:49-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Extensor de pantalla portátil IPS de 14 (35.56 cm) con resolución 1080P.",
+    "precio": "~$190.400 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
