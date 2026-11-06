@@ -325,8 +325,44 @@ def extraer_imagen_producto(url_tienda):
             return imagen
         vio_captcha = vio_captcha or captcha
 
+    # Último recurso: Amazon publica la foto principal en una URL estable
+    # por ASIN, sin pasar por la página del producto. Sirve cuando el
+    # servidor de GitHub está bloqueado con captcha (pasa seguido) y evita
+    # mandar a revisión una oferta que sí tiene foto buena.
+    imagen = _imagen_por_asin(url_tienda)
+    if imagen:
+        _registrar_origen_seguro("asin")
+        return imagen
+
     _registrar_origen_seguro("captcha" if vio_captcha else "fallo")
     return None
+
+
+def _imagen_por_asin(url_tienda):
+    """Foto principal de Amazon por ASIN, sin abrir la página del producto.
+
+    La URL m.media-amazon.com/images/P/<ASIN>.01._SCLZZZZZZZ_.jpg es
+    estable y responde aunque amazon.com dé captcha. Devuelve la URL solo
+    si es una imagen real: cuando el ASIN no tiene foto, Amazon responde
+    un gif de 43 bytes (el "sin imagen"), que se descarta."""
+    match = re.search(r"/(?:dp|gp/product)/([A-Z0-9]{10})", url_tienda or "", re.IGNORECASE)
+    if not match:
+        return None
+
+    asin = match.group(1).upper()
+    url = f"https://m.media-amazon.com/images/P/{asin}.01._SCLZZZZZZZ_.jpg"
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=15)
+    except Exception:
+        return None
+
+    if resp.status_code != 200:
+        return None
+    if not resp.headers.get("Content-Type", "").lower().startswith("image"):
+        return None
+    if len(resp.content) < 2000:
+        return None  # gif de "sin imagen" (43 bytes)
+    return url
 
 
 def _registrar_origen_seguro(origen):

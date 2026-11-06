@@ -1287,6 +1287,30 @@ def _precio_dentro_del_tope(precio):
     return precio_numero.isdigit() and int(precio_numero) <= PRECIO_MAXIMO_AUTO_COP
 
 
+def _titulo_en_lista_negra(titulo_normalizado):
+    """True si el título es de un tema que nunca se auto-publica.
+
+    "body" se revisa aparte, como palabra completa y con contexto de
+    prenda: como substring bloqueaba cosas que no son lencería
+    ("Calvin Klein Crossbody bag", "Dove Body Scrub"). Un body de
+    lencería de verdad sigue cayendo por "encaje" o por estas variantes.
+    """
+    for mala in PALABRAS_NO_AUTO:
+        if mala == "body":
+            if _RE_BODY_LENCERIA.search(titulo_normalizado):
+                return True
+            continue
+        if mala in titulo_normalizado:
+            return True
+    return False
+
+
+_RE_BODY_LENCERIA = re.compile(
+    r"\bbodysuit\b|\bbody\s+(?:de\s+encaje|lencer|femenin|de\s+mujer|para\s+mujer|"
+    r"sin\s+mangas|manga\s+larga|manga\s+corta|negro|blanco|rojo|estilo)|\bbody\s*$"
+)
+
+
 def finalizar_oferta(prep):
     """FASE 2: decide y ejecuta lo que preparó preparar_oferta() --
     se publica sola, se manda a revisión, o se publica directo. Corre
@@ -1301,7 +1325,7 @@ def finalizar_oferta(prep):
 
     # Lista negra: aunque tenga foto+precio+palabra permitida, si el título
     # trae ropa interior/lencería (decisión del admin) nunca publica sola.
-    hay_prohibida = any(mala in prep["titulo_normalizado"] for mala in PALABRAS_NO_AUTO)
+    hay_prohibida = _titulo_en_lista_negra(prep["titulo_normalizado"])
 
     # Re-chequeo de antigüedad justo antes de publicar: la primera revisión
     # fue al escanear el mensaje, y entre eso y este punto la oferta puede
@@ -1335,7 +1359,10 @@ def finalizar_oferta(prep):
     elif MODO_REVISION:
         motivo = "requiere casillero" if prep["requiere_casillero"] \
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL \
-            else "lista negra (lencería)" if hay_prohibida else "sin imagen"
+            else "lista negra (lencería)" if hay_prohibida \
+            else "sin imagen" if not url_imagen \
+            else "precio sobre el tope" if not prep["precio_dentro_del_tope"] \
+            else "sin palabra permitida"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
         # Mandar a revisión NO marca el ASIN: si no se publica, el producto
         # queda libre para volver a aparecer cuando quiera.
