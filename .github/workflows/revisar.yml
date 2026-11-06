@@ -42,13 +42,41 @@ jobs:
           python -c "from importlib.metadata import version; print('version=' + version('playwright'))" >> "$GITHUB_OUTPUT"
 
       - name: Caché del navegador de Playwright
+        id: cache-playwright
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
 
-      - name: Instalar navegador de Playwright
-        run: playwright install --with-deps chromium
+      # Con la caché llena NO se descargan los paquetes de Ubuntu (a veces
+      # el espejo va a 33 kB/s y eso tarda 10 minutos). En su lugar se
+      # comprueba que el Chromium guardado abre de verdad. Si no abre, se
+      # instalan las dependencias y se reintenta: el peor caso es el de
+      # antes, nunca quedarse sin navegador.
+      - name: Preparar navegador de Playwright
+        run: |
+          PRUEBA='from playwright.sync_api import sync_playwright; p = sync_playwright().start(); b = p.chromium.launch(); b.close(); p.stop()'
+
+          if [ "${{ steps.cache-playwright.outputs.cache-hit }}" != "true" ]; then
+            echo "Caché vacía: instalando navegador y dependencias de Ubuntu."
+            playwright install --with-deps chromium
+            exit 0
+          fi
+
+          echo "Caché encontrada: verificando el navegador sin tocar Ubuntu."
+          playwright install chromium || playwright install --with-deps chromium
+
+          echo "Probando que Chromium abre de verdad..."
+          if python -c "$PRUEBA"; then
+            echo "OK: Chromium abre sin instalar dependencias extra."
+            exit 0
+          fi
+
+          echo "Chromium no abrió: faltan dependencias, instalando con apt..."
+          playwright install --with-deps chromium
+          echo "Reintentando la prueba..."
+          python -c "$PRUEBA"
+          echo "OK: Chromium abre con las dependencias instaladas."
 
       - name: Ejecutar revisión de canales
         env:
