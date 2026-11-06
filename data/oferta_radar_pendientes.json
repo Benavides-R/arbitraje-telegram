@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B09YBLCX5K",
+      "product": "New Balance Hombre 515, zapato deportivo con diseño clásico y suela de goma.",
+      "rating": 4.5,
+      "reviews": 13508,
+      "price": 207900,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B09YBLCX5K?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B09YBLCX5K",
+      "imageUrl": "https://m.media-amazon.com/images/I/51dKunrI1XL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1793923796.8184674
+  }
+]
