@@ -1046,5 +1046,85 @@
     "precio": "~$436.300 COP",
     "categoria": "#Zapatillas #Moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:00:48-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Monitor Sceptre 4K IPS de 27 (68.6 cm) con resolución 3840 x 2160, frecuencia de hasta 70Hz, DisplayPort y HDMI.",
+    "precio": "~$651.000 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:01:57-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Corsair HS80 MAX Audífonos inalámbricos Bluetooth para PC, PS5 y Switch.",
+    "precio": "~$402.000 COP",
+    "categoria": "#Audio #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:03:04-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Minthouz Calentador de torre de cerámica PTC de 1500 W.",
+    "precio": "~$110.500 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:04:13-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "HANYCONY Tira de alimentación con protector de sobretensiones",
+    "precio": "~$33.600 COP",
+    "categoria": "#Amazon #Ofertas",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:05:25-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Chefman 12-Quart 5-in-1 Air Fryer Oven, horno de convección de tamaño familiar con temporizador digital y pantalla táctil.",
+    "precio": "~$556.500 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:06:33-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Vivicreate Prensa Panini 5 en 1 eléctrica interior",
+    "precio": "~$77.200 COP",
+    "categoria": "#Amazon #Ofertas",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:07:41-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Procesador AMD Ryzen 5 5500, 6 núcleos, 12 hilos, compatible con socket AM4.",
+    "precio": "~$300.100 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:08:51-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Asiento de entrenamiento para ir al baño WHFIFHD, ajustable en 8 alturas, compatible con inodoros estándar.",
+    "precio": "~$73.400 COP",
+    "categoria": "#deportes",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:10:14-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Sceptre Monitor curvo 27 pulgadas 1080p 100Hz HDMI x2",
+    "precio": "~$427.800 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T16:11:30-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "INFINITY NADO Tops de batalla de metal S7 con 2 lanzadores de bastidor.",
+    "precio": "~$28.400 COP",
+    "categoria": "#Juguetes #Niños",
+    "con_imagen": true
   }
 ]
