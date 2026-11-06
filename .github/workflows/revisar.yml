@@ -17,7 +17,7 @@ concurrency:
 jobs:
   revisar:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 60
     permissions:
       contents: write
     steps:
@@ -28,11 +28,27 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
 
-      - name: Instalar dependencias
+      - name: Instalar dependencias de Python
+        run: pip install -r requirements.txt
+
+      # La caché del navegador va atada a la versión EXACTA de Playwright:
+      # si mañana sube la librería, la clave cambia y se descarga el
+      # navegador que corresponde. Nunca se reutiliza uno de otra versión.
+      - name: Detectar versión de Playwright
+        id: playwright-version
         run: |
-          pip install -r requirements.txt
-          playwright install --with-deps chromium
+          python -c "from importlib.metadata import version; print('version=' + version('playwright'))" >> "$GITHUB_OUTPUT"
+
+      - name: Caché del navegador de Playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
+      - name: Instalar navegador de Playwright
+        run: playwright install --with-deps chromium
 
       - name: Ejecutar revisión de canales
         env:
