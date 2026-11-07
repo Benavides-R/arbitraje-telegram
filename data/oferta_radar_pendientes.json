@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B09KMHJFMQ",
+      "product": "adidas Zapatos Grand Court 2.0 para hombre, calzado deportivo con diseño clásico.",
+      "rating": 4.7,
+      "reviews": 8964,
+      "price": 217700,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B09KMHJFMQ?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B09KMHJFMQ",
+      "imageUrl": "https://m.media-amazon.com/images/I/61fVav6XgdL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794028053.8345766
+  }
+]
