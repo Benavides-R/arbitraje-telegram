@@ -1126,5 +1126,29 @@
     "precio": "~$28.400 COP",
     "categoria": "#Juguetes #Niños",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T23:00:36-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Calzoncillos tipo bóxer Performance Champion para hombre, paquete de 5.",
+    "precio": "~$66.800 COP",
+    "categoria": "#moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T23:01:46-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Monitor curvo para juegos Sceptre de 27 (68.6 cm) con puertos DisplayPort x2.",
+    "precio": "~$440.300 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-06T23:02:55-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "SanDisk Extreme Pro MicroSDXC 128GB con adaptador SD.",
+    "precio": "~$148.500 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
