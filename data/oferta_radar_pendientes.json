@@ -17,28 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1794006607.8349884
-  },
-  {
-    "payload": {
-      "externalId": "B0FBNMGBVD",
-      "product": "Reebok Club C Revenge Mujer Gris Suave/Tiza/Berry Chill, 7 Mediano",
-      "rating": null,
-      "reviews": null,
-      "price": 142700,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0FBNMGBVD?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0FBNMGBVD",
-      "imageUrl": "https://m.media-amazon.com/images/I/71x46Do8LwL._AC_SS345_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": null,
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 1,
-    "guardado": 1794007051.0356772
   }
 ]
