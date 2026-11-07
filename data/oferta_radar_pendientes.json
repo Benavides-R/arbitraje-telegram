@@ -1,15 +1,15 @@
 [
   {
     "payload": {
-      "externalId": "B09KMHJFMQ",
-      "product": "adidas Zapatos Grand Court 2.0 para hombre, calzado deportivo con diseño clásico.",
-      "rating": 4.7,
-      "reviews": 8964,
-      "price": 217700,
+      "externalId": "B0F36PVNKQ",
+      "product": "Skechers Glide Step Vortex Avalin para hombre, zapato deportivo con diseño ligero y suela de amortiguación.",
+      "rating": 4.6,
+      "reviews": 188,
+      "price": 180800,
       "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B09KMHJFMQ?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B09KMHJFMQ",
-      "imageUrl": "https://m.media-amazon.com/images/I/61fVav6XgdL._AC_SY695_.jpg",
+      "affiliateUrl": "https://www.amazon.com/dp/B0F36PVNKQ?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0F36PVNKQ",
+      "imageUrl": "https://m.media-amazon.com/images/I/81H9L1ub2QL._AC_SY695_.jpg",
       "category": "Zapatillas",
       "coupon": null,
       "shipping": "gratis",
@@ -18,6 +18,6 @@
       "approved": true
     },
     "intentos": 1,
-    "guardado": 1794028053.8345766
+    "guardado": 1794031593.2108283
   }
 ]
