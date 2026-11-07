@@ -9,7 +9,7 @@
   "imagenes_origen": {
     "fallo": 129,
     "navegador": 338,
-    "html": 1723,
+    "html": 1725,
     "captcha": 3909,
     "navegador_tras_captcha": 58,
     "asin": 66
@@ -21,7 +21,7 @@
   "auto_publicadas": {
     "ReviuDescuentos": 291,
     "ElPromoHunter": 339,
-    "Clubgratis": 86,
+    "Clubgratis": 88,
     "Manual": 10
   }
 }
