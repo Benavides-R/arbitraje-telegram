@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0CL7TVQTZ",
+      "product": "PUMA Hombres Voltaic Evo Running Zapatillas - Azul",
+      "rating": 4.5,
+      "reviews": 3554,
+      "price": 213600,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0CL7TVQTZ?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0CL7TVQTZ",
+      "imageUrl": "https://m.media-amazon.com/images/I/71jKKblRnwL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794082109.5727437
+  },
+  {
+    "payload": {
+      "externalId": "B0GSPKNFWX",
+      "product": "Puma Hombres Softride Enzo 6 Zapatos",
+      "rating": 4.6,
+      "reviews": 19,
+      "price": 184900,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0GSPKNFWX?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0GSPKNFWX",
+      "imageUrl": "https://m.media-amazon.com/images/I/71qBya90UAL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794082369.3823237
+  }
+]
