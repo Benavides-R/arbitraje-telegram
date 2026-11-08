@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": "B0F2937DQQ",
+      "product": "Astercook juego de 21 ollas y sartenes antiadherentes.",
+      "rating": 4.5,
+      "reviews": 10007,
+      "price": 302500,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0F2937DQQ?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0F2937DQQ",
+      "imageUrl": "https://m.media-amazon.com/images/I/71QGP9TL77L._AC_SX679_.jpg",
+      "category": "tecnologia",
+      "coupon": null,
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794161183.9680743
+  }
+]
