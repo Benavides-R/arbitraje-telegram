@@ -1,27 +1,6 @@
 [
   {
     "payload": {
-      "externalId": "B0F3KQBYZH",
-      "product": "PUMA Zapatillas de entrenamiento Voltaic Evo para hombre - Azul",
-      "rating": 4.5,
-      "reviews": 3559,
-      "price": 184800,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0F3KQBYZH?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0F3KQBYZH",
-      "imageUrl": "https://m.media-amazon.com/images/I/71J9mL3hm8L._AC_SX695_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": "gratis",
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1794100471.8145702
-  },
-  {
-    "payload": {
       "externalId": "B09ZP5T54G",
       "product": "Sudadera con capucha para hombre, forrada de sherpa, gruesa y cálida, ideal para invierno.",
       "rating": 4.4,
@@ -38,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1794103866.7456691
   }
 ]
