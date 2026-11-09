@@ -5,13 +5,13 @@
     "fallo": 129,
     "navegador": 384,
     "html": 1943,
-    "captcha": 4220,
+    "captcha": 4221,
     "navegador_tras_captcha": 58,
-    "asin": 142
+    "asin": 143
   },
   "tiempo_navegador": {
-    "segundos": 13154.2,
-    "intentos": 3968
+    "segundos": 13160.5,
+    "intentos": 3970
   },
   "auto_publicadas": {
     "ReviuDescuentos": 23,
