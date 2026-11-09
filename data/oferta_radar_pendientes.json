@@ -1,15 +1,15 @@
 [
   {
     "payload": {
-      "externalId": "B0DT1JZWSG",
+      "externalId": "B0F34KCQ8Y",
       "product": "Tenis de correr Under Armour Charged+ Assert 11 para hombre.",
       "rating": 4.6,
-      "reviews": 2692,
-      "price": 169300,
+      "reviews": 2690,
+      "price": 176400,
       "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0DT1JZWSG?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0DT1JZWSG",
-      "imageUrl": "https://m.media-amazon.com/images/I/51jKyOZoiWL._AC_SY695_.jpg",
+      "affiliateUrl": "https://www.amazon.com/dp/B0F34KCQ8Y?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0F34KCQ8Y",
+      "imageUrl": "https://m.media-amazon.com/images/I/517OlR2tDxL._AC_SY695_.jpg",
       "category": "Zapatillas",
       "coupon": null,
       "shipping": "gratis",
@@ -17,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 4,
-    "guardado": 1794168469.9231904
+    "intentos": 1,
+    "guardado": 1794183256.2991483
   }
 ]
