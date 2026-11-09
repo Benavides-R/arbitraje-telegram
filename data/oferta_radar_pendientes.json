@@ -17,7 +17,28 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1794183256.2991483
+  },
+  {
+    "payload": {
+      "externalId": "B0FFZWLXT4",
+      "product": "Champion Hombres Ch Twr 1, zapato para hombre.",
+      "rating": 4.6,
+      "reviews": 21,
+      "price": 127800,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0FFZWLXT4?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0FFZWLXT4",
+      "imageUrl": "https://m.media-amazon.com/images/I/61O-KkHVO6L._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794189939.1327198
   }
 ]
