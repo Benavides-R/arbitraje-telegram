@@ -1182,5 +1182,21 @@
     "precio": "~$75.400 COP",
     "categoria": "#Seguridad #Tecnologia",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T15:00:39-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Chefman Parrilla prensa para panini y sandwichera gourmet con placas.",
+    "precio": "~$134.400 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T15:01:47-05:00",
+    "canal": "Manual",
+    "titulo": "Sceptre Monitor curvo para juegos Prime de 27 pulgadas 1500R 100Hz HDMI X2 DisplayPort 1 ms 100% sRGB, altavoces integrados negro 2025 (Serie C275W-FW100T)",
+    "precio": "~$435.400 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
