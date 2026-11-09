@@ -15,6 +15,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from config import DOMINIOS_TIENDA_FINAL, LOGO_PATH, REDES_SOCIALES_LINEAS
 from estadisticas import registrar_imagen_origen, registrar_tiempo_navegador
+from amazon_creators import obtener_item
 
 HEADERS = {
     "User-Agent": (
@@ -290,6 +291,16 @@ def extraer_imagen_producto(url_tienda):
     """
     vio_captcha = False        # cualquier intento (bucket final)
     captcha_en_html = False    # solo el HTML ligero (costo de la opción "A")
+
+    # Fuente oficial: Amazon Creators API (credenciales v3.1). Si no hay
+    # credenciales, el ASIN no existe o la API falla, devuelve None y todo
+    # sigue exactamente como antes (HTML -> navegador -> ASIN).
+    m_asin = re.search(r"/dp/([A-Z0-9]{10})", url_tienda or "")
+    if m_asin:
+        datos_api = obtener_item(m_asin.group(1))
+        if datos_api and datos_api.get("imagen") and _es_imagen_valida(datos_api["imagen"]):
+            _registrar_origen_seguro("api_creators")
+            return datos_api["imagen"]
 
     imagen, captcha = _extraer_por_html(url_tienda)
     if imagen:
