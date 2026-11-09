@@ -118,9 +118,12 @@ def obtener_item(asin):
             _bloqueada_hasta = time.time() + 15 * 60
             print(f"[WARN] Creators API respondió {resp.status_code}: "
                   f"se pausa 15 min y se usa el método anterior")
+            # Motivo que da Amazon (la respuesta de getItems no incluye el token).
+            print(f"[WARN] Detalle de Amazon: {resp.text[:400]}")
             return None
         if resp.status_code != 200:
             print(f"[WARN] Creators API respondió {resp.status_code} para {asin}")
+            print(f"[WARN] Detalle de Amazon: {resp.text[:400]}")
             return None
 
         cuerpo = resp.json()
