@@ -1,48 +1,6 @@
 [
   {
     "payload": {
-      "externalId": "B0FXN18H61",
-      "product": "Under Armour Zapatillas UA Surge 5 para hombre, diseñadas para uso deportivo.",
-      "rating": 4.6,
-      "reviews": 195,
-      "price": 167800,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0FXN18H61?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0FXN18H61",
-      "imageUrl": "https://m.media-amazon.com/images/I/51ut7Q9X6pL._AC_SY695_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": "gratis",
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1794193678.4208443
-  },
-  {
-    "payload": {
-      "externalId": "B0F33XQWZK",
-      "product": "Tenis de correr Under Armour Charged+ Assert 11 para hombre.",
-      "rating": 4.6,
-      "reviews": 2701,
-      "price": 218500,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0F33XQWZK?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0F33XQWZK",
-      "imageUrl": "https://m.media-amazon.com/images/I/71s+0OdovwL._AC_SX695_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": "gratis",
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1794193865.8664184
-  },
-  {
-    "payload": {
       "externalId": "B0CKLL3PRM",
       "product": "Under Armour Zapatillas bajas UA Charged Edge.",
       "rating": 4.6,
@@ -59,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1794197061.9340963
   },
   {
@@ -80,7 +38,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1794197377.7609313
   },
   {
@@ -101,7 +59,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 2,
+    "intentos": 3,
     "guardado": 1794200574.888003
   },
   {
@@ -122,7 +80,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 2,
+    "intentos": 3,
     "guardado": 1794200763.0684404
   },
   {
@@ -143,7 +101,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1794204163.1432655
   }
 ]
