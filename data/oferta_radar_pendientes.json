@@ -1,27 +1,6 @@
 [
   {
     "payload": {
-      "externalId": "B0FFZWLXT4",
-      "product": "Champion Hombres Ch Twr 1, zapato para hombre.",
-      "rating": 4.6,
-      "reviews": 21,
-      "price": 127800,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0FFZWLXT4?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0FFZWLXT4",
-      "imageUrl": "https://m.media-amazon.com/images/I/61O-KkHVO6L._AC_SY695_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": "gratis",
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1794189939.1327198
-  },
-  {
-    "payload": {
       "externalId": "B0FXN18H61",
       "product": "Under Armour Zapatillas UA Surge 5 para hombre, diseñadas para uso deportivo.",
       "rating": 4.6,
@@ -38,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1794193678.4208443
   },
   {
@@ -59,7 +38,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1794193865.8664184
   },
   {
@@ -80,7 +59,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 2,
+    "intentos": 3,
     "guardado": 1794197061.9340963
   },
   {
@@ -101,7 +80,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 2,
+    "intentos": 3,
     "guardado": 1794197377.7609313
   },
   {
@@ -122,7 +101,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1794200574.888003
   },
   {
@@ -143,7 +122,28 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1794200763.0684404
+  },
+  {
+    "payload": {
+      "externalId": "B0F349DYW4",
+      "product": "Tenis de correr Under Armour Charged+ Assert 11 para hombre.",
+      "rating": 4.6,
+      "reviews": 2701,
+      "price": 201900,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0F349DYW4?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0F349DYW4",
+      "imageUrl": "https://m.media-amazon.com/images/I/51bBzZnRSWL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794204163.1432655
   }
 ]
