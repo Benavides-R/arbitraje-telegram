@@ -89,12 +89,16 @@ PALABRAS_AUTO_PERMITIDAS = [
     # --- expansión 4 (2026-10-25): minería de TUS aprobaciones manuales ---
     # Top de los títulos que aprobabas a mano estando completos (foto+precio)
     # pero que no matcheaban ninguna palabra; impacto medido en la cola real.
-    # Género: la que más desbloquea de todas ("X para hombre/mujer").
-    "hombre", "mujer",
+    # 2026-11-09: se QUITARON "hombre" y "mujer". Eran un comodín que
+    # auto-publicaba cualquier prenda ("bikini para mujer", "botas para
+    # mujer", "vestido para mujer"). Ahora solo pasa la ropa/accesorio que
+    # tenga su propia palabra; lo que sí te gusta (zapatillas, collares,
+    # bolsos) sigue abajo por su propio nombre.
     # Ropa/accesorios que se repetían en aprobadas y en la cola:
-    "sudadera", "tenis", "capucha", "sueter", "zapatillas",
+    "sudadera", "tenis", "capucha", "sueter", "zapatillas", "camiseta", "chaqueta",
     "camisa", "pantalones", "polo", "calzado", "ninos", "cuero",
-    "collar", "hanes", "skechers", "nautica", "tommy",
+    "collar", "aretes", "pulsera", "anillo", "joyeria",
+    "hanes", "skechers", "nautica", "tommy",
     # Tech/futuro: poco en la cola hoy, pero salen seguido en aprobadas:
     "rtx", "geforce", "grafica", "escritorio", "billetera", "rfid",
     "usb", "molinillo", "controlador", "microscopio",
@@ -113,9 +117,9 @@ PALABRAS_AUTO_PERMITIDAS = [
     # Cuidado personal -- categorías (para las que no son marca):
     "crema", "shampoo", "champu", "acondicionador", "jabon",
     "desodorante", "locion", "balsamo", "pasta dental", "enjuague",
-    "protector solar", "hidratante", "limpiador", "suero",
-    # Bolsos:
-    "bolso", "bandolera",
+    "protector solar", "hidratante", "limpiador", "suero", "antitranspirante",
+    # Bolsos (bandolera se quitó el 2026-11-09: el admin no la quiere):
+    "bolso",
     # --- expansión 6 (2026-11-03): el nicho real, con el nombre que la
     # gente usa en Colombia ("parlante", "celular") y no el técnico
     # ("altavoz", "teléfono") -- antes se iban a revisión sin necesidad ---
@@ -148,6 +152,30 @@ PALABRAS_NO_AUTO = [
     # "consola" está en la lista blanca y matchea por substring:
     # sin esto, un consolador se publicaría solo.
     "consolador",
+    # Moda de mujer que el admin no quiere auto-publicar (2026-11-09).
+    # Se bloquea por categoría para que no pase aunque el título traiga
+    # "mujer", "zapatos" o "calzado". Las zapatillas/tenis NO se tocan
+    # (esas siguen en la lista blanca).
+    "bikini", "monokini", "traje de bano", "vestido de bano", "salida de bano",
+    "bota", "botin", "mocasin", "sandalia", "chancla", "crocs",
+    "tacon", "vestido", "falda", "blusa", "short", "legging", "medias",
+    "pijama", "enterizo", "bandolera",
+]
+
+# Palabras de tecnología: no cambian si algo se publica, solo el ORDEN.
+# En la Fase 2 se publican/mandan primero las ofertas de tecnología para
+# que, cuando la corrida se llena, lo tech salga antes que la moda.
+PALABRAS_TECNOLOGIA = [
+    "camara", "celular", "telefono", "portatil", "laptop", "computador",
+    "tablet", "monitor", "teclado", "mouse", "audifono", "auricular",
+    "parlante", "bocina", "smartwatch", "reloj inteligente",
+    "tv", "televisor", "smart tv", "fire tv", "consola", "playstation",
+    "xbox", "nintendo", "drone", "dron", "proyector", "impresora",
+    "router", "ssd", "disco duro", "memoria", "usb", "cargador",
+    "power bank", "bluetooth", "gps", "rastreador", "alarma", "seguridad",
+    "cerradura", "sensor", "rtx", "geforce", "grafica", "microscopio",
+    "multimetro", "taladro", "aspiradora", "freidora de aire", "cafetera",
+    "licuadora", "aire acondicionado", "videoportero", "controlador",
 ]
 
 # Buscador de ofertas directo de AliExpress (sin depender de canales de

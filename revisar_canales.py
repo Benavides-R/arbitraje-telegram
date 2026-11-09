@@ -37,7 +37,7 @@ from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
     TIENDAS_IGNORADAS,
-    PALABRAS_AUTO_PERMITIDAS, PALABRAS_NO_AUTO, PRECIO_MAXIMO_AUTO_COP, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
+    PALABRAS_AUTO_PERMITIDAS, PALABRAS_NO_AUTO, PALABRAS_TECNOLOGIA, PRECIO_MAXIMO_AUTO_COP, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
     CUOTA_POR_CANAL, HORAS_BLOQUEO_DUPLICADO,
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
@@ -1311,6 +1311,12 @@ _RE_BODY_LENCERIA = re.compile(
 )
 
 
+def _es_tecnologia(titulo_normalizado):
+    """True si el título es de tecnología. Solo se usa para ORDENAR la
+    Fase 2 (lo tech sale primero); no decide si se publica o no."""
+    return any(palabra in titulo_normalizado for palabra in PALABRAS_TECNOLOGIA)
+
+
 def finalizar_oferta(prep):
     """FASE 2: decide y ejecuta lo que preparó preparar_oferta() --
     se publica sola, se manda a revisión, o se publica directo. Corre
@@ -1499,13 +1505,16 @@ def main():
 
     # 2.5 FASE 2: se ejecutan las decisiones en orden -- PRIMERO las que
     # traen foto (es lo que más se revisa en el chat del admin), y al final
-    # las sin foto (que igual se mandan marcadas como tales). Si una falla,
-    # no tumba el resto de la corrida.
-    preparadas.sort(key=lambda p: p["url_imagen"] is None)
+    # las sin foto (que igual se mandan marcadas como tales). Dentro de cada
+    # grupo va primero la tecnología, para que no la tape la moda cuando la
+    # corrida se llena. Si una falla, no tumba el resto de la corrida.
+    preparadas.sort(key=lambda p: (p["url_imagen"] is None,
+                                   not _es_tecnologia(p["titulo_normalizado"])))
     con_foto = sum(1 for p in preparadas if p["url_imagen"])
+    tech = sum(1 for p in preparadas if _es_tecnologia(p["titulo_normalizado"]))
     print(f"[INFO] Fase 2: {len(preparadas)} oferta(s) preparadas "
-          f"({con_foto} con foto, {len(preparadas) - con_foto} sin foto) -- "
-          f"primero las con foto")
+          f"({con_foto} con foto, {len(preparadas) - con_foto} sin foto; "
+          f"{tech} de tecnología) -- primero las con foto y, dentro de ellas, tecnología")
     for prep in preparadas:
         try:
             finalizar_oferta(prep)
