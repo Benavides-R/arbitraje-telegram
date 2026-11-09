@@ -94,6 +94,8 @@ jobs:
           OFERTA_RADAR_URL: ${{ secrets.OFERTA_RADAR_URL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          CREATORS_CREDENTIAL_ID: ${{ secrets.CREATORS_CREDENTIAL_ID }}
+          CREATORS_CREDENTIAL_SECRET: ${{ secrets.CREATORS_CREDENTIAL_SECRET }}
         run: python -u revisar_canales.py
 
       - name: Guardar estado actualizado
