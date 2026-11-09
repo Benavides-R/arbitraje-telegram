@@ -1150,5 +1150,37 @@
     "precio": "~$148.500 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T14:01:41-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Acer Cámara web A610 1080p para PC con micrófonos.",
+    "precio": "~$90.800 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T14:02:57-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Cortadora de pelo YLUIQDZL T-Blade recargable con pantalla LCD.",
+    "precio": "~$43.700 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T14:04:08-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Ratón inalámbrico silencioso TECKNET de 2,4 GHz con 4 botones",
+    "precio": "~$15.200 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T14:05:15-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Cámara infantil 1080P con tarjeta SD de 32 GB, verde",
+    "precio": "~$75.400 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
   }
 ]
