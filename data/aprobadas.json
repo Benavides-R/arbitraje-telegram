@@ -1198,5 +1198,37 @@
     "precio": "~$435.400 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T16:00:31-05:00",
+    "canal": "Manual",
+    "titulo": "Hisense Televisor Smart Roku de 32 pulgadas Class QD4SR Series Hi-QLED HD (32QD4HSR, modelo 2026) - Color Hi-QLED, Dolby Audio, compatible con Alexa, Full",
+    "precio": "~$511.600 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T16:01:40-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Monitor gaming AOC de 27 FHD con 200 Hz y panel IPS",
+    "precio": "~$524.700 COP",
+    "categoria": "#Gaming #Videojuegos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T16:02:54-05:00",
+    "canal": "Clubgratis",
+    "titulo": "KODAK PIXPRO AZ255",
+    "precio": "~$605.400 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T16:04:01-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Tableta Android de 11 pulgadas con 128 GB y teclado",
+    "precio": "~$403.600 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
