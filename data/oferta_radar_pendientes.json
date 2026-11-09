@@ -1,27 +1,6 @@
 [
   {
     "payload": {
-      "externalId": "B0F34KCQ8Y",
-      "product": "Tenis de correr Under Armour Charged+ Assert 11 para hombre.",
-      "rating": 4.6,
-      "reviews": 2690,
-      "price": 176400,
-      "currency": "COP",
-      "affiliateUrl": "https://www.amazon.com/dp/B0F34KCQ8Y?tag=benatechs00-20",
-      "amazonUrl": "https://www.amazon.com/dp/B0F34KCQ8Y",
-      "imageUrl": "https://m.media-amazon.com/images/I/517OlR2tDxL._AC_SY695_.jpg",
-      "category": "Zapatillas",
-      "coupon": null,
-      "shipping": "gratis",
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1794183256.2991483
-  },
-  {
-    "payload": {
       "externalId": "B0FFZWLXT4",
       "product": "Champion Hombres Ch Twr 1, zapato para hombre.",
       "rating": 4.6,
@@ -38,7 +17,49 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1794189939.1327198
+  },
+  {
+    "payload": {
+      "externalId": "B0FXN18H61",
+      "product": "Under Armour Zapatillas UA Surge 5 para hombre, diseñadas para uso deportivo.",
+      "rating": 4.6,
+      "reviews": 195,
+      "price": 167800,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0FXN18H61?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0FXN18H61",
+      "imageUrl": "https://m.media-amazon.com/images/I/51ut7Q9X6pL._AC_SY695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794193678.4208443
+  },
+  {
+    "payload": {
+      "externalId": "B0F33XQWZK",
+      "product": "Tenis de correr Under Armour Charged+ Assert 11 para hombre.",
+      "rating": 4.6,
+      "reviews": 2701,
+      "price": 218500,
+      "currency": "COP",
+      "affiliateUrl": "https://www.amazon.com/dp/B0F33XQWZK?tag=benatechs00-20",
+      "amazonUrl": "https://www.amazon.com/dp/B0F33XQWZK",
+      "imageUrl": "https://m.media-amazon.com/images/I/71s+0OdovwL._AC_SX695_.jpg",
+      "category": "Zapatillas",
+      "coupon": null,
+      "shipping": "gratis",
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794193865.8664184
   }
 ]

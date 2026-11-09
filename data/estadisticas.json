@@ -4,18 +4,18 @@
   "imagenes_origen": {
     "fallo": 129,
     "navegador": 377,
-    "html": 1913,
-    "captcha": 4192,
+    "html": 1922,
+    "captcha": 4201,
     "navegador_tras_captcha": 58,
-    "asin": 134
+    "asin": 136
   },
   "tiempo_navegador": {
-    "segundos": 13010.4,
-    "intentos": 3925
+    "segundos": 13045.7,
+    "intentos": 3936
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 20,
-    "ElPromoHunter": 65,
+    "ReviuDescuentos": 23,
+    "ElPromoHunter": 70,
     "Clubgratis": 1
   }
 }
