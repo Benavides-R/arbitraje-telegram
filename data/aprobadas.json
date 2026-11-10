@@ -1230,5 +1230,21 @@
     "precio": "~$403.600 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T20:00:50-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Juego de cuchillos de cocina de 13 piezas con protectores de hoja y autoafilado, acero inoxidable.",
+    "precio": "~$33.600 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T20:01:58-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Kit de blanqueamiento dental con bandeja de luz LED.",
+    "precio": "~$36.300 COP",
+    "categoria": "#salud",
+    "con_imagen": true
   }
 ]
