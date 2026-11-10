@@ -1302,5 +1302,53 @@
     "precio": "~$97.500 COP",
     "categoria": "#moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T14:00:40-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "CooAoo cartera MagSafe con Find My y soporte",
+    "precio": "~$43.700 COP",
+    "categoria": "#Amazon #Accesorios",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T14:01:48-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Carplay Pantalla para automóvil inalámbrica 7 pulgadas",
+    "precio": "~$168.100 COP",
+    "categoria": "#Amazon #Tecnología",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T14:02:57-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Compresor de aire portátil MRTDZENG, inflador inalámbrico para neumáticos.",
+    "precio": "~$64.100 COP",
+    "categoria": "#Herramientas #Hogar",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T14:04:05-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Licuadora personal REVOTRA 1200W para batidos",
+    "precio": "~$75.700 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T14:05:15-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Mini árbol de Navidad artificial DUUDO de 3 pies (91 cm) con bisagras de metal para fácil montaje.",
+    "precio": "~$67.200 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T14:06:23-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Amplificador de señal WiFi con cobertura de hasta 5300 pies cuadrados.",
+    "precio": "~$30.300 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
   }
 ]
