@@ -1358,5 +1358,13 @@
     "precio": "~$89.100 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T17:00:33-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Etiquetadora NIIMBOT B1 con cinta para hogar y escuela",
+    "precio": "~$82.900 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
