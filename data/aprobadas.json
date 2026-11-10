@@ -1262,5 +1262,45 @@
     "precio": "~$67.300 COP",
     "categoria": "#Amazon #Recortadora",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T11:01:41-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Estación de carga inalámbrica plegable 3 en 1 para Apple",
+    "precio": "~$50.400 COP",
+    "categoria": "#Celulares #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T11:02:56-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "KEMIMOTO Alforjas para motocicleta expandibles de 20 a 24 litros.",
+    "precio": "~$178.100 COP",
+    "categoria": "#moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T11:04:05-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Guess Lasen para hombre, zapato de vestir.",
+    "precio": "~$153.500 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T11:05:24-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Guess Men&#x27;s Lawrenzz, zapato para hombre.",
+    "precio": "~$149.600 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T11:06:36-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Cricut EasyPress Mini LT - Mini prensa térmica en color rosa rubor.",
+    "precio": "~$97.500 COP",
+    "categoria": "#moda",
+    "con_imagen": true
   }
 ]
