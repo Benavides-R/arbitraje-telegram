@@ -1366,5 +1366,13 @@
     "precio": "~$82.900 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T18:00:35-05:00",
+    "canal": "Clubgratis",
+    "titulo": "KAMRUI GK3PLUS Mini PC W-11 Pro, Intel N3350 8GB RAM 256GB SSD",
+    "precio": "~$672.400 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
