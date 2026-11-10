@@ -1350,5 +1350,13 @@
     "precio": "~$30.300 COP",
     "categoria": "#Ofertas #Descuentos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-10T15:00:33-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "STANLEY IceFlow 2.0 - Vaso con popote, 30 oz (887 ml), color esmeralda narciso.",
+    "precio": "~$89.100 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
