@@ -1246,5 +1246,21 @@
     "precio": "~$36.300 COP",
     "categoria": "#salud",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T21:00:36-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Monitor AOC de 27 (68.58 cm) FHD 180Hz VA HDR Ready.",
+    "precio": "~$438.400 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-09T21:01:44-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Afeitadora de bikini 2 en 1 con hoja de cerámica impermeable",
+    "precio": "~$67.300 COP",
+    "categoria": "#Amazon #Recortadora",
+    "con_imagen": true
   }
 ]
