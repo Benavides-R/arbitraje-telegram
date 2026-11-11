@@ -1382,5 +1382,29 @@
     "precio": "~$404.400 COP",
     "categoria": "#Moda #Estilo",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-11T16:00:45-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Play-Doh Kitchen Creations, set de arcilla para manualidades.",
+    "precio": "~$50.900 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-11T16:01:56-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Wild Venompack, incluye 2 lanzadores Nerf y 20 dardos Nerf Elite.",
+    "precio": "~$35.600 COP",
+    "categoria": "#Juguetes #Niños",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-11T16:03:04-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Bella Stack Store - Mini waflera de cerámica de 4 pulgadas, no tóxica, flor.",
+    "precio": "~$33.900 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
