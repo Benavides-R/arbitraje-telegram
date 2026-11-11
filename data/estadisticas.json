@@ -2,7 +2,7 @@
   "conteo_por_canal": {
     "ElPromoHunter": 14,
     "ReviuDescuentos": 9,
-    "Manual": 2,
+    "Manual": 3,
     "Clubgratis": 3
   },
   "ultimo_reporte": "2026-11-08",
@@ -12,11 +12,11 @@
     "html": 2202,
     "captcha": 4622,
     "navegador_tras_captcha": 58,
-    "asin": 242
+    "asin": 244
   },
   "tiempo_navegador": {
-    "segundos": 14883.0,
-    "intentos": 4511
+    "segundos": 14889.3,
+    "intentos": 4513
   },
   "auto_publicadas": {
     "ReviuDescuentos": 109,
