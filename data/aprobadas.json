@@ -1406,5 +1406,13 @@
     "precio": "~$33.900 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-11T18:00:40-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Cámara digital 4K portátil para fotografía y vlogging",
+    "precio": "~$108.100 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
