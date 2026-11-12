@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": null,
+      "product": "Starlink Mini X Internet Satelital Dual Band Wi-fi + Router",
+      "rating": null,
+      "reviews": null,
+      "price": 370000,
+      "currency": "COP",
+      "affiliateUrl": "https://www.mercadolibre.com.co/social/znake999?matt_word=znake999&matt_tool=90329947&forceInApp=true&ref=BAPZlOThQLMEPPpMfrZn%2F13AaZ%2BwRgFH5lsw0dPn211ggaBxGkYulgZWmfoxP2m2qsfbX7W9rhaVApHpyw5hussdJADl3O%2FsBlpMuRIEsECNliMBwKPTk8kGVBMHbKxeSMuVRxasNdfYOAr5kFv5IPsz3tga3bT%2B%2F2ckMZFYVeTX6sK5pS8Mwil3E2SY9MIcfqv3hejmUzd5NMAo0ShppuU6ALh3GUdpMuhMebr66Dh%2BjZAJoZhFpqn3Wrtg5jpS%2B2wiZw%3D%3D#origin=copy_link",
+      "amazonUrl": null,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_836053-MLA118631921356_102026-P.webp",
+      "category": "Tecnologia",
+      "coupon": null,
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794459658.1086226
+  }
+]
