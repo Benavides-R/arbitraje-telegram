@@ -2,27 +2,6 @@
   {
     "payload": {
       "externalId": null,
-      "product": "Morral adidas Casual Classic Unisex Negro Jd9563",
-      "rating": null,
-      "reviews": null,
-      "price": 89000,
-      "currency": "COP",
-      "affiliateUrl": "https://www.mercadolibre.com.co/social/znake999?matt_word=znake999&matt_tool=90329947&forceInApp=true&ref=BEuyHY5wbaio4b%2BeSxrNeGt%2BRXUBi0iuiWR5ESlH%2ByXLdZAGH4LE0stFQxtzIKtz%2B%2Ba1OklNhWPyXpbK8yQVrk0eO%2FD%2Fgpzqs0wRT%2BpY2WkD5itcqLWqYYJplyHDFevUbfAtV%2BzICUTb1WiZEENxll2aPJtx47AQ99uNoca6fkjDGc29fF9am6iaXRflFkeRqe6zOKorB5%2FKY4EQJKn%2FSXkPAwZS62CDdh4teRds%2BPY2ExPin49TsE0tbmkEm9Bm2jp7Fu%2FYrURDhcfjwtDxOvFR6n%2BP2fEmASGMF3A7bj8nDjQ%3D#origin=copy_link",
-      "amazonUrl": null,
-      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_605115-MCO81773793793_012025-P.webp",
-      "category": "Ofertas",
-      "coupon": "NOVIEMBRE",
-      "shipping": null,
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1794507024.5066204
-  },
-  {
-    "payload": {
-      "externalId": null,
       "product": "Monitor Samsung 27 Pulgadas Essential Ips 120hz Fhd",
       "rating": null,
       "reviews": null,
@@ -38,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1794510211.8509896
   },
   {
@@ -59,7 +38,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1794517348.4925914
   }
 ]

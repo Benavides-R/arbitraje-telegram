@@ -1422,5 +1422,21 @@
     "precio": "~$34.300 COP",
     "categoria": "#Juguetes #Niños",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-12T17:00:53-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Máquina laminadora de 9 pulgadas (23 cm) para laminación en caliente y fría, incluye 20 hojas de laminación.",
+    "precio": "~$68.400 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-12T17:02:00-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Hisense Televisor Smart Roku de 32 (81 cm) Class QD4SR Series Hi-QLED HD.",
+    "precio": "~$538.100 COP",
+    "categoria": "#tecnologia",
+    "con_imagen": true
   }
 ]
