@@ -17,7 +17,28 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 1,
+    "intentos": 2,
     "guardado": 1794459658.1086226
+  },
+  {
+    "payload": {
+      "externalId": null,
+      "product": "Control Inalámbrico DualSense Grand Theft Auto VI Black Limited Edition",
+      "rating": null,
+      "reviews": null,
+      "price": 319900,
+      "currency": "COP",
+      "affiliateUrl": "https://www.mercadolibre.com.co/social/znake999?matt_word=znake999&matt_tool=90329947&forceInApp=true&ref=BKPE5DFa%2B94P6idn6g0FHYsiPbkq9lOGWxBbaFqWtvaZ5IMw4ivHwwUN8E1LKQWK3tytzONvdM7a2rZ3xYf3EH9KN6KjgfBxWOihdzkQvB36%2F0QMGOBCx7Qyb7QNGjHtICQYosF9R5qTWVI7Hw6Qh87uj4ONxsvCetJbszNAjV3zW0IpgL7yll5nfR6FeWz5rC1U3e9jVqjxN%2FWLvKY24XQg6kUYd%2FFXN92l46S0k1JXLQDtGL8hAIZp8yRu4xaLM81H9OwdRgMUEHlwJnATyfDWp7sKsJnyNlUp#origin=copy_link",
+      "amazonUrl": null,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_774245-MLA115905303252_092026-P.webp",
+      "category": "Gaming",
+      "coupon": null,
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794463233.807354
   }
 ]
