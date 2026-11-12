@@ -2,27 +2,6 @@
   {
     "payload": {
       "externalId": null,
-      "product": "Tablet Samsung Galaxy Tab A11 Gris Oscuro 128gb 8gb",
-      "rating": null,
-      "reviews": null,
-      "price": 374240,
-      "currency": "COP",
-      "affiliateUrl": "https://www.mercadolibre.com.co/social/znake999?matt_word=znake999&matt_tool=90329947&forceInApp=true&ref=BMuu2Hpcsn3ScCT83d8pVe%2FWmPMYDy%2B00vWTfByeiZjZHqxUd8WJ2Lx%2BBkVcgsjDISxJWrH4%2Bs4%2Fy8dIzTusptlYPqzQf3B%2BkExjEqJIEgykHwb%2FKD3sjwhndFFIEnbZNlWkgZJ1NTkUqjGfkDeHh7Nf5of%2FJefL98Ko5xN%2FeFxgrKoqA%2ByvASE8jiFJkgzJAdFuKJkERJHYqAKReGaqky6R3dD%2FRjD5ve%2FYR7hEQkLHmuc7765lFi23eeQrndcuohJJjrwedQX%2FAs1ISwHOKXVg6vB%2BduOv7qbzFT8DfVLRfuxr#origin=copy_link",
-      "amazonUrl": null,
-      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_961802-MLA104339152796_012026-P.webp",
-      "category": "Celulares",
-      "coupon": null,
-      "shipping": null,
-      "isPrime": false,
-      "source": "github",
-      "approved": true
-    },
-    "intentos": 4,
-    "guardado": 1794434737.9145944
-  },
-  {
-    "payload": {
-      "externalId": null,
       "product": "Monitor Samsung 24 Essential S32 120hz Fhd",
       "rating": null,
       "reviews": null,
@@ -38,7 +17,7 @@
       "source": "github",
       "approved": true
     },
-    "intentos": 3,
+    "intentos": 4,
     "guardado": 1794438477.0985506
   }
 ]
