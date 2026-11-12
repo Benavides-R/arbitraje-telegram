@@ -1414,5 +1414,13 @@
     "precio": "~$108.100 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-12T11:00:38-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Funko Pop Disney Stitch con ukelele",
+    "precio": "~$34.300 COP",
+    "categoria": "#Juguetes #Niños",
+    "con_imagen": true
   }
 ]
