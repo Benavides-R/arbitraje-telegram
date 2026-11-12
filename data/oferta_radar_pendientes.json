@@ -1,1 +1,65 @@
-[]
+[
+  {
+    "payload": {
+      "externalId": null,
+      "product": "Starlink Mini X Internet Satelital Dual Band Wi-fi + Router",
+      "rating": null,
+      "reviews": null,
+      "price": 330000,
+      "currency": "COP",
+      "affiliateUrl": "https://www.mercadolibre.com.co/social/znake999?matt_word=znake999&matt_tool=90329947&forceInApp=true&ref=BC1o%2BVq%2BobI6iY14ZVCqcQRJerbiXaERyVLveF%2BSyEGiSJMWc7W0TCYVAImVsmmby8l0lWLzTxCgMelJewuPhZKdsZpOSTm77eggqpJpDyI9qUC7M9nU5uG841Zf893ek%2F6UVTzIIze1gim41GqPmDW2KwG%2F6tanVGGEJusTxfgfZ3%2B65zpay7P%2FXDsnKNVAZABAQOYhvwlhPOUfOXNn4CRlkFqPT0n%2FMKRVyeUEW63RWz24XsAqkbOYHuM7H8iovWKk%2BnopFAIeVbgVrk76s10h7cwBlH%2BPwxYo#origin=copy_link",
+      "amazonUrl": null,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_836053-MLA118631921356_102026-P.webp",
+      "category": "Tecnologia",
+      "coupon": null,
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794495849.4693098
+  },
+  {
+    "payload": {
+      "externalId": null,
+      "product": "Parlante Portátil JBL Charge 6 Bluetooth de 45 W con 28 h de Autonomía",
+      "rating": null,
+      "reviews": null,
+      "price": 338620,
+      "currency": "COP",
+      "affiliateUrl": "https://www.mercadolibre.com.co/social/znake999?matt_word=znake999&matt_tool=90329947&forceInApp=true&ref=BLGQSDC9HaVCf3PktPc3oBFZt8FUCQV6zQqTxQpwjRmCztXa4x08%2BH2Df6yOD4Pc9rOARafjtWEa0zXdWg6jyF1J6fdxY3sM%2BZVqG1jTkm1KK3%2FMdzFcOK7cEz6xkYyv0h25OtftuBSnFbxBhBCWpFRnvoIAPAcLsn8T0s3OxFOUYh8M637WeookBeHlzk%2FpFnAtuWryz8wdwP9Nh3yE%2B3veX8OaXHjer6XNveY0McdkO%2FI2Wdzeq%2BexaKDh%2FMqb%2FOf2F5MgG14k016mI%2FelFgMPLPyYjCpeITHR#origin=copy_link",
+      "amazonUrl": null,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_634794-MLA99387223430_112025-P.webp",
+      "category": "Audio",
+      "coupon": "PIDEHOY",
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794495913.6588566
+  },
+  {
+    "payload": {
+      "externalId": null,
+      "product": "Tenis Hombre Nike Metro Tek Negro Negro 7.5, 9 y 9.5",
+      "rating": null,
+      "reviews": null,
+      "price": 207100,
+      "currency": "COP",
+      "affiliateUrl": "https://www.mercadolibre.com.co/social/znake999?matt_word=znake999&matt_tool=90329947&forceInApp=true&ref=BK9M3PysToQkKDme36tgAAf5DdHnmSxyfBNuteDaQALItESv0LYai8X9gaakefTLgGMTh6f1clTWHn7xcZrfp2zmcb5t8UPYwI4MtMF5ZO1ADG1kyz2n9qiNMrgh5IDGkcEyknbUXM1x7%2BwogkXVup%2BvNMaSWU%2FSmm7YCtA%2BUJtVIPBwDCxvJBqzrWhzyKymbc4HDjvhR2MY0hFqhWLVC7faIIHL2PyUggQcyS0N8y22kiSih1B%2FZcQzEgtsxByaRLO5mTsHt8XWXkNaU9XFg%2F8LS7qw%2Bgd6zzQ4TorH0aixlS0%3D#origin=copy_link",
+      "amazonUrl": null,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_868324-MCO119360074823_102026-P.webp",
+      "category": "Zapatillas",
+      "coupon": "SIQUESI",
+      "shipping": null,
+      "isPrime": false,
+      "source": "github",
+      "approved": true
+    },
+    "intentos": 1,
+    "guardado": 1794496041.098398
+  }
+]
