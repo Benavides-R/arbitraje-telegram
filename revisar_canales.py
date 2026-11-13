@@ -230,6 +230,18 @@ def detectar_dominio_tienda(link):
     return None
 
 
+# Acortadores de tiendas pausadas: se reconocen por el host para descartar el
+# mensaje ANTES de gastar tiempo resolviendo redirects (ver TIENDAS_IGNORADAS).
+_ACORTADORES_PAUSADOS = ["meli.la", "mercadol.ink"]
+
+
+def _link_de_tienda_pausada(link):
+    """True si el link, tal como viene en el mensaje, es de una tienda pausada.
+    Mira solo el host (no el path) para no confundirse con links de salida."""
+    host = urlsplit(link).netloc.lower()
+    return any(d in host for d in list(TIENDAS_IGNORADAS) + _ACORTADORES_PAUSADOS)
+
+
 def extraer_links(texto):
     return re.findall(r"https?://\S+", texto)
 
@@ -1193,6 +1205,14 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None, fecha_mensaje=None):
     links_en_mensaje = [l for l in extraer_links(texto_analisis) if l != url_imagen_manual]
     if not links_en_mensaje:
         return
+
+    # Tienda pausada (TIENDAS_IGNORADAS): se descarta de una, sin resolver
+    # redirects ni llamar a la IA. Cubre también los acortadores conocidos
+    # (meli.la, mercadol.ink) aunque el link final todavía no se conozca.
+    for link in links_en_mensaje:
+        if _link_de_tienda_pausada(link):
+            print(f"[SKIP] {oferta_id}: tienda pausada ({urlsplit(link).netloc}), se descarta sin gastar tiempo")
+            return
 
     link_final = None
     dominio = None

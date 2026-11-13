@@ -35,13 +35,19 @@ AUTO_PUBLICAR_SI_COMPLETA = True
 # Tiendas que SIEMPRE van a revisión manual, aunque vengan completas
 # (imagen+título+precio) -- para estas normalmente el link necesita que tú
 # lo corrijas a mano antes de publicar (ej. sin afiliado activo todavía).
-TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
+TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com", "mercadolibre.com"]
 
 # Ofertas que se DESCARTAN al instante: ni a revisión ni a auto-publicación
 # (se saltan apenas se detecta el dominio). Ahorra tiempo de revisión con
 # tiendas que hoy no publicas. Para reactivar una tienda más adelante,
 # simplemente quítala de esta lista -- sus entradas en TIENDAS siguen ahí.
-TIENDAS_IGNORADAS = ["temu.com", "aliexpress.com"]
+#
+# 2026-11-12: MercadoLibre se pausa TEMPORALMENTE (pedido del dueño: estaban
+# llegando ofertas de MercadoLibre desde los canales que vigila). Cubre todas
+# sus variantes por substring: mercadolibre.com.co, articulo.mercadolibre.com.co,
+# mercadolibre.com.ar, mercadolibre.com.mx, etc. Para reactivarla, bórrala de
+# aquí y de TIENDAS_SIEMPRE_MANUAL (volvería a revisión manual, no automática).
+TIENDAS_IGNORADAS = ["temu.com", "aliexpress.com", "mercadolibre.com"]
 
 # Palabras que, si aparecen en el título, mandan la oferta a revisión manual
 # aunque venga "completa" (imagen+título+precio) -- ropa/calzado varía mucho
