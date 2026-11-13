@@ -1470,5 +1470,61 @@
     "precio": "~$1.076.500 COP",
     "categoria": "#Moda #Estilo",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T16:00:47-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Funko Pop Goku Rojo de Dragon Ball Super, figura de vinilo oficial",
+    "precio": "~$35.800 COP",
+    "categoria": "#Amazon #FunkoPOP",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T16:01:53-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "POWCAN botella de agua aislada con boquilla 2 en 1",
+    "precio": "~$22.200 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T16:03:04-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Tabla de cortar de titanio de doble cara con patas giratorias, superficie texturizada para carnes y polipropileno.",
+    "precio": "~$51.400 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T16:04:12-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "EagleStone Máquina automática de pistolas de burbujas",
+    "precio": "~$32.400 COP",
+    "categoria": "#Juguetes #Niños",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T16:05:23-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Calvin Klein Hania para mujer, zapato de diseño elegante.",
+    "precio": "~$158.200 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T16:06:31-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Figura de vinilo coleccionable MrBeast Lab Classic Panther, 3.5 pulgadas (8.9 cm).",
+    "precio": "~$15.400 COP",
+    "categoria": "#Juguetes #Niños",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T16:07:37-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Garmin vívoactive 5, reloj inteligente GPS para salud y fitness, 1.654 in",
+    "precio": "~$576.200 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
   }
 ]
