@@ -10,18 +10,18 @@
     "fallo": 148,
     "navegador": 442,
     "html": 2301,
-    "captcha": 5016,
-    "navegador_tras_captcha": 96,
-    "asin": 387
+    "captcha": 5032,
+    "navegador_tras_captcha": 97,
+    "asin": 393
   },
   "tiempo_navegador": {
-    "segundos": 16878.8,
-    "intentos": 5124
+    "segundos": 16953.0,
+    "intentos": 5147
   },
   "auto_publicadas": {
     "ReviuDescuentos": 185,
-    "ElPromoHunter": 302,
-    "Clubgratis": 78,
+    "ElPromoHunter": 303,
+    "Clubgratis": 80,
     "Manual": 18
   }
 }
