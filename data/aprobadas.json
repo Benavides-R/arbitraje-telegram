@@ -1438,5 +1438,37 @@
     "precio": "~$538.100 COP",
     "categoria": "#tecnologia",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T15:00:44-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Heyfeel Ionic Hair Dryer with Diffuser",
+    "precio": "~$64.800 COP",
+    "categoria": "#Amazon #Belleza",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T15:01:53-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Funko Pop Mandíbulas Gran Tiburón Blanco Figura Coleccionable",
+    "precio": "~$71.600 COP",
+    "categoria": "#Juguetes #Niños",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T15:03:00-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "AOCHUAN Smart XE estabilizador con enfoque y seguimiento de objetos para iPhone.",
+    "precio": "~$171.100 COP",
+    "categoria": "#Celulares #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T15:04:10-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Garmin Instinct 3 Reloj inteligente GPS robusto 45 mm AMOLED Negro",
+    "precio": "~$1.076.500 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
   }
 ]
