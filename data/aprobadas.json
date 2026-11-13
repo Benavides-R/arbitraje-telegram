@@ -1526,5 +1526,21 @@
     "precio": "~$576.200 COP",
     "categoria": "#Moda #Estilo",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T17:00:38-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "ZELUS Chaleco con peso de 6 a 30 lb (2.7 a 13.6 kg) con rayas reflectantes para entrenamiento de fuerza.",
+    "precio": "~$39.400 COP",
+    "categoria": "#deportes",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-13T17:01:54-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Puma Evercat Mochila de bandolera Sidewall Gris jaspeado Tamaño único",
+    "precio": "~$31.600 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
   }
 ]
