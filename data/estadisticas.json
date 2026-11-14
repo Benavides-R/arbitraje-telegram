@@ -9,14 +9,14 @@
   "imagenes_origen": {
     "fallo": 148,
     "navegador": 578,
-    "html": 2483,
+    "html": 2484,
     "captcha": 5154,
     "navegador_tras_captcha": 97,
-    "asin": 474
+    "asin": 475
   },
   "tiempo_navegador": {
-    "segundos": 18337.5,
-    "intentos": 5486
+    "segundos": 18340.6,
+    "intentos": 5487
   },
   "auto_publicadas": {
     "ReviuDescuentos": 284,
