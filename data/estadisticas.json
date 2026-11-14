@@ -1,7 +1,7 @@
 {
   "conteo_por_canal": {
-    "ElPromoHunter": 24,
-    "ReviuDescuentos": 16,
+    "ElPromoHunter": 25,
+    "ReviuDescuentos": 17,
     "Manual": 3,
     "Clubgratis": 6
   },
@@ -10,13 +10,13 @@
     "fallo": 148,
     "navegador": 578,
     "html": 2484,
-    "captcha": 5155,
+    "captcha": 5156,
     "navegador_tras_captcha": 97,
-    "asin": 475
+    "asin": 477
   },
   "tiempo_navegador": {
-    "segundos": 18344.0,
-    "intentos": 5488
+    "segundos": 18354.1,
+    "intentos": 5491
   },
   "auto_publicadas": {
     "ReviuDescuentos": 284,
