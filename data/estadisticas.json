@@ -4,16 +4,16 @@
   "imagenes_origen": {
     "fallo": 150,
     "navegador": 587,
-    "html": 2609,
-    "captcha": 5360,
+    "html": 2614,
+    "captcha": 5369,
     "navegador_tras_captcha": 99,
-    "asin": 527
+    "asin": 528
   },
   "tiempo_navegador": {
-    "segundos": 19182.9,
-    "intentos": 5758
+    "segundos": 19212.5,
+    "intentos": 5768
   },
   "auto_publicadas": {
-    "ElPromoHunter": 5
+    "ElPromoHunter": 8
   }
 }
