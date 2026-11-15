@@ -5,13 +5,13 @@
     "fallo": 150,
     "navegador": 587,
     "html": 2614,
-    "captcha": 5369,
+    "captcha": 5372,
     "navegador_tras_captcha": 99,
     "asin": 528
   },
   "tiempo_navegador": {
-    "segundos": 19212.5,
-    "intentos": 5768
+    "segundos": 19222.0,
+    "intentos": 5771
   },
   "auto_publicadas": {
     "ElPromoHunter": 8
