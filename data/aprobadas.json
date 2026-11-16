@@ -1614,5 +1614,21 @@
     "precio": "~$275.800 COP",
     "categoria": "#alimentos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T22:00:35-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Etiquetadora NIIMBOT B1 con cinta para el hogar y la escuela",
+    "precio": "~$84.800 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T22:01:44-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Alfombrilla calentadora de alimentos de silicona, 36 x 16 pulgadas, 7 temperaturas",
+    "precio": "~$86.700 COP",
+    "categoria": "#Amazon #Alfombrilla",
+    "con_imagen": true
   }
 ]
