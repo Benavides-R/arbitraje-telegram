@@ -11,15 +11,15 @@
     "captcha": 5375,
     "navegador_tras_captcha": 99,
     "asin": 529,
-    "api_creators": 296
+    "api_creators": 311
   },
   "tiempo_navegador": {
     "segundos": 19234.3,
     "intentos": 5775
   },
   "auto_publicadas": {
-    "ElPromoHunter": 122,
-    "ReviuDescuentos": 94,
+    "ElPromoHunter": 125,
+    "ReviuDescuentos": 103,
     "Clubgratis": 5
   }
 }
