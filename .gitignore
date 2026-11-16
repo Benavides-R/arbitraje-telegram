@@ -1,0 +1,6 @@
+# Archivos que NO se versionan
+__pycache__/
+*.pyc
+*.session
+.session/
+.env

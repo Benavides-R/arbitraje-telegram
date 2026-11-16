@@ -56,10 +56,9 @@ TIENDAS_IGNORADAS = ["temu.com", "aliexpress.com", "mercadolibre.com"]
 # Ahora funciona como WHITELIST: solo si el título contiene una de estas
 # palabras Y está completa (imagen+título+precio), se auto-publica. Todo lo
 # demás (aunque esté completo) se manda a revisión manual -- control total.
-# Tope de precio para auto-publicar (en COP) -- si una oferta de la
-# whitelist supera este monto, ya no se publica sola por más que el título
-# matchee una palabra permitida; se manda a revisión manual igual.
-PRECIO_MAXIMO_AUTO_COP = 400000
+# 2026-11-15: se QUITÓ el tope de precio (PRECIO_MAXIMO_AUTO_COP). Antes una
+# oferta de la whitelist que superara ese monto no se auto-publicaba; ahora el
+# precio ya no frena nada, decide solo la whitelist + imagen + lista negra.
 
 # El banco de palabras se fue expandiendo a propósito (ensayo gradual):
 # mientras MÁS palabras hay aquí, MÁS ofertas completas se publican solas.
@@ -139,6 +138,16 @@ PALABRAS_AUTO_PERMITIDAS = [
     "extensor", "regulador",
     # Hogar:
     "videoportero", "videopuerto",
+    # --- expansión 7 (2026-11-15): huecos medidos en la cola real ---
+    # Tecnología que quedaba en revisión SOLO por no tener su palabra:
+    "grabadora", "tripode", "raton",
+    "alexa", "echo dot", "rgb",
+    # Luces de exterior/permanentes. NO se pone "luces" a secas: reencendería
+    # las luces de Navidad que el admin sacó a propósito.
+    "luces permanentes", "luces exteriores", "cadena de luces",
+    # Marcas de tecnología: hay títulos que solo traen marca + modelo
+    # ("Razer DeathAdder Essential") y sin la marca no matcheaban nada.
+    "razer", "logitech", "corsair", "anker", "jbl", "redragon",
 ]
 
 # Lista negra: aunque el título matchee una palabra permitida, si contiene
@@ -162,6 +171,9 @@ PALABRAS_NO_AUTO = [
     # Se bloquea por categoría para que no pase aunque el título traiga
     # "mujer", "zapatos" o "calzado". Las zapatillas/tenis NO se tocan
     # (esas siguen en la lista blanca).
+    # 2026-11-15: "bikini"/"monokini" se revisan aparte en
+    # _titulo_en_lista_negra: si el título es de un aparato de depilación
+    # ("Recortadora de bikini") NO se bloquea, porque no es una prenda.
     "bikini", "monokini", "traje de bano", "vestido de bano", "salida de bano",
     "bota", "botin", "mocasin", "sandalia", "chancla", "crocs",
     "tacon", "vestido", "falda", "blusa", "short", "legging", "medias",

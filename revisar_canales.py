@@ -37,7 +37,7 @@ from config import (
     CANALES_ORIGEN, CANAL_DESTINO_GRATIS, CANAL_DESTINO_VIP, TIENDAS,
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
     TIENDAS_IGNORADAS,
-    PALABRAS_AUTO_PERMITIDAS, PALABRAS_NO_AUTO, PALABRAS_TECNOLOGIA, PRECIO_MAXIMO_AUTO_COP, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
+    PALABRAS_AUTO_PERMITIDAS, PALABRAS_NO_AUTO, PALABRAS_TECNOLOGIA, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
     CUOTA_POR_CANAL, HORAS_BLOQUEO_DUPLICADO,
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
@@ -1297,14 +1297,8 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None, fecha_mensaje=None):
         "asin": asin,
         "titulo_normalizado": _sin_tildes(titulo.lower()),
         "requiere_casillero": requiere_casillero(texto_analisis),
-        "precio_dentro_del_tope": _precio_dentro_del_tope(precio),
         "fecha_mensaje": fecha_mensaje,
     }
-
-
-def _precio_dentro_del_tope(precio):
-    precio_numero = re.sub(r"[^\d]", "", precio.split(",")[0]) if precio else ""
-    return precio_numero.isdigit() and int(precio_numero) <= PRECIO_MAXIMO_AUTO_COP
 
 
 def _titulo_en_lista_negra(titulo_normalizado):
@@ -1320,9 +1314,22 @@ def _titulo_en_lista_negra(titulo_normalizado):
             if _RE_BODY_LENCERIA.search(titulo_normalizado):
                 return True
             continue
+        # "Recortadora de bikini" es un aparato de depilación, no una prenda:
+        # si el título trae el aparato, bikini/monokini no bloquean.
+        if mala in ("bikini", "monokini"):
+            if _RE_BIKINI_APARATO.search(titulo_normalizado):
+                continue
         if mala in titulo_normalizado:
             return True
     return False
+
+
+# Aparatos de depilación/afeitado: con estos en el título, "bikini" se
+# refiere a la zona del cuerpo, no a ropa de baño.
+_RE_BIKINI_APARATO = re.compile(
+    r"\b(?:recortadora|recortador|maquina|maquinilla|afeitadora|depiladora|"
+    r"rasuradora|trimmer|groomer|depilacion)\b"
+)
 
 
 _RE_BODY_LENCERIA = re.compile(
@@ -1365,7 +1372,7 @@ def finalizar_oferta(prep):
         return True  # se procesó (se decidió descartarla), cuenta para el tope por corrida
 
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
-            and not prep["requiere_casillero"] and prep["precio_dentro_del_tope"] \
+            and not prep["requiere_casillero"] \
             and not hay_prohibida \
             and any(palabra in prep["titulo_normalizado"] for palabra in PALABRAS_AUTO_PERMITIDAS):
         # Título y precio ya están garantizados en la fase 1 (si faltaba
@@ -1387,7 +1394,6 @@ def finalizar_oferta(prep):
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL \
             else "lista negra (lencería)" if hay_prohibida \
             else "sin imagen" if not url_imagen \
-            else "precio sobre el tope" if not prep["precio_dentro_del_tope"] \
             else "sin palabra permitida"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
         # Mandar a revisión NO marca el ASIN: si no se publica, el producto
