@@ -170,6 +170,66 @@ def _asin_existe_en_amazon_com(asin):
     return True
 
 
+_ASIN_EN_RUTA_RE = re.compile(r"/(?:dp|gp/product)/([A-Z0-9]{10})(?![A-Z0-9])", re.IGNORECASE)
+_ASIN_SUELTO_RE = re.compile(r"^[A-Z0-9]{10}$", re.IGNORECASE)
+
+
+def _asin_en_url(link):
+    """Saca el ASIN de un link de Amazon, venga como /dp/ASIN, /gp/product/ASIN,
+    como segmento suelto (link.amazon/ASIN) o en el query (?asin=ASIN).
+    Devuelve None si no hay ninguno reconocible."""
+    partes = urlsplit(link or "")
+    match = _ASIN_EN_RUTA_RE.search(partes.path)
+    if match:
+        return match.group(1).upper()
+
+    for segmento in partes.path.split("/"):
+        # Se exige al menos un dígito para no confundir una palabra de 10
+        # letras con un ASIN.
+        if _ASIN_SUELTO_RE.match(segmento) and any(c.isdigit() for c in segmento):
+            return segmento.upper()
+
+    query = dict(parse_qsl(partes.query))
+    for clave in ("asin", "ASIN", "asinId"):
+        valor = query.get(clave)
+        if valor and _ASIN_SUELTO_RE.match(valor):
+            return valor.upper()
+    return None
+
+
+def _limpiar_link_amazon_corto(link):
+    """Normaliza un link del acortador de Amazon a https://www.amazon.com/dp/ASIN.
+
+    El ASIN casi siempre viene dentro de la ruta (link.amazon/B08y6Y6VP), así
+    que se reconstruye sin abrir nada. Solo si no viene se resuelve el redirect
+    una vez. Al quedar como link normal de amazon.com, todo lo que ya funciona
+    (afiliado, imagen, duplicados, precio en USD -> COP) sigue igual.
+    """
+    asin = _asin_en_url(link)
+    if not asin:
+        try:
+            resp = requests.get(link, headers=HEADERS, timeout=15, allow_redirects=True)
+        except Exception as e:
+            print(f"[WARN] No se pudo resolver el link corto de Amazon {link}: {e}")
+            return None
+        asin = _asin_en_url(resp.url)
+        if not asin:
+            print(f"[SKIP] Link corto de Amazon sin ASIN reconocible: {link} -> {resp.url}")
+            return None
+        print(f"[INFO] Link corto resuelto: {link} -> {resp.url}")
+
+    link_limpio = f"https://www.amazon.com/dp/{asin}"
+
+    # Mismo criterio que el link largo: si venía un vendedor específico (smid),
+    # se conserva para no cambiar el "buy box" y que el envío siga disponible.
+    smid = dict(parse_qsl(urlsplit(link).query)).get("smid")
+    if smid:
+        link_limpio = _agregar_parametro_url(link_limpio, "smid", smid)
+
+    print(f"[INFO] {asin}: link corto de Amazon normalizado a {link_limpio}")
+    return link_limpio
+
+
 def limpiar_link_tienda(link, dominio):
     """
     Quita todo el 'ruido' de tracking que traía el link original (del canal
@@ -179,6 +239,11 @@ def limpiar_link_tienda(link, dominio):
     if dominio == "amazon.":
         if "/errors/" in link or "/error/" in link:
             return None  # el canal original ya traía un link roto
+
+        # Acortador de Amazon (link.amazon/ASIN, amzn.to/...): se normaliza
+        # al link largo de amazon.com. Antes se descartaba aquí.
+        if _es_acortador_amazon(link):
+            return _limpiar_link_amazon_corto(link)
 
         match = re.search(r"/(?:dp|gp/product)/([A-Z0-9]{10})", link, re.IGNORECASE)
         if not match:
@@ -223,7 +288,24 @@ def limpiar_link_tienda(link, dominio):
     return link
 
 
+# Acortadores propios de Amazon (EE.UU.). Muchos canales no pegan el link
+# largo sino "link.amazon/ASIN": trae el ASIN dentro de la ruta, así que se
+# puede reconstruir el link bueno sin abrir nada. Se miran por HOST (no por
+# substring) para no confundirlos con links de salida de otra tienda.
+_ACORTADORES_AMAZON = {"link.amazon", "amzn.to", "a.co"}
+
+
+def _es_acortador_amazon(link):
+    host = urlsplit(link).netloc.lower().split(":")[0]
+    return host in _ACORTADORES_AMAZON
+
+
 def detectar_dominio_tienda(link):
+    # Antes que nada: si es un acortador de Amazon, es Amazon. Sin esto el
+    # link no calzaba con la clave "amazon." (el punto va ANTES de "amazon"
+    # en "link.amazon") y la oferta se descartaba como link inválido.
+    if _es_acortador_amazon(link):
+        return "amazon."
     for dominio in TIENDAS:
         if dominio in link:
             return dominio
