@@ -1574,5 +1574,45 @@
     "precio": "~$187.100 COP",
     "categoria": "#Amazon #Tecnología",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T21:00:35-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Dash Cam 4K con 5 canales para grabación delantera, trasera e interior.",
+    "precio": "~$379.200 COP",
+    "categoria": "#tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T21:01:42-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "PANCKY detector de metales de alta precisión",
+    "precio": "~$238.500 COP",
+    "categoria": "#Herramientas #Hogar",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T21:02:54-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Nintendo Switch Joy-Con (L) azul neón / (R) rojo neón.",
+    "precio": "~$586.300 COP",
+    "categoria": "#Gaming #Videojuegos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T21:04:04-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Rizador automático BABONIR de 1,25 pulgadas con barril iónico de cerámica",
+    "precio": "~$85.200 COP",
+    "categoria": "#Amazon #Rizador",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T21:05:11-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "AMZCHEF Máquina compacta de café expreso 20 bar, americano.",
+    "precio": "~$275.800 COP",
+    "categoria": "#alimentos",
+    "con_imagen": true
   }
 ]
