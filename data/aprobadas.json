@@ -1558,5 +1558,21 @@
     "precio": "~$441.100 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T20:00:45-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Trípode de seguimiento automático de cara de 180 cm (70.9 pulgadas).",
+    "precio": "~$86.900 COP",
+    "categoria": "#tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-15T20:01:53-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Mini grabadora de voz AI con transcripción inteligente",
+    "precio": "~$187.100 COP",
+    "categoria": "#Amazon #Tecnología",
+    "con_imagen": true
   }
 ]
