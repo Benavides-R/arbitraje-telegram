@@ -7,19 +7,19 @@
   "imagenes_origen": {
     "fallo": 150,
     "navegador": 587,
-    "html": 2614,
+    "html": 2615,
     "captcha": 5375,
     "navegador_tras_captcha": 99,
     "asin": 529,
-    "api_creators": 363
+    "api_creators": 381
   },
   "tiempo_navegador": {
     "segundos": 19234.3,
     "intentos": 5775
   },
   "auto_publicadas": {
-    "ElPromoHunter": 130,
-    "ReviuDescuentos": 130,
+    "ElPromoHunter": 136,
+    "ReviuDescuentos": 135,
     "Clubgratis": 9
   }
 }
