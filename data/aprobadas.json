@@ -1630,5 +1630,13 @@
     "precio": "~$86.700 COP",
     "categoria": "#Amazon #Alfombrilla",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-17T10:00:48-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Pantalla CarPlay inalámbrica para coche de 7 pulgadas con Android Auto",
+    "precio": "~$147.900 COP",
+    "categoria": "#Amazon #Carplay",
+    "con_imagen": true
   }
 ]
