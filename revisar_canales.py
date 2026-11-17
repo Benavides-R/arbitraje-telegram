@@ -1000,16 +1000,18 @@ def reescribir_texto(texto_original, link):
     lineas.append(f"🏷️ Cupón: {' + '.join(_partes_cupon) if cupon else '¡No necesita!'}")
     lineas.append(f"⚡ Ver oferta: {link}")
 
-    # Si el canal original menciona Prime, anexamos la invitación a la
-    # prueba gratis con nuestro tag -- comisión extra sin costo para el
-    # comprador, y aplica solo cuando de verdad hay mención de Prime.
-    if menciona_prime(texto_original):
+    # Enlace de la prueba de Prime: SOLO cuando la oferta ya muestra la
+    # insignia "🅿️ ¡Envío Gratis Con PRIME!" (badges.py), y va justo debajo
+    # de "Ver oferta". Se arma con el tag de config.py, así que se publica
+    # con el tag real: el mensaje de revisión lo oculta con
+    # quitar_tag_afiliado() igual que cualquier otro link, pero el texto
+    # guardado y publicado lo conserva.
+    if BADGE_ENVIO_PRIME in badges:
         id_afiliado_amazon = TIENDAS.get("amazon.", {}).get("id_afiliado")
         if id_afiliado_amazon:
-            lineas.append("")
             lineas.append(
-                f"🅿️ Prueba gratis de Prime: "
-                f"https://www.amazon.com/tryprimefree?tag={id_afiliado_amazon}"
+                "🎁 Prueba gratis de Prime (se renueva solo; cancela cuando quieras): "
+                f"https://www.amazon.com/prime?tag={id_afiliado_amazon}"
             )
 
     lineas.append("")
