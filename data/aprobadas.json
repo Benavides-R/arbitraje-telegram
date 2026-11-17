@@ -1638,5 +1638,29 @@
     "precio": "~$147.900 COP",
     "categoria": "#Amazon #Carplay",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-17T14:00:38-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "STANLEY Quencher H2.0 Flow State - Vaso de 40 onzas (1183 ml) en color narciso.",
+    "precio": "~$77.500 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-17T14:01:48-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Máquina de boxeo de música SYZLGFU, diseñada para actividades deportivas.",
+    "precio": "~$103.300 COP",
+    "categoria": "#deportes",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-17T14:02:57-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "STANLEY Quencher H2.0 Flow State - Vaso de 40 onzas (1.18 L), color verde primavera.",
+    "precio": "~$77.500 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
