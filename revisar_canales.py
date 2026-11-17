@@ -1009,6 +1009,9 @@ def reescribir_texto(texto_original, link):
     if BADGE_ENVIO_PRIME in badges:
         id_afiliado_amazon = TIENDAS.get("amazon.", {}).get("id_afiliado")
         if id_afiliado_amazon:
+            # Línea en blanco antes para separar el bloque del enlace de la
+            # oferta (queda más ordenado visualmente en el canal).
+            lineas.append("")
             lineas.append(
                 "🎁 Prueba gratis de Prime (se renueva solo; cancela cuando quieras): "
                 f"https://www.amazon.com/prime?tag={id_afiliado_amazon}"
