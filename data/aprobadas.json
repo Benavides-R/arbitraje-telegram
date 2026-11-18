@@ -1670,5 +1670,45 @@
     "precio": "~$37.100 COP",
     "categoria": "#Amazon #Ropainterior",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-18T14:31:37-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Coche RC transformador de dinosaurios con luces LED y conversión a robot.",
+    "precio": "~$49.200 COP",
+    "categoria": "#automotriz",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-18T14:32:45-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "AI Translation Earbuds - Audífonos traductores inalámbricos con soporte para 145 idiomas.",
+    "precio": "~$33.900 COP",
+    "categoria": "#Audio #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-18T14:33:53-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "PUMA paquete de 4 calzoncillos bóxer deportivos elásticos",
+    "precio": "~$41.200 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-18T14:35:01-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "PUMA Paquete de 5 calzoncillos tipo bóxer Performance para hombre.",
+    "precio": "~$67.200 COP",
+    "categoria": "#moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-18T14:36:08-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Levi&#x27;s paquete de 5 calzoncillos tipo bóxer de microfibra para hombre, absorben la humedad.",
+    "precio": "~$54.500 COP",
+    "categoria": "#moda",
+    "con_imagen": true
   }
 ]
