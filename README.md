@@ -4,6 +4,10 @@ Revisa canales públicos de ofertas cada 20 minutos, reescribe el contenido
 con IA, y (si activaste revisión manual) te la manda a aprobar antes de
 publicarla en tu canal (VIP primero, gratis con retraso) y en Facebook.
 
+> **Estado actual y traspaso:** `TRASPASO.md` (regla de lista negra vigente,
+> qué sigue frenando una oferta, análisis de retrasos y pendientes).
+> **Lista blanca histórica (para revertir):** `LISTA_BLANCA_HISTORICA.md`.
+
 ## Costo: $0
 - GitHub Actions en repo público: minutos gratis en la práctica
 - Telethon + tu cuenta de Telegram: gratis

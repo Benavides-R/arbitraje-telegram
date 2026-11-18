@@ -1,0 +1,201 @@
+# Traspaso — estado del bot (18-nov-2026)
+
+Documento para continuar el trabajo en otro equipo/IA. Resume qué quedó
+desplegado, qué reglas rigen hoy, qué se midió con datos reales y qué falta
+decidir. **No sustituye al código**: si algo aquí no coincide con
+`config.py` / `revisar_canales.py`, manda el código.
+
+Último commit de este cambio: **`e457f94`** en `main`.
+
+---
+
+## 1. Regla de publicación vigente (cambio importante)
+
+Antes: **lista blanca**. Una oferta solo se auto-publicaba si el título
+contenía alguna de las 211 palabras de `PALABRAS_AUTO_PERMITIDAS`.
+Ese era el cuello de botella: ofertas buenas con foto, título y precio se
+quedaban esperando aprobación manual solo por no traer la palabra exacta.
+
+Ahora: **solo lista negra**. `config.py` → `USAR_LISTA_BLANCA = False`.
+Todo lo que esté completo se auto-publica **salvo** lo que caiga en
+`PALABRAS_NO_AUTO` (123 entradas).
+
+La lista blanca histórica **no se borró**: sigue en `config.py` (marcada
+como histórica, ya solo se consulta si `USAR_LISTA_BLANCA = True`) y está
+copiada palabra por palabra en `LISTA_BLANCA_HISTORICA.md`, con los pasos
+para revertir.
+
+### Qué sigue frenando una oferta (no es la lista negra)
+1. `requiere_casillero` — bloqueo duro en `finalizar_oferta`, no es una
+   palabra de la lista.
+2. Tiendas pausadas: `TIENDAS_IGNORADAS` / `TIENDAS_SIEMPRE_MANUAL`
+   (MercadoLibre, Temu, AliExpress).
+3. Sin imagen.
+4. Antigüedad mayor a `MAX_ANTIGUEDAD_OFERTA_HORAS` (6 h).
+5. Duplicado por ASIN dentro de `HORAS_BLOQUEO_DUPLICADO` (12 h).
+6. Topes de la corrida: `MAX_OFERTAS_POR_CORRIDA = 31` y
+   `CUOTA_POR_CANAL` (ElPromoHunter 15, ReviuDescuentos 12, Clubgratis 8).
+
+### Regla de oro que NO se debe romper
+El ASIN se marca como publicado **solo cuando la oferta se publicó de
+verdad** (`aprobaciones.py`). Nunca al aprobarla ni al prepararla.
+
+---
+
+## 2. Verificación hecha con datos reales (no estimaciones)
+
+Sobre las 99 ofertas que estaban en `data/pendientes_revision.json`:
+
+| Resultado con la regla nueva | Cantidad |
+|---|---|
+| Se auto-publicarían | **63** |
+| Siguen bloqueadas por lista negra | 14 |
+| Requieren casillero | 9 |
+| Sin imagen | 13 |
+| Otros motivos | 0 |
+
+Además: `pruebas_seco.py` 30/30 OK, y un control de 30 títulos
+(`spot_negra.py`) con solo un falso positivo aceptado (`americana`).
+
+Los pendientes actuales **no se re-evalúan solos**: se van con la poda
+(6 h con cupón / 24 h sin cupón). Las ofertas nuevas entran ya con la
+regla nueva.
+
+---
+
+## 3. Detalles del match de la lista negra (para no romperlo)
+
+El match es **substring** sobre el título normalizado (sin tildes,
+minúsculas). Por eso:
+
+- **No se pueden usar** estas palabras: `mono` (está dentro de "monitor"),
+  `top` (dentro de "laptop"/"desktop"), `cartera` (en Colombia = billetera,
+  ya permitida).
+- `body` y `sosten` se buscan como **palabra completa** (`_RE_BODY_LENCERIA`,
+  `_RE_SOSTEN`), porque como substring atrapaban "Crossbody" y "sostenible".
+- `moldeador` a secas se descartó: atrapaba secadores y planchas de pelo.
+  Solo se usan `moldeador corporal`, `moldeador de cuerpo`,
+  `moldeadora corporal` (más `faja`).
+- Se agregaron `usada` / `usadas` / `usados` / `reacondicionada`: con
+  `usado` solo, los avisos en femenino se colaban.
+
+---
+
+## 4. Ritmo de publicación (lo que no hay que tocar)
+
+- Facebook: `FACEBOOK_SEGUNDOS_ENTRE_POSTS = 60` (1 por minuto), 20-40
+  ofertas/hora. Es lo que evita que Facebook limite la página.
+- Canal gratis: `RETRASO_GRATIS_SEGUNDOS = 15 min`, pero con
+  `CANAL_DESTINO_VIP = None` **no aplica**: publica al instante y cuenta
+  como publicado.
+- Orden: Telegram primero, Facebook después (en fila).
+- `concurrency: revisar-canales` con `cancel-in-progress: false`: dos
+  corridas nunca se enciman, se encolan.
+
+---
+
+## 5. Por qué las ofertas salen con retraso (análisis)
+
+Caso real reportado: una oferta del canal Reviu salió a la 1:00 y se
+publicó a las 4:00 (≈3 h).
+
+Tres causas, en orden de peso:
+
+1. **Revisión manual (la principal, ya resuelta).** La oferta entraba a
+   `pendientes_revision.json` y esperaba aprobación humana. Con la regla
+   nueva eso deja de pasar para todo lo que no esté en lista negra.
+2. **El disparador corre ~1 vez por hora.** Evidencia: los commits
+   `Actualiza estado` salen a las 02:19, 03:21, 04:20, 05:16, 06:21,
+   07:07, 08:05, 09:05, 10:04, 11:00, 12:00. Ahí se van hasta 60 min.
+   El disparo es **externo** (cron-job.org llamando a `workflow_dispatch`);
+   el `schedule` nativo de GitHub está comentado a propósito en
+   `.github/workflows/revisar.yml`.
+3. **Cola secuencial de publicación**: Telegram primero y Facebook a 1 por
+   minuto; 31 ofertas ≈ 30 min de cola.
+
+### Telegram NO es el cuello de botella
+Los errores viejos (`Too many messages had to be ignored`,
+`Server sent a very old message`) no los causaba el intervalo: los causaba
+Telethon procesando **en vivo** todo lo que publican los canales de fondo
+(la cuenta es miembro de todos). Eso está apagado con
+`receive_updates=False` en la construcción del `TelegramClient`.
+
+- Leer: 1 sola petición por canal por corrida (`iter_messages(limit=50)`).
+- Publicar: 20-40 mensajes/hora en el propio canal está dentro de lo normal.
+- Si Telegram frena, Telethon duerme solo (FloodWait hasta 60 s) y sigue.
+
+### Lo que sí cuesta y crece con más corridas: Amazon
+`data/estadisticas.json` → `imagenes_origen`: api_creators 1079, captcha
+5400, html 2620, navegador 587, asin 536, navegador_tras_captcha 100,
+fallo 150. `tiempo_navegador`: 19.335 s en 5.808 intentos ≈ **3,3 s por
+intento**. Ahí está el tiempo real de cada corrida.
+
+### Recomendación
+Poner el disparador externo en **20 minutos** (no 15): baja el retraso de
+~60 a ~20 min y deja margen para que una corrida lenta no se encime.
+Cómo verificarlo sin adivinar: en Actions, comparar la **duración de la
+corrida** contra el intervalo. Si dura menos, sobra margen; si dura más,
+subir a 30 min.
+
+---
+
+## 6. Pendientes de decisión (nada de esto está implementado)
+
+1. **Joyería y maquillaje**: hoy pasarían (la base de maquillaje y los
+   adornos navideños también). ¿Se agregan a la lista negra?
+2. **Navidad**: ¿se bloquea la temática navideña?
+3. **Los 9 de casillero**: ¿publicar con una etiqueta que avise, o seguir
+   frenándolos?
+4. **Contador de descartes**: hoy los `[SKIP]` solo van a stdout y se
+   pierden. Candidato: `data/estadisticas.json`.
+5. **Línea "Prueba de Prime"**: commits ajenos `679e8d3` + `0d0f3ac`
+   (enlace `/prime` con el tag, solo con insignia PRIME, bajo "Ver
+   oferta", con aviso de renovación automática). Aceptada sin revisar a
+   fondo.
+6. **Pinterest**: opción C (pin vertical 1000x1500 + texto por Telegram)
+   recomendada, y opción A (API oficial) en paralelo. Sin respuesta.
+7. **Link corto**: `amzn.eu` está excluido del acortador; el tag
+   `benatechs00-20` está atado a `"amazon."` y no atribuye en
+   `amazon.ca/.co.uk/.co.jp`. Sin resolver.
+8. **Los 99 pendientes**: si se quieren publicar ya, hay que volver a
+   pasarlos por la regla nueva (no se re-evalúan solos).
+
+---
+
+## 7. Riesgos aceptados al ampliar la lista negra
+
+- `americana` bloquea "nevera americana" (y "chaqueta americana"). Si
+  molesta, cambiarla por `chaqueta americana` / `traje americano`.
+- `push up` (fitness), `clutch` (autos), `plataforma`, `sueter`.
+
+---
+
+## 8. Qué NO se debe tocar sin autorización
+
+Tags de afiliado, lógica base de bloqueo de duplicados, imágenes/logo,
+ritmo de Facebook (`FACEBOOK_SEGUNDOS_ENTRE_POSTS`), auto-publicación,
+Oferta Radar, selección de ofertas, `MAX_OFERTAS_POR_CORRIDA`,
+`CUOTA_POR_CANAL`, Supabase, `concurrency` y la frecuencia del cron (salvo
+la recomendación del punto 5).
+
+Los secrets `CREATORS_CREDENTIAL_ID` / `CREATORS_CREDENTIAL_SECRET`
+**funcionan**: la Creators API sí responde, no borrarlos.
+
+---
+
+## 9. Cómo comprobar que no se rompió
+
+Los scripts de prueba viven **fuera del repo**, en
+`C:\Users\CUENTA\AppData\Local\Temp\opencode\`:
+
+- `pruebas_seco.py` — 30 pruebas en seco (deben ser 30/30).
+- `verif_negra.py` — evalúa los pendientes reales contra las listas.
+- `spot_negra.py` — 30 títulos de control (pasar / bloquear).
+- `chk_md.py` — confirma que el bloque Python de
+  `LISTA_BLANCA_HISTORICA.md` es idéntico a
+  `config.PALABRAS_AUTO_PERMITIDAS`.
+- `gen_whitelist_md.py` — regenera el `.md` desde `config.py`.
+
+Para importar `revisar_canales` en un script hace falta stubear `requests`
+en `sys.modules` y definir `TELEGRAM_API_ID=1`, `TELEGRAM_API_HASH=x`,
+`TELEGRAM_SESSION=x`, `TELEGRAM_BOT_TOKEN=x`.
