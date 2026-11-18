@@ -38,6 +38,7 @@ from config import (
     MODO_REVISION, AUTO_PUBLICAR_SI_COMPLETA, TIENDAS_SIEMPRE_MANUAL,
     TIENDAS_IGNORADAS,
     PALABRAS_AUTO_PERMITIDAS, PALABRAS_NO_AUTO, PALABRAS_TECNOLOGIA, ACTIVAR_BUSCADOR_ALIEXPRESS, USAR_BRIDGE_OFERTA_RADAR,
+    USAR_LISTA_BLANCA,
     CUOTA_POR_CANAL, HORAS_BLOQUEO_DUPLICADO,
     MODELO_GROQ, MAX_OFERTAS_POR_CORRIDA,
     MAX_ANTIGUEDAD_OFERTA_HORAS,
@@ -1391,14 +1392,21 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None, fecha_mensaje=None):
 def _titulo_en_lista_negra(titulo_normalizado):
     """True si el título es de un tema que nunca se auto-publica.
 
-    "body" se revisa aparte, como palabra completa y con contexto de
-    prenda: como substring bloqueaba cosas que no son lencería
-    ("Calvin Klein Crossbody bag", "Dove Body Scrub"). Un body de
-    lencería de verdad sigue cayendo por "encaje" o por estas variantes.
+    La mayoría de palabras se buscan por substring, pero dos se buscan como
+    palabra completa porque como substring rompían cosas que no tienen nada
+    que ver:
+      - "body" pegaba en "Calvin Klein Crossbody bag", "Dove Body Scrub".
+      - "sosten" pegaba en "sostenible" (bolsas, cepillos de bambú, etc.).
+    Un body de lencería de verdad sigue cayendo por "encaje" o por estas
+    variantes.
     """
     for mala in PALABRAS_NO_AUTO:
         if mala == "body":
             if _RE_BODY_LENCERIA.search(titulo_normalizado):
+                return True
+            continue
+        if mala == "sosten":
+            if _RE_SOSTEN.search(titulo_normalizado):
                 return True
             continue
         # "Recortadora de bikini" es un aparato de depilación, no una prenda:
@@ -1423,6 +1431,11 @@ _RE_BODY_LENCERIA = re.compile(
     r"\bbodysuit\b|\bbody\s+(?:de\s+encaje|lencer|femenin|de\s+mujer|para\s+mujer|"
     r"sin\s+mangas|manga\s+larga|manga\s+corta|negro|blanco|rojo|estilo)|\bbody\s*$"
 )
+
+
+# "sostén"/"sostenes" como palabra completa: como substring bloqueaba
+# "sostenible", "sostenibilidad" y demás palabras que no son lencería.
+_RE_SOSTEN = re.compile(r"\bsosten(?:es)?\b")
 
 
 def _es_tecnologia(titulo_normalizado):
@@ -1458,10 +1471,17 @@ def finalizar_oferta(prep):
               f"no se publica sola")
         return True  # se procesó (se decidió descartarla), cuenta para el tope por corrida
 
+    # Lista blanca SOLO si el dueño la reactiva (USAR_LISTA_BLANCA = True en
+    # config.py). Con el modelo de lista negra vigente, cualquier oferta
+    # completa pasa sin necesidad de traer una palabra concreta.
+    cumple_lista_blanca = (not USAR_LISTA_BLANCA) or any(
+        palabra in prep["titulo_normalizado"] for palabra in PALABRAS_AUTO_PERMITIDAS
+    )
+
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
             and not prep["requiere_casillero"] \
             and not hay_prohibida \
-            and any(palabra in prep["titulo_normalizado"] for palabra in PALABRAS_AUTO_PERMITIDAS):
+            and cumple_lista_blanca:
         # Título y precio ya están garantizados en la fase 1 (si faltaba
         # alguno, se descartó ahí) -- con imagen también presente, la
         # oferta está completa y se publica sola, sin pasar por revisión.
@@ -1479,9 +1499,10 @@ def finalizar_oferta(prep):
     elif MODO_REVISION:
         motivo = "requiere casillero" if prep["requiere_casillero"] \
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL \
-            else "lista negra (lencería)" if hay_prohibida \
+            else "lista negra" if hay_prohibida \
             else "sin imagen" if not url_imagen \
-            else "sin palabra permitida"
+            else "sin palabra permitida" if USAR_LISTA_BLANCA \
+            else "no cumple las condiciones de auto-publicación"
         print(f"[OFERTA] {dominio} -> {motivo}, enviada a revisión manual ({oferta_id})")
         # Mandar a revisión NO marca el ASIN: si no se publica, el producto
         # queda libre para volver a aparecer cuando quiera.

@@ -62,6 +62,15 @@ vez un número normal (sin `-100`, puede que sin signo negativo). Ese es tu
   en cuanto te registres (puedes ponerlo desde el día 1, no hay que esperar
   las ventas) y `afiliado_activo` en `True`
 
+**Qué se publica solo y qué no.** Hoy funciona con **lista negra**: si la
+oferta llega completa (imagen + título + precio) se publica sola, salvo que
+el título traiga alguna palabra de `PALABRAS_NO_AUTO`, que la tienda esté
+pausada en `TIENDAS_IGNORADAS`, que la tienda sea de revisión manual
+(`TIENDAS_SIEMPRE_MANUAL`) o que requiera casillero. Antes se usaba una
+lista blanca (solo pasaba lo que traía una palabra permitida); esa lista
+quedó guardada, con instrucciones para volver atrás, en
+[LISTA_BLANCA_HISTORICA.md](LISTA_BLANCA_HISTORICA.md).
+
 ### 7. Tu logo y Facebook (igual que antes)
 `logo.png` en la carpeta del proyecto. Facebook es opcional -- ver sección
 más abajo si quieres activarlo.

@@ -49,21 +49,28 @@ TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com", "mercadolibre.com"]
 # aquí y de TIENDAS_SIEMPRE_MANUAL (volvería a revisión manual, no automática).
 TIENDAS_IGNORADAS = ["temu.com", "aliexpress.com", "mercadolibre.com"]
 
-# Palabras que, si aparecen en el título, mandan la oferta a revisión manual
-# aunque venga "completa" (imagen+título+precio) -- ropa/calzado varía mucho
-# en talla/calidad, y todo lo relacionado a mujer se revisa aparte, mejor
-# que tú lo confirmes antes de publicar.
-# Ahora funciona como WHITELIST: solo si el título contiene una de estas
-# palabras Y está completa (imagen+título+precio), se auto-publica. Todo lo
-# demás (aunque esté completo) se manda a revisión manual -- control total.
-# 2026-11-15: se QUITÓ el tope de precio (PRECIO_MAXIMO_AUTO_COP). Antes una
-# oferta de la whitelist que superara ese monto no se auto-publicaba; ahora el
-# precio ya no frena nada, decide solo la whitelist + imagen + lista negra.
+# --- Modo de decisión: LISTA NEGRA (2026-11-18) ---
+# Antes se usaba una LISTA BLANCA (PALABRAS_AUTO_PERMITIDAS): una oferta
+# completa solo se publicaba sola si el título traía alguna de esas ~211
+# palabras. Medido con datos reales, eso era el cuello de botella #1: 63 de
+# 99 pendientes ya tenían foto, título y precio y solo se frenaban por no
+# traer la palabra exacta.
+#
+# Ahora (pedido del dueño) es al revés: TODO lo que llegue completo
+# (imagen+título+precio) se publica solo, y lo único que lo frena es:
+#   1. la lista negra de abajo (PALABRAS_NO_AUTO),
+#   2. que la tienda esté en TIENDAS_IGNORADAS (se descarta antes),
+#   3. que la tienda esté en TIENDAS_SIEMPRE_MANUAL,
+#   4. que requiera casillero (envío a Colombia).
+#
+# Para volver al modelo viejo: pon USAR_LISTA_BLANCA = True. La lista blanca
+# quedó intacta abajo (solo dejó de usarse) y además está documentada en
+# LISTA_BLANCA_HISTORICA.md.
+USAR_LISTA_BLANCA = False
 
-# El banco de palabras se fue expandiendo a propósito (ensayo gradual):
-# mientras MÁS palabras hay aquí, MÁS ofertas completas se publican solas.
-# Agrega/quita palabras tú mismo para ir probando qué funciona -- nunca se
-# publica sola ni una oferta cuyo título no matchee ninguna de estas.
+# LISTA BLANCA HISTÓRICA -- ya NO se usa para decidir mientras
+# USAR_LISTA_BLANCA sea False. Se conserva tal cual para poder revertir.
+# Documentada también en LISTA_BLANCA_HISTORICA.md.
 PALABRAS_AUTO_PERMITIDAS = [
     # --- banco original (tecnología/seguridad) ---
     "camara", "camara de seguridad", "seguridad", "alarma", "cerradura",
@@ -150,34 +157,65 @@ PALABRAS_AUTO_PERMITIDAS = [
     "razer", "logitech", "corsair", "anker", "jbl", "redragon",
 ]
 
-# Lista negra: aunque el título matchee una palabra permitida, si contiene
-# ALGUNA de estas va SIEMPRE a revisión manual (decisión del admin: la
-# ropa interior/lencería de dama nunca se publica sola). Se compara sobre
-# el título ya normalizado (sin tildes, minúsculas).
+# Lista negra (2026-11-18): si el título trae ALGUNA de estas, la oferta
+# NUNCA se publica sola -- va a revisión manual, aunque esté completa.
+# Se compara sobre el título ya normalizado (sin tildes, minúsculas) y por
+# SUBSTRING, así que una palabra corta bloquea todo lo que la contenga.
+#
+# OJO al agregar palabras cortas: "mono" bloquearía "monitor", "top"
+# bloquearía "laptop"/"desktop" y "cartera" bloquearía "billetera" (que en
+# Colombia es lo que sí se quiere publicar). Por eso esas no están.
+#
+# "body" y "sosten" se revisan aparte, con palabra completa, en
+# _titulo_en_lista_negra (revisar_canales.py): como substring "body" pegaba
+# en "Crossbody" y "sosten" en "sostenible".
 PALABRAS_NO_AUTO = [
-    "braga", "panti", "brasier", "brassiere", "lenceria",
-    "sujetador", "ropa interior", "calzoncillo",
-    # Lencería que el admin tampoco quiere (2026-11-03). "encaje" cubre
-    # "pijama de encaje" y cualquier prenda con encaje.
-    "tanga", "body", "encaje",
-    # Salud, armas y segunda mano:
-    "vape", "cigarrillo", "suplemento", "pastillas", "medicamento",
-    "navaja", "cuchilla de afeitar",
-    "usado", "reacondicionado", "renewed",
-    # "consola" está en la lista blanca y matchea por substring:
-    # sin esto, un consolador se publicaría solo.
-    "consolador",
-    # Moda de mujer que el admin no quiere auto-publicar (2026-11-09).
-    # Se bloquea por categoría para que no pase aunque el título traiga
-    # "mujer", "zapatos" o "calzado". Las zapatillas/tenis NO se tocan
-    # (esas siguen en la lista blanca).
-    # 2026-11-15: "bikini"/"monokini" se revisan aparte en
-    # _titulo_en_lista_negra: si el título es de un aparato de depilación
-    # ("Recortadora de bikini") NO se bloquea, porque no es una prenda.
+    # --- Ropa interior / lencería ---
+    "braga", "panti", "panty", "brasier", "brassiere", "sosten", "sujetador",
+    "lenceria", "ropa interior", "calzoncillo", "boxer",
+    "tanga", "culotte", "body", "babydoll", "corse", "corset", "liguero",
+    "camison", "pijama", "bata de bano", "albornoz", "encaje",
+    # --- Trajes de baño ---
+    # "bikini"/"monokini" se revisan aparte: un aparato de depilación
+    # ("Recortadora de bikini") no es una prenda y no se bloquea.
     "bikini", "monokini", "traje de bano", "vestido de bano", "salida de bano",
-    "bota", "botin", "mocasin", "sandalia", "chancla", "crocs",
-    "tacon", "vestido", "falda", "blusa", "short", "legging", "medias",
-    "pijama", "enterizo", "bandolera",
+    "banador", "swimsuit", "tankini", "pareo",
+    # --- Moda femenina ---
+    "vestido", "falda", "blusa", "bluson", "crop", "tank top", "enterizo",
+    "legging", "leggings", "short", "shorts", "jumpsuit", "overol", "kimono",
+    "poncho", "chaleco", "cardigan", "sueter", "abrigo", "gabardina",
+    "blazer", "americana", "esmoquin",
+    # --- Calzado de moda ---
+    "bota", "botin", "botines", "mocasin", "sandalia", "chancla", "crocs",
+    "tacon", "tacones", "stiletto", "plataforma", "cuna", "alpargata",
+    "baleta", "ballet",
+    # --- Bolsos / marroquinería ---
+    # "cartera" sola NO va: en Colombia es la billetera, que sí se publica.
+    "bandolera", "clutch", "rinonera", "cangurera", "tote", "shopper",
+    "satchel", "crossbody", "hobo", "cartera de mano", "cartera de mujer",
+    # --- Salud / vicios ---
+    "vape", "vapeador", "cigarrillo", "tabaco", "suplemento", "pastillas",
+    "capsulas", "medicamento", "colageno", "creatina", "quemador de grasa",
+    "detox", "melatonina",
+    # --- Armas ---
+    "navaja", "cuchilla de afeitar",
+    # --- Usados ---
+    # "usada"/"usadas" también: la mayoría de avisos de segunda mano son en
+    # femenino ("consola usada", "nevera usada") y "usado" no las atrapaba.
+    "usado", "usada", "usados", "usadas", "reacondicionado", "reacondicionada",
+    "renewed", "refurbished", "open box", "segunda mano", "seminuevo",
+    # "consola" está en la lista blanca y matchea por substring: sin esto,
+    # un consolador se publicaría solo.
+    "consolador",
+    # --- Otros que el dueño no quiere ver ---
+    "disfraz", "peluca", "unas postizas", "pestanas postizas",
+    # "moldeador" solo NO va: atrapa secadores y planchas de cabello
+    # ("moldeador de aire"). Se piden las variantes de shapewear.
+    "tatuaje temporal", "faja", "moldeador corporal", "moldeador de cuerpo",
+    "moldeadora corporal", "push up", "realce", "sexy",
+    "sensual", "erotico",
+    # "medias" (pantimedias/medias veladas) se mantiene desde 2026-11-09.
+    "medias",
 ]
 
 # Palabras de tecnología: no cambian si algo se publica, solo el ORDEN.
