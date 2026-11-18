@@ -1710,5 +1710,13 @@
     "precio": "~$54.500 COP",
     "categoria": "#moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-18T17:00:59-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Suéter de punto trenzado para hombre Areant, suave y grueso, con cuello redondo.",
+    "precio": "~$45.800 COP",
+    "categoria": "#moda",
+    "con_imagen": true
   }
 ]
