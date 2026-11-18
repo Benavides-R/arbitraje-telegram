@@ -8,18 +8,18 @@
     "fallo": 150,
     "navegador": 587,
     "html": 2620,
-    "captcha": 5408,
+    "captcha": 5415,
     "navegador_tras_captcha": 102,
-    "asin": 541,
-    "api_creators": 1156
+    "asin": 545,
+    "api_creators": 1160
   },
   "tiempo_navegador": {
-    "segundos": 19384.9,
-    "intentos": 5823
+    "segundos": 19419.2,
+    "intentos": 5834
   },
   "auto_publicadas": {
-    "ElPromoHunter": 382,
-    "ReviuDescuentos": 381,
-    "Clubgratis": 70
+    "ElPromoHunter": 383,
+    "ReviuDescuentos": 384,
+    "Clubgratis": 72
   }
 }
