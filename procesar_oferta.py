@@ -502,14 +502,48 @@ def aplicar_logo_a_bytes(imagen_bytes_original, precio_texto=None):
         return None
 
 
+# La descarga de la foto puede fallar por un hipo de DNS/red del runner
+# (pasó el 18-nov-2026 con m.media-amazon.com: "Failed to resolve"). Antes
+# se rendía al primer intento y la oferta salía sin foto; ahora se
+# reintenta 3 veces con esperas cortas, porque esos hipos duran segundos.
+_INTENTOS_IMAGEN = 4           # 1 descarga + 3 reintentos
+_ESPERAS_IMAGEN = (1, 4, 10)   # segundos entre intento e intento
+
+
 def preparar_imagen_con_logo(url_imagen_producto, precio_texto=None):
     """
     Descarga la imagen del producto desde una URL y le superpone tu logo
     (versión automática, para las imágenes que el sistema extrae solo).
+
+    Reintenta la descarga ante fallos de red/DNS (3 reintentos: 1s, 4s,
+    10s). Un 4xx que no sea 429 no se reintenta: esa URL ya no sirve. Si
+    aun así no se puede, devuelve None y la oferta sale sin foto.
     """
-    try:
-        img_resp = requests.get(url_imagen_producto, headers=HEADERS, timeout=15)
-        return aplicar_logo_a_bytes(img_resp.content, precio_texto=precio_texto)
-    except Exception as e:
-        print(f"[WARN] No se pudo descargar la imagen del producto: {e}")
-        return None
+    ultimo_error = None
+    for intento in range(1, _INTENTOS_IMAGEN + 1):
+        try:
+            img_resp = requests.get(url_imagen_producto, headers=HEADERS, timeout=15)
+            img_resp.raise_for_status()
+        except requests.HTTPError as e:
+            codigo = getattr(e.response, "status_code", 0)
+            # 404/403 no se arreglan reintentando; 5xx y 429 sí.
+            if codigo and codigo < 500 and codigo != 429:
+                print(f"[WARN] La imagen del producto dio HTTP {codigo}; "
+                      f"no se reintenta, la oferta saldrá sin foto.")
+                return None
+            ultimo_error = e
+        except Exception as e:
+            ultimo_error = e
+        else:
+            return aplicar_logo_a_bytes(img_resp.content, precio_texto=precio_texto)
+
+        if intento < _INTENTOS_IMAGEN:
+            espera = _ESPERAS_IMAGEN[intento - 1]
+            print(f"[WARN] No se pudo descargar la imagen del producto "
+                  f"(intento {intento}/{_INTENTOS_IMAGEN}): {ultimo_error}. "
+                  f"Reintentando en {espera}s...")
+            time.sleep(espera)
+
+    print(f"[WARN] No se pudo descargar la imagen del producto tras "
+          f"{_INTENTOS_IMAGEN} intentos: {ultimo_error}")
+    return None

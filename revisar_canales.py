@@ -727,8 +727,27 @@ _RE_TITULO_BASURA = re.compile(
 )
 
 
+# Saludos con los que a veces ABRE el mensaje del canal. Caso real
+# (2026-11-18): ReviuDescuentos puso "🔥Buenos días para todos🔥" entre la
+# línea del precio y el nombre del producto, y ese saludo terminó publicado
+# como título ("📦 Producto: Buenos días para todos"). Se detecta anclado al
+# inicio para no tumbar títulos reales que solo mencionen la palabra.
+_RE_SALUDO = re.compile(
+    r"^\W*(?:"
+    r"buen[oa]s?\s+(?:d[ií]as?|tardes|noches)\b"
+    r"|hola\b\s*(?:[,!¡.]|a\s+todos|amig|gente|familia)"
+    r"|saludos\b"
+    r"|feliz(?:es)?\s+(?:d[ií]a|tarde|noche|semana|fiestas)\b"
+    r"|bendiciones\b"
+    r"|buen\s+fin\s+de\s+semana\b"
+    r")",
+    re.IGNORECASE,
+)
+
+
 def _es_titulo_basura(texto):
-    return bool(_RE_TITULO_BASURA.search(texto.strip()))
+    limpio = texto.strip()
+    return bool(_RE_TITULO_BASURA.search(limpio)) or bool(_RE_SALUDO.match(limpio))
 
 
 # Líneas que son campos o llamados del canal (cupón, precio, "ir a", link
@@ -1030,6 +1049,21 @@ def reescribir_texto(texto_original, link):
 _INTENTOS_TELEGRAM = 2
 _PAUSA_REINTENTO_SEG = 3
 
+# Cortacircuitos de Telegram: si la API de bots está caída (500/502,
+# timeouts de 60s), seguir intentando cada oferta gasta minutos y alarga la
+# corrida sin ganar nada. Tras 2 fallos SEGUIDOS de Telegram se deja de
+# publicar en Telegram el resto de ESTA corrida; Facebook y Oferta Radar
+# siguen funcionando normal. La corrida siguiente arranca con el contador
+# en cero (son globales del proceso).
+_MAX_FALLOS_SEGUIDOS_TELEGRAM = 2
+_fallos_seguidos_telegram = 0
+_telegram_pausado = False
+_ofertas_saltadas_telegram = 0
+# Lo deja `_post_telegram`: dice si el último fallo fue de Telegram (red,
+# 5xx, 429) o un rechazo del contenido (4xx). Solo los de Telegram cuentan
+# para el cortacircuitos: un mensaje mal armado no se arregla esperando.
+_ultimo_fallo_fue_de_telegram = False
+
 
 def _telegram_confirmo(resp):
     """True solo si Telegram contestó {"ok": true}. Un 200 con ok:false (o
@@ -1072,6 +1106,15 @@ def _espera_antes_de_reintentar(resp=None):
     return _PAUSA_REINTENTO_SEG
 
 
+def _fallo_de_telegram(resp=None, exc=None):
+    """True si el fallo es de Telegram (red caída, 5xx, 429) y no un
+    rechazo del contenido (4xx). Solo estos fallos cuentan para el
+    cortacircuitos; un mensaje mal armado no se arregla esperando."""
+    if resp is not None:
+        return resp.status_code == 429 or resp.status_code >= 500
+    return isinstance(exc, requests.exceptions.RequestException)
+
+
 def _post_telegram(url, rebobinar=None, **kwargs):
     """POST a Telegram con reintentos acotados. Devuelve la respuesta que
     confirmó el envío, o None si no se pudo publicar.
@@ -1107,6 +1150,11 @@ def _post_telegram(url, rebobinar=None, **kwargs):
         break
 
     print(f"[WARN] No se pudo publicar en Telegram: {ultimo_error}")
+    global _ultimo_fallo_fue_de_telegram
+    _ultimo_fallo_fue_de_telegram = _fallo_de_telegram(
+        resp=resp,
+        exc=ultimo_error if resp is None else None,
+    )
     return None
 
 
@@ -1134,7 +1182,17 @@ def publicar(chat_id, texto, imagen_bytes=None):
     El llamador DEBE revisar este valor antes de marcar el ASIN como
     publicado o de registrar la oferta: si devuelve False, la oferta no
     salió y hay que poder reintentarla."""
+    global _fallos_seguidos_telegram, _telegram_pausado, _ofertas_saltadas_telegram
+
     if not chat_id:
+        return False
+
+    if _telegram_pausado:
+        # Telegram ya falló 2 veces seguidas en esta corrida. Se omite el
+        # envío (Facebook y Oferta Radar no dependen de esto).
+        _ofertas_saltadas_telegram += 1
+        print("[INFO] Telegram pausado por fallas: esta oferta no se intenta en "
+              "Telegram (Facebook y Oferta Radar siguen normal).")
         return False
 
     if imagen_bytes is not None and not _imagen_tiene_contenido(imagen_bytes):
@@ -1175,7 +1233,19 @@ def publicar(chat_id, texto, imagen_bytes=None):
 
     if resp is None:
         registrar_fallo("Publicar en Telegram")
+        if _ultimo_fallo_fue_de_telegram:
+            _fallos_seguidos_telegram += 1
+            if (_fallos_seguidos_telegram >= _MAX_FALLOS_SEGUIDOS_TELEGRAM
+                    and not _telegram_pausado):
+                _telegram_pausado = True
+                print(f"[WARN] Telegram pausado por fallas: "
+                      f"{_fallos_seguidos_telegram} publicaciones seguidas fallaron. "
+                      f"No se intenta más en Telegram en esta corrida; "
+                      f"Facebook y Oferta Radar siguen normal.")
         return False
+
+    # Publicó bien: se limpia la racha de fallos.
+    _fallos_seguidos_telegram = 0
     return True
 
 
@@ -1657,6 +1727,11 @@ def main():
 
     # 3. Publica lo que ya cumplió el tiempo de espera para el canal gratis
     publicar_pendientes_gratis()
+
+    if _ofertas_saltadas_telegram:
+        print(f"[INFO] Telegram pausado por fallas: {_ofertas_saltadas_telegram} "
+              f"oferta(s) no se publicaron en Telegram en esta corrida "
+              f"(sí se enviaron a Facebook y Oferta Radar).")
 
     verificar_y_enviar_reporte(enviar_alerta)
     avisar_si_hubo_fallos()
