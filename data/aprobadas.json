@@ -1726,5 +1726,13 @@
     "precio": "~$48.900 COP",
     "categoria": "#moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T07:01:07-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Gomitas de monohidrato de creatina, 5000 mg, veganas, sin azúcar, sabor cereza, 90 unidades.",
+    "precio": "~$49.800 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
   }
 ]
