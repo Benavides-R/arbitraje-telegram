@@ -21,8 +21,16 @@ jobs:
     permissions:
       contents: write
     steps:
+      # ref: main es a propósito. Sin él, una corrida que queda EN COLA
+      # (concurrency) clona el commit que había cuando se encoló, no el
+      # último: si la corrida anterior estuvo 30+ min publicando, esta
+      # arranca sin sus punteros ni sus ASIN publicados y republica media
+      # cola. Pasó el 19/11: la corrida de 01:30 arrancó a las 01:47 con
+      # el estado de las 01:00 y duplicó 5 ofertas.
       - name: Clonar repo
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -104,12 +112,12 @@ jobs:
           git config user.name "bot-arbitraje"
           git config user.email "bot@arbitraje.local"
 
-          # Esta corrida arrancó con el commit que había al dispararse, y
-          # mientras corría (10-20 min) otra corrida pudo subir su estado.
-          # Hacer "git pull --rebase" en ese caso SIEMPRE choca: los JSON de
-          # estado se reescriben completos, así que git no puede mezclarlos y
-          # la corrida entera fallaba perdiendo su estado (y repitiendo
-          # ofertas en la siguiente).
+          # El repo se clona ya con el último main (ver "Clonar repo"), pero
+          # entre ese clonado y esta corrida (30-40 min de publicación) otra
+          # corrida pudo subir su estado. Hacer "git pull --rebase" en ese
+          # caso SIEMPRE choca: los JSON de estado se reescriben completos,
+          # así que git no puede mezclarlos y la corrida entera fallaba
+          # perdiendo su estado (y repitiendo ofertas en la siguiente).
           #
           # Solución: se parte del commit más nuevo del remoto (reset --mixed,
           # que no toca los archivos ya escritos en disco) y se pone encima
