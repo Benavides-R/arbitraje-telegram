@@ -381,6 +381,8 @@ def _limpiar_link_meli(link):
         print(f"[SKIP] MercadoLibre de otro país ({host}): solo se publica Colombia")
         return None
     if "/social/" in partes.path:
+        print("[SKIP] MercadoLibre: el link es un perfil social (no un producto), "
+              "se descarta -- hay que mandar el link del producto")
         return None  # perfil/colección social, no es un producto
     if not _MELI_ID_RE.search(partes.path):
         return None  # sin ID no hay deduplicación ni link propio confiable
@@ -560,6 +562,11 @@ def extraer_precio(texto_original, link, sin_colchon=False):
     +3.7% ni el redondeo hacia arriba. Se usa en MercadoLibre (pedido del
     dueño): ahí el precio se cobra tal cual, no hay conversión de por medio.
     """
+    # Canales como Reviu marcan el precio con "✅" en vez de "$"
+    # ("Por sólo ✅283.900 pesos"). Se cambia SOLO el símbolo (misma
+    # longitud, para que los índices que se usan más abajo sigan sirviendo).
+    texto_original = texto_original.replace("✅", "$")
+
     # Si el canal menciona el total CON envío (ej. "Total + envío: $1.331.267
     # COP" o "Total + importación: $879.066 COP"), se prefiere ese sobre el
     # precio base -- si no, se le mostraría a la gente un precio que no
