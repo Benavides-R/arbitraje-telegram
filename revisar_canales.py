@@ -284,6 +284,9 @@ def limpiar_link_tienda(link, dominio):
 
         return link_limpio
 
+    if dominio == "mercadolibre.com":
+        return _limpiar_link_meli(link)
+
     # Otras tiendas: por ahora se dejan tal cual (se puede limpiar cada una
     # cuando conectemos su afiliado específico).
     return link
@@ -307,22 +310,88 @@ def detectar_dominio_tienda(link):
     # en "link.amazon") y la oferta se descartaba como link inválido.
     if _es_acortador_amazon(link):
         return "amazon."
+    # Igual con los acortadores de MercadoLibre (meli.la/2kbVbnb): la URL no
+    # contiene "mercadolibre", pero el redirect lleva a un producto.
+    if _es_acortador_meli(link):
+        return "mercadolibre.com"
     for dominio in TIENDAS:
         if dominio in link:
             return dominio
     return None
 
 
-# Acortadores de tiendas pausadas: se reconocen por el host para descartar el
-# mensaje ANTES de gastar tiempo resolviendo redirects (ver TIENDAS_IGNORADAS).
-_ACORTADORES_PAUSADOS = ["meli.la", "mercadol.ink"]
+# Acortadores de MercadoLibre: no traen el ID del producto en la URL, así que
+# hay que seguir el redirect una vez (meli.la/2kbVbnb -> mercadolibre.com.co/...).
+_ACORTADORES_MELI = {"meli.la", "mercadol.ink"}
+
+# ID de producto de MercadoLibre tal como aparece en la URL. El prefijo son
+# 3 letras del sitio (MCO Colombia, MLC Chile, MLB Brasil...) y a veces 4 en
+# los IDs de catálogo (MLCU/MLAU):
+#   /p/MCO123456789         (catálogo)
+#   /MCO-1234567890-titulo  (publicación clásica)
+#   /up/MLCU123456789
+_MELI_ID_RE = re.compile(r"(M[A-Z]{2,3}U?)[-\s]?(\d{6,})", re.IGNORECASE)
+
+
+def _es_acortador_meli(link):
+    host = urlsplit(link).netloc.lower().split(":")[0]
+    return host in _ACORTADORES_MELI
+
+
+def _id_producto_meli(link):
+    """ID estable del producto para el bloqueo de duplicados (MercadoLibre no
+    tiene ASIN). Va con prefijo MELI: para no chocar con un ASIN de 10
+    caracteres en ultimos_publicados_asin."""
+    m = _MELI_ID_RE.search(urlsplit(link).path)
+    if not m:
+        return None
+    return f"MELI:{m.group(1).upper()}{m.group(2)}"
+
+
+def _resolver_acortador_meli(link):
+    """meli.la/xxxx no dice cuál es el producto: se sigue el redirect y se
+    devuelve la URL final. Devuelve None si no termina en MercadoLibre."""
+    try:
+        resp = requests.get(link, headers=HEADERS, timeout=20, allow_redirects=True)
+    except Exception as e:
+        print(f"[WARN] No se pudo resolver el link corto de MercadoLibre {link}: {e}")
+        return None
+    final = resp.url or ""
+    return final if "mercadolibre." in urlsplit(final).netloc.lower() else None
+
+
+def _limpiar_link_meli(link):
+    """Deja solo dominio + ruta del producto, sin ningún parámetro de tracking
+    (matt_tool, matt_word, ref, forceInApp...). Devuelve None si no es una
+    página de producto -- ej. el perfil social /social/mmXXXX, que es una
+    lista y no se puede publicar como una oferta."""
+    if _es_acortador_meli(link):
+        link = _resolver_acortador_meli(link)
+        if not link:
+            return None
+
+    partes = urlsplit(link)
+    host = partes.netloc.lower()
+    if "mercadolibre." not in host:
+        return None
+    if not host.endswith("mercadolibre.com.co"):
+        # Solo Colombia: el programa de afiliados es de la cuenta .com.co y
+        # un link de Argentina/México traería el precio en otra moneda y sin
+        # comisión para ti.
+        print(f"[SKIP] MercadoLibre de otro país ({host}): solo se publica Colombia")
+        return None
+    if "/social/" in partes.path:
+        return None  # perfil/colección social, no es un producto
+    if not _MELI_ID_RE.search(partes.path):
+        return None  # sin ID no hay deduplicación ni link propio confiable
+    return urlunsplit((partes.scheme or "https", partes.netloc, partes.path, "", ""))
 
 
 def _link_de_tienda_pausada(link):
     """True si el link, tal como viene en el mensaje, es de una tienda pausada.
     Mira solo el host (no el path) para no confundirse con links de salida."""
     host = urlsplit(link).netloc.lower()
-    return any(d in host for d in list(TIENDAS_IGNORADAS) + _ACORTADORES_PAUSADOS)
+    return any(d in host for d in TIENDAS_IGNORADAS)
 
 
 def extraer_links(texto):
@@ -360,7 +429,19 @@ def generar_link_afiliado(link, dominio):
                            f"-- oferta descartada para no publicar la comisión de otra persona.")
         return link_generado
 
-    # TODO: otras tiendas (Mercado Libre, etc.) tienen su propio formato de
+    if dominio == "mercadolibre.com":
+        # MercadoLibre Afiliados: tu ID va en "matt_tool" y tu campaña en
+        # "matt_word". Los del link ajeno se descartaron al limpiar el link,
+        # así que aquí solo quedan los tuyos.
+        if not info.get("id_afiliado"):
+            return link
+        link = _agregar_parametro_url(link, info.get("parametro", "matt_tool"),
+                                      info["id_afiliado"])
+        if info.get("palabra"):
+            link = _agregar_parametro_url(link, "matt_word", info["palabra"])
+        return link
+
+    # TODO: otras tiendas (Temu, Shein, etc.) tienen su propio formato de
     # link de afiliado -- lo conectamos cuando actives cada una.
     return link
 
@@ -464,7 +545,7 @@ def extraer_cupon(texto_original):
     return codigos
 
 
-def extraer_precio(texto_original, link):
+def extraer_precio(texto_original, link, sin_colchon=False):
     """
     Busca el primer valor de precio ($XX.XX o similar) en el mensaje original.
     Prioridad para la moneda:
@@ -474,6 +555,10 @@ def extraer_precio(texto_original, link):
       2. Si no la trae, se adivina por el dominio de la tienda (con la
          salvedad de que amazon.com siempre es USD salvo que el texto diga
          lo contrario, como en el caso de arriba).
+
+    sin_colchon=True: se muestra el precio EXACTO de la publicación, sin el
+    +3.7% ni el redondeo hacia arriba. Se usa en MercadoLibre (pedido del
+    dueño): ahí el precio se cobra tal cual, no hay conversión de por medio.
     """
     # Si el canal menciona el total CON envío (ej. "Total + envío: $1.331.267
     # COP" o "Total + importación: $879.066 COP"), se prefiere ese sobre el
@@ -503,28 +588,38 @@ def extraer_precio(texto_original, link):
     # ¿El texto ya trae la moneda pegada justo después del precio?
     resto = texto_original[fin_precio:fin_precio + 6]
     moneda_explicita = re.match(r"\s*(COP|USD|MXN|JPY|PEN|ARS|CLP|CAD|GBP)\b", resto)
+
+    def convertir(valor, moneda):
+        return _convertir_a_cop(valor, moneda, sin_colchon=sin_colchon)
+
     if moneda_explicita:
-        return _convertir_a_cop(precio, moneda_explicita.group(1))
+        return convertir(precio, moneda_explicita.group(1))
+
+    if sin_colchon:
+        # MercadoLibre Colombia siempre cobra en COP: si el texto no dijo la
+        # moneda, se muestra en COP igual (y sin colchón), en vez de dejarla
+        # sin etiqueta.
+        return convertir(precio, "COP")
 
     # Formato COP sin la palabra "COP": punto de miles y NUNCA decimales
     # ("$ 42.988" = 42.988 pesos colombianos). Esto gana sobre la moneda
     # del dominio: ofertU manda a amazon.com pero sus precios ya están en
     # COP, y adivinarlos como USD los multiplicaría por ~4.000.
     if re.match(r"^\$\d{1,3}(?:\.\d{3})+$", precio):
-        return _convertir_a_cop(precio, "COP")
+        return convertir(precio, "COP")
 
     netloc = urlsplit(link).netloc
 
     if netloc.endswith("amazon.com"):
-        return _convertir_a_cop(precio, "USD")
+        return convertir(precio, "USD")
     if netloc.endswith("amazon.com.mx"):
-        return _convertir_a_cop(precio, "MXN")
+        return convertir(precio, "MXN")
     if netloc.endswith("amazon.co.jp"):
-        return _convertir_a_cop(precio, "JPY")
+        return convertir(precio, "JPY")
     if netloc.endswith("amazon.ca"):
-        return _convertir_a_cop(precio, "CAD")
+        return convertir(precio, "CAD")
     if netloc.endswith("amazon.co.uk"):
-        return _convertir_a_cop(precio, "GBP")
+        return convertir(precio, "GBP")
     # Otros dominios (o cuando el canal ya vende en pesos colombianos):
     # se deja el símbolo tal cual, sin adivinar la moneda.
     return precio
@@ -552,10 +647,14 @@ def _obtener_tasa_a_cop(moneda):
         return None
 
 
-def _convertir_a_cop(precio_texto, moneda):
+def _convertir_a_cop(precio_texto, moneda, sin_colchon=False):
     """Convierte cualquier precio a COP -- nunca se muestra USD/MXN/JPY en
     ningún lado. Aplica un colchón de seguridad y redondea hacia ARRIBA,
-    a la centena, para no mostrar menos de lo que realmente se cobra."""
+    a la centena, para no mostrar menos de lo que realmente se cobra.
+
+    sin_colchon=True (MercadoLibre): el precio se muestra EXACTO, tal como
+    aparece en la publicación -- sin +3.7%, sin redondeo y sin el "~" de
+    aproximado. Ahí no hay conversión de moneda, es el precio que se cobra."""
     if moneda == "COP":
         # Ya viene en COP, pero igual se le aplica el mismo colchón del
         # 3.7% y el redondeo hacia arriba (Amazon/el banco igual cobran
@@ -571,6 +670,8 @@ def _convertir_a_cop(precio_texto, moneda):
                 numero = float("".join(partes))
         except (ValueError, TypeError):
             return f"{precio_texto} COP"
+        if sin_colchon:
+            return "$" + f"{numero:,.0f}".replace(",", ".") + " COP"
         cop = numero * MARGEN_SEGURIDAD_CAMBIO
         cop_redondeado = math.ceil(cop / 100) * 100
         formateado = f"{cop_redondeado:,}".replace(",", ".")
@@ -1024,7 +1125,10 @@ def reescribir_texto(texto_original, link):
     mínimo de campos requeridos antes de mandarla a revisión.
     """
     titulo = _extraer_titulo(texto_original)
-    precio = extraer_precio(texto_original, link)
+    # MercadoLibre: precio exacto de la publicación, sin colchón del 3.7%
+    # ni redondeo (el cliente paga justo eso, no hay conversión de moneda).
+    es_meli = "mercadolibre." in urlsplit(link).netloc
+    precio = extraer_precio(texto_original, link, sin_colchon=es_meli)
     badges = extraer_badges(texto_original)
     calificacion = extraer_calificacion(texto_original)
     cupon = extraer_cupon(texto_original)
@@ -1054,7 +1158,7 @@ def reescribir_texto(texto_original, link):
     # con el tag real: el mensaje de revisión lo oculta con
     # quitar_tag_afiliado() igual que cualquier otro link, pero el texto
     # guardado y publicado lo conserva.
-    if BADGE_ENVIO_PRIME in badges:
+    if BADGE_ENVIO_PRIME in badges and not es_meli:
         id_afiliado_amazon = TIENDAS.get("amazon.", {}).get("id_afiliado")
         if id_afiliado_amazon:
             # Línea en blanco antes para separar el bloque del enlace de la
@@ -1342,8 +1446,8 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None, fecha_mensaje=None):
         return
 
     # Tienda pausada (TIENDAS_IGNORADAS): se descarta de una, sin resolver
-    # redirects ni llamar a la IA. Cubre también los acortadores conocidos
-    # (meli.la, mercadol.ink) aunque el link final todavía no se conozca.
+    # redirects ni llamar a la IA. Los acortadores de las tiendas pausadas
+    # se reconocen por host, aunque el link final todavía no se conozca.
     for link in links_en_mensaje:
         if _link_de_tienda_pausada(link):
             print(f"[SKIP] {oferta_id}: tienda pausada ({urlsplit(link).netloc}), se descarta sin gastar tiempo")
@@ -1379,25 +1483,32 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None, fecha_mensaje=None):
     # Bloqueo de duplicados: mismo producto de Amazon (mismo ASIN) publicado
     # hace menos de HORAS_BLOQUEO_DUPLICADO -- pasado ese tiempo, se permite
     # de nuevo (la oferta puede seguir vigente o repetirse otro día).
+    # MercadoLibre no tiene ASIN: se usa el ID del producto de la URL
+    # (MELI:MCO123...), con el mismo bloqueo de horas.
     # Solo se CHEQUEA aquí; el marcado como "ya publicado" se hace más abajo,
     # justo antes de publicar/enviar a revisión -- así, si la oferta se
     # descarta después por otro motivo (sin link de afiliado, sin título o
-    # precio), el ASIN no queda bloqueado sin haberse publicado nunca.
-    asin = None
+    # precio), la clave no queda bloqueada sin haberse publicado nunca.
+    clave_dup = None
     if dominio == "amazon.":
         m_asin = re.search(r"/dp/([A-Z0-9]{10})", link_limpio)
         if m_asin:
-            asin = m_asin.group(1)
-            if asins_en_vuelo is not None and asin in asins_en_vuelo:
-                print(f"[SKIP] {oferta_id}: producto {asin} ya preparado en esta corrida, se descarta")
-                return None
-            ultimos = cargar_estado().get("ultimos_publicados_asin", {})
-            visto_en = ultimos.get(asin)
-            if visto_en and (time.time() - visto_en) < HORAS_BLOQUEO_DUPLICADO * 3600:
-                horas_falta = HORAS_BLOQUEO_DUPLICADO - (time.time() - visto_en) / 3600
-                print(f"[SKIP] {oferta_id}: producto {asin} ya se publicó, "
-                      f"faltan {horas_falta:.1f}h para poder repetirlo, se descarta")
-                return
+            clave_dup = m_asin.group(1)
+    elif dominio == "mercadolibre.com":
+        clave_dup = _id_producto_meli(link_limpio)
+
+    asin = clave_dup
+    if clave_dup:
+        if asins_en_vuelo is not None and clave_dup in asins_en_vuelo:
+            print(f"[SKIP] {oferta_id}: producto {clave_dup} ya preparado en esta corrida, se descarta")
+            return None
+        ultimos = cargar_estado().get("ultimos_publicados_asin", {})
+        visto_en = ultimos.get(clave_dup)
+        if visto_en and (time.time() - visto_en) < HORAS_BLOQUEO_DUPLICADO * 3600:
+            horas_falta = HORAS_BLOQUEO_DUPLICADO - (time.time() - visto_en) / 3600
+            print(f"[SKIP] {oferta_id}: producto {clave_dup} ya se publicó, "
+                  f"faltan {horas_falta:.1f}h para poder repetirlo, se descarta")
+            return
 
     link_con_afiliado = generar_link_afiliado(link_limpio, dominio)
     if not link_con_afiliado:

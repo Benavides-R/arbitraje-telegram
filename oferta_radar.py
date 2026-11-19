@@ -19,6 +19,7 @@ import html
 import time
 import requests
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from config import OFERTA_RADAR_API_KEY, OFERTA_RADAR_URL
 from badges import detectar_envio
@@ -272,6 +273,17 @@ def enviar_a_oferta_radar(texto_nuevo, url_imagen):
     """
     if not OFERTA_RADAR_API_KEY or not OFERTA_RADAR_URL:
         return None  # integración no configurada todavía -- no hace nada
+
+    # MercadoLibre: el sitio valida que el link sea de Amazon con tu tag, así
+    # que una oferta de MELI la rechaza (o la deja en cola para siempre). Se
+    # salta de una vez y NO se encola para reintentar -- cuando el sitio
+    # acepte la tienda, se quita este bloque.
+    m_link = _RE_LINK.search(texto_nuevo)
+    if m_link:
+        host_link = urlsplit(m_link.group(1)).netloc.lower()
+        if "mercadolibre." in host_link or host_link in {"meli.la", "mercadol.ink"}:
+            print("[Oferta Radar] SKIP: MercadoLibre todavía no se acepta en el sitio")
+            return None
 
     if not url_imagen:
         # No se descarga ni se genera otra imagen -- si la oferta se

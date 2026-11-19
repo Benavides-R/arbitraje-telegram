@@ -36,19 +36,26 @@ AUTO_PUBLICAR_SI_COMPLETA = True
 # Tiendas que SIEMPRE van a revisión manual, aunque vengan completas
 # (imagen+título+precio) -- para estas normalmente el link necesita que tú
 # lo corrijas a mano antes de publicar (ej. sin afiliado activo todavía).
-TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com", "mercadolibre.com"]
+#
+# MercadoLibre ya NO está aquí (2026-11-19): el link propio se genera solo
+# (matt_tool) y el precio se toma tal cual de la publicación, así que una
+# oferta completa puede auto-publicarse igual que Amazon. Si algún día
+# quieres volver a revisarlas todas a mano, basta con agregar
+# "mercadolibre.com" a esta lista.
+TIENDAS_SIEMPRE_MANUAL = ["temu.com", "aliexpress.com"]
 
 # Ofertas que se DESCARTAN al instante: ni a revisión ni a auto-publicación
 # (se saltan apenas se detecta el dominio). Ahorra tiempo de revisión con
 # tiendas que hoy no publicas. Para reactivar una tienda más adelante,
 # simplemente quítala de esta lista -- sus entradas en TIENDAS siguen ahí.
 #
-# 2026-11-12: MercadoLibre se pausa TEMPORALMENTE (pedido del dueño: estaban
-# llegando ofertas de MercadoLibre desde los canales que vigila). Cubre todas
-# sus variantes por substring: mercadolibre.com.co, articulo.mercadolibre.com.co,
-# mercadolibre.com.ar, mercadolibre.com.mx, etc. Para reactivarla, bórrala de
-# aquí y de TIENDAS_SIEMPRE_MANUAL (volvería a revisión manual, no automática).
-TIENDAS_IGNORADAS = ["temu.com", "aliexpress.com", "mercadolibre.com"]
+# 2026-11-19: MercadoLibre se reactiva -- el dueño ya tiene el programa de
+# afiliados y su link propio se arma solo en generar_link_afiliado().
+# Se reconocen todas sus variantes por substring (mercadolibre.com.co,
+# articulo.mercadolibre.com.co...) y los acortadores meli.la / mercadol.ink,
+# que se resuelven a su link largo. Los links de otros países (.com.ar,
+# .com.mx) se descartan: el afiliado es de la cuenta Colombia.
+TIENDAS_IGNORADAS = ["temu.com", "aliexpress.com"]
 
 # --- Modo de decisión: LISTA NEGRA (2026-11-18) ---
 # Antes se usaba una LISTA BLANCA (PALABRAS_AUTO_PERMITIDAS): una oferta
@@ -268,7 +275,17 @@ TIENDAS = {
     "amazon.": {"afiliado_activo": True, "id_afiliado": "benatechs00-20"},
     "temu.com": {"afiliado_activo": False, "id_afiliado": None},
     "shein.com": {"afiliado_activo": False, "id_afiliado": None},
-    "mercadolibre.com": {"afiliado_activo": False, "id_afiliado": None},
+    # MercadoLibre Afiliados: el link propio se marca con "matt_tool" (tu
+    # número de afiliado) y "matt_word" (la palabra de campaña que trae el
+    # panel; sale de tu perfil social, mmXXXX). El matt_word de un link ajeno
+    # es de la otra persona: se descarta al limpiar el link y se reemplaza
+    # por estos dos (ver _limpiar_link_meli).
+    "mercadolibre.com": {
+        "afiliado_activo": True,
+        "id_afiliado": "78241955",
+        "parametro": "matt_tool",
+        "palabra": "mm20260910150339745",
+    },
 }
 
 # Palabras clave: si el mensaje del canal origen NO contiene ninguno de estos
