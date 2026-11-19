@@ -1790,5 +1790,13 @@
     "precio": "$329.900 COP",
     "categoria": "#Tecnologia #PCGamer",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T16:30:39-05:00",
+    "canal": "ofertu",
+    "titulo": "Cámara de timbre de video inalámbrica Wi-Fi de 1080p con audio",
+    "precio": "~$34.300 COP",
+    "categoria": "#Seguridad #Tecnologia",
+    "con_imagen": true
   }
 ]
