@@ -1750,5 +1750,29 @@
     "precio": "$139.919 COP",
     "categoria": "#reco_item_pos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T13:00:44-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Bocina Portátil Jbl Charge 6 Parlante Con Bluetooth Blanco 5v",
+    "precio": "$345.797 COP",
+    "categoria": "#Audio #Tecnologia",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T13:02:17-05:00",
+    "canal": "Clubgratis",
+    "titulo": "3 Und Gold Standard Naturally 1.9 Lb + Creatine On 60 Serv",
+    "precio": "$367.000 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T13:03:29-05:00",
+    "canal": "Manual",
+    "titulo": "Hidrolavadora Electrica TRENT HLT307 1400W Alta presion 1600 Psi 110 Bar",
+    "precio": "$148.816 COP",
+    "categoria": "#polycard_client",
+    "con_imagen": true
   }
 ]
