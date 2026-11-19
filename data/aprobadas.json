@@ -1718,5 +1718,13 @@
     "precio": "~$45.800 COP",
     "categoria": "#moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-18T22:00:41-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "PUMA Paquete de 5 calzoncillos tipo bóxer Performance para hombre.",
+    "precio": "~$48.900 COP",
+    "categoria": "#moda",
+    "con_imagen": true
   }
 ]
