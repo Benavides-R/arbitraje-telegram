@@ -8,20 +8,20 @@
     "fallo": 150,
     "navegador": 587,
     "html": 2621,
-    "captcha": 5438,
-    "navegador_tras_captcha": 103,
-    "asin": 553,
-    "api_creators": 1359
+    "captcha": 5456,
+    "navegador_tras_captcha": 104,
+    "asin": 563,
+    "api_creators": 1365
   },
   "tiempo_navegador": {
-    "segundos": 19518.6,
-    "intentos": 5866
+    "segundos": 19607.7,
+    "intentos": 5895
   },
   "auto_publicadas": {
-    "ElPromoHunter": 478,
-    "ReviuDescuentos": 474,
-    "Clubgratis": 77,
+    "ElPromoHunter": 483,
+    "ReviuDescuentos": 479,
+    "Clubgratis": 79,
     "Manual": 4,
-    "ofertu": 7
+    "ofertu": 8
   }
 }
