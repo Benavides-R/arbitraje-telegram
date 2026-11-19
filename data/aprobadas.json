@@ -1734,5 +1734,13 @@
     "precio": "~$49.800 COP",
     "categoria": "#Ofertas #Descuentos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T12:00:47-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Bicicleta Estatica Spinning Gimnasio Negro/azul",
+    "precio": "$214.243 COP",
+    "categoria": "#Fitness #Salud",
+    "con_imagen": true
   }
 ]
