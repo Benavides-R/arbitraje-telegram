@@ -9,6 +9,7 @@ CANALES_ORIGEN = [
     "ReviuDescuentos",
     "ElPromoHunter",       # a prueba
     "Clubgratis",  # a prueba
+    "ofertu",  # Amazon con links joylink.io; ~30 mensajes/hora (canal muy activo)
     # "Gio_Makers" -- quitado: falló en las 2 corridas (antes y después del
     # arreglo de Playwright), sus links de btz.es no se resuelven bien.
     # "DescuentosTech" -- quitado: usa Facebook como intermediario, 0 éxitos.
@@ -321,17 +322,23 @@ MODELO_GROQ = "openai/gpt-oss-20b"
 # de revisión de golpe (por ejemplo, la primera vez que arranca, o si un
 # canal publica muchísimo de una sola vez). Lo que no alcanza a procesar en
 # una corrida, se retoma automáticamente en la siguiente -- no se pierde.
-MAX_OFERTAS_POR_CORRIDA = 31
+MAX_OFERTAS_POR_CORRIDA = 40
 
 # Cuota por canal (en vez de repartir parejo) -- los que más rinden reciben
 # más cupo. Si un canal no está aquí, usa 5 por defecto.
+# Reparto: 12 + 12 + 8 + 8 = 40 (justo el tope de la corrida).
 CUOTA_POR_CANAL = {
-    "ElPromoHunter": 15,
+    "ElPromoHunter": 12,
     "ReviuDescuentos": 12,
     # Clubgratis subió de 4 a 8: es el canal con mejor rendimiento por
     # oferta (8 de las últimas 48 aprobaciones, con la menor cantidad de
     # ofertas enviadas a revisión).
     "Clubgratis": 8,
+    # ofertU publica ~30 mensajes/hora y casi todo es Amazon, así que entra
+    # con cupo propio. Medido sobre 20 mensajes seguidos: 35% eran
+    # duplicados de otros canales, 15% caían en lista negra y la mitad eran
+    # nuevas (3 de tecnología, 2 con Prime, 3 con cupón).
+    "ofertu": 8,
 }
 
 # Si el mismo producto de Amazon (mismo ASIN) ya se publicó hace menos de

@@ -506,6 +506,13 @@ def extraer_precio(texto_original, link):
     if moneda_explicita:
         return _convertir_a_cop(precio, moneda_explicita.group(1))
 
+    # Formato COP sin la palabra "COP": punto de miles y NUNCA decimales
+    # ("$ 42.988" = 42.988 pesos colombianos). Esto gana sobre la moneda
+    # del dominio: ofertU manda a amazon.com pero sus precios ya están en
+    # COP, y adivinarlos como USD los multiplicaría por ~4.000.
+    if re.match(r"^\$\d{1,3}(?:\.\d{3})+$", precio):
+        return _convertir_a_cop(precio, "COP")
+
     netloc = urlsplit(link).netloc
 
     if netloc.endswith("amazon.com"):
@@ -599,6 +606,11 @@ def extraer_badges(texto_original):
 
     if re.search(r"\bcasillero(s)?\b", texto_normalizado):
         badges.append(BADGE_ENVIO_CASILLERO)
+    elif re.search(r"envio\s+(?:gratis\s+)?(?:con\s+)?prime\b", texto_normalizado):
+        # ofertU escribe "🚚 ¡Envío Prime!" sin la palabra "gratis" -- es el
+        # mismo envío gratis por Prime, así que se etiqueta igual (y con eso
+        # también se anexa la línea de la prueba gratis de Prime).
+        badges.append(BADGE_ENVIO_PRIME)
     elif re.search(r"envio\s*gratis|free\s*shipping|envio\s*gratuito", texto_normalizado):
         # "con Prime" solo si Prime aparece pegado a la mención de envío
         # gratis -- si "Prime" aparece en otra parte del texto por otro
@@ -758,7 +770,13 @@ _RE_LINEA_ETIQUETA = re.compile(
     r"^(?:\W)*"
     r"(?:cup[oó]n|c[oó]digo|code|calificaci[oó]n|precio|aportes|ir\s+a|"
     r"compra(?:r)?(?:\s+aqu[ií])?|ver\s+oferta|enlace|agregar\s+cup[oó]n|"
-    r"la\s+oferta\s+puede|oferta\s+puede\s+expirar|unete|únete)\b",
+    r"la\s+oferta\s+puede|oferta\s+puede\s+expirar|unete|únete|"
+    # Líneas de envío (ofertU: "🚚 ¡Envío Prime!", "🚚 ¡Elegible para envío
+    # gratis!") -- son estado del envío, nunca el nombre del producto.
+    r"env[ií]o\s+(?:prime|gratis|gratuito|incluido)|elegible\s+para|"
+    # "Por sólo $14.99" (ReviuDescuentos): la frase es la entrada al precio,
+    # no el nombre del producto.
+    r"por\s+s[oó]lo)\b",
     re.IGNORECASE,
 )
 
@@ -809,6 +827,16 @@ def _titulo_del_canal(texto_original):
     for i, linea in enumerate(lineas):
         if not _es_linea_precio(linea):
             continue
+        # Algunos canales pegan el título y el precio en la MISMA línea
+        # (ofertU: "Bomba de aire ... 3600 mAh 5C💲 $ 42.988💰"). Se prueba
+        # primero lo que va antes del precio; si no alcanza a ser título
+        # (p. ej. "Por sólo ✅$14.99", que deja solo "Por sólo"), se sigue
+        # con las líneas de abajo como siempre.
+        m_precio = re.search(r"[💰💲$]\s?\d", linea)
+        if m_precio:
+            candidata = _limpiar_candidata(linea[:m_precio.start()])
+            if candidata:
+                return candidata
         # Se miran las 5 líneas siguientes por si entre el precio y el
         # nombre se coló una línea de badge/cupón/link (se salta, no corta).
         for siguiente in lineas[i + 1:i + 6]:
