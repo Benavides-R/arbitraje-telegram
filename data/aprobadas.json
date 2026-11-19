@@ -1774,5 +1774,21 @@
     "precio": "$148.816 COP",
     "categoria": "#polycard_client",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T15:30:36-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Maletero Dr1 45 Lt Five Digits Negro",
+    "precio": "$100.000 COP",
+    "categoria": "#MercadoLibre #Maletero",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T15:31:47-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Xiaomi Monitor A27i 2026",
+    "precio": "$329.900 COP",
+    "categoria": "#Tecnologia #PCGamer",
+    "con_imagen": true
   }
 ]
