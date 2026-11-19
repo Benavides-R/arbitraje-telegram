@@ -1742,5 +1742,13 @@
     "precio": "$214.243 COP",
     "categoria": "#Fitness #Salud",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-19T12:30:33-05:00",
+    "canal": "Manual",
+    "titulo": "Hidrolavadora Eléctrica Trent HLT203 1200w Alta Presión 1600 Psi 110 Bar Pistola Boquillas Lanza Amarilla 110v 60Hz",
+    "precio": "$139.919 COP",
+    "categoria": "#reco_item_pos",
+    "con_imagen": true
   }
 ]
