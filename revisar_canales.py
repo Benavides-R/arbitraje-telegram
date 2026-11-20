@@ -360,6 +360,44 @@ def _resolver_acortador_meli(link):
     return final if "mercadolibre." in urlsplit(final).netloc.lower() else None
 
 
+def _desenvolver_verificacion_meli(link, intentos=3):
+    """MercadoLibre a veces responde con su pantalla de "verifica tu cuenta"
+    y mete el link real dentro del parámetro 'go':
+        /gz/account-verification?go=https%%3A%%2F%%2F...%%2Fup%%2FMCOU123...
+    (pasa mucho desde IPs de servidor, como la de GitHub). Se saca el link
+    real de ahí para quedarse con el producto."""
+    for _ in range(intentos):
+        partes = urlsplit(link)
+        if "account-verification" not in partes.path:
+            break
+        destino = dict(parse_qsl(partes.query)).get("go")
+        if not destino or "mercadolibre." not in urlsplit(destino).netloc.lower():
+            break
+        link = destino
+    return link
+
+
+_PERFILES_MELI_AVISADOS = set()
+
+
+def _avisar_perfil_meli(link):
+    """Un link de perfil/vitrina no dice CUÁL producto es, así que la oferta
+    no se puede publicar con ese link. Se avisa al admin UNA vez por link en
+    la corrida, para que mande el link del producto y no se pierda la oferta."""
+    partes = urlsplit(link)
+    clave = f"{partes.netloc.lower()}{partes.path}".rstrip("/")
+    if clave in _PERFILES_MELI_AVISADOS:
+        return
+    _PERFILES_MELI_AVISADOS.add(clave)
+    enviar_alerta(
+        "⚠️ Oferta de MercadoLibre descartada: el link es una vitrina/perfil, "
+        "no un producto (no dice cuál es la oferta).\n\n"
+        f"Link: {link}\n\n"
+        "Mándame el link del producto (abre el producto, Compartir, Copiar link) "
+        "y la publico con tu afiliado."
+    )
+
+
 def _limpiar_link_meli(link):
     """Deja solo dominio + ruta del producto, sin ningún parámetro de tracking
     (matt_tool, matt_word, ref, forceInApp...). Devuelve None si no es una
@@ -369,6 +407,7 @@ def _limpiar_link_meli(link):
         link = _resolver_acortador_meli(link)
         if not link:
             return None
+    link = _desenvolver_verificacion_meli(link)
 
     partes = urlsplit(link)
     host = partes.netloc.lower()
@@ -383,10 +422,16 @@ def _limpiar_link_meli(link):
     if "/social/" in partes.path:
         print("[SKIP] MercadoLibre: el link es un perfil social (no un producto), "
               "se descarta -- hay que mandar el link del producto")
+        _avisar_perfil_meli(link)
         return None  # perfil/colección social, no es un producto
     if not _MELI_ID_RE.search(partes.path):
         return None  # sin ID no hay deduplicación ni link propio confiable
-    return urlunsplit((partes.scheme or "https", partes.netloc, partes.path, "", ""))
+    # pdp_filters=item_id:MCO... NO es un parámetro de afiliado: es la oferta
+    # exacta (vendedor) que el link estaba mostrando. Se conserva para que el
+    # comprador caiga en el mismo producto y no en otro vendedor más caro.
+    filtro = dict(parse_qsl(partes.query)).get("pdp_filters")
+    query = urlencode({"pdp_filters": filtro}) if filtro else ""
+    return urlunsplit((partes.scheme or "https", partes.netloc, partes.path, query, ""))
 
 
 def _link_de_tienda_pausada(link):
