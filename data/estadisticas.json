@@ -4,27 +4,27 @@
     "ReviuDescuentos": 10,
     "Clubgratis": 3,
     "Manual": 2,
-    "ofertu": 1
+    "ofertu": 2
   },
   "ultimo_reporte": "2026-11-15",
   "imagenes_origen": {
     "fallo": 165,
     "navegador": 587,
-    "html": 2632,
-    "captcha": 5525,
-    "navegador_tras_captcha": 107,
-    "asin": 618,
-    "api_creators": 2614
+    "html": 2633,
+    "captcha": 5543,
+    "navegador_tras_captcha": 108,
+    "asin": 631,
+    "api_creators": 2621
   },
   "tiempo_navegador": {
-    "segundos": 20054.1,
-    "intentos": 6037
+    "segundos": 20155.6,
+    "intentos": 6069
   },
   "auto_publicadas": {
-    "ElPromoHunter": 1051,
-    "ReviuDescuentos": 874,
-    "Clubgratis": 163,
+    "ElPromoHunter": 1058,
+    "ReviuDescuentos": 882,
+    "Clubgratis": 166,
     "Manual": 4,
-    "ofertu": 172
+    "ofertu": 175
   }
 }
