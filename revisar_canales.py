@@ -51,7 +51,7 @@ from publicar_facebook import publicar_facebook
 from oferta_radar import enviar_a_oferta_radar, reintentar_pendientes
 from badges import (
     BADGE_ENVIO_CASILLERO, BADGE_ENVIO_PRIME, BADGE_ENVIO_ELEGIBLE,
-    BADGE_ENVIO_GRATIS, BADGE_RELAMPAGO,
+    BADGE_ENVIO_GRATIS, BADGE_RELAMPAGO, BADGE_PRIME_EXCLUSIVA,
 )
 from supabase_storage import subir_a_supabase
 from aprobaciones import enviar_para_revision, revisar_actividad_admin, limpiar_pendientes_viejos
@@ -832,6 +832,13 @@ def extraer_badges(texto_original):
     """
     badges = []
     texto_normalizado = _sin_tildes(texto_original.lower())
+    # "¡Oferta Prime!", "¡Oferta exclusiva para Prime!", "solo para Prime":
+    # el canal está diciendo que el PRECIO es de Prime. Es un dato distinto
+    # del envío (ver BADGE_PRIME_EXCLUSIVA en badges.py).
+    oferta_prime = bool(re.search(
+        r"(?:oferta|exclusiv[ao]s?|solo)\s+(?:para\s+)?(?:miembros\s+)?prime\b",
+        texto_normalizado,
+    ))
 
     if re.search(r"\bcasillero(s)?\b", texto_normalizado):
         badges.append(BADGE_ENVIO_CASILLERO)
@@ -843,8 +850,10 @@ def extraer_badges(texto_original):
     elif re.search(r"envio\s*gratis|free\s*shipping|envio\s*gratuito", texto_normalizado):
         # "con Prime" solo si Prime aparece pegado a la mención de envío
         # gratis -- si "Prime" aparece en otra parte del texto por otro
-        # motivo, no lo contamos como envío gratis POR Prime.
-        con_prime = re.search(
+        # motivo, no lo contamos como envío gratis POR Prime. También cuenta
+        # cuando el canal encabeza con "¡Oferta Prime!" y luego dice "envío
+        # gratis" (el saludo queda lejos y antes no se reconocía).
+        con_prime = oferta_prime or re.search(
             r"envio\s*gratis.{0,15}prime|prime.{0,15}envio\s*gratis", texto_normalizado
         )
         elegible = re.search(
@@ -857,6 +866,12 @@ def extraer_badges(texto_original):
             badges.append(BADGE_ENVIO_ELEGIBLE)
         else:
             badges.append(BADGE_ENVIO_GRATIS)
+
+    # Oferta de Prime SIN ninguna mención de envío: no se puede afirmar
+    # "envío gratis" (sería inventar), pero sí avisar que el precio es solo
+    # para miembros Prime.
+    if oferta_prime and BADGE_ENVIO_PRIME not in badges and BADGE_ENVIO_CASILLERO not in badges:
+        badges.append(BADGE_PRIME_EXCLUSIVA)
 
     if re.search(r"oferta\s*rel[aá]mpago|lightning\s*deal", texto_normalizado):
         badges.append(BADGE_RELAMPAGO)
@@ -1280,13 +1295,14 @@ def reescribir_texto(texto_original, link):
     lineas.append(f"🏷️ Cupón: {' + '.join(_partes_cupon) if cupon else '¡No necesita!'}")
     lineas.append(f"⚡ Ver oferta: {link}")
 
-    # Enlace de la prueba de Prime: SOLO cuando la oferta ya muestra la
-    # insignia "🅿️ ¡Envío Gratis Con PRIME!" (badges.py), y va justo debajo
-    # de "Ver oferta". Se arma con el tag de config.py, así que se publica
-    # con el tag real: el mensaje de revisión lo oculta con
-    # quitar_tag_afiliado() igual que cualquier otro link, pero el texto
-    # guardado y publicado lo conserva.
-    if BADGE_ENVIO_PRIME in badges and not es_meli:
+    # Enlace de la prueba de Prime: cuando la oferta muestra la insignia
+    # "🅿️ ¡Envío Gratis Con PRIME!" o la de "🅿️ Solo con Prime" (badges.py),
+    # y va justo debajo de "Ver oferta". En el segundo caso el precio exige
+    # Prime, así que el enlace también sirve. Se arma con el tag de
+    # config.py, así que se publica con el tag real: el mensaje de revisión
+    # lo oculta con quitar_tag_afiliado() igual que cualquier otro link, pero
+    # el texto guardado y publicado lo conserva.
+    if (BADGE_ENVIO_PRIME in badges or BADGE_PRIME_EXCLUSIVA in badges) and not es_meli:
         id_afiliado_amazon = TIENDAS.get("amazon.", {}).get("id_afiliado")
         if id_afiliado_amazon:
             # Línea en blanco antes para separar el bloque del enlace de la

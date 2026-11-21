@@ -20,6 +20,12 @@ BADGE_ENVIO_ELEGIBLE = "🚚 ¡Elegible para envío GRATIS!"
 BADGE_ENVIO_GRATIS = "🚚 ¡Envío GRATIS!"
 BADGE_RELAMPAGO = "⚡️¡Oferta Relámpago!"
 
+# NO es una insignia de ENVÍO: dice que el PRECIO de la oferta es solo para
+# miembros Prime. Va aparte y NUNCA entra en BADGES_ENVIO, para que
+# detectar_envio() no la confunda con "envío gratis" (no afirma nada del
+# envío). Puede salir junto con "Oferta Relámpago".
+BADGE_PRIME_EXCLUSIVA = "🅿️ Solo con Prime"
+
 # (valor para Oferta Radar, insignia). El ORDEN importa: de mas
 # especifica a mas generica ("Envio Gratis Con PRIME" y "Elegible para
 # envio GRATIS" contienen "envio gratis", asi que el generico va al
