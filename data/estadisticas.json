@@ -10,19 +10,19 @@
   "imagenes_origen": {
     "fallo": 171,
     "navegador": 587,
-    "html": 2638,
-    "captcha": 5609,
-    "navegador_tras_captcha": 119,
-    "asin": 665,
-    "api_creators": 3170
+    "html": 2639,
+    "captcha": 5622,
+    "navegador_tras_captcha": 120,
+    "asin": 671,
+    "api_creators": 3173
   },
   "tiempo_navegador": {
-    "segundos": 20539.5,
-    "intentos": 6186
+    "segundos": 20602.7,
+    "intentos": 6206
   },
   "auto_publicadas": {
-    "ElPromoHunter": 1240,
-    "ReviuDescuentos": 1107,
+    "ElPromoHunter": 1246,
+    "ReviuDescuentos": 1110,
     "Clubgratis": 194,
     "Manual": 8,
     "ofertu": 299
