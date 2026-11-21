@@ -1814,5 +1814,13 @@
     "precio": "$123.000 COP",
     "categoria": "#Ofertas #Descuentos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-21T17:30:30-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Licuadora Imusa Ultraforce + 2v Vaso De Vidrio 2.2l Color Plateado",
+    "precio": "$159.900 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
