@@ -45,7 +45,7 @@ from config import (
 )
 from procesar_oferta import (
     resolver_link_final, extraer_imagen_producto, preparar_imagen_con_logo,
-    HEADERS, _es_imagen_valida,
+    HEADERS, _es_imagen_valida, tienda_de_url,
 )
 from publicar_facebook import publicar_facebook
 from oferta_radar import enviar_a_oferta_radar, reintentar_pendientes
@@ -1383,7 +1383,7 @@ def publicar(chat_id, texto, imagen_bytes=None):
 
 
 def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, imagen_original_bytes=None,
-                              texto_original=None):
+                              texto_original=None, dominio=None):
     """Publica de verdad: prepara la imagen con logo (o usa la que ya viene
     lista, ej. una foto que subiste tú a mano), publica VIP+Facebook ya, y
     programa el canal gratis con retraso. Usada tanto en modo directo como
@@ -1412,7 +1412,11 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
     if imagen_bytes is None and url_imagen:
         m = re.search(r"💸 Precio: ([^\n🔻(]+)", texto_nuevo)
         precio_para_badge = m.group(1).strip().lstrip("~").strip() if m else None
-        imagen_bytes = preparar_imagen_con_logo(url_imagen, precio_texto=precio_para_badge)
+        if dominio is None:
+            # El texto ya trae el link final (⚡ Ver oferta: ...), así que la
+            # tienda se puede sacar de ahí aunque quien llame no la pase.
+            dominio = tienda_de_url(texto_nuevo)
+        imagen_bytes = preparar_imagen_con_logo(url_imagen, precio_texto=precio_para_badge, tienda=dominio)
 
     # Si el bridge está activo, primero se crea la oferta en Oferta Radar
     # para conseguir SU link, y se usa ese en vez del de Amazon al publicar

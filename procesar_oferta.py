@@ -11,7 +11,8 @@ import json
 import html
 import time
 import requests
-from PIL import Image, ImageDraw, ImageFont
+from pathlib import Path
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 from config import DOMINIOS_TIENDA_FINAL, LOGO_PATH, REDES_SOCIALES_LINEAS
 from estadisticas import registrar_imagen_origen, registrar_tiempo_navegador
@@ -28,6 +29,18 @@ HEADERS = {
 
 def es_tienda_final(url):
     return any(dominio in url for dominio in DOMINIOS_TIENDA_FINAL)
+
+
+def tienda_de_url(url):
+    """Tienda de un link, solo para saber qué logo ponerle a la foto.
+    Devuelve None si no es una tienda con logo propio."""
+    if not url:
+        return None
+    if "meli.la" in url or "mercadol.ink" in url or "mercadolibre." in url:
+        return "mercadolibre.com"
+    if "amazon." in url or "amzn.to" in url or "link.amazon" in url:
+        return "amazon."
+    return None
 
 
 def resolver_link_final(url):
@@ -425,6 +438,60 @@ def _cargar_fuente(tamano):
     return ImageFont.load_default()
 
 
+# Logos de tienda que se pegan arriba a la derecha de la foto, para que se
+# vea de un vistazo si la oferta es de Amazon o de MercadoLibre.
+_TIENDAS_CON_LOGO = {"amazon.": "amazon", "mercadolibre.com": "mercadolibre"}
+_RUTA_LOGOS_TIENDA = Path(__file__).resolve().parent / "assets" / "tiendas"
+
+
+def _dibujar_marca_tienda(producto, tienda=None):
+    """Logo de la tienda en una pastilla blanca, esquina superior derecha.
+    Va ahí porque la superior izquierda ya la ocupa el precio, la inferior
+    izquierda las redes y la inferior derecha el logo de Benatechs."""
+    nombre = _TIENDAS_CON_LOGO.get(tienda)
+    if not nombre:
+        return
+    ruta = _RUTA_LOGOS_TIENDA / f"{nombre}.png"
+    if not ruta.exists():
+        return  # sin asset no se rompe nada: la oferta sale igual
+    try:
+        marca = Image.open(ruta).convert("RGBA")
+
+        alto_logo = max(20, int(producto.width * 0.055))
+        ancho_logo = max(1, round(marca.width * (alto_logo / marca.height)))
+        marca = marca.resize((ancho_logo, alto_logo), Image.LANCZOS)
+
+        pad = max(8, int(alto_logo * 0.24))
+        ancho_pastilla = ancho_logo + pad * 2
+        alto_pastilla = alto_logo + pad * 2
+        margen = 24
+        x = producto.width - ancho_pastilla - margen
+        y = margen
+
+        pastilla = Image.new("RGBA", (ancho_pastilla, alto_pastilla), (0, 0, 0, 0))
+        dibujo = ImageDraw.Draw(pastilla)
+        dibujo.rounded_rectangle(
+            (0, 0, ancho_pastilla - 1, alto_pastilla - 1),
+            radius=alto_pastilla // 2,
+            fill=(255, 255, 255, 250),
+            outline=(205, 205, 205, 255),
+            width=2,
+        )
+
+        sombra = Image.new("RGBA", pastilla.size, (0, 0, 0, 0))
+        ImageDraw.Draw(sombra).rounded_rectangle(
+            (0, 0, ancho_pastilla - 1, alto_pastilla - 1),
+            radius=alto_pastilla // 2,
+            fill=(0, 0, 0, 110),
+        )
+        sombra = sombra.filter(ImageFilter.GaussianBlur(6))
+        producto.alpha_composite(sombra, (x + 3, y + 5))
+        producto.alpha_composite(pastilla, (x, y))
+        producto.alpha_composite(marca, (x + pad, y + pad))
+    except Exception as e:
+        print(f"[WARN] No se pudo poner el logo de {tienda}: {e}")
+
+
 def _dibujar_badge_precio(producto, precio_texto):
     """Badge oscuro con el precio en grande, esquina superior izquierda --
     genérico para cualquier tienda (sin ícono de marca)."""
@@ -472,17 +539,19 @@ def _dibujar_redes_sociales(producto):
         y += interlineado
 
 
-def aplicar_logo_a_bytes(imagen_bytes_original, precio_texto=None):
+def aplicar_logo_a_bytes(imagen_bytes_original, precio_texto=None, tienda=None):
     """
     Toma los bytes de una imagen (ya descargada, ej. la que tú subes a mano),
     la encaja completa con un margen blanco mínimo (sin recortar ni deformar), y le agrega el
-    badge de precio (si se pasa), tus redes sociales, y tu logo.
+    badge de precio (si se pasa), tus redes sociales, tu logo y el logo de la
+    tienda (Amazon / MercadoLibre) arriba a la derecha.
     """
     try:
         producto = Image.open(io.BytesIO(imagen_bytes_original)).convert("RGBA")
         producto = _normalizar_tamano(producto)
 
         _dibujar_badge_precio(producto, precio_texto)
+        _dibujar_marca_tienda(producto, tienda)
         _dibujar_redes_sociales(producto)
 
         logo = Image.open(LOGO_PATH).convert("RGBA")
@@ -510,7 +579,7 @@ _INTENTOS_IMAGEN = 4           # 1 descarga + 3 reintentos
 _ESPERAS_IMAGEN = (1, 4, 10)   # segundos entre intento e intento
 
 
-def preparar_imagen_con_logo(url_imagen_producto, precio_texto=None):
+def preparar_imagen_con_logo(url_imagen_producto, precio_texto=None, tienda=None):
     """
     Descarga la imagen del producto desde una URL y le superpone tu logo
     (versión automática, para las imágenes que el sistema extrae solo).
@@ -535,7 +604,7 @@ def preparar_imagen_con_logo(url_imagen_producto, precio_texto=None):
         except Exception as e:
             ultimo_error = e
         else:
-            return aplicar_logo_a_bytes(img_resp.content, precio_texto=precio_texto)
+            return aplicar_logo_a_bytes(img_resp.content, precio_texto=precio_texto, tienda=tienda)
 
         if intento < _INTENTOS_IMAGEN:
             espera = _ESPERAS_IMAGEN[intento - 1]

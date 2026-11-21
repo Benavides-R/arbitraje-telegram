@@ -19,7 +19,7 @@ import requests
 from pathlib import Path
 
 from config import ADMIN_CHAT_ID
-from procesar_oferta import preparar_imagen_con_logo, aplicar_logo_a_bytes
+from procesar_oferta import preparar_imagen_con_logo, aplicar_logo_a_bytes, tienda_de_url
 from estadisticas import registrar_publicacion
 
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
@@ -179,7 +179,7 @@ def enviar_para_revision(oferta_id, texto, url_imagen, texto_original=None, asin
     pie = "\n\n💬 <i>O responde a este mensaje con \"si\" para publicar, o \"no\" para descartar.</i>"
 
     encabezado = "🕵️ <b>Oferta pendiente de revisión</b>\n\n"
-    imagen_bytes = preparar_imagen_con_logo(url_imagen) if url_imagen else None
+    imagen_bytes = preparar_imagen_con_logo(url_imagen, tienda=tienda_de_url(texto)) if url_imagen else None
 
     # En el mensaje que ves tú, los links van SIN el tag de afiliado (tus
     # clics de revisión no engañan el reporte de ventas). En `pendientes` se
@@ -470,7 +470,11 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
                 imagen_original = _descargar_archivo_telegram(file_id)
                 m = re.search(r"💸 Precio: (.+)", pendientes[oferta_id_encontrada]["texto"])
                 precio_para_badge = m.group(1).strip().lstrip("~").strip() if m else None
-                imagen_con_logo = aplicar_logo_a_bytes(imagen_original, precio_texto=precio_para_badge)
+                imagen_con_logo = aplicar_logo_a_bytes(
+                    imagen_original,
+                    precio_texto=precio_para_badge,
+                    tienda=tienda_de_url(pendientes[oferta_id_encontrada]["texto"]),
+                )
                 if imagen_con_logo:
                     pendientes[oferta_id_encontrada]["imagen_base64"] = base64.b64encode(
                         imagen_con_logo.getvalue()
@@ -530,7 +534,11 @@ def revisar_actividad_admin(publicar_func, manual_func=None, marcar_publicado_fu
                 try:
                     m = re.search(r"💸 Precio: (.+)", pendientes[oferta_id_encontrada]["texto"])
                     precio_badge = m.group(1).strip().lstrip("~").strip() if m else None
-                    if preparar_imagen_con_logo(url_img, precio_texto=precio_badge):
+                    if preparar_imagen_con_logo(
+                        url_img,
+                        precio_texto=precio_badge,
+                        tienda=tienda_de_url(pendientes[oferta_id_encontrada]["texto"]),
+                    ):
                         pendientes[oferta_id_encontrada]["url_imagen"] = url_img
                         hubo_cambios_pendientes = True
                         _guardar_pendientes(pendientes)
