@@ -11,20 +11,20 @@
     "fallo": 170,
     "navegador": 587,
     "html": 2637,
-    "captcha": 5598,
-    "navegador_tras_captcha": 116,
-    "asin": 657,
-    "api_creators": 2965
+    "captcha": 5608,
+    "navegador_tras_captcha": 119,
+    "asin": 662,
+    "api_creators": 2967
   },
   "tiempo_navegador": {
-    "segundos": 20458.4,
-    "intentos": 6163
+    "segundos": 20523.3,
+    "intentos": 6181
   },
   "auto_publicadas": {
     "ElPromoHunter": 1173,
-    "ReviuDescuentos": 1011,
+    "ReviuDescuentos": 1015,
     "Clubgratis": 192,
     "Manual": 8,
-    "ofertu": 259
+    "ofertu": 264
   }
 }
