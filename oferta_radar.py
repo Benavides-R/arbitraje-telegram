@@ -265,11 +265,15 @@ def reintentar_pendientes():
     _guardar_cola(quedan)
 
 
-def enviar_a_oferta_radar(texto_nuevo, url_imagen):
+def enviar_a_oferta_radar(texto_nuevo, url_imagen, precio_original=None):
     """
     Envía la oferta a Oferta Radar. Devuelve la URL de la oferta creada
     (ej. "https://oferta-radar.com/oferta/xxx") si se pudo crear, o None
     si falló o no está configurado -- quien llama decide el plan B.
+
+    precio_original (opcional): precio de lista ("tachado") ya convertido a
+    COP. Solo se manda si es MAYOR que el precio actual -- si el canal no lo
+    traía, se omite el campo en vez de inventarlo.
     """
     if not OFERTA_RADAR_API_KEY or not OFERTA_RADAR_URL:
         return None  # integración no configurada todavía -- no hace nada
@@ -314,6 +318,11 @@ def enviar_a_oferta_radar(texto_nuevo, url_imagen):
         "source": "github",
         "approved": True,
     }
+    # Precio de referencia tachado: solo si el canal lo trajo y es mayor que
+    # el precio de hoy. Si no, el campo se omite (no se manda null) para no
+    # ensuciar el payload con un dato que no existe.
+    if precio_original and datos["price"] and precio_original > datos["price"]:
+        payload["priceOriginal"] = int(precio_original)
 
     resultado = _enviar_payload(payload)
     if not resultado:

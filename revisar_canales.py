@@ -677,6 +677,82 @@ def extraer_precio(texto_original, link, sin_colchon=False):
     return precio
 
 
+_RE_PRECIO_ORIGINAL = re.compile(
+    # "💸 Precio: $46.624 COP (original $130.909 COP)" (ElPromoHunter)
+    # "Antes: $129.900" / "Precio de lista: $129.900" / "~~$129.900~~"
+    r"(?:\(\s*original|(?:precio\s+de\s+lista|precio\s+normal|precio\s+anterior|"
+    r"antes(?:\s+costaba)?)\s*:?|~~)\s*[\$💰]?\s?"
+    r"(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{1,2})?)",
+    re.IGNORECASE,
+)
+
+
+_RE_PORCENTAJE_DESCUENTO = re.compile(r"(\d{1,2})\s*%\s*(?:off|de\s+descuento)", re.IGNORECASE)
+
+
+def _precio_original_desde_porcentaje(texto_original, link):
+    """Cuando el canal no escribe el precio tachado pero sí el porcentaje
+    ("¡67% Off!"), se reconstruye: original = precio / (1 - %/100). Es
+    aproximado (Amazon redondea el %), así que solo se usa con 20% o más,
+    donde el error es de 1-2%, y nunca si queda por debajo del precio."""
+    m = _RE_PORCENTAJE_DESCUENTO.search(texto_original)
+    if not m:
+        return None
+    porcentaje = int(m.group(1))
+    if porcentaje < 20 or porcentaje >= 100:
+        return None
+
+    precio_texto = extraer_precio(texto_original, link)
+    if not precio_texto or "COP" not in precio_texto:
+        return None
+    precio_cop = int(re.sub(r"[^\d]", "", precio_texto.split(" COP")[0]))
+    if not precio_cop:
+        return None
+
+    original = math.ceil((precio_cop / (1 - porcentaje / 100)) / 100) * 100
+    return int(original) if original > precio_cop else None
+
+
+def extraer_precio_original(texto_original, link):
+    """Precio de lista ("tachado") de la oferta, convertido a COP.
+    Primero busca el valor escrito por el canal; si no está, lo reconstruye
+    desde el "% Off" (solo 20% o más). Devuelve un entero o None -- nunca
+    inventa un tachado que no se pueda sustentar."""
+    if not texto_original:
+        return None
+    # El segundo argumento puede venir como link suelto o como el mensaje
+    # completo ya reescrito; en ese caso se saca el link de adentro.
+    link = (link or "").strip()
+    if not re.fullmatch(r"https?://\S+", link):
+        m_link = re.search(r"https?://\S+", link)
+        link = m_link.group(0) if m_link else ""
+    texto = texto_original.replace("✅", "$")
+    m = _RE_PRECIO_ORIGINAL.search(texto)
+    if not m:
+        return _precio_original_desde_porcentaje(texto, link)
+
+    valor = "$" + re.sub(r"^[\$💰]\s?", "", m.group(1)).strip()
+    resto = texto[m.end():m.end() + 6]
+    moneda = re.match(r"\s*(COP|USD|MXN|JPY|PEN|ARS|CLP|CAD|GBP)\b", resto)
+
+    if moneda:
+        texto_cop = _convertir_a_cop(valor, moneda.group(1))
+    elif re.match(r"^\$\d{1,3}(?:\.\d{3})+$", valor):
+        # Formato COP sin la palabra "COP" ("$130.909" = 130.909 pesos)
+        texto_cop = _convertir_a_cop(valor, "COP")
+    elif urlsplit(link).netloc.endswith("amazon.com"):
+        texto_cop = _convertir_a_cop(valor, "USD")
+    else:
+        texto_cop = _convertir_a_cop(valor, "COP")
+
+    if "COP" not in texto_cop:
+        return None  # no se pudo convertir: mejor no mandar precio que mandarlo mal
+    try:
+        return int(re.sub(r"[^\d]", "", texto_cop.split(" COP")[0]))
+    except ValueError:
+        return None
+
+
 _TASA_CACHE = {}  # {"USD": (valor, timestamp), "MXN": (...), ...}
 MARGEN_SEGURIDAD_CAMBIO = 1.037  # +3.7% de colchón: Amazon/tu banco suelen
 # cobrar un poco más que la tasa de mercado al convertir -- mejor mostrar
@@ -1418,6 +1494,10 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
             dominio = tienda_de_url(texto_nuevo)
         imagen_bytes = preparar_imagen_con_logo(url_imagen, precio_texto=precio_para_badge, tienda=dominio)
 
+    # Precio de lista ("tachado") para Oferta Radar, si el canal lo trajo.
+    # Se calcula aquí y se reusa en los dos envíos posibles (bridge y normal).
+    precio_original = extraer_precio_original(texto_original, texto_nuevo) if texto_original else None
+
     # Si el bridge está activo, primero se crea la oferta en Oferta Radar
     # para conseguir SU link, y se usa ese en vez del de Amazon al publicar
     # en Telegram/Facebook (mejor tracking para cuando corras anuncios).
@@ -1426,7 +1506,7 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
     url_oferta_radar = None
     if USAR_BRIDGE_OFERTA_RADAR:
         try:
-            url_oferta_radar = enviar_a_oferta_radar(texto_nuevo, url_imagen)
+            url_oferta_radar = enviar_a_oferta_radar(texto_nuevo, url_imagen, precio_original=precio_original)
         except Exception as e:
             print(f"Oferta Radar: error al importar (fallo inesperado): {e}")
 
@@ -1440,7 +1520,7 @@ def publicar_oferta_completa(texto_nuevo, url_imagen=None, imagen_bytes=None, im
         # Modo normal (sin bridge): Oferta Radar se crea DESPUÉS de publicar,
         # como siempre -- el link que la gente vio ya fue el de Amazon.
         try:
-            enviar_a_oferta_radar(texto_nuevo, url_imagen)
+            enviar_a_oferta_radar(texto_nuevo, url_imagen, precio_original=precio_original)
         except Exception as e:
             print(f"Oferta Radar: error al importar (fallo inesperado, sin detener el resto): {e}")
 
