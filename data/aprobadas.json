@@ -1806,5 +1806,13 @@
     "precio": "~$39.800 COP",
     "categoria": "#Ofertas #Descuentos",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-21T09:00:36-05:00",
+    "canal": "Manual",
+    "titulo": "Creatina Monohidratada Optimum Nutrition 120 Servicios Sin Sabor",
+    "precio": "$123.000 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
   }
 ]

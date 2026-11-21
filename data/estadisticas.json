@@ -3,7 +3,7 @@
     "ElPromoHunter": 14,
     "ReviuDescuentos": 10,
     "Clubgratis": 3,
-    "Manual": 2,
+    "Manual": 3,
     "ofertu": 2
   },
   "ultimo_reporte": "2026-11-15",
@@ -14,7 +14,7 @@
     "captcha": 5598,
     "navegador_tras_captcha": 116,
     "asin": 657,
-    "api_creators": 2929
+    "api_creators": 2937
   },
   "tiempo_navegador": {
     "segundos": 20458.4,
@@ -25,6 +25,6 @@
     "ReviuDescuentos": 1009,
     "Clubgratis": 190,
     "Manual": 8,
-    "ofertu": 228
+    "ofertu": 236
   }
 }
