@@ -1846,5 +1846,13 @@
     "precio": "~$51.700 COP",
     "categoria": "#moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-22T16:00:33-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Suéter de Navidad Vehomy para perro, diseño de punto con cuello alto y estampados navideños.",
+    "precio": "~$27.300 COP",
+    "categoria": "#Mascotas #PetLovers",
+    "con_imagen": true
   }
 ]
