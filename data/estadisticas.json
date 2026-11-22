@@ -8,11 +8,13 @@
     "captcha": 5629,
     "navegador_tras_captcha": 121,
     "asin": 686,
-    "api_creators": 3489
+    "api_creators": 3491
   },
   "tiempo_navegador": {
     "segundos": 20683.1,
     "intentos": 6230
   },
-  "auto_publicadas": {}
+  "auto_publicadas": {
+    "ReviuDescuentos": 2
+  }
 }
