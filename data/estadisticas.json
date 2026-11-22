@@ -8,7 +8,7 @@
     "captcha": 5629,
     "navegador_tras_captcha": 121,
     "asin": 686,
-    "api_creators": 3492
+    "api_creators": 3496
   },
   "tiempo_navegador": {
     "segundos": 20683.1,
@@ -16,6 +16,6 @@
   },
   "auto_publicadas": {
     "ReviuDescuentos": 2,
-    "ofertu": 1
+    "ofertu": 4
   }
 }
