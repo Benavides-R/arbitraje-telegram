@@ -422,10 +422,32 @@ def _normalizar_tamano(imagen):
     return lienzo
 
 
-def _cargar_fuente(tamano):
-    """Busca una fuente bold del sistema (los runners de GitHub Actions/
-    Ubuntu la traen preinstalada); si no la encuentra, usa la fuente por
-    defecto de Pillow (se ve peor, pero nunca revienta por esto)."""
+# Tipografías propias (2026-11-21). Van en el repo para que el runner de
+# GitHub Actions las tenga siempre, sin depender de lo que traiga Ubuntu.
+#   - Precio: Archivo Black (súper gruesa, se lee desde lejos).
+#   - Redes: Poppins SemiBold (más limpia que DejaVu).
+# Si un archivo faltara, se cae a las fuentes del sistema y luego a la de
+# Pillow: la oferta nunca se pierde por esto.
+_RUTA_FUENTES = Path(__file__).resolve().parent / "assets" / "fuentes"
+
+_FUENTES_PROPIAS = {
+    "precio": ["ArchivoBlack-Regular.ttf"],
+    "redes": ["Poppins-SemiBold.ttf", "Poppins-Bold.ttf"],
+}
+
+
+def _cargar_fuente(tamano, estilo=None):
+    """Fuente para el texto de la imagen.
+
+    estilo="precio" -> Archivo Black; estilo="redes" -> Poppins. Con
+    estilo=None (o si el archivo no está) usa las bold del sistema, como
+    antes.
+    """
+    for nombre in _FUENTES_PROPIAS.get(estilo, []):
+        try:
+            return ImageFont.truetype(str(_RUTA_FUENTES / nombre), tamano)
+        except Exception:
+            continue
     rutas_posibles = [
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
         "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
@@ -444,10 +466,105 @@ _TIENDAS_CON_LOGO = {"amazon.": "amazon", "mercadolibre.com": "mercadolibre"}
 _RUTA_LOGOS_TIENDA = Path(__file__).resolve().parent / "assets" / "tiendas"
 
 
+# Anillo de color de cada tienda en su pastilla (2026-11-21).
+_COLORES_TIENDA = {
+    "amazon": (255, 153, 0),         # naranja Amazon
+    "mercadolibre": (52, 131, 250),  # azul MercadoLibre
+}
+
+# Rango de precio -> (relleno, borde) del badge. El corte es el precio en
+# pesos: menos de 50.000, menos de 100.000 y de ahi para arriba.
+_COLORES_PRECIO = (
+    (50_000, (6, 120, 86), (52, 211, 153)),     # verde esmeralda
+    (100_000, (194, 65, 12), (251, 191, 36)),   # naranja
+)
+_COLOR_PRECIO_CARO = ((49, 46, 129), (250, 204, 21))   # indigo + borde dorado
+_COLOR_PRECIO_NEUTRO = ((15, 15, 15), (255, 176, 32))  # sin dato: como antes
+
+_RE_PRECIO_COP = re.compile(r"(\d[\d.,\s]*)\s*COP", re.IGNORECASE)
+
+
+def _oscurecer(color, factor=0.72):
+    """Version mas oscura de un color, para el degradado de las pastillas."""
+    return tuple(max(0, min(255, round(c * factor))) for c in color[:3])
+
+
+def _degradado_vertical(ancho, alto, color_arriba, color_abajo):
+    """Degradado suave de arriba a abajo (le da volumen a la pastilla)."""
+    ancho, alto = max(1, int(ancho)), max(2, int(alto))
+    franja = Image.new("RGBA", (1, alto))
+    for y in range(alto):
+        t = y / (alto - 1)
+        color = tuple(round(a + (b - a) * t) for a, b in zip(color_arriba, color_abajo))
+        franja.putpixel((0, y), color + (255,))
+    return franja.resize((ancho, alto), Image.BILINEAR)
+
+
+def _pastilla(ancho, alto, radio, color_arriba, color_abajo, borde=None, grosor_borde=3):
+    """Pastilla redondeada con degradado, recortada con su propia mascara."""
+    ancho, alto = max(1, int(ancho)), max(1, int(alto))
+    capa = _degradado_vertical(ancho, alto, color_arriba, color_abajo)
+    mascara = Image.new("L", (ancho, alto), 0)
+    ImageDraw.Draw(mascara).rounded_rectangle(
+        (0, 0, ancho - 1, alto - 1), radius=radio, fill=255
+    )
+    capa.putalpha(mascara)
+    if borde:
+        ImageDraw.Draw(capa).rounded_rectangle(
+            (0, 0, ancho - 1, alto - 1), radius=radio,
+            outline=borde, width=grosor_borde,
+        )
+    return capa
+
+
+def _pegar_con_sombra(producto, capa, x, y, desplazamiento=(4, 6), desenfoque=8, opacidad=110):
+    """Pega una capa RGBA con una sombra suave detras (le da volumen)."""
+    alfa = capa.getchannel("A").point(lambda v: v * opacidad // 255)
+    sombra = Image.new("RGBA", capa.size, (0, 0, 0, 0))
+    sombra.putalpha(alfa)
+    sombra = sombra.filter(ImageFilter.GaussianBlur(desenfoque))
+    producto.alpha_composite(sombra, (x + desplazamiento[0], y + desplazamiento[1]))
+    producto.alpha_composite(capa, (x, y))
+
+
+def _precio_en_cop(precio_texto):
+    """Monto en pesos a partir del texto del canal ("$45.900 COP").
+
+    Devuelve None si el texto no dice COP o si no hay un numero legible: en
+    ese caso el badge usa el color neutro de siempre. Nunca se inventa un
+    rango.
+    """
+    if not precio_texto:
+        return None
+    texto = str(precio_texto)
+    if "cop" not in texto.lower():
+        return None
+    coincidencias = _RE_PRECIO_COP.findall(texto)
+    if not coincidencias:
+        return None
+    digitos = re.sub(r"\D", "", coincidencias[-1])
+    return int(digitos) if digitos else None
+
+
+def _colores_precio(valor_cop):
+    """(relleno, borde) del badge segun el precio: barato, medio o caro."""
+    if valor_cop is None:
+        return _COLOR_PRECIO_NEUTRO
+    for tope, relleno, borde in _COLORES_PRECIO:
+        if valor_cop < tope:
+            return relleno, borde
+    return _COLOR_PRECIO_CARO
+
+
 def _dibujar_marca_tienda(producto, tienda=None):
     """Logo de la tienda en una pastilla blanca, esquina superior derecha.
-    Va ahí porque la superior izquierda ya la ocupa el precio, la inferior
-    izquierda las redes y la inferior derecha el logo de Benatechs."""
+    Va ahi porque la superior izquierda ya la ocupa el precio, la inferior
+    izquierda las redes y la inferior derecha el logo de Benatechs.
+
+    2026-11-21: pastilla con degradado suave y anillo del color de la tienda
+    (naranja Amazon, azul MercadoLibre), logo un poco mas grande y sombra
+    mas suave: se distingue de un vistazo y se ve mas moderna.
+    """
     nombre = _TIENDAS_CON_LOGO.get(tienda)
     if not nombre:
         return
@@ -457,85 +574,108 @@ def _dibujar_marca_tienda(producto, tienda=None):
     try:
         marca = Image.open(ruta).convert("RGBA")
 
-        alto_logo = max(20, int(producto.width * 0.055))
+        alto_logo = max(22, int(producto.width * 0.062))
         ancho_logo = max(1, round(marca.width * (alto_logo / marca.height)))
         marca = marca.resize((ancho_logo, alto_logo), Image.LANCZOS)
 
-        pad = max(8, int(alto_logo * 0.24))
-        ancho_pastilla = ancho_logo + pad * 2
-        alto_pastilla = alto_logo + pad * 2
+        pad_x = max(10, int(alto_logo * 0.34))
+        pad_y = max(8, int(alto_logo * 0.26))
+        ancho_pastilla = ancho_logo + pad_x * 2
+        alto_pastilla = alto_logo + pad_y * 2
         margen = 24
         x = producto.width - ancho_pastilla - margen
         y = margen
 
-        pastilla = Image.new("RGBA", (ancho_pastilla, alto_pastilla), (0, 0, 0, 0))
-        dibujo = ImageDraw.Draw(pastilla)
-        dibujo.rounded_rectangle(
-            (0, 0, ancho_pastilla - 1, alto_pastilla - 1),
-            radius=alto_pastilla // 2,
-            fill=(255, 255, 255, 250),
-            outline=(205, 205, 205, 255),
-            width=2,
+        pastilla = _pastilla(
+            ancho_pastilla, alto_pastilla,
+            radio=alto_pastilla // 2,
+            color_arriba=(255, 255, 255),
+            color_abajo=(236, 236, 240),
+            borde=_COLORES_TIENDA.get(nombre, (205, 205, 205)),
+            grosor_borde=max(2, int(alto_logo * 0.06)),
         )
-
-        sombra = Image.new("RGBA", pastilla.size, (0, 0, 0, 0))
-        ImageDraw.Draw(sombra).rounded_rectangle(
-            (0, 0, ancho_pastilla - 1, alto_pastilla - 1),
-            radius=alto_pastilla // 2,
-            fill=(0, 0, 0, 110),
-        )
-        sombra = sombra.filter(ImageFilter.GaussianBlur(6))
-        producto.alpha_composite(sombra, (x + 3, y + 5))
-        producto.alpha_composite(pastilla, (x, y))
-        producto.alpha_composite(marca, (x + pad, y + pad))
+        _pegar_con_sombra(producto, pastilla, x, y, desenfoque=7, opacidad=95)
+        producto.alpha_composite(marca, (x + pad_x, y + pad_y))
     except Exception as e:
         print(f"[WARN] No se pudo poner el logo de {tienda}: {e}")
 
 
 def _dibujar_badge_precio(producto, precio_texto):
-    """Badge oscuro con el precio en grande, esquina superior izquierda --
-    genérico para cualquier tienda (sin ícono de marca)."""
+    """Badge con el precio en grande, esquina superior izquierda.
+
+    Color por rango (2026-11-21):
+      - menos de $50.000  -> verde esmeralda
+      - menos de $100.000 -> naranja
+      - $100.000 o mas    -> indigo con borde dorado
+    Si el texto no trae "COP" queda el color neutro de siempre (nunca se
+    inventa un rango).
+    """
     if not precio_texto:
         return
     draw = ImageDraw.Draw(producto, "RGBA")
-    fuente = _cargar_fuente(int(producto.width * 0.06))
+    fuente = _cargar_fuente(int(producto.width * 0.062), estilo="precio")
 
-    padding_x, padding_y = 24, 16
-    caja_texto = draw.textbbox((0, 0), precio_texto, font=fuente)
-    ancho_texto = caja_texto[2] - caja_texto[0]
-    alto_texto = caja_texto[3] - caja_texto[1]
+    relleno, borde = _colores_precio(_precio_en_cop(precio_texto))
+
+    padding_x, padding_y = 30, 18
+    caja = draw.textbbox((0, 0), precio_texto, font=fuente)
+    ancho_texto = caja[2] - caja[0]
+    alto_texto = caja[3] - caja[1]
 
     margen = 24
-    x0, y0 = margen, margen
-    x1 = x0 + ancho_texto + padding_x * 2
-    y1 = y0 + alto_texto + padding_y * 2
-    radio = (y1 - y0) // 2
+    ancho = ancho_texto + padding_x * 2
+    alto = alto_texto + padding_y * 2
+    radio = min(alto // 2, 36)
 
-    draw.rounded_rectangle((x0, y0, x1, y1), radius=radio, fill=(15, 15, 15, 235))
-    draw.rounded_rectangle((x0, y0, x1, y1), radius=radio, outline=(255, 176, 32, 255), width=3)
-    draw.text((x0 + padding_x, y0 + padding_y - caja_texto[1]), precio_texto, font=fuente, fill=(255, 255, 255, 255))
+    pastilla = _pastilla(
+        ancho, alto, radio,
+        color_arriba=relleno,
+        color_abajo=_oscurecer(relleno, 0.68),
+        borde=borde,
+        grosor_borde=4,
+    )
+    _pegar_con_sombra(
+        producto, pastilla, margen, margen,
+        desplazamiento=(4, 6), desenfoque=9, opacidad=120,
+    )
+
+    draw = ImageDraw.Draw(producto, "RGBA")
+    draw.text(
+        (margen + padding_x, margen + padding_y - caja[1]),
+        precio_texto, font=fuente, fill=(255, 255, 255, 255),
+    )
 
 
 def _dibujar_redes_sociales(producto):
     """Tus redes sociales, abajo a la izquierda -- configurable en
-    config.py (REDES_SOCIALES_LINEAS); si está vacío, no dibuja nada."""
+    config.py (REDES_SOCIALES_LINEAS); si esta vacio, no dibuja nada.
+
+    2026-11-21: Poppins SemiBold con contorno grueso y sombra suave (antes
+    era DejaVu con 8 copias del texto alrededor).
+    """
     if not REDES_SOCIALES_LINEAS:
         return
     draw = ImageDraw.Draw(producto, "RGBA")
-    tamano_fuente = int(producto.width * 0.028)
-    fuente = _cargar_fuente(tamano_fuente)
+    tamano_fuente = int(producto.width * 0.030)
+    fuente = _cargar_fuente(tamano_fuente, estilo="redes")
+    contorno = max(2, round(tamano_fuente * 0.10))
 
-    margen = 20
-    interlineado = int(tamano_fuente * 1.35)
+    margen = 22
+    interlineado = int(tamano_fuente * 1.42)
     y = producto.height - margen - interlineado * len(REDES_SOCIALES_LINEAS)
 
     for linea in REDES_SOCIALES_LINEAS:
-        # Contorno negro + relleno blanco -- se lee bien sobre cualquier
-        # fondo, claro u oscuro.
         x = margen
-        for dx, dy in [(-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2), (-2, 2), (2, -2)]:
-            draw.text((x + dx, y + dy), linea, font=fuente, fill=(0, 0, 0, 255))
-        draw.text((x, y), linea, font=fuente, fill=(255, 255, 255, 255))
+        # Sombra suave + contorno negro + relleno blanco: se lee sobre
+        # cualquier fondo, claro u oscuro.
+        draw.text(
+            (x + 2, y + 2), linea, font=fuente, fill=(0, 0, 0, 120),
+            stroke_width=contorno, stroke_fill=(0, 0, 0, 120),
+        )
+        draw.text(
+            (x, y), linea, font=fuente, fill=(255, 255, 255, 255),
+            stroke_width=contorno, stroke_fill=(0, 0, 0, 235),
+        )
         y += interlineado
 
 

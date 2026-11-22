@@ -1,11 +1,13 @@
-# Traspaso — estado del bot (18-nov-2026)
+# Traspaso — estado del bot (21-nov-2026)
 
 Documento para continuar el trabajo en otro equipo/IA. Resume qué quedó
 desplegado, qué reglas rigen hoy, qué se midió con datos reales y qué falta
 decidir. **No sustituye al código**: si algo aquí no coincide con
 `config.py` / `revisar_canales.py`, manda el código.
 
-Último commit de este cambio: **`e457f94`** en `main`.
+Último commit de este cambio: el más reciente de `main` con fecha
+**21-nov-2026** (para verlo: `git log --oneline -1`; el bot agrega después
+commits de estado con los datos de `data/`).
 
 ---
 
@@ -18,7 +20,7 @@ quedaban esperando aprobación manual solo por no traer la palabra exacta.
 
 Ahora: **solo lista negra**. `config.py` → `USAR_LISTA_BLANCA = False`.
 Todo lo que esté completo se auto-publica **salvo** lo que caiga en
-`PALABRAS_NO_AUTO` (123 entradas).
+`PALABRAS_NO_AUTO` (150 entradas).
 
 La lista blanca histórica **no se borró**: sigue en `config.py` (marcada
 como histórica, ya solo se consulta si `USAR_LISTA_BLANCA = True`) y está
@@ -32,7 +34,7 @@ para revertir.
    (MercadoLibre, Temu, AliExpress).
 3. Sin imagen.
 4. Antigüedad mayor a `MAX_ANTIGUEDAD_OFERTA_HORAS` (6 h).
-5. Duplicado por ASIN dentro de `HORAS_BLOQUEO_DUPLICADO` (12 h).
+5. Duplicado por ASIN dentro de `HORAS_BLOQUEO_DUPLICADO` (24 h).
 6. Topes de la corrida: `MAX_OFERTAS_POR_CORRIDA = 31` y
    `CUOTA_POR_CANAL` (ElPromoHunter 15, ReviuDescuentos 12, Clubgratis 8).
 
@@ -78,6 +80,25 @@ minúsculas). Por eso:
   `moldeadora corporal` (más `faja`).
 - Se agregaron `usada` / `usadas` / `usados` / `reacondicionada`: con
   `usado` solo, los avisos en femenino se colaban.
+- **Cocina y mesa (21-nov-2026)**: `plato`, `cuchara`, `cucharon`,
+  `tenedor`, `cuchillo`, `cubiertos`, `vajilla`, `cuberteria`,
+  `utensilio`, `escurridor`, `tabla de picar`, `sarten`, `vaso`, `mantel`,
+  `servilleta` y las 6 variantes de tazas. Se usó `cubiertos` (plural) y
+  no `cubierto`, porque "cubierto" está dentro de "cubierta de celular".
+- **"taza" sola NO se bloquea**: rompía "cafetera de goteo 12 tazas". Solo
+  se bloquea con material (`taza/tazas de ceramica`, `de porcelana`) o en
+  juego (`juego/set de tazas`).
+- **Pestañas (21-nov-2026)**: `pestana`, `pestanina`, `rimel`,
+  `mascara de pestanas`, `mascara para pestanas`, `pegante de pestanas`.
+  `pestana` también atrapa bisagras ("pestaña de puerta"): se aceptó.
+
+### Duplicados: solo por ASIN (decisión cerrada)
+El bloqueo de repetidos es **únicamente por ASIN** durante 24 h. Se
+descartó a propósito una segunda llave por título/marca: el usuario pidió
+"solo ASIN" y preferir bloquear más productos por lista negra. Consecuencia
+conocida: el mismo producto publicado por otro vendedor llega con ASIN
+distinto y sí se vuelve a publicar (visto con PUMA `B0D7CRQJN5` vs
+`B0FHB9YK3P` y Under Armour `B0CJW9YTZB` vs `B0874W4WS5`).
 
 ---
 
@@ -167,12 +188,18 @@ subir a 30 min.
 - `americana` bloquea "nevera americana" (y "chaqueta americana"). Si
   molesta, cambiarla por `chaqueta americana` / `traje americano`.
 - `push up` (fitness), `clutch` (autos), `plataforma`, `sueter`.
+- Palabras que también existen fuera de cocina/maquillaje: `plato` (plato
+  de ducha), `vaso`, `sarten`, `pestana` (pestaña de puerta), `mantel`.
+  En títulos de ofertas casi no aparecen así; si molestan, se quitan de
+  `PALABRAS_NO_AUTO` sin tocar nada más.
 
 ---
 
 ## 8. Qué NO se debe tocar sin autorización
 
-Tags de afiliado, lógica base de bloqueo de duplicados, imágenes/logo,
+Tags de afiliado, lógica base de bloqueo de duplicados, imágenes/logo
+(las **posiciones** de la imagen y el logo de Benatechs no se mueven; el
+color y la letra del badge sí se pueden ajustar siguiendo el punto 10),
 ritmo de Facebook (`FACEBOOK_SEGUNDOS_ENTRE_POSTS`), auto-publicación,
 Oferta Radar, selección de ofertas, `MAX_OFERTAS_POR_CORRIDA`,
 `CUOTA_POR_CANAL`, Supabase, `concurrency` y la frecuencia del cron (salvo
@@ -199,3 +226,55 @@ Los scripts de prueba viven **fuera del repo**, en
 Para importar `revisar_canales` en un script hace falta stubear `requests`
 en `sys.modules` y definir `TELEGRAM_API_ID=1`, `TELEGRAM_API_HASH=x`,
 `TELEGRAM_SESSION=x`, `TELEGRAM_BOT_TOKEN=x`.
+
+---
+
+## 10. Imagen publicada: diseño y fuentes (21-nov-2026)
+
+Todo vive en `procesar_oferta.py`. El bloque de dibujo va desde
+`_COLORES_TIENDA` hasta `_dibujar_redes_sociales` (justo antes de
+`aplicar_logo_a_bytes`) y se pinta sobre la imagen ya normalizada a
+`TAMANO_ESTANDAR = 1100`.
+
+**Posiciones (no se cambian sin pedirlo)**
+
+| Zona | Qué va |
+|---|---|
+| arriba izquierda | badge del precio |
+| arriba derecha | logo de la tienda en una pastilla |
+| abajo izquierda | líneas de redes (`REDES_SOCIALES_LINEAS`) |
+| abajo derecha | logo de Benatechs (`LOGO_PATH`) |
+
+**Color del badge según el precio** (`_precio_en_cop` + `_colores_precio`)
+
+| Precio | Relleno | Borde |
+|---|---|---|
+| menos de $50.000 | verde esmeralda `(6,120,86)` | `(52,211,153)` |
+| menos de $100.000 | naranja `(194,65,12)` | `(251,191,36)` |
+| $100.000 o más | índigo `(49,46,129)` | dorado `(250,204,21)` |
+| el texto no dice "COP" | negro `(15,15,15)` | naranja `(255,176,32)` |
+
+`_precio_en_cop` devuelve `None` cuando el texto no trae "COP": ahí queda
+el color neutro, **nunca se inventa un rango**. Entiende `$45.900 COP`,
+`$45,900 COP` y `~$45.900 COP`.
+
+**Anillo de la tienda** (`_COLORES_TIENDA`): Amazon naranja
+`(255,153,0)`; MercadoLibre azul `(52,131,250)`.
+
+**Letras**: `assets/fuentes/ArchivoBlack-Regular.ttf` para el precio y
+`assets/fuentes/Poppins-SemiBold.ttf` para las redes (también está
+`Poppins-Bold.ttf`). Las elige `_cargar_fuente(tamano, estilo="precio"` o
+`"redes")`, con respaldo a DejaVu/Liberation y, de última, a la letra por
+defecto de Pillow: si falta el `.ttf`, la imagen sale igual.
+
+**Helpers nuevos, reutilizables**: `_oscurecer`, `_degradado_vertical`,
+`_pastilla` (pastilla con degradado, borde y esquinas redondeadas) y
+`_pegar_con_sombra` (sombra difusa detrás). El precio usa Archivo Black a
+`0.062 × ancho`; las redes, Poppins a `0.030 × ancho` con contorno negro y
+sombra suave (antes eran 8 copias del texto para simular el borde).
+
+**Cómo ver la imagen sin publicar nada**: `probar_imagen.py`, fuera del
+repo en `C:\Users\CUENTA\AppData\Local\Temp\opencode\`; genera 4 muestras
+(barato/medio/caro/sin COP) en `...\opencode\muestras\`. Hay que stubear
+`requests` antes de importar `procesar_oferta` (en este equipo no está
+instalado).

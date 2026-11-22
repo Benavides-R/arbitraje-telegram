@@ -215,6 +215,28 @@ PALABRAS_NO_AUTO = [
     # "consola" está en la lista blanca y matchea por substring: sin esto,
     # un consolador se publicaría solo.
     "consolador",
+    # --- Cocina / mesa (2026-11-21) ---
+    # No son interesantes para revisión manual: son lo que más llega de
+    # canales generales y nunca se publica. Se buscan por substring, así
+    # que se eligieron formas que no peguen en tecnología:
+    #   - "cubiertos" (plural) y NO "cubierto": "cubierta de celular" se
+    #     publicaría si se usara el singular.
+    #   - "plato"/"cuchara"/"tenedor"/"cuchillo"/"vaso"/"taza" son
+    #     suficientemente específicos (no aparecen en "plataforma",
+    #     "cuchilla de afeitar" ya está aparte).
+    "plato", "cuchara", "cucharon", "tenedor", "cuchillo", "cubiertos",
+    "vajilla", "cuberteria", "utensilio", "escurridor", "tabla de picar",
+    "sarten", "vaso", "mantel", "servilleta",
+    # "taza" sola NO va: "cafetera de goteo 12 tazas" es tecnologia y se
+    # bloquearia. Solo las tazas de mesa, con su material o en juego.
+    "taza de ceramica", "tazas de ceramica", "taza de porcelana",
+    "tazas de porcelana", "juego de tazas", "set de tazas",
+    # --- Pestañas / pestañina (2026-11-21) ---
+    # "pestanas postizas" ya estaba; ahora también las pestañas normales,
+    # la pestañina y el rímel. "mascara" sola NO va: pegaría en máscara de
+    # soldar/buceo y mascarilla.
+    "pestana", "pestanina", "rimel", "mascara de pestanas",
+    "mascara para pestanas", "pegante de pestanas",
     # --- Otros que el dueño no quiere ver ---
     "disfraz", "peluca", "unas postizas", "pestanas postizas",
     # "moldeador" solo NO va: atrapa secadores y planchas de cabello
@@ -361,7 +383,10 @@ CUOTA_POR_CANAL = {
 # Si el mismo producto de Amazon (mismo ASIN) ya se publicó hace menos de
 # este tiempo, se descarta como duplicado -- pasado ese tiempo, se permite
 # de nuevo (la oferta pudo seguir vigente o repetirse un día después).
-HORAS_BLOQUEO_DUPLICADO = 12
+# 2026-11-21: 12 -> 24 horas, a pedido del dueño. Es SOLO por ASIN (no por
+# título/marca). Ojo: la poda del estado usa HORAS_BLOQUEO_DUPLICADO * 2,
+# así que ahora conserva 48 h de historial en data/ultimo_id.json.
+HORAS_BLOQUEO_DUPLICADO = 24
 
 # Si un mensaje del canal origen ya es más viejo que esto, se descarta sin
 # procesar -- evita mandar a revisión (o publicar) ofertas relámpago que ya
