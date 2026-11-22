@@ -8,7 +8,7 @@
     "captcha": 5629,
     "navegador_tras_captcha": 121,
     "asin": 686,
-    "api_creators": 3548
+    "api_creators": 3568
   },
   "tiempo_navegador": {
     "segundos": 20683.1,
@@ -16,6 +16,7 @@
   },
   "auto_publicadas": {
     "ReviuDescuentos": 31,
-    "ofertu": 17
+    "ofertu": 20,
+    "ElPromoHunter": 11
   }
 }
