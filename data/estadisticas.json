@@ -8,14 +8,14 @@
     "captcha": 5629,
     "navegador_tras_captcha": 121,
     "asin": 686,
-    "api_creators": 3496
+    "api_creators": 3508
   },
   "tiempo_navegador": {
     "segundos": 20683.1,
     "intentos": 6230
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 2,
+    "ReviuDescuentos": 12,
     "ofertu": 4
   }
 }
