@@ -1822,5 +1822,29 @@
     "precio": "$159.900 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-22T14:00:34-05:00",
+    "canal": "ofertu",
+    "titulo": "Bóxers de Algodón 100% para Hombre Pack x5",
+    "precio": "~$45.000 COP",
+    "categoria": "#Ofertas #Descuentos",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-22T14:01:40-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Botines de fútbol Under Armour Spotlight Hammer para hombre.",
+    "precio": "~$132.500 COP",
+    "categoria": "#Deportes #Deporte",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-22T14:02:46-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "PUMA Paquete de 5 calzoncillos tipo bóxer de malla deportiva 360 para hombre.",
+    "precio": "~$51.700 COP",
+    "categoria": "#moda",
+    "con_imagen": true
   }
 ]
