@@ -7,16 +7,16 @@
     "html": 2640,
     "captcha": 5629,
     "navegador_tras_captcha": 121,
-    "asin": 686,
-    "api_creators": 3568
+    "asin": 687,
+    "api_creators": 3586
   },
   "tiempo_navegador": {
-    "segundos": 20683.1,
-    "intentos": 6230
+    "segundos": 20686.4,
+    "intentos": 6231
   },
   "auto_publicadas": {
     "ReviuDescuentos": 31,
-    "ofertu": 20,
-    "ElPromoHunter": 11
+    "ofertu": 25,
+    "ElPromoHunter": 21
   }
 }
