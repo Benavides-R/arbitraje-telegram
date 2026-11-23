@@ -1854,5 +1854,13 @@
     "precio": "~$27.300 COP",
     "categoria": "#Mascotas #PetLovers",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-23T13:30:35-05:00",
+    "canal": "Clubgratis",
+    "titulo": "Juego De Herramientas Con Taladro Atornillador Inalámbrico",
+    "precio": "$150.300 COP",
+    "categoria": "#Herramientas #Hogar",
+    "con_imagen": true
   }
 ]
