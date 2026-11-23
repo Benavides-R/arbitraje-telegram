@@ -1862,5 +1862,13 @@
     "precio": "$150.300 COP",
     "categoria": "#Herramientas #Hogar",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-23T14:01:37-05:00",
+    "canal": "Manual",
+    "titulo": "Licuadora Universal Mass Vital Vaso De Vidrio (1.7 Lts)",
+    "precio": "$55.575 COP",
+    "categoria": "#Hogar #Cocina",
+    "con_imagen": true
   }
 ]
