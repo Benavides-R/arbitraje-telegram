@@ -1838,6 +1838,31 @@ def procesar_mensaje(oferta_id, texto):
     return finalizar_oferta(prep)
 
 
+INTENTOS_LECTURA_CANAL = 3
+
+
+def _leer_mensajes_canal(client, canal, ultimo_id):
+    """Lee los mensajes nuevos de UN canal, sin tumbar la corrida si falla.
+
+    Telegram a veces responde "internal issues" y Telethon agota sus
+    reintentos internos con "ValueError: Request was unsuccessful 6 time(s)".
+    Ese error no puede llevarse por delante toda la corrida: ni las ofertas
+    que ya se prepararon de los otros canales, ni la publicación de la fase 2.
+    Se reintenta aquí unas cuantas veces con espera creciente y, si sigue
+    caído, se devuelve None para saltar SOLO este canal. Como su estado no
+    avanza, esos mensajes se retoman en la próxima corrida.
+    """
+    for intento in range(1, INTENTOS_LECTURA_CANAL + 1):
+        try:
+            return list(client.iter_messages(canal, min_id=ultimo_id, limit=50))
+        except Exception as e:
+            print(f"[WARN] {canal}: no se pudo leer el historial "
+                  f"(intento {intento}/{INTENTOS_LECTURA_CANAL}): {e}")
+            if intento < INTENTOS_LECTURA_CANAL:
+                time.sleep(20 * intento)  # 20s y luego 40s
+    return None
+
+
 def main():
     # 0. Limpia la cola de revisión: lo que lleva demasiado esperando ya no
     # sirve (el cupón o el precio vencieron). Se hace UNA vez por corrida,
@@ -1903,7 +1928,12 @@ def main():
                 break
 
             ultimo_id = estado.get(canal, 0)
-            mensajes_nuevos = list(client.iter_messages(canal, min_id=ultimo_id, limit=50))
+            mensajes_nuevos = _leer_mensajes_canal(client, canal, ultimo_id)
+            if mensajes_nuevos is None:
+                print(f"[ERROR] {canal}: Telegram no respondió al leer el "
+                      f"canal; se salta SOLO este canal (su estado no avanza, "
+                      f"se retoma en la próxima corrida) y se sigue con los demás")
+                continue
 
             if not mensajes_nuevos:
                 print(f"[INFO] {canal}: sin mensajes nuevos")
