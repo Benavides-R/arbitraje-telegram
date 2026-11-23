@@ -221,12 +221,14 @@ PALABRAS_NO_AUTO = [
     # que se eligieron formas que no peguen en tecnología:
     #   - "cubiertos" (plural) y NO "cubierto": "cubierta de celular" se
     #     publicaría si se usara el singular.
-    #   - "plato"/"cuchara"/"tenedor"/"cuchillo"/"vaso"/"taza" son
+    #   - "plato"/"cuchara"/"tenedor"/"vaso"/"taza" son
     #     suficientemente específicos (no aparecen en "plataforma",
     #     "cuchilla de afeitar" ya está aparte).
-    "plato", "cuchara", "cucharon", "tenedor", "cuchillo", "cubiertos",
-    "vajilla", "cuberteria", "utensilio", "escurridor", "tabla de picar",
-    "sarten", "vaso", "mantel", "servilleta",
+    #   - Sartenes, cuchillos y tabla de picar se dejaron FUERA a pedido del
+    #     dueño (2026-11-21): los quiere seguir viendo.
+    "plato", "cuchara", "cucharon", "tenedor", "cubiertos",
+    "vajilla", "cuberteria", "utensilio", "escurridor",
+    "vaso", "mantel", "servilleta",
     # "taza" sola NO va: "cafetera de goteo 12 tazas" es tecnologia y se
     # bloquearia. Solo las tazas de mesa, con su material o en juego.
     "taza de ceramica", "tazas de ceramica", "taza de porcelana",
@@ -237,6 +239,11 @@ PALABRAS_NO_AUTO = [
     # soldar/buceo y mascarilla.
     "pestana", "pestanina", "rimel", "mascara de pestanas",
     "mascara para pestanas", "pegante de pestanas",
+    # --- Navidad (2026-11-21) ---
+    # Se escriben SIN tilde: el título se normaliza con _sin_tildes antes de
+    # comparar, así que "navidena" atrapa "navideña" y "navideno" atrapa
+    # "navideño". "navidad" cubre "árbol de navidad", "luces de navidad", etc.
+    "navidad", "navidena", "navideno",
     # --- Otros que el dueño no quiere ver ---
     "disfraz", "peluca", "unas postizas", "pestanas postizas",
     # "moldeador" solo NO va: atrapa secadores y planchas de cabello

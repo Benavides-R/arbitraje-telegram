@@ -81,10 +81,18 @@ minúsculas). Por eso:
 - Se agregaron `usada` / `usadas` / `usados` / `reacondicionada`: con
   `usado` solo, los avisos en femenino se colaban.
 - **Cocina y mesa (21-nov-2026)**: `plato`, `cuchara`, `cucharon`,
-  `tenedor`, `cuchillo`, `cubiertos`, `vajilla`, `cuberteria`,
-  `utensilio`, `escurridor`, `tabla de picar`, `sarten`, `vaso`, `mantel`,
-  `servilleta` y las 6 variantes de tazas. Se usó `cubiertos` (plural) y
-  no `cubierto`, porque "cubierto" está dentro de "cubierta de celular".
+  `tenedor`, `cubiertos`, `vajilla`, `cuberteria`, `utensilio`,
+  `escurridor`, `vaso`, `mantel`, `servilleta` y las 6 variantes de tazas.
+  Se usó `cubiertos` (plural) y no `cubierto`, porque "cubierto" está dentro
+  de "cubierta de celular".
+- **Fuera de la lista a propósito**: `sarten`, `cuchillo` y `tabla de picar`
+  se agregaron y el dueño los mandó a quitar el mismo día (22-nov-2026):
+  los quiere seguir viendo. No volver a meterlos sin que lo pida.
+- **Navidad (22-nov-2026)**: `navidad`, `navidena`, `navideno`. Van sin
+  tilde porque el título se normaliza con `_sin_tildes` antes de comparar:
+  `navidena` atrapa "navideña" y `navideno` atrapa "navideño". `navidad`
+  cubre "árbol de navidad", "luces de navidad", "esfera navideña" cae por
+  `navidena`.
 - **"taza" sola NO se bloquea**: rompía "cafetera de goteo 12 tazas". Solo
   se bloquea con material (`taza/tazas de ceramica`, `de porcelana`) o en
   juego (`juego/set de tazas`).
@@ -162,9 +170,11 @@ subir a 30 min.
 
 ## 6. Pendientes de decisión (nada de esto está implementado)
 
-1. **Joyería y maquillaje**: hoy pasarían (la base de maquillaje y los
-   adornos navideños también). ¿Se agregan a la lista negra?
-2. **Navidad**: ¿se bloquea la temática navideña?
+1. **Joyería y maquillaje**: hoy pasarían (la base de maquillaje también,
+   aunque las pestañas y el rímel ya se bloquean). ¿Se agregan a la lista
+   negra?
+2. ~~**Navidad**~~: **resuelto el 22-nov-2026**, ya está bloqueada
+   (`navidad`, `navidena`, `navideno`).
 3. **Los 9 de casillero**: ¿publicar con una etiqueta que avise, o seguir
    frenándolos?
 4. **Contador de descartes**: hoy los `[SKIP]` solo van a stdout y se
@@ -189,7 +199,7 @@ subir a 30 min.
   molesta, cambiarla por `chaqueta americana` / `traje americano`.
 - `push up` (fitness), `clutch` (autos), `plataforma`, `sueter`.
 - Palabras que también existen fuera de cocina/maquillaje: `plato` (plato
-  de ducha), `vaso`, `sarten`, `pestana` (pestaña de puerta), `mantel`.
+  de ducha), `vaso`, `pestana` (pestaña de puerta), `mantel`.
   En títulos de ofertas casi no aparecen así; si molestan, se quitan de
   `PALABRAS_NO_AUTO` sin tocar nada más.
 
