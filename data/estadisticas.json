@@ -7,20 +7,20 @@
   "imagenes_origen": {
     "fallo": 173,
     "navegador": 587,
-    "html": 2640,
-    "captcha": 5646,
-    "navegador_tras_captcha": 121,
-    "asin": 697,
-    "api_creators": 3797
+    "html": 2641,
+    "captcha": 5659,
+    "navegador_tras_captcha": 123,
+    "asin": 699,
+    "api_creators": 3803
   },
   "tiempo_navegador": {
-    "segundos": 20771.4,
-    "intentos": 6259
+    "segundos": 20828.3,
+    "intentos": 6276
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 70,
+    "ReviuDescuentos": 76,
     "ofertu": 45,
-    "ElPromoHunter": 146,
+    "ElPromoHunter": 151,
     "Clubgratis": 3
   }
 }
