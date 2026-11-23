@@ -473,10 +473,15 @@ _COLORES_TIENDA = {
 }
 
 # Rango de precio -> (relleno, borde) del badge. El corte es el precio en
-# pesos: menos de 50.000, menos de 100.000 y de ahi para arriba.
+# pesos: menos de 30.000, 50.000, 100.000, 200.000 y de ahi para arriba.
+# 2026-11-22: de 3 tramos a 5, para que el color diga el rango de un vistazo
+# (verde hoja -> verde esmeralda -> naranja -> vino -> indigo con dorado).
+# Todos los rellenos dan al menos 5:1 de contraste con la letra blanca.
 _COLORES_PRECIO = (
-    (50_000, (6, 120, 86), (52, 211, 153)),     # verde esmeralda
-    (100_000, (194, 65, 12), (251, 191, 36)),   # naranja
+    (30_000, (22, 128, 61), (134, 239, 172)),    # verde hoja
+    (50_000, (6, 120, 86), (52, 211, 153)),      # verde esmeralda
+    (100_000, (194, 65, 12), (251, 191, 36)),    # naranja
+    (200_000, (139, 30, 30), (248, 113, 113)),   # vino
 )
 _COLOR_PRECIO_CARO = ((49, 46, 129), (250, 204, 21))   # indigo + borde dorado
 _COLOR_PRECIO_NEUTRO = ((15, 15, 15), (255, 176, 32))  # sin dato: como antes
@@ -547,7 +552,8 @@ def _precio_en_cop(precio_texto):
 
 
 def _colores_precio(valor_cop):
-    """(relleno, borde) del badge segun el precio: barato, medio o caro."""
+    """(relleno, borde) del badge segun el precio: muy barato, barato,
+    medio, caro o premium (5 tramos desde 2026-11-22)."""
     if valor_cop is None:
         return _COLOR_PRECIO_NEUTRO
     for tope, relleno, borde in _COLORES_PRECIO:
@@ -603,10 +609,12 @@ def _dibujar_marca_tienda(producto, tienda=None):
 def _dibujar_badge_precio(producto, precio_texto):
     """Badge con el precio en grande, esquina superior izquierda.
 
-    Color por rango (2026-11-21):
+    Color por rango (2026-11-22, 5 tramos):
+      - menos de $30.000  -> verde hoja
       - menos de $50.000  -> verde esmeralda
       - menos de $100.000 -> naranja
-      - $100.000 o mas    -> indigo con borde dorado
+      - menos de $200.000 -> vino
+      - $200.000 o mas    -> indigo con borde dorado
     Si el texto no trae "COP" queda el color neutro de siempre (nunca se
     inventa un rango).
     """

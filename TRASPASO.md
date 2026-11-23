@@ -1,4 +1,4 @@
-# Traspaso — estado del bot (21-nov-2026)
+# Traspaso — estado del bot (22-nov-2026)
 
 Documento para continuar el trabajo en otro equipo/IA. Resume qué quedó
 desplegado, qué reglas rigen hoy, qué se midió con datos reales y qué falta
@@ -6,7 +6,7 @@ decidir. **No sustituye al código**: si algo aquí no coincide con
 `config.py` / `revisar_canales.py`, manda el código.
 
 Último commit de este cambio: el más reciente de `main` con fecha
-**21-nov-2026** (para verlo: `git log --oneline -1`; el bot agrega después
+**22-nov-2026** (para verlo: `git log --oneline -1`; el bot agrega después
 commits de estado con los datos de `data/`).
 
 ---
@@ -259,10 +259,16 @@ Todo vive en `procesar_oferta.py`. El bloque de dibujo va desde
 
 | Precio | Relleno | Borde |
 |---|---|---|
+| menos de $30.000 | verde hoja `(22,128,61)` | `(134,239,172)` |
 | menos de $50.000 | verde esmeralda `(6,120,86)` | `(52,211,153)` |
 | menos de $100.000 | naranja `(194,65,12)` | `(251,191,36)` |
-| $100.000 o más | índigo `(49,46,129)` | dorado `(250,204,21)` |
+| menos de $200.000 | vino `(139,30,30)` | `(248,113,113)` |
+| $200.000 o más | índigo `(49,46,129)` | dorado `(250,204,21)` |
 | el texto no dice "COP" | negro `(15,15,15)` | naranja `(255,176,32)` |
+
+Son **5 tramos** desde el 22-nov-2026 (antes eran 3). Los cinco rellenos
+dan al menos 5:1 de contraste con la letra blanca, así que el precio se lee
+sobre cualquier foto.
 
 `_precio_en_cop` devuelve `None` cuando el texto no trae "COP": ahí queda
 el color neutro, **nunca se inventa un rango**. Entiende `$45.900 COP`,
@@ -284,7 +290,8 @@ defecto de Pillow: si falta el `.ttf`, la imagen sale igual.
 sombra suave (antes eran 8 copias del texto para simular el borde).
 
 **Cómo ver la imagen sin publicar nada**: `probar_imagen.py`, fuera del
-repo en `C:\Users\CUENTA\AppData\Local\Temp\opencode\`; genera 4 muestras
-(barato/medio/caro/sin COP) en `...\opencode\muestras\`. Hay que stubear
+repo en `C:\Users\CUENTA\AppData\Local\Temp\opencode\`; genera 6 muestras
+(una por cada tramo de precio + sin COP) en `...\opencode\muestras\` y
+verifica los cortes y el contraste con la letra blanca. Hay que stubear
 `requests` antes de importar `procesar_oferta` (en este equipo no está
 instalado).
