@@ -1886,5 +1886,13 @@
     "precio": "~$64.200 COP",
     "categoria": "#Amazon #Moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-23T15:31:40-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "PUMA Paquete de 5 calzoncillos bóxer de malla para hombre",
+    "precio": "~$50.700 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
   }
 ]
