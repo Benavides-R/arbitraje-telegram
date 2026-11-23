@@ -1870,5 +1870,21 @@
     "precio": "$55.575 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-23T15:00:41-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "The Beard Club Gomitas de biotina para el crecimiento de la barba, suplemento capilar con vitaminas B12, E y C.",
+    "precio": "~$43.700 COP",
+    "categoria": "#salud",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-23T15:01:50-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Champion bóxers de rendimiento para hombre, paquete de siete",
+    "precio": "~$64.200 COP",
+    "categoria": "#Amazon #Moda",
+    "con_imagen": true
   }
 ]
