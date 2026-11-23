@@ -130,6 +130,15 @@ def _es_amazon_us(netloc):
     return (netloc or "").lower() in _AMAZON_DOMINIOS_US
 
 
+# Amazon Japón: por decisión del dueño NO se pasa a amazon.com (hoy no le
+# interesa JP). El link se deja en su propia tienda y la oferta se manda al
+# interno para revisión manual. Se mira por SUFIJO del host para cubrir
+# www.amazon.co.jp y cualquier subdominio.
+def _es_amazon_jp(netloc):
+    host = (netloc or "").lower().split(":")[0]
+    return host.endswith("amazon.co.jp")
+
+
 def _asin_existe_en_amazon_com(asin):
     """Verifica si un ASIN existe de verdad en la tienda de EE.UU.
 
@@ -207,6 +216,7 @@ def _limpiar_link_amazon_corto(link):
     (afiliado, imagen, duplicados, precio en USD -> COP) sigue igual.
     """
     asin = _asin_en_url(link)
+    host_destino = "www.amazon.com"
     if not asin:
         try:
             resp = requests.get(link, headers=HEADERS, timeout=15, allow_redirects=True)
@@ -218,8 +228,13 @@ def _limpiar_link_amazon_corto(link):
             print(f"[SKIP] Link corto de Amazon sin ASIN reconocible: {link} -> {resp.url}")
             return None
         print(f"[INFO] Link corto resuelto: {link} -> {resp.url}")
+        # Si el redirect terminó en Amazon JP, se respeta esa tienda (no se
+        # reescribe a amazon.com); la oferta irá a revisión manual.
+        host_resuelto = urlsplit(resp.url).netloc
+        if _es_amazon_jp(host_resuelto):
+            host_destino = host_resuelto
 
-    link_limpio = f"https://www.amazon.com/dp/{asin}"
+    link_limpio = f"https://{host_destino}/dp/{asin}"
 
     # Mismo criterio que el link largo: si venía un vendedor específico (smid),
     # se conserva para no cambiar el "buy box" y que el envío siga disponible.
@@ -254,21 +269,29 @@ def limpiar_link_tienda(link, dominio):
         netloc = urlsplit(link).netloc
 
         if not _es_amazon_us(netloc):
-            # Vino de otra tienda de Amazon (ca, co.jp, co.uk...). Muchas
-            # veces es solo el redirect por la IP del servidor de GitHub,
-            # no porque el producto no exista en EE.UU. Se verifica el
-            # ASIN en amazon.com antes de decidir.
-            existe = _asin_existe_en_amazon_com(asin)
-            if existe:
-                print(f"[INFO] {asin}: venía de {netloc}, existe en amazon.com -- se usa amazon.com")
-                netloc = "www.amazon.com"
-            elif existe is False:
-                print(f"[SKIP] {asin}: no existe en amazon.com (venía de {netloc}), se descarta")
-                return None
+            if _es_amazon_jp(netloc):
+                # Amazon Japón: NO se pasa a amazon.com (decisión del dueño:
+                # hoy no le interesa JP). Se conserva el link en su tienda y
+                # la oferta se manda al interno para revisión manual -- ver
+                # "revision_manual" en preparar_oferta/finalizar_oferta.
+                print(f"[INFO] {asin}: link de Amazon JP ({netloc}), se deja tal cual "
+                      f"y la oferta va a revisión manual")
             else:
-                print(f"[SKIP] {asin}: no se pudo verificar en amazon.com (venía de {netloc}), "
-                      f"se descarta para no publicar un link roto")
-                return None
+                # Vino de otra tienda de Amazon (ca, co.uk...). Muchas
+                # veces es solo el redirect por la IP del servidor de GitHub,
+                # no porque el producto no exista en EE.UU. Se verifica el
+                # ASIN en amazon.com antes de decidir.
+                existe = _asin_existe_en_amazon_com(asin)
+                if existe:
+                    print(f"[INFO] {asin}: venía de {netloc}, existe en amazon.com -- se usa amazon.com")
+                    netloc = "www.amazon.com"
+                elif existe is False:
+                    print(f"[SKIP] {asin}: no existe en amazon.com (venía de {netloc}), se descarta")
+                    return None
+                else:
+                    print(f"[SKIP] {asin}: no se pudo verificar en amazon.com (venía de {netloc}), "
+                          f"se descarta para no publicar un link roto")
+                    return None
 
         link_limpio = f"https://{netloc}/dp/{asin}"
 
@@ -1695,6 +1718,10 @@ def preparar_oferta(oferta_id, texto, asins_en_vuelo=None, fecha_mensaje=None):
         "asin": asin,
         "titulo_normalizado": _sin_tildes(titulo.lower()),
         "requiere_casillero": requiere_casillero(texto_analisis),
+        # Amazon JP: el link se dejó en su tienda (no se pasó a amazon.com),
+        # así que la oferta nunca se auto-publica: va al interno para que el
+        # dueño la revise a mano.
+        "revision_manual": dominio == "amazon." and _es_amazon_jp(urlsplit(link_limpio).netloc),
         "fecha_mensaje": fecha_mensaje,
     }
 
@@ -1770,6 +1797,9 @@ def finalizar_oferta(prep):
     # trae ropa interior/lencería (decisión del admin) nunca publica sola.
     hay_prohibida = _titulo_en_lista_negra(prep["titulo_normalizado"])
 
+    # Amazon JP: link dejado en su tienda a propósito, siempre revisión manual.
+    revision_manual = prep.get("revision_manual", False)
+
     # Re-chequeo de antigüedad justo antes de publicar: la primera revisión
     # fue al escanear el mensaje, y entre eso y este punto la oferta puede
     # haber esperado en la cola. Una oferta vieja suele tener el precio ya
@@ -1791,6 +1821,7 @@ def finalizar_oferta(prep):
     if MODO_REVISION and AUTO_PUBLICAR_SI_COMPLETA and url_imagen and dominio not in TIENDAS_SIEMPRE_MANUAL \
             and not prep["requiere_casillero"] \
             and not hay_prohibida \
+            and not revision_manual \
             and cumple_lista_blanca:
         # Título y precio ya están garantizados en la fase 1 (si faltaba
         # alguno, se descartó ahí) -- con imagen también presente, la
@@ -1807,7 +1838,8 @@ def finalizar_oferta(prep):
         else:
             print(f"[WARN] {oferta_id}: no se pudo publicar; el ASIN {asin} NO se bloquea")
     elif MODO_REVISION:
-        motivo = "requiere casillero" if prep["requiere_casillero"] \
+        motivo = "Amazon JP — revisión manual" if revision_manual \
+            else "requiere casillero" if prep["requiere_casillero"] \
             else "requiere revisión manual (link)" if dominio in TIENDAS_SIEMPRE_MANUAL \
             else "lista negra" if hay_prohibida \
             else "sin imagen" if not url_imagen \

@@ -37,10 +37,39 @@ para revertir.
 5. Duplicado por ASIN dentro de `HORAS_BLOQUEO_DUPLICADO` (24 h).
 6. Topes de la corrida: `MAX_OFERTAS_POR_CORRIDA = 31` y
    `CUOTA_POR_CANAL` (ElPromoHunter 15, ReviuDescuentos 12, Clubgratis 8).
+7. **Amazon Japón** (`amazon.co.jp`): nunca se auto-publica, siempre va al
+   interno (ver abajo).
+
+### Amazon JP: no se pasa a amazon.com (resuelto el 22-nov-2026)
+Antes, cualquier link de Amazon que no fuera de EE.UU. se verificaba en
+`amazon.com` y, si el ASIN no existía, se descartaba (o se reescribía a
+`amazon.com`). Con Japón eso no servía: el producto no está en el catálogo
+de EE.UU. y se perdía.
+
+Ahora, por decisión del dueño (hoy no le interesa JP):
+
+- Se detecta por **sufijo de host**: `_es_amazon_jp()` → `host.endswith(
+  "amazon.co.jp")`, así cubre `www.` y cualquier subdominio.
+- El link se deja **en su propia tienda**, limpio:
+  `https://www.amazon.co.jp/dp/ASIN` (con `smid` si venía). No se consulta
+  `_asin_existe_en_amazon_com` para JP.
+- Los **links cortos** que resuelven a JP también conservan la tienda JP
+  (`host_destino` en `_limpiar_link_amazon_corto`).
+- `preparar_oferta` pone `"revision_manual": True` y `finalizar_oferta`
+  salta la auto-publicación y la manda al interno con el motivo
+  **"Amazon JP — revisión manual"** (usa `enviar_para_revision`, el mismo
+  camino de siempre; no hay ruta nueva).
+- `amazon.ca` / `amazon.co.uk` siguen como antes (se verifican en
+  `amazon.com`).
+
+Prueba en seco: `pruebas_jp.py` (0 fallos) — JP conserva tienda y no
+consulta amazon.com, US intacto, `amazon.ca` mantiene su comportamiento,
+link corto JP conserva JP, y JP no publica ni marca el ASIN.
 
 ### Regla de oro que NO se debe romper
 El ASIN se marca como publicado **solo cuando la oferta se publicó de
-verdad** (`aprobaciones.py`). Nunca al aprobarla ni al prepararla.
+verdad** (`aprobaciones.py`). Nunca al aprobarla ni al prepararla. Mandar a
+revisión (incluido Amazon JP) **no** marca nada.
 
 ---
 
@@ -185,9 +214,11 @@ subir a 30 min.
    fondo.
 6. **Pinterest**: opción C (pin vertical 1000x1500 + texto por Telegram)
    recomendada, y opción A (API oficial) en paralelo. Sin respuesta.
-7. **Link corto**: `amzn.eu` está excluido del acortador; el tag
+7. **Link corto / tag**: `amzn.eu` está excluido del acortador; el tag
    `benatechs00-20` está atado a `"amazon."` y no atribuye en
-   `amazon.ca/.co.uk/.co.jp`. Sin resolver.
+   `amazon.ca/.co.uk`. `amazon.co.jp` ya no importa: desde el 22-nov-2026
+   no se pasa a amazon.com y siempre va al interno para revisión manual
+   (ver §1). Sin resolver lo de `.ca/.co.uk` y `amzn.eu`.
 8. **Los 99 pendientes**: si se quieren publicar ya, hay que volver a
    pasarlos por la regla nueva (no se re-evalúan solos).
 
