@@ -181,6 +181,13 @@ Telethon procesando **en vivo** todo lo que publican los canales de fondo
 - Leer: 1 sola petición por canal por corrida (`iter_messages(limit=50)`).
 - Publicar: 20-40 mensajes/hora en el propio canal está dentro de lo normal.
 - Si Telegram frena, Telethon duerme solo (FloodWait hasta 60 s) y sigue.
+- **Una falla de Telegram ya no tumba la corrida** (23-nov-2026): la lectura
+  de cada canal pasa por `_leer_mensajes_canal()` con
+  `INTENTOS_LECTURA_CANAL = 3` y esperas de 20 s y 40 s. Si aun así falla
+  (p. ej. `ValueError: Request was unsuccessful 6 time(s)`), se salta **solo
+  ese canal** y su estado no avanza, así que esos mensajes se retoman en la
+  próxima corrida; las ofertas ya preparadas de los otros canales y la
+  fase 2 de publicación siguen normales.
 
 ### Lo que sí cuesta y crece con más corridas: Amazon
 `data/estadisticas.json` → `imagenes_origen`: api_creators 1079, captcha
