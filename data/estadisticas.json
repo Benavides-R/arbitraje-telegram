@@ -9,22 +9,22 @@
   "ultimo_reporte": "2026-11-22",
   "imagenes_origen": {
     "fallo": 180,
-    "navegador": 591,
-    "html": 2655,
+    "navegador": 594,
+    "html": 2657,
     "captcha": 5732,
-    "navegador_tras_captcha": 163,
+    "navegador_tras_captcha": 186,
     "asin": 777,
-    "api_creators": 4747
+    "api_creators": 4748
   },
   "tiempo_navegador": {
-    "segundos": 21552.5,
-    "intentos": 6478
+    "segundos": 21698.2,
+    "intentos": 6504
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 387,
+    "ReviuDescuentos": 398,
     "ofertu": 154,
-    "ElPromoHunter": 582,
-    "Clubgratis": 59,
+    "ElPromoHunter": 591,
+    "Clubgratis": 65,
     "Manual": 7
   }
 }
