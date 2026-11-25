@@ -1894,5 +1894,29 @@
     "precio": "~$50.700 COP",
     "categoria": "#Moda #Estilo",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-25T13:33:49-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "MOGU Traje de tres piezas para hombre, incluye chaqueta, chaleco y pantalones.",
+    "precio": "~$150.100 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-25T13:34:56-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "Boxer briefs de rendimiento para hombre, paquete de 5.",
+    "precio": "~$51.500 COP",
+    "categoria": "#moda",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-25T13:36:03-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Champion Calzoncillos tipo bóxer Performance para hombre, paquete de 5",
+    "precio": "~$46.900 COP",
+    "categoria": "#Amazon #Moda",
+    "con_imagen": true
   }
 ]
