@@ -14,16 +14,16 @@
     "captcha": 5733,
     "navegador_tras_captcha": 195,
     "asin": 777,
-    "api_creators": 4858
+    "api_creators": 4882
   },
   "tiempo_navegador": {
     "segundos": 21756.3,
     "intentos": 6515
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 429,
+    "ReviuDescuentos": 439,
     "ofertu": 154,
-    "ElPromoHunter": 641,
+    "ElPromoHunter": 653,
     "Clubgratis": 91,
     "Manual": 7
   }
