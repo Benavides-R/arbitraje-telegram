@@ -8,7 +8,7 @@
   },
   "ultimo_reporte": "2026-11-22",
   "imagenes_origen": {
-    "fallo": 192,
+    "fallo": 193,
     "navegador": 602,
     "html": 2663,
     "captcha": 5761,
@@ -17,8 +17,8 @@
     "api_creators": 5335
   },
   "tiempo_navegador": {
-    "segundos": 22458.1,
-    "intentos": 6672
+    "segundos": 22461.8,
+    "intentos": 6673
   },
   "auto_publicadas": {
     "ReviuDescuentos": 630,
