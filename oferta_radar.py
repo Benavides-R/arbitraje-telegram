@@ -40,6 +40,37 @@ _RE_CODIGOS_EN_LINEA = re.compile(r"<code>(.+?)</code>")
 _RE_LINK = re.compile(r"⚡\s*Ver oferta:\s*(\S+)")
 _RE_HASHTAGS = re.compile(r"#ad\s+(.+)")
 _RE_ASIN_EN_LINK = re.compile(r"/dp/([A-Za-z0-9]{10})", re.IGNORECASE)
+_RE_MCO_CATALOGO = re.compile(r"/p/(MCO\d{6,})", re.IGNORECASE)
+_RE_MCO_ITEM = re.compile(r"/(MCO-?\d{6,})(?:[/?#-]|$)", re.IGNORECASE)
+_RE_MCO_QUERY = re.compile(r"[?&](?:item_id|itemId)=(MCO-?\d{6,})", re.IGNORECASE)
+
+
+def _detectar_tienda(link):
+    """Devuelve 'amazon' o 'mercadolibre' según el host del enlace aprobado."""
+    if not link:
+        return "amazon"
+    try:
+        host = urlsplit(link).netloc.lower()
+    except Exception:
+        return "amazon"
+    if (
+        host == "mercadolibre.com.co"
+        or host.endswith(".mercadolibre.com.co")
+        or host in {"meli.la", "mercadol.ink"}
+    ):
+        return "mercadolibre"
+    return "amazon"
+
+
+def _extraer_mco(link):
+    """MCO… de catálogo (/p/MCO…), publicación (/MCO-…) o query item_id."""
+    if not link:
+        return None
+    for patron in (_RE_MCO_CATALOGO, _RE_MCO_ITEM, _RE_MCO_QUERY):
+        m = patron.search(link)
+        if m:
+            return m.group(1).replace("-", "").upper()
+    return None
 
 
 def _parsear_precio(precio_texto):
@@ -94,6 +125,7 @@ def _extraer_datos_de_texto(texto_nuevo):
         "price": None, "currency": None, "coupon": None,
         "affiliateUrl": None, "amazonUrl": None, "externalId": None,
         "category": None, "shipping": None, "isPrime": False,
+        "tienda": "amazon", "marketplaceId": None,
     }
 
     m = _RE_PRODUCTO.search(texto_nuevo)
@@ -129,13 +161,22 @@ def _extraer_datos_de_texto(texto_nuevo):
     if m:
         link = html.unescape(m.group(1)).strip()
         datos["affiliateUrl"] = link
-        m_asin = _RE_ASIN_EN_LINK.search(link)
-        if m_asin:
-            asin = m_asin.group(1).upper()
-            datos["externalId"] = asin
-            netloc = re.match(r"https?://([^/]+)", link)
-            if netloc:
-                datos["amazonUrl"] = f"https://{netloc.group(1)}/dp/{asin}"
+        datos["tienda"] = _detectar_tienda(link)
+        if datos["tienda"] == "mercadolibre":
+            mco = _extraer_mco(link)
+            if mco:
+                datos["externalId"] = mco
+                datos["marketplaceId"] = mco
+            # MercadoLibre no tiene ASIN ni URL de Amazon.
+            datos["amazonUrl"] = None
+        else:
+            m_asin = _RE_ASIN_EN_LINK.search(link)
+            if m_asin:
+                asin = m_asin.group(1).upper()
+                datos["externalId"] = asin
+                netloc = re.match(r"https?://([^/]+)", link)
+                if netloc:
+                    datos["amazonUrl"] = f"https://{netloc.group(1)}/dp/{asin}"
 
     m = _RE_HASHTAGS.search(texto_nuevo)
     if m:
@@ -146,7 +187,13 @@ def _extraer_datos_de_texto(texto_nuevo):
     # fuente que escribe la insignia en el mensaje -- si no hay ninguna,
     # queda en None (no se inventa envío).
     datos["shipping"] = detectar_envio(texto_nuevo)
-    datos["isPrime"] = datos["shipping"] == "prime"
+    if datos["tienda"] == "mercadolibre":
+        # En MercadoLibre no existe Prime: se descarta en vez de etiquetarlo.
+        if datos["shipping"] == "prime":
+            datos["shipping"] = None
+        datos["isPrime"] = False
+    else:
+        datos["isPrime"] = datos["shipping"] == "prime"
 
     return datos
 
@@ -278,17 +325,6 @@ def enviar_a_oferta_radar(texto_nuevo, url_imagen, precio_original=None):
     if not OFERTA_RADAR_API_KEY or not OFERTA_RADAR_URL:
         return None  # integración no configurada todavía -- no hace nada
 
-    # MercadoLibre: el sitio valida que el link sea de Amazon con tu tag, así
-    # que una oferta de MELI la rechaza (o la deja en cola para siempre). Se
-    # salta de una vez y NO se encola para reintentar -- cuando el sitio
-    # acepte la tienda, se quita este bloque.
-    m_link = _RE_LINK.search(texto_nuevo)
-    if m_link:
-        host_link = urlsplit(m_link.group(1)).netloc.lower()
-        if "mercadolibre." in host_link or host_link in {"meli.la", "mercadol.ink"}:
-            print("[Oferta Radar] SKIP: MercadoLibre todavía no se acepta en el sitio")
-            return None
-
     if not url_imagen:
         # No se descarga ni se genera otra imagen -- si la oferta se
         # aprobó con una foto subida a mano (sin URL pública), simplemente
@@ -299,6 +335,12 @@ def enviar_a_oferta_radar(texto_nuevo, url_imagen, precio_original=None):
     datos = _extraer_datos_de_texto(texto_nuevo)
     if not datos["product"] or not datos["price"]:
         print("[Oferta Radar] SKIP: no se pudieron leer los datos mínimos del mensaje aprobado")
+        return None
+
+    # MercadoLibre Colombia publica en COP. Si el mensaje trae otra moneda,
+    # es de otro mercado y el sitio lo rechazaría: mejor no encolarlo.
+    if datos["tienda"] == "mercadolibre" and datos["currency"] != "COP":
+        print("[Oferta Radar] SKIP: MercadoLibre solo se publica en COP")
         return None
 
     payload = {
@@ -315,9 +357,12 @@ def enviar_a_oferta_radar(texto_nuevo, url_imagen, precio_original=None):
         "coupon": datos["coupon"],
         "shipping": datos["shipping"],
         "isPrime": datos["isPrime"],
+        "tienda": datos["tienda"],
         "source": "github",
         "approved": True,
     }
+    if datos["marketplaceId"]:
+        payload["marketplaceId"] = datos["marketplaceId"]
     # Precio de referencia tachado: solo si el canal lo trajo y es mayor que
     # el precio de hoy. Si no, el campo se omite (no se manda null) para no
     # ensuciar el payload con un dato que no existe.

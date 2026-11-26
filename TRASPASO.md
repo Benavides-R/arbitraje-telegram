@@ -258,6 +258,30 @@ Los secrets `CREATORS_CREDENTIAL_ID` / `CREATORS_CREDENTIAL_SECRET`
 
 ---
 
+## 8.1 Bridge a Oferta Radar (Amazon y MercadoLibre)
+
+`oferta_radar.py` envía la oferta a `POST /api/offers/import` **después** de
+publicarla en Telegram/Facebook. Con `USAR_BRIDGE_OFERTA_RADAR = False`, la web
+se crea en paralelo y el link que ve la gente sigue siendo el de la tienda.
+
+- **Amazon**: se limpia la URL, se extrae el ASIN y se mantiene el tag de
+  afiliado (`AMAZON_TAG`).
+- **MercadoLibre**: se envía `tienda: "mercadolibre"`, `marketplaceId`/`externalId`
+  con el `MCO…` (de `/p/MCO…`, `/MCO-…` o `item_id=`), `amazonUrl` vacío,
+  `currency: "COP"` y el enlace de afiliado **tal cual** (no se toca
+  `matt_tool`). No se envía Prime.
+- Si el mensaje de MercadoLibre viene en otra moneda, se descarta sin encolar.
+- Si falla la red o el sitio responde 5xx, la oferta se guarda en
+  `data/oferta_radar_pendientes.json` y se reintenta en la siguiente corrida.
+
+Pruebas (sin red ni claves):
+
+```bash
+python -m unittest test_oferta_radar.py
+```
+
+---
+
 ## 9. Cómo comprobar que no se rompió
 
 Los scripts de prueba viven **fuera del repo**, en
