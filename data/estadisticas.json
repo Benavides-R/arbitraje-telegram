@@ -8,17 +8,17 @@
   },
   "ultimo_reporte": "2026-11-22",
   "imagenes_origen": {
-    "fallo": 193,
+    "fallo": 194,
     "navegador": 602,
     "html": 2663,
     "captcha": 5761,
     "navegador_tras_captcha": 273,
     "asin": 809,
-    "api_creators": 5335
+    "api_creators": 5336
   },
   "tiempo_navegador": {
-    "segundos": 22461.8,
-    "intentos": 6673
+    "segundos": 22465.6,
+    "intentos": 6674
   },
   "auto_publicadas": {
     "ReviuDescuentos": 630,
