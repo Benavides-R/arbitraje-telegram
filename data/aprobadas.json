@@ -1942,5 +1942,13 @@
     "precio": "~$110.600 COP",
     "categoria": "#Hogar #Cocina",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-27T14:04:48-05:00",
+    "canal": "ReviuDescuentos",
+    "titulo": "Champion Calzoncillos bóxer de rendimiento para hombre",
+    "precio": "~$58.600 COP",
+    "categoria": "#Moda #Estilo",
+    "con_imagen": true
   }
 ]
