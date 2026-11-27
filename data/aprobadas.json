@@ -1950,5 +1950,21 @@
     "precio": "~$58.600 COP",
     "categoria": "#Moda #Estilo",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-27T14:31:41-05:00",
+    "canal": "DescuentosTech",
+    "titulo": "Kit de maquillaje completo para adolescentes y mujeres con paleta, base, rímel, brillo labial, lápiz de cejas, delineador, brochas, polvo, KAVCENT rosa",
+    "precio": "~$55.700 COP",
+    "categoria": "#Belleza #CuidadoPersonal",
+    "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-27T14:32:50-05:00",
+    "canal": "ElPromoHunter",
+    "titulo": "PUMA Paquete de 4 calzoncillos tipo bóxer elásticos activos para hombre.",
+    "precio": "~$60.000 COP",
+    "categoria": "#moda",
+    "con_imagen": true
   }
 ]
