@@ -10,9 +10,13 @@ CANALES_ORIGEN = [
     "ElPromoHunter",       # a prueba
     "Clubgratis",  # a prueba
     "ofertu",  # Amazon con links joylink.io; ~30 mensajes/hora (canal muy activo)
+    # DescuentosTech -- vuelve a entrar (antes usaba Facebook como
+    # intermediario y no se resolvía; ahora publica con joylink.io igual que
+    # Reviu/ofertU: ~15 mensajes/hora, ~2/3 son Amazon y el resto Éxito u
+    # Olímpica, que se descartan solos porque no son tiendas soportadas.
+    "DescuentosTech",
     # "Gio_Makers" -- quitado: falló en las 2 corridas (antes y después del
     # arreglo de Playwright), sus links de btz.es no se resuelven bien.
-    # "DescuentosTech" -- quitado: usa Facebook como intermediario, 0 éxitos.
 ]
 
 # Tu propio canal de Telegram donde se publica ya reescrito (el bot debe ser admin ahí)
@@ -372,19 +376,24 @@ MAX_OFERTAS_POR_CORRIDA = 40
 
 # Cuota por canal (en vez de repartir parejo) -- los que más rinden reciben
 # más cupo. Si un canal no está aquí, usa 5 por defecto.
-# Reparto: 12 + 12 + 8 + 8 = 40 (justo el tope de la corrida).
+# Reparto: 12 + 12 + 4 + 8 + 4 = 40 (justo el tope de la corrida).
 CUOTA_POR_CANAL = {
     "ElPromoHunter": 12,
     "ReviuDescuentos": 12,
-    # Clubgratis subió de 4 a 8: es el canal con mejor rendimiento por
-    # oferta (8 de las últimas 48 aprobaciones, con la menor cantidad de
-    # ofertas enviadas a revisión).
-    "Clubgratis": 8,
+    # Clubgratis baja de 8 a 4: publica ~4 mensajes/hora (2 por corrida), así
+    # que nunca usaba el cupo de 8 -- en las últimas 10 corridas preparó ~3.4
+    # por corrida. El cupo que sobraba se le da a DescuentosTech.
+    "Clubgratis": 4,
     # ofertU publica ~30 mensajes/hora y casi todo es Amazon, así que entra
     # con cupo propio. Medido sobre 20 mensajes seguidos: 35% eran
     # duplicados de otros canales, 15% caían en lista negra y la mitad eran
     # nuevas (3 de tecnología, 2 con Prime, 3 con cupón).
     "ofertu": 8,
+    # DescuentosTech publica ~15 mensajes/hora y ~2 de cada 3 son Amazon
+    # (Éxito/Olímpica se descartan solos porque no son tiendas soportadas).
+    # Con 4 por corrida alcanza para lo nuevo: lo que repite de Reviu o
+    # ElPromoHunter lo frena el bloqueo de duplicados sin gastar cupo.
+    "DescuentosTech": 4,
 }
 
 # Si el mismo producto de Amazon (mismo ASIN) ya se publicó hace menos de

@@ -574,6 +574,21 @@ def _llamar_anthropic(prompt):
         return None
 
 
+_RE_ETIQUETA_CUPON = re.compile(
+    r"(?:c[oó]digo|cup[oó]n|code)[ \t]*:?[ \t]+", re.IGNORECASE
+)
+_RE_CODIGO_VALIDO = re.compile(r"^[A-Za-z0-9-]{3,20}$")
+_RE_CUPON_SELECCIONABLE = re.compile(r"^seleccionable\s+\d{1,2}\s*%$", re.IGNORECASE)
+# "BANCOLBLACK $20 Descuento", "PWWZ7UC4 67%", "ABC123 dcto 10%"
+_RE_CODIGO_CON_DESCRIPCION = re.compile(
+    r"^([A-Z0-9][A-Z0-9-]{2,19})\s+(?:\$?\d|descuento\b|dcto\b|off\b|%|descuentos?\b)",
+    re.IGNORECASE,
+)
+# Códigos de banco que el dueño usa seguido con tarjetas Bancolombia
+# (martes y Black Friday). Se reconocen aunque vengan sin la etiqueta.
+_CODIGOS_BANCO = ("BANCOLBLACK", "BANCOLMARTES")
+
+
 def extraer_cupon(texto_original):
     """
     Busca TODOS los cupones/códigos de descuento del mensaje original y
@@ -581,6 +596,12 @@ def extraer_cupon(texto_original):
       - Líneas separadas: "CUPÓN: 4S5E3EJP" y "CÓDIGO: BANCOLMARTES"
       - Varios en la misma línea separados por + , / o " y ":
         "Cupón: Seleccionable 29% + BANCOLMARTES + TSOJTTYU"
+      - Código con la descripción pegada detrás (DescuentosTech):
+        "Código: BANCOLBLACK $20 Descuento" -> BANCOLBLACK
+      - Dos etiquetas en la misma línea (Clubgratis):
+        "Clip cupón ➕ CODE: EPB2TXWK" -> EPB2TXWK (no se come la una a la otra)
+      - El código de banco suelto o en un hashtag, sin etiqueta:
+        "#bancolblack" -> BANCOLBLACK
     Cada parte se valida: un código real es un token sin espacios
     (letras/números/guiones) y también se acepta el cupón seleccionable con
     porcentaje ("Seleccionable 29%"). Frases descriptivas sin porcentaje
@@ -590,27 +611,64 @@ def extraer_cupon(texto_original):
     negativos = {"no necesita", "ninguno", "no aplica", "sin cupon", "no requiere", "no aplica ninguno"}
     codigos = []
     vistos = set()
-    for match in re.finditer(r"(?:c[oó]digo|cup[oó]n|code)[:\s]+([^\n]+)", texto_original, re.IGNORECASE):
-        for parte in re.split(r"\s*(?:\+|,|/|\by\b)\s*", match.group(1)):
+
+    def agregar(candidato):
+        """Guarda el código; devuelve True si ya se llegó al máximo."""
+        if not candidato:
+            return False
+        clave = candidato.upper()
+        if clave in vistos:
+            return False
+        vistos.add(clave)
+        codigos.append(candidato)
+        return len(codigos) >= 4
+
+    # Posiciones de cada etiqueta ("Cupón:", "Código:", "CODE:"). Así, cuando
+    # hay dos en la misma línea, el valor de una termina donde empieza la otra
+    # (antes "Clip cupón ➕ CODE: EPB2TXWK" se comía el código y no salía nada).
+    etiquetas = list(_RE_ETIQUETA_CUPON.finditer(texto_original))
+    for i, etiqueta in enumerate(etiquetas):
+        fin_linea = texto_original.find("\n", etiqueta.end())
+        if fin_linea == -1:
+            fin_linea = len(texto_original)
+        fin = fin_linea
+        if i + 1 < len(etiquetas):
+            fin = min(fin, etiquetas[i + 1].start())
+        valor = texto_original[etiqueta.end():fin]
+
+        for parte in re.split(r"\s*(?:\+|,|/|\by\b)\s*", valor):
             candidato = re.sub(r"[^\w\s%-]", "", parte).strip()  # quita emojis/puntuación
 
             if not candidato or candidato.lower() in negativos:
                 continue
 
-            es_codigo = bool(re.match(r"^[A-Za-z0-9-]{3,20}$", candidato))
-            es_seleccionable = bool(re.match(r"^seleccionable\s+\d{1,2}\s*%$", candidato, re.IGNORECASE))
-            if not (es_codigo or es_seleccionable):
-                continue  # frase descriptiva, no un cupón utilizable
-
-            if es_seleccionable:
-                candidato = "Seleccionable " + re.sub(r"\D", "", candidato) + "%"
-
-            if candidato.upper() in vistos:
+            if _RE_CODIGO_VALIDO.match(candidato):
+                if agregar(candidato):
+                    return codigos
                 continue
-            vistos.add(candidato.upper())
-            codigos.append(candidato)
-            if len(codigos) >= 4:
+
+            if _RE_CUPON_SELECCIONABLE.match(candidato):
+                candidato = "Seleccionable " + re.sub(r"\D", "", candidato) + "%"
+                if agregar(candidato):
+                    return codigos
+                continue
+
+            # "BANCOLBLACK $20 Descuento": el primer token es el código y lo
+            # que sigue es solo la descripción del descuento.
+            m = _RE_CODIGO_CON_DESCRIPCION.match(candidato)
+            if m and agregar(m.group(1)):
                 return codigos
+
+        if len(codigos) >= 4:
+            return codigos
+
+    # Códigos de banco: si el canal los menciona en cualquier parte (a veces
+    # solo en un hashtag del final), se agregan igual. Son los que el dueño
+    # usa seguido con las tarjetas Bancolombia.
+    for codigo in _CODIGOS_BANCO:
+        if re.search(rf"\b{codigo}\b", texto_original, re.IGNORECASE):
+            if agregar(codigo):
+                break
 
     return codigos
 
@@ -1061,6 +1119,18 @@ def _limpiar_candidata(texto_bruto):
     limpia = re.sub(r"https?://\S+", "", texto_bruto).strip()
     limpia = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ.,%()'\u2019+/–—-]", "", limpia).strip()
     limpia = re.sub(r"\s+", " ", limpia)
+    # ofertU pega el aviso al final del nombre en la MISMA línea:
+    # "Juego de funda de edredón Queen ... azul cielo - ¡Oferta Relámpago!".
+    # Se quita el aviso para quedarse con el producto (antes la línea entera
+    # se descartaba por "basura" y la oferta se caía por "sin título").
+    limpia = re.sub(
+        r"\s*[-–—|]\s*¡?\s*oferta\s*rel[aá]mpago\s*!?\s*$", "", limpia, flags=re.IGNORECASE
+    ).strip()
+    # La revisión de basura va ANTES de quitar el "Oferta"/"Producto" del
+    # principio: "🔥¡Oferta Imperdible!🔥📦AMAZON" quedaba como
+    # "ImperdibleAMAZON" y ya no coincidía con "oferta imperdible".
+    if len(limpia) < 8 or _es_titulo_basura(limpia):
+        return None
     limpia = re.sub(r"^\s*(?:producto|oferta)\s*:?\s*", "", limpia, flags=re.IGNORECASE).strip()
     if len(limpia) < 8 or _es_titulo_basura(limpia):
         return None
@@ -1100,7 +1170,11 @@ def _titulo_del_canal(texto_original):
         # (p. ej. "Por sólo ✅$14.99", que deja solo "Por sólo"), se sigue
         # con las líneas de abajo como siempre.
         m_precio = re.search(r"[💰💲$]\s?\d", linea)
-        if m_precio:
+        # DescuentosTech encabeza con hashtag + precio en la MISMA línea
+        # ("#Monitor ✨Por solo✨ USD$161✅"): lo de antes del precio es la
+        # etiqueta y el "Por solo", no el nombre. Ahí se baja a la línea del
+        # producto en vez de devolver "Monitor Por solo USD".
+        if m_precio and not linea.lstrip().startswith("#"):
             candidata = _limpiar_candidata(linea[:m_precio.start()])
             if candidata:
                 return candidata
@@ -1110,6 +1184,17 @@ def _titulo_del_canal(texto_original):
             if not siguiente or siguiente.startswith("#"):
                 continue
             candidata = _limpiar_candidata(siguiente)
+            if candidata:
+                return candidata
+        # Algunos canales (ofertu) ponen el nombre ARRIBA del precio:
+        #   "Falda de árbol de Navidad blanca de 60 pulgadas"
+        #   "💲 $ 69.408💰"
+        # Si abajo no hubo nada, se busca hacia arriba (lo más cercano
+        # primero) sin cruzar encabezados promocionales ni otros precios.
+        for anterior in reversed(lineas[max(0, i - 5):i]):
+            if not anterior or anterior.startswith("#"):
+                continue
+            candidata = _limpiar_candidata(anterior)
             if candidata:
                 return candidata
 
