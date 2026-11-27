@@ -10,22 +10,22 @@
   "imagenes_origen": {
     "fallo": 216,
     "navegador": 602,
-    "html": 2666,
-    "captcha": 5795,
-    "navegador_tras_captcha": 278,
-    "asin": 834,
-    "api_creators": 6068
+    "html": 2667,
+    "captcha": 5819,
+    "navegador_tras_captcha": 282,
+    "asin": 842,
+    "api_creators": 6071
   },
   "tiempo_navegador": {
-    "segundos": 22745.6,
-    "intentos": 6760
+    "segundos": 22864.2,
+    "intentos": 6796
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 894,
-    "ofertu": 157,
-    "ElPromoHunter": 1235,
-    "Clubgratis": 210,
+    "ReviuDescuentos": 896,
+    "ofertu": 159,
+    "ElPromoHunter": 1238,
+    "Clubgratis": 213,
     "Manual": 23,
-    "DescuentosTech": 9
+    "DescuentosTech": 13
   }
 }
