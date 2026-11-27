@@ -1966,5 +1966,13 @@
     "precio": "~$60.000 COP",
     "categoria": "#moda",
     "con_imagen": true
+  },
+  {
+    "fecha": "2026-11-27T15:30:36-05:00",
+    "canal": "DescuentosTech",
+    "titulo": "Tenis Hombre Under Armour Charged Pursuit 4 Bl Gris",
+    "precio": "$135.065 COP",
+    "categoria": "#Zapatillas #Moda",
+    "con_imagen": true
   }
 ]
