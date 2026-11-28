@@ -15,7 +15,7 @@
     "captcha": 5839,
     "navegador_tras_captcha": 300,
     "asin": 855,
-    "api_creators": 6402
+    "api_creators": 6406
   },
   "tiempo_navegador": {
     "segundos": 23151.7,
@@ -27,6 +27,6 @@
     "ElPromoHunter": 1426,
     "Clubgratis": 236,
     "Manual": 29,
-    "DescuentosTech": 20
+    "DescuentosTech": 24
   }
 }
