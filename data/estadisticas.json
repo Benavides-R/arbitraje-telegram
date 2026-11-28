@@ -12,20 +12,20 @@
     "fallo": 234,
     "navegador": 606,
     "html": 2671,
-    "captcha": 5838,
+    "captcha": 5839,
     "navegador_tras_captcha": 300,
     "asin": 855,
-    "api_creators": 6396
+    "api_creators": 6398
   },
   "tiempo_navegador": {
-    "segundos": 23148.5,
-    "intentos": 6868
+    "segundos": 23151.7,
+    "intentos": 6869
   },
   "auto_publicadas": {
     "ReviuDescuentos": 986,
     "ofertu": 170,
     "ElPromoHunter": 1426,
-    "Clubgratis": 234,
+    "Clubgratis": 236,
     "Manual": 29,
     "DescuentosTech": 17
   }
