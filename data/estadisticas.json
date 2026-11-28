@@ -13,18 +13,18 @@
     "navegador": 602,
     "html": 2670,
     "captcha": 5837,
-    "navegador_tras_captcha": 284,
+    "navegador_tras_captcha": 285,
     "asin": 855,
-    "api_creators": 6268
+    "api_creators": 6278
   },
   "tiempo_navegador": {
-    "segundos": 23022.2,
-    "intentos": 6844
+    "segundos": 23028.3,
+    "intentos": 6845
   },
   "auto_publicadas": {
-    "ReviuDescuentos": 938,
+    "ReviuDescuentos": 939,
     "ofertu": 170,
-    "ElPromoHunter": 1356,
+    "ElPromoHunter": 1364,
     "Clubgratis": 223,
     "Manual": 29,
     "DescuentosTech": 17
